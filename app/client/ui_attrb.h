@@ -25,7 +25,7 @@ public:
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x5472C0 (the base's)  // NAME 1 [view, arg]: InterfaceClass's
 	virtual void Unknown_58();							// +0x58 0x5472F0 (onto the tab mesh, every text set)
 	virtual void Unknown_5C();							// +0x5C 0x547370
-	void Unknown_5473B0();								// 0x5473B0 (the picture's avatar unless +0xAC; UIStarbaseClass::Unknown_60 calls it)
+	void Unknown_5473B0();								// 0x5473B0 (the picture's avatar unless +0xAC; StarbaseInterface::Unknown_60 calls it)
 	virtual void Unknown_60();							// +0x60 0x5473F0 (every frame: the picture, the changed texts)
 	virtual bool Unknown_68(int key);					// +0x68 0x547550 (false)  // NAME 1 [key]: InterfaceClass's
 	void Unknown_547570();								// 0x547570 (the name and the class; G_ASSERT 'avatar' line 237)
@@ -58,7 +58,7 @@ class FontSys;				// fontmanager.h's (+0xC0..+0xD8)
 class Unknown548D60Class : public Unknown5BB320Class	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
 {
 public:
-	Unknown548D60Class(SClient *client);				// 0x5482B0 (0xDC bytes)  // NAME 1 [client]: as UIBioClass's
+	Unknown548D60Class(SClient *client);				// 0x5482B0 (0xDC bytes)  // NAME 1 [client]: as BioInterface's
 	virtual ~Unknown548D60Class();						// 0x548440 (deleting 0x548410)
 	virtual void Unknown_54();							// 0x548610 (the buttons, the styles, the gadget)
 	virtual bool Unknown_68(int key);					// 0x548C50 (key 1 closes, key 2 sends SkillPacketClass)  // NAME 1 [key]: InterfaceClass's

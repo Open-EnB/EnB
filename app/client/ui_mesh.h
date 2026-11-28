@@ -18,11 +18,11 @@ class ClientClass;
 class GadgetClass;
 class TextureClass;
 
-typedef List<DataNode<UIProcClass *> *> UIProcListClass;	// table 0xAF3218 (deleting destructor 0x5BA5C0; ~GenericList 0x5B8260)  // NAME 1: neutral
+typedef List<DataNode<UIProcessClass *> *> UIProcListClass;	// table 0xAF3218 (deleting destructor 0x5BA5C0; ~GenericList 0x5B8260)  // NAME 1: neutral
 
 // The mesh (0x74 bytes, table 0xAF31DC; observer.cpp's subject at +0x04, its constructor 0x49E890 and destructor 0x49E950
 // called out of line, the destructor's through a null-checked this + 4): a model, its animation channels and the processes playing on them
-class UIMeshClass : public SubjectClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
+class UIMeshClass : public ObserverSubjectClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
 {
 public:
 	UIMeshClass(const char *name, int count);			// 0x5B8120 (ui_scut.cpp's 0x610570 passes 2)  // NAME 1 [name, count]: what Create_Object passes / what 0x5B8850 does with it
@@ -47,7 +47,7 @@ public:
 	Matrix3D Unknown_5B9210(const char *bone_name);		// 0x5B9210: the bone's transform  // NAME 1 [bone_name]: neutral
 	void Unknown_5B9290(SimpleSceneClass *scene);		// 0x5B9290: the model into the scene  // NAME 1 [scene]: neutral
 	void Unknown_5B92B0();								// 0x5B92B0: out of its scene (Destroy_Object, before the delete)
-	UIProcClass *Unknown_5B92D0(int slot);				// 0x5B92D0: the channel's next process that starts, moved to the main list  // NAME 1 [slot]: neutral
+	UIProcessClass *Unknown_5B92D0(int slot);				// 0x5B92D0: the channel's next process that starts, moved to the main list  // NAME 1 [slot]: neutral
 	void Unknown_5B9410();								// 0x5B9410: one frame of the processes
 	void Unknown_5B9550(int id);						// 0x5B9550: ends the main list's processes of that id (the Play_Animation commands pass 0)  // NAME 1 [id]: neutral
 	void Unknown_5B95E0(int slot, int arg);				// 0x5B95E0  // NAME 1 [slot, arg]: neutral

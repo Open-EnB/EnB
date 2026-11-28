@@ -44,7 +44,7 @@ class Repo(unittest.TestCase):
                    'char *Value_To_String(char *buf, int size, const MoneyClass &value)\n{\n\treturn buf;\n}\n',
             UI: '// UI stand-ins\nvoid Thing::Render(int when)\n{\n}\n'
                  'Thing::Thing() { }\n',
-            CT: '#include "x.h"\nint SOptionsClass::Get() { return 0; }\n'})
+            CT: '#include "x.h"\nint SpaceClientOptionsClass::Get() { return 0; }\n'})
 
     def tearDown(self):
         shutil.rmtree(self.root, ignore_errors=True)
@@ -98,15 +98,15 @@ class Repo(unittest.TestCase):
 
     def test_standin_added_with_the_definition_is_a_note(self):
         new = self.commit('deliberate', {'app/client/radar.cpp': 'void Radar::Unknown_7BCA70()\n{\n}\n',
-                                         CT: '#include "x.h"\nint SOptionsClass::Get() { return 0; }\n'
+                                         CT: '#include "x.h"\nint SpaceClientOptionsClass::Get() { return 0; }\n'
                                              'void Radar::Unknown_7BCA70() { }\n'})
         found, notes = self.check(new)
         self.assertEqual(found, [])
         self.assertIn('deliberate', notes[0])
 
     def test_coexisting_before_is_a_note(self):
-        self.base = self.commit('soptions', {'app/client/soptions.cpp': 'int SOptionsClass::Get()\n{\n\treturn 1;\n}\n'})
-        new = self.commit('move', {'app/client/soptions2.cpp': 'int SOptionsClass::Get()\n{\n\treturn 1;\n}\n'},
+        self.base = self.commit('soptions', {'app/client/soptions.cpp': 'int SpaceClientOptionsClass::Get()\n{\n\treturn 1;\n}\n'})
+        new = self.commit('move', {'app/client/soptions2.cpp': 'int SpaceClientOptionsClass::Get()\n{\n\treturn 1;\n}\n'},
                           remove=['app/client/soptions.cpp'])
         found, notes = self.check(new)
         self.assertEqual(found, [])
@@ -121,12 +121,12 @@ class Repo(unittest.TestCase):
         self.assertIn('standins: keep', notes[0])
 
     def test_new_pair_named_by_symbols_refuses(self):
-        syms = [{'address': '0x401000', 'name': 'SOptionsClass::Get', 'kind': 'function', 'source': 'exact'}]
+        syms = [{'address': '0x401000', 'name': 'SpaceClientOptionsClass::Get', 'kind': 'function', 'source': 'exact'}]
         new = self.commit('symbols', {'docs/data/symbols.json': json.dumps(syms)})
         old_led = {'app': {'files': {'client/soptions.cpp': {'in_tree': []}}}}
         new_led = {'app': {'files': {'client/soptions.cpp': {'in_tree': ['0x401000']}}}}
         found, _ = self.check(new, old_ledger=old_led, new_ledger=new_led)
-        self.assertEqual([(f[0], f[1]) for f in found], [('SOptionsClass::Get', ['app/client/soptions.cpp (0x401000)'])])
+        self.assertEqual([(f[0], f[1]) for f in found], [('SpaceClientOptionsClass::Get', ['app/client/soptions.cpp (0x401000)'])])
         self.assertEqual(self.check(new, old_ledger=new_led, new_ledger=new_led)[0], [])
 
     def test_wt_gate_exits_and_passes(self):

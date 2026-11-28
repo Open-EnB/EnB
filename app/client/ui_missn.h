@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
-class DeltaMissionClass;	// aux_roots.h's (not included: ui_cinfo.cpp's client object has no permstr.h static)
+class DeltaMission;	// aux_roots.h's (not included: ui_cinfo.cpp's client object has no permstr.h static)
 
 class GadgetSlider;			// gd_slider.h's slider (+0xB8)
 class GadgetClass;
@@ -18,26 +18,26 @@ class ViewUnknown34Class;
 // The missions tab (0xEC bytes, tables 0xAF3C9C / 0xAF3C90 / 0xAF3C84; 0x5738B0 makes it, the second of the character
 // info window's tabs): a 'TSI22A' mesh, the strings of 'fa_TSI22A.ini', a slider, a description panel, a dialog box and the current
 // missions (three a page)
-class UIMissnClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\Client\ui_missn.cpp
+class MissionInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	enum { MISSIONS_PER_PAGE = 3 };						// NAME 3: the G_ASSERTs' (l.397, 473, 528); its value from 0x5C4C90's loop
 	enum { NO_CURRENT_MISSION = -1 };					// NAME 3: the G_ASSERT's (l.688); its value from the constructor's +0xC8
 	enum { MAX_GADGETS = 5 };							// NAME 1: the constructor clears 5 (+0xD8..+0xE8)
-	UIMissnClass(SClient *client);						// 0x5C4170 (0xEC bytes; deleting 0x5C42B0)  // NAME 1 [client]: as UIBioClass's
-	virtual ~UIMissnClass();							// 0x5C42E0 ('fa_TSI22A.ini' unloaded)
+	MissionInterface(SClient *client);						// 0x5C4170 (0xEC bytes; deleting 0x5C42B0)  // NAME 1 [client]: as BioInterface's
+	virtual ~MissionInterface();							// 0x5C42E0 ('fa_TSI22A.ini' unloaded)
 	virtual void Unknown_54();							// 0x5C4610 (FAIL_IFs '!DescriptionPanel' / '!forfeit', G_ASSERTs on the button textures)
 	virtual void Unknown_58();							// 0x5C4BB0 (activated: 0x5C5330(true) under a sort scope)
 	virtual void Unknown_5C();							// 0x5C4C40 (deactivated: the dialog box's +0x5C, 0x5C5DB0(-1))
 	virtual void Unknown_60();							// 0x5C4C90 (FAIL_IFs '!sclient' / '!ad_player')
 	virtual bool Unknown_68(int key);					// 0x5C4EA0 (keys 1..3 a mission, 6 the slider)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5C4490 (the dialog box made again over the view)  // NAME 1 [view, arg]: InterfaceClass's
-	void Unknown_5C4FC0(std::vector<DeltaMissionClass *> &missions);	// 0x5C4FC0 (FAIL_IFs '!sclient' / '!ad_player' / '!ad_missions' / '!delta_item': the player's named missions, the newest first)  // NAME 1 [missions]: neutral
+	void Unknown_5C4FC0(std::vector<DeltaMission *> &missions);	// 0x5C4FC0 (FAIL_IFs '!sclient' / '!ad_player' / '!ad_missions' / '!delta_item': the player's named missions, the newest first)  // NAME 1 [missions]: neutral
 	void Unknown_5C5500(unsigned int cur_mission_idx);	// 0x5C5500 (FAIL_IFs / G_ASSERT l.397-450: a row's number, title and description)  // NAME 3 [cur_mission_idx]: the FAIL_IF's
 	void Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg);	// 0x5C5AC0 (a row's time left, 'Time%02d_TSI22A'; FAIL_IF l.473 'cur_mission_idx >= MISSIONS_PER_PAGE')  // NAME 1 [arg]: neutral (cur_mission_idx: the FAIL_IF's)
 	void Unknown_5C5330(bool arg);						// 0x5C5330 (the page shown again; no asserts of its own: l.397-450 are 0x5C5500's)  // NAME 1 [arg]: neutral
 	void Unknown_5C5DB0(int new_mission);				// 0x5C5DB0 (FAIL_IFs l.528-538: the selected mission's details, the forfeit button)  // NAME 3 [new_mission]: the FAIL_IFs'
-	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x5C5DB0's FAIL_IF '!Get_Client()', as UICinfoClass's)  // NAME 3: the FAIL_IF's
+	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x5C5DB0's FAIL_IF '!Get_Client()', as CharacterInfoInterface's)  // NAME 3: the FAIL_IF's
 	void Unknown_5C6610();								// 0x5C6610 (G_ASSERTs l.688-690)
 	void Unknown_5C66D0();								// 0x5C66D0
 
@@ -49,7 +49,7 @@ public:
 	bool UnknownC0;										// +0xC0
 	ViewUnknown34Class *UnknownC4;						// +0xC4 (a dialog box over the view: made again by +0x7C, 'UI_MISSN')
 	int CurrentMission;									// +0xC8 (NO_CURRENT_MISSION, else 0..2)  // NAME 3: the G_ASSERT's (l.688)
-	DeltaMissionClass *CurrentMissions[MISSIONS_PER_PAGE];			// +0xCC  // NAME 3: the G_ASSERT's (l.689)
+	DeltaMission *CurrentMissions[MISSIONS_PER_PAGE];			// +0xCC  // NAME 3: the G_ASSERT's (l.689)
 	ButtonGadgetClass *UnknownD8[MAX_GADGETS];				// +0xD8 (1..3: 'HIGHLIGHT%02d', gadgets 1..3; 4 (+0xE8): the forfeit button, 'FORFEIT')
 };
 void Unknown_Strip_Tags(std::string &text);				// 0x5C69D0 (ui_missn.cpp): the text without its <...> tags  // NAME 1: neutral (D10)

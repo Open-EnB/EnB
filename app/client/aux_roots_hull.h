@@ -49,8 +49,8 @@ public:
 	DeltaHullClass(int unknown);
 #endif
 
-	DeltaStringClass Name;	// +0xAC
-	DeltaStringClass Owner;	// +0x134
+	DeltaString Name;	// +0xAC
+	DeltaString Owner;	// +0x134
 	DeltaShipInvClass Inventory;	// +0x1BC
 	DeltaTemplateClass<int> HullIndex;	// +0x8BC
 	DeltaTemplateClass<int> BaseAsset;	// +0x944

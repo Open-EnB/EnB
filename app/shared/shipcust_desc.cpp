@@ -53,7 +53,7 @@ void ShipCustDescClass::Set_Profession(int profession)
 }
 
 // 0x4F6330
-bool ShipCustDescClass::Write(LinearBufferClass *buffer)
+bool ShipCustDescClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(&Race, 4);
 	buffer->Write(&Profession, 4);
@@ -73,7 +73,7 @@ bool ShipCustDescClass::Write(LinearBufferClass *buffer)
 }
 
 // 0x4F6420
-bool ShipCustDescClass::Read(LinearBufferClass *buffer)
+bool ShipCustDescClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&Race, 4);
 	buffer->Read(&Profession, 4);
@@ -99,7 +99,7 @@ int ShipCustDescClass::Get_Size()
 }
 
 // 0x4F6530
-bool ShipCustDescClass::Write_Short(LinearBufferClass *buffer)
+bool ShipCustDescClass::Write_Short(LinearBuffer *buffer)
 {
 	buffer->Write(&Race, 4);
 	buffer->Write(&Profession, 4);
@@ -119,7 +119,7 @@ bool ShipCustDescClass::Write_Short(LinearBufferClass *buffer)
 }
 
 // 0x4F6620
-bool ShipCustDescClass::Read_Short(LinearBufferClass *buffer)
+bool ShipCustDescClass::Read_Short(LinearBuffer *buffer)
 {
 	buffer->Read(&Race, 4);
 	buffer->Read(&Profession, 4);

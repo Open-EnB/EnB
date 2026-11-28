@@ -49,7 +49,7 @@ bool DeactivateRenderStatePacketClass::Process_Packet(void *) { return(true); }	
 bool SetClientTimePacketClass::Process_Packet(void *) { return(true); }	// 0x737960
 bool ClientAvatarPacketClass::Process_Packet(void *) { return(true); }	// 0x733590
 bool SplinePacketClass::Process_Packet(void *) { return(true); }	// 0x737C10
-bool ServerRedirectPacketClass::Process_Packet(void *) { return(true); }	// 0x766FC0
+bool ClientRedirectPacketClass::Process_Packet(void *) { return(true); }	// 0x766FC0
 bool ServerHandoffPacketClass::Process_Packet(void *) { return(true); }	// 0x737CB0
 bool SetClientTypePacketClass::Process_Packet(void *) { return(true); }	// 0x737E10
 bool ServerParametersPacketClass::Process_Packet(void *) { return(true); }	// 0x737F00
@@ -75,7 +75,7 @@ bool AvatarDescPacketClass::Process_Packet(void *) { return(true); }	// 0x733B10
 bool DamagePacketClass::Process_Packet(void *) { return(true); }	// 0x738970
 bool GadgetPacketClass::Process_Packet(void *) { return(true); }	// 0x739180
 bool ClickIndicatorPacketClass::Process_Packet(void *) { return(true); }	// 0x7393D0
-bool ClientSoundPacketClass::Process_Packet(void *) { return(true); }	// 0x7383D0
+bool SoundPacketClass::Process_Packet(void *) { return(true); }	// 0x7383D0
 bool SoundCommandPacketClass::Process_Packet(void *) { return(true); }	// 0x7384A0
 bool ManufactureSetPacketClass::Process_Packet(void *) { return(true); }	// 0x739330
 bool LootHulkPermissionPacketClass::Process_Packet(void *) { return(true); }	// 0x7396F0
@@ -108,15 +108,15 @@ bool GMViewMissionLogPacketClass::Process_Packet(void *) { return(true); }	// 0x
 bool ClientChatEventPacketClass::Process_Packet(void *) { return(true); }	// 0x73B150
 bool ClientChatErrorPacketClass::Process_Packet(void *) { return(true); }	// 0x73D170
 bool CTAResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x73DAA0
-bool ConfirmedActionOfferPacketClass::Process_Packet(void *) { return(true); }	// 0x73DC60
-bool ConfirmedActionTimeoutPacketClass::Process_Packet(void *) { return(true); }	// 0x73DCB0
+bool ConfirmedActionOfferPacket::Process_Packet(void *) { return(true); }	// 0x73DC60
+bool ConfirmedActionTimeoutPacket::Process_Packet(void *) { return(true); }	// 0x73DCB0
 bool GuildRecruitConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E720
 bool GuildSimpleSectorClientPacket::Process_Packet(void *) { return(true); }	// 0x73DD00
 bool GuildMessageSectorPacket::Process_Packet(void *) { return(true); }	// 0x73E9E0
 bool GuildPlayerPermissionsPacket::Process_Packet(void *) { return(true); }	// 0x73ED40
 bool GuildRankNamesSectorPacket::Process_Packet(void *) { return(true); }	// 0x73EE20
 bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *) { return(true); }	// 0x73EEF0
-bool Packet_0078Class::Process_Packet(void *) { return(true); }	// 0x76BB70
+bool GlobalSetReferrerResponsePacketClass::Process_Packet(void *) { return(true); }	// 0x76BB70
 bool ReferralPointsAvailablePacketClass::Process_Packet(void *) { return(true); }	// 0x73F3D0
 bool RecustomizeShipStartPacketClass::Process_Packet(void *) { return(true); }	// 0x73F4B0
 bool RecustomizeAvatarStartPacketClass::Process_Packet(void *) { return(true); }	// 0x73F570

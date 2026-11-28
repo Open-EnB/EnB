@@ -3,29 +3,29 @@
 #include "ui_mesh.h"
 #include "rendobj.h"
 
-Unknown_675120Class::Unknown_675120Class(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask) :
-	RObjGadgetClass(mesh->Get_Sub_Object_By_Name(name), layer, mask)
+UIMeshGadgetClass::UIMeshGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask) :
+	RenderObjGadgetClass(mesh->Get_Sub_Object_By_Name(name), layer, mask)
 {
 	Peek_Render_Obj()->Release_Ref();
 }
 
-Unknown_675120Class::Unknown_675120Class(RenderObjClass *robj, const LayerClass &layer, unsigned int mask) :
-	RObjGadgetClass(robj, layer, mask)
+UIMeshGadgetClass::UIMeshGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask) :
+	RenderObjGadgetClass(robj, layer, mask)
 {
 }
 
-Unknown_675120Class::Unknown_675120Class(UIMeshClass *mesh, const char *name, unsigned int mask) :
-	RObjGadgetClass(mesh->Get_Sub_Object_By_Name(name), mask)
+UIMeshGadgetClass::UIMeshGadgetClass(UIMeshClass *mesh, const char *name, unsigned int mask) :
+	RenderObjGadgetClass(mesh->Get_Sub_Object_By_Name(name), mask)
 {
 	Peek_Render_Obj()->Release_Ref();
 }
 
-Unknown_675120Class::Unknown_675120Class(RenderObjClass *robj, unsigned int mask) :
-	RObjGadgetClass(robj, mask)
+UIMeshGadgetClass::UIMeshGadgetClass(RenderObjClass *robj, unsigned int mask) :
+	RenderObjGadgetClass(robj, mask)
 {
 }
 
-Unknown_675120Class::~Unknown_675120Class()
+UIMeshGadgetClass::~UIMeshGadgetClass()
 {
 }
 

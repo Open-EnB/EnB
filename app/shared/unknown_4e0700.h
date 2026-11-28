@@ -17,6 +17,6 @@
 
 #include "attrib_dir.h"
 
-int Detach_Owner_Mods(AttribDir *dir, AttribModIterator mods, void *owner, int keep);	// 0x4E0700: detaches owner's mods (and unless keep deletes them), returns the count  // NAME 2: what it does
+int Detach_Owner_Mods(AttributeDirectory *dir, AttribModIterator mods, void *owner, int keep);	// 0x4E0700: detaches owner's mods (and unless keep deletes them), returns the count  // NAME 2: what it does
 
 #endif //__UNKNOWN_4E0700_H

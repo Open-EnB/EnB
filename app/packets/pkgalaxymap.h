@@ -22,7 +22,7 @@
 class GalaxyMapPacketClass : public PacketClass
 {
 public:
-	GalaxyMapPacketClass(int type, LinearBufferClass &buffer, int channel);	// 0x870E90
+	GalaxyMapPacketClass(int type, LinearBuffer &buffer, int channel);	// 0x870E90
 	GalaxyMapPacketClass(RawPacketClass *raw);	// 0x870FD0
 	virtual ~GalaxyMapPacketClass();	// +0x00 0x871180 / 0x870FA0
 	virtual RawPacketClass *Build();	// +0x04 0x8710A0
@@ -42,7 +42,7 @@ public:
 class GalaxyMapRequestPacketClass : public GalaxyMapPacketClass  // NAME 2: Net-7's opcode name GALAXY_MAP_REQUEST (the Net-7 opcode table; no structure check)
 {
 public:
-	GalaxyMapRequestPacketClass(int type, LinearBufferClass &buffer, int channel, bool b);	// 0x871220
+	GalaxyMapRequestPacketClass(int type, LinearBuffer &buffer, int channel, bool b);	// 0x871220
 	GalaxyMapRequestPacketClass(RawPacketClass *raw);	// 0x871350
 	virtual RawPacketClass *Build();	// +0x04 0x871460
 	virtual bool Process_Packet(void *client);	// +0x08 0x868C70 (clientstub.cpp l.299)

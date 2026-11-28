@@ -50,7 +50,7 @@ struct LoungeNPCNPCStruct  // NAME 2: what 0x6987A0 (sbase_info.cpp) makes of an
 	int Unknown10;	// +0x10  // NAME 1: neutral (D10)
 	std::string Text;	// +0x14 (Length bytes in the message, no terminator)  // NAME 2: what it holds
 	int Length;	// +0x24  // NAME 2: what it holds
-	AvatarDescClass Desc;	// +0x28 (through RawPacketClass's Add / Get of its wire interface)  // NAME 2: what it holds
+	AvatarDescriptionClass Desc;	// +0x28 (through RawPacketClass's Add / Get of its wire interface)  // NAME 2: what it holds
 };
 
 // opcode 82 (0x0052, LOUNGE_NPC): vtable 0xB0AFE4, constructor 0x8978D0, 0x40 bytes

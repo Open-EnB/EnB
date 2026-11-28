@@ -13,7 +13,7 @@ class FontSys;
 class UIMFDExtendedContextStringsClass : public UIMFDExtendedContextClass	// NAME 3: D24 class-from-file for ui_mfd_extended_context_strings.cpp
 {
 public:
-	UIMFDExtendedContextStringsClass(ClientObjectClass *co, UIMFDClass *owner);	// 0x5C1090 (co unused)  // NAME 2 [co, owner]: what its subclass passes
+	UIMFDExtendedContextStringsClass(ClientObjectClass *co, MFDInterface *owner);	// 0x5C1090 (co unused)  // NAME 2 [co, owner]: what its subclass passes
 	virtual ~UIMFDExtendedContextStringsClass();		// 0x5C1110 (deleting 0x5C10E0)
 	virtual void Unknown_08();							// +0x08 0x5C17D0 (the fonts into the display's scene)
 	virtual void Unknown_0C();							// +0x0C 0x5C18F0 (and out)

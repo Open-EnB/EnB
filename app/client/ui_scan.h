@@ -11,11 +11,11 @@ class ScannerInterface;
 class LineDisplayClientClass;
 
 #include "ui_interrupt.h"	// the threat's +0x2C: ui_interrupt.cpp's progress display (Unknown59E2C0Class, moved there: O15)
-class UIVerbClass;
+class VerbInterface;
 class UIMeshClass;
 class GadgetClass;
 class ClientObjectClass;
-class TargetingClass;
+class TargetSelectClass;
 class SClient;
 class PlayerObjectRelationshipChangeEvent;
 
@@ -26,7 +26,7 @@ class UIScanThreatClass	// NAME 1: neutral (D10)
 public:
 	UIScanThreatClass(ScannerInterface *owner);				// 0x60FBA0 (out of line, no caller; inline in 0x60D8D0)  // NAME 2 [owner]: what it holds
 	~UIScanThreatClass();
-	ScannerInterface *Get_Interface() { return(Owner); }		// (inline: 0x60FEE0's G_ASSERT 'Get_Interface()->Is_Active()', as UIGroupClass's members')  // NAME 3: the assert's
+	ScannerInterface *Get_Interface() { return(Owner); }		// (inline: 0x60FEE0's G_ASSERT 'Get_Interface()->Is_Active()', as GroupInterface's members')  // NAME 3: the assert's
 	void Unknown_60FEE0();								// 0x60FEE0 (the scanner's 0x60E580 when the target goes; the destructor between hide and show)
 	void Unknown_Update();								// 0x60FD90 (out of line, no caller; inline in 0x60F1A0: the progress display's state and redraw)  // NAME 1: neutral (D10)
 	void Unknown_Clear();								// 0x60FDC0 (out of line, no caller; inline in 0x60E6A0, and 0x60FEE0's after its assert: the progress display deleted, the state and name cleared)  // NAME 1: neutral (D10)
@@ -57,7 +57,7 @@ public:
 	virtual void Unknown_5C();							// 0x60E2C0
 	virtual void Unknown_60();							// 0x60E480
 	virtual bool Unknown_68(int key);					// 0x60E300 (ids 6 / 7: the previous / next target)  // NAME 2 [key]: InterfaceClass's
-	virtual void Unknown_88(ClientObjectClass *object);	// +0x88 0x60E580  // NAME 2 [object]: UIMFDClass's
+	virtual void Unknown_88(ClientObjectClass *object);	// +0x88 0x60E580  // NAME 2 [object]: MFDInterface's
 	virtual void Unknown_Watch_0C() { Unknown_88(0); }	// second base's +0x0C
 
 	void Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [target, assessment, sound, level]: what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel)
@@ -68,14 +68,14 @@ public:
 	void Unknown_60F1A0(bool arg);						// 0x60F1A0 (0x60E480 passes 0, 0x60E580 1)  // NAME 1 [arg]: neutral
 	void Create_Mesh();									// (inline in 0x60D8D0: G_ASSERT '!UIMesh' l.270)  // NAME 2: what it does
 	ClientObjectClass *Peek_Object() { return(Object); }	// (inline: 0x60ED10's FAIL_IF 'object != Peek_Object()')  // NAME 3: the FAIL_IF's
-	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x60F1A0's FAIL_IF '!Get_Client()', as UIFactionClass's)  // NAME 3: the FAIL_IF's
-	TargetingClass *Get_Targeting();					// 0x60F110 (out of line, no caller; inline in 0x60E300: FAIL_IFs '!Client', '!sclient', '!ts' l.733-739)  // NAME 2: what it returns
+	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x60F1A0's FAIL_IF '!Get_Client()', as FactionInterface's)  // NAME 3: the FAIL_IF's
+	TargetSelectClass *Get_Targeting();					// 0x60F110 (out of line, no caller; inline in 0x60E300: FAIL_IFs '!Client', '!sclient', '!ts' l.733-739)  // NAME 2: what it returns
 	SClient *Get_Space_Client();						// 0x60ECF0 (no caller: Client's As_Space_Client)  // NAME 1: what it returns
 
 	UIMeshClass *UIMesh;								// +0x188  // NAME 5: the client's asserts 'UIMesh', '!UIMesh'
 	GadgetClass *Buttons[3];							// +0x18C (the constructor's memset; [1] 'PREV_TARGET' id 6, [2] 'NEXT_TARGET' id 7)  // NAME 2: what it holds
 	int Unknown198;										// +0x198 (the constructor: -1)
-	UIVerbClass *Verb;									// +0x19C (0xE0 bytes, 0x6580B0)  // NAME 2: what it holds
+	VerbInterface *Verb;									// +0x19C (0xE0 bytes, 0x6580B0)  // NAME 2: what it holds
 	UIScanThreatClass *InterruptInfo;					// +0x1A0 (0x38 bytes)  // NAME 5: 0x60E6A0's G_ASSERT 'InterruptInfo' (l.571)
 	int Unknown1A4;										// +0x1A4
 	RefCountPtr<FontSys> ConFont;						// +0x1A8 ('MFD_CON')  // NAME 2: what it holds

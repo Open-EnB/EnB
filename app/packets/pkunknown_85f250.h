@@ -19,11 +19,11 @@
 #include "pk.h"
 
 // opcode 30000 (0x7530, ?): vtable 0xB08F78, constructor 0x85F2C0, 0x10 bytes
-class Packet_7530Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7530
+class GameEditorLoginPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_7530Class(int editor_protocol_version);	// 0x85F250
-	Packet_7530Class(RawPacketClass *raw);	// 0x85F2C0
+	GameEditorLoginPacketClass(int editor_protocol_version);	// 0x85F250
+	GameEditorLoginPacketClass(RawPacketClass *raw);	// 0x85F2C0
 	virtual RawPacketClass *Build();	// +0x04 0x85F370
 	virtual bool Process_Packet(void *client);	// +0x08 0x867F20 (clientstub.cpp l.86)
 	virtual int Get_Data_Size();	// +0x0C 0x85F430
@@ -33,10 +33,10 @@ public:
 };
 
 // opcode 30001 (0x7531, ?): vtable 0xB08FA8, constructor 0x85F480, 0xC bytes
-class Packet_7531Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7531
+class GameEditorLogoutPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_7531Class(RawPacketClass *raw);	// 0x85F480
+	GameEditorLogoutPacketClass(RawPacketClass *raw);	// 0x85F480
 	virtual RawPacketClass *Build();	// +0x04 0x85F510
 	virtual bool Process_Packet(void *client);	// +0x08 0x868190 (clientstub.cpp l.125)
 	virtual int Get_Data_Size();	// +0x0C 0x85F5A0
@@ -44,11 +44,11 @@ public:
 
 };
 // 0x7543 (30019, not in the packet switch: sent only): vtable 0xB08FD8, constructor 0x85F660, 0x10 bytes
-class Packet_7543Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7543 (Print 'GameEditorProtocolVersion')
+class GameEditorProtocolVersionPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_7543Class(unsigned int server_protocol_version);	// 0x85F5F0
-	Packet_7543Class(RawPacketClass *raw);	// 0x85F660
+	GameEditorProtocolVersionPacketClass(unsigned int server_protocol_version);	// 0x85F5F0
+	GameEditorProtocolVersionPacketClass(RawPacketClass *raw);	// 0x85F660
 	virtual RawPacketClass *Build();	// +0x04 0x85F710
 	virtual bool Process_Packet(void *client);	// +0x08 0x85F820
 	virtual int Get_Data_Size();	// +0x0C 0x85F7D0

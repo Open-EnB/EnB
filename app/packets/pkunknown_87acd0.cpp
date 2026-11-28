@@ -188,17 +188,17 @@ int Packet_00A9Class::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "ChatProxyRequestPacketClass"));
 }
 
-Packet_00AAClass::Packet_00AAClass(int unknown0_c, int unknown10) : Unknown0C(unknown0_c), Unknown10(unknown10)
+ChatProxyResponsePacketClass::ChatProxyResponsePacketClass(int unknown0_c, int unknown10) : Unknown0C(unknown0_c), Unknown10(unknown10)
 {
 }
 
-Packet_00AAClass::Packet_00AAClass(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
+ChatProxyResponsePacketClass::ChatProxyResponsePacketClass(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
 {
 	raw->Get(&Unknown0C, sizeof(Unknown0C));
 	raw->Get(&Unknown10, sizeof(Unknown10));
 }
 
-RawPacketClass *Packet_00AAClass::Build()
+RawPacketClass *ChatProxyResponsePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(170, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -206,12 +206,12 @@ RawPacketClass *Packet_00AAClass::Build()
 	return(raw);
 }
 
-int Packet_00AAClass::Get_Data_Size()
+int ChatProxyResponsePacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C) + sizeof(Unknown10));
 }
 
-int Packet_00AAClass::Print(char *buffer, int len)
+int ChatProxyResponsePacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "ChatProxyResponsePacketClass"));
 }

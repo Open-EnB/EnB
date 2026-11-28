@@ -10,7 +10,7 @@
 
 
 ParticleJetEffectClass::ParticleJetEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *emitter, float min_lifetime) :
-	UnknownB0009CEffectClass(client, id, start_time, duration, cycle_time),
+	BinaryEffectClass(client, id, start_time, duration, cycle_time),
 	Lifetime(0.0f), MinLifetime(min_lifetime), ForwardVelocity(1.0f)
 {
 	Emitter = (ParticleEmitterClass *)emitter;
@@ -51,7 +51,7 @@ Vector3 ParticleJetEffectClass::Unknown_08(const Vector3 &position)
 
 void ParticleJetEffectClass::Unknown_18()
 {
-	UnknownB0009CEffectClass::Unknown_18();
+	BinaryEffectClass::Unknown_18();
 
 
 
@@ -135,7 +135,7 @@ void ParticleJetEffectClass::Unknown_18()
 
 void ParticleJetEffectClass::Unknown_1C()
 {
-	UnknownB0009CEffectClass::Unknown_1C();
+	BinaryEffectClass::Unknown_1C();
 
 	FAIL_IF(!Emitter) return;
 	Matrix3D transform;

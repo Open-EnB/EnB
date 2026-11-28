@@ -6,7 +6,7 @@
 #include "..\..\shared\auxdata\auxdata.h"
 #include "..\..\shared\auxdata\delta_item_array.h"
 #include "..\..\shared\auth_product.h"
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 
 
@@ -85,19 +85,19 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialSkillR
 
 
 
-// NOT EXACT: 0x52F010 (inline-budget: the client calls UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast out of line, 0x52F990 (emitted in this object); ours inlines it; the rest, asserts and lines match)
+// NOT EXACT: 0x52F010 (inline-budget: the client calls UnknownRTTIClass<DeltaItemArrayClass<DeltaSkill> >::Cast out of line, 0x52F990 (emitted in this object); ours inlines it; the rest, asserts and lines match)
 bool ClientItemPropertySpecialSkillRequirementClass::Is_Usable()
 {
-	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
+	DeltaContainer *aux_data = (DeltaContainer *)SpaceClient->AuxData;
 	FAIL_IF(!aux_data) return(false);
-	NameClass name("RPGInfo.Skills");
-	DeltaItemArrayClass<DeltaSkillClass> *skills_aux_data = Unknown_Find_Valid<DeltaItemArrayClass<DeltaSkillClass> >(aux_data, name);
+	AuxDataName name("RPGInfo.Skills");
+	DeltaItemArrayClass<DeltaSkill> *skills_aux_data = Unknown_Find_Valid<DeltaItemArrayClass<DeltaSkill> >(aux_data, name);
 	FAIL_IF(!skills_aux_data) return(false);
 
 	int skill_index = SkillNamesDatabase::Unknown_818520(Skill.c_str());
 	FAIL_IF(skill_index < 0) return(false);
 	FAIL_IF(skill_index >= (int)skills_aux_data->Get_Size()) return(false);
-	DeltaSkillClass *skill = (DeltaSkillClass *)skills_aux_data->Children[skill_index];
+	DeltaSkill *skill = (DeltaSkill *)skills_aux_data->Children[skill_index];
 	return(Level <= skill->Level.Value);
 }
 
@@ -111,5 +111,5 @@ bool ClientItemPropertySpecialSkillRequirementClass::Is_Usable()
 **	entry has Level or more; the client's FAIL_IF reads 'skill_index >= (int)skills_aux_data->Get_Size()',
 **	DeltaItemArrayClass's accessor in delta_item_array.h, D236), and what the compiler emits for them: Create_NEW 0x52F190, the vector's
 **	insert(iterator, const T &) 0x52F1F0 and its helpers 0x52F450-0x52F710, and
-**	UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast 0x52F990.
+**	UnknownRTTIClass<DeltaItemArrayClass<DeltaSkill> >::Cast 0x52F990.
 */

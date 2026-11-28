@@ -334,7 +334,7 @@ void Gauge3DClass::Set_Colors(const Vector4 &color0, const Vector4 &color1)
 **	them there). fonttexture.cpp ends before 0x6D9360 (its notes); InterfaceSceneClass's constructor
 **	0x6DA4D0 opens the next object.
 **
-**	Gauge3DClass: Rect3DClass's quad (the same vertex material, shader, sort and tri strip), but
+**	Gauge3DClass: Rectangle3DClass's quad (the same vertex material, shader, sort and tri strip), but
 **	DynamicMeshClass(4, 8), and the two vertices on the moving edge follow Value (an AccelClass, 0..1)
 **	across the rectangle from the edge Direction names, in Color1, or with FLAG_FADE in Color0 faded to
 **	Color1 by the value; without FLAG_KEEP_EMPTY the other two vertices take the same color. Render moves

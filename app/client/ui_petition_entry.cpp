@@ -55,7 +55,7 @@ void UIPetitionEntryClass::Unknown_54()
 		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
 		Slider->Unknown_66FA90(0, 0, true);
 		RefCountPtr<RenderObjClass> message = Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("message"));
-		DetailsEditor = new TextEditorGadgetClass(this, message, "UI_PETITION_STUCK_EDIT_FONT", Slider, 0x400, "Click here and enter description of problem, then press Submit to send...");
+		DetailsEditor = new TextEditorGadget(this, message, "UI_PETITION_STUCK_EDIT_FONT", Slider, 0x400, "Click here and enter description of problem, then press Submit to send...");
 		GadgetClass::Set_Tooltip(DetailsEditor, "UI_PETITION_ENTRY", "DETAILS");
 		DetailsEditor->Client = (SClient *)((ClientClass *)Client)->As_Space_Client();
 		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));

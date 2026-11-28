@@ -270,17 +270,17 @@ void UIMountClass::Build()
 
 	FAIL_IF(!cobj) return;
 
-	DeltaCompoundClass *auxdata = (DeltaCompoundClass *)cobj->AuxData;
+	DeltaContainer *auxdata = (DeltaContainer *)cobj->AuxData;
 	FAIL_IF(!auxdata) return;
-	DeltaStringClass *model_name;
-	{ NameClass model_field("Inventory.EquipMountModel"); model_name = Unknown_Find_Set_Field<DeltaStringClass>(auxdata, model_field); }
+	DeltaString *model_name;
+	{ AuxDataName model_field("Inventory.EquipMountModel"); model_name = Unknown_Find_Set_Field<DeltaString>(auxdata, model_field); }
 	if (!model_name) return;
 	const char *model_file = model_name->Get();
 	DeltaArrayClass<InvSlotStruct> *mounts;
-	{ NameClass mounts_field("Inventory.Mounts"); mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field); }
+	{ AuxDataName mounts_field("Inventory.Mounts"); mounts = Unknown_Find_Set_Field<DeltaArrayClass<InvSlotStruct> >(auxdata, mounts_field); }
 	if (!mounts) return;
-	DeltaItemArrayClass<DeltaStringClass> *bone_names;
-	{ NameClass bones_field("Inventory.MountBoneNames"); bone_names = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field); }
+	DeltaItemArrayClass<DeltaString> *bone_names;
+	{ AuxDataName bones_field("Inventory.MountBoneNames"); bone_names = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaString> >(auxdata, bones_field); }
 	if (!bone_names) return;
 
 	Model = AssetManager->Create_Render_Obj(model_file);
@@ -384,7 +384,7 @@ void UIMountClass::Build()
 	for (int i = 0; i < count; i++) {
 		InvSlotStruct *mount = &mounts->Get_Value(i);
 		if (!mount->I00) continue;
-		DeltaStringClass *ds = (DeltaStringClass *)bone_names->Children[i]; const char *bone_name = ds->Get();
+		DeltaString *ds = (DeltaString *)bone_names->Children[i]; const char *bone_name = ds->Get();
 		if (!bone_name) continue;
 		int boneidx = Model->Get_Bone_Index(bone_name);
 		if (strlen(bone_name) != 0) {

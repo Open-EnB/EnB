@@ -22,12 +22,12 @@
 #include "..\..\wwlib\ini.h"
 
 // vtable 0xAEC6CC (0x24 bytes)
-class INIManagerClass : public DefinitionManagerClass<INIClass>  // NAME 3: by convention (D24) from the client's file ini_manager.cpp
+class INIManager : public DefinitionManagerClass<INIClass>  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	INIManagerClass();															// 0x4EA080, in ini_manager.cpp: Get_INI calls it
+	INIManager();															// 0x4EA080, in ini_manager.cpp: Get_INI calls it
 	// NOT EXACT: register-only (explain.py), eax / ecx / edx rotated in the inlined Free_Unused (0x4EA2B0)
-	virtual ~INIManagerClass()
+	virtual ~INIManager()
 	{
 		Free_Unused();
 	}

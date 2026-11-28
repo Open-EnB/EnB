@@ -7,14 +7,14 @@
 #include "..\shared\g_assert.h"
 #include "..\shared\auth_product.h"
 // @0x7930E0
-CameraController10Class::CameraController10Class(SClient *client) :
+EmoteCameraControllerClass::EmoteCameraControllerClass(SClient *client) :
 	CameraControllerClass(client)
 {
 	Unknown0C = new CameraModule79C8E0Class(Client);
 }
 
 // @0x7931B0
-CameraController10Class::~CameraController10Class()
+EmoteCameraControllerClass::~EmoteCameraControllerClass()
 {
 	if (Unknown0C) {
 		delete Unknown0C;
@@ -23,26 +23,26 @@ CameraController10Class::~CameraController10Class()
 }
 
 // @0x793230
-void CameraController10Class::Unknown_04()
+void EmoteCameraControllerClass::Unknown_04()
 {
 	Unknown_7932A0();
 }
 
 // @0x793250
-void CameraController10Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
+void EmoteCameraControllerClass::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	Unknown0C->Unknown_08(pos, rot);
 	*mode = 1;
 }
 
 // @0x793280
-void CameraController10Class::Unknown_0C()
+void EmoteCameraControllerClass::Unknown_0C()
 {
 	Unknown0C->Unknown_0C();
 }
 
 // @0x7932A0
-void CameraController10Class::Unknown_7932A0()
+void EmoteCameraControllerClass::Unknown_7932A0()
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
 

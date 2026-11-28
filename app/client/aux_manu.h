@@ -25,7 +25,7 @@
 // ManufacturingLab.PrimaryCategories.N (0x6FB1E0)
 inline
 DeltaPrimaryCategoryClass::DeltaPrimaryCategoryClass(const char *name) :
-	DeltaCompoundClass(name),
+	DeltaContainer(name),
 	Name("Name", ""),
 	Categories("Categories", 5)
 {

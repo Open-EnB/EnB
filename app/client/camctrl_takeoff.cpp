@@ -17,14 +17,14 @@
 #include "..\shared\auth_product.h"
 extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
 
-class MainViewSceneClass : public SimpleSceneClass
+class ENBSceneClass : public SimpleSceneClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	void Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship);
 };
 
 // @0x7961B0
-CameraController09Class::CameraController09Class(SClient *client) :
+TakeoffCameraControllerClass::TakeoffCameraControllerClass(SClient *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),
@@ -34,7 +34,7 @@ CameraController09Class::CameraController09Class(SClient *client) :
 }
 
 // @0x796280
-CameraController09Class::~CameraController09Class()
+TakeoffCameraControllerClass::~TakeoffCameraControllerClass()
 {
 	if (Unknown0C) {
 		delete Unknown0C;
@@ -43,7 +43,7 @@ CameraController09Class::~CameraController09Class()
 }
 
 // @0x796300
-void CameraController09Class::Unknown_04()
+void TakeoffCameraControllerClass::Unknown_04()
 {
 	Unknown_796920();
 	Unknown5C = false;
@@ -105,7 +105,7 @@ void CameraController09Class::Unknown_04()
 
 	FAIL_IF(!effect) return;
 
-	UnknownB00060EffectClass *source = effect->Unknown_10();
+	UnaryEffectClass *source = effect->Unknown_10();
 	if (source) {
 		source->Set_Source_Object_ID(Client->AvatarID);
 	} else {
@@ -117,7 +117,7 @@ void CameraController09Class::Unknown_04()
 
 // @0x796440
 // (one *mode = 2 at the end: the client's three byte-identical tails are the compiler's copies of it; written out in each phase they took eax / ecx / edx and edi was pushed in the prologue. Each phase has its own tm, so the two Unknown_30 calls do not merge: 17 calls)
-void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
+void TakeoffCameraControllerClass::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
 	float distance = CameraManagerClass::Unknown_79B6B0();
@@ -183,7 +183,7 @@ void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 
 
 // @0x796850
-void CameraController09Class::Unknown_0C()
+void TakeoffCameraControllerClass::Unknown_0C()
 {
 	Unknown0C->Unknown_0C();
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -202,13 +202,13 @@ void CameraController09Class::Unknown_0C()
 }
 
 // @0x7968F0
-bool CameraController09Class::Unknown_14()
+bool TakeoffCameraControllerClass::Unknown_14()
 {
 	return(Client->Unknown10BC - Unknown10 > 2000);
 }
 // @0x796920
 // NOT EXACT: shape: the retry counter's slot, loop entry and scheduling; every call, literal and member offset is the client's; functional
-void CameraController09Class::Unknown_796920()
+void TakeoffCameraControllerClass::Unknown_796920()
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
 	FAIL_IF(!ship) {
@@ -247,7 +247,7 @@ void CameraController09Class::Unknown_796920()
 		rotation.Set_Translation(Unknown18);
 		OBBoxClass::Transform(rotation, local_box, &end_box);
 		CastResultStruct result;
-		((MainViewSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
+		((ENBSceneClass *)Client->MainView->Unknown_64())->Unknown_75FB00(start_box, end_box, dir * 1000000.0f, &result, ship_ro, false);
 		if (result.Fraction >= 1.0f) {
 			break;
 		}

@@ -159,7 +159,7 @@ bool GutterDataClass::Add_To_Scene(const RefCountPtr<SimpleSceneClass> &scene)
 	bool added = RadarIconDataClass::Add_To_Scene(scene);
 	if (added) {
 		if (Indicator) {
-			InterfaceSortClass sort((InterfaceSceneClass *)scene.Peek(), false);
+			LocalInterfaceSort sort((InterfaceSceneClass *)scene.Peek(), false);
 			Indicator->Unknown_6B3ED0(scene);
 		}
 		return(true);

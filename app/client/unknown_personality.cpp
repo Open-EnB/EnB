@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-Unknown_78F700Class::Unknown_78F700Class() { Moods = NULL; Name = NULL; BAnims = NULL; }
+PersonalityClass::PersonalityClass() { Moods = NULL; Name = NULL; BAnims = NULL; }
 
 // 0x78F850
 // The Text member is destroyed after this body (the client inlines its destructor).
-Unknown_78F700Class::~Unknown_78F700Class()
+PersonalityClass::~PersonalityClass()
 {
 	if (Name) {
 		delete [] Name;
@@ -29,7 +29,7 @@ Unknown_78F700Class::~Unknown_78F700Class()
 }
 
 // 0x78F9F0
-void Unknown_78F700Class::Unknown_78F9F0()
+void PersonalityClass::Unknown_78F9F0()
 {
 	if (Name) {
 		delete [] Name;
@@ -46,7 +46,7 @@ void Unknown_78F700Class::Unknown_78F9F0()
 }
 
 // 0x78FBB0
-int Unknown_78F700Class::Get_Mood_Number(const char *name)
+int PersonalityClass::Get_Mood_Number(const char *name)
 {
 	for (int i = 0; i < 4; i++) {
 		if (_stricmp(name, Moods[i].MoodName) == 0) {
@@ -57,7 +57,7 @@ int Unknown_78F700Class::Get_Mood_Number(const char *name)
 }
 
 // 0x78FC20
-Unknown_78F700Class::BAnimStruct *Unknown_78F700Class::Find_BAnim(const char *tag)
+PersonalityClass::BAnimStruct *PersonalityClass::Find_BAnim(const char *tag)
 {
 	IndexStruct *index = &Index[(char)tolower(*tag)];
 	BAnimStruct *banim = &BAnims[index->First + index->Count - 1];
@@ -71,7 +71,7 @@ Unknown_78F700Class::BAnimStruct *Unknown_78F700Class::Find_BAnim(const char *ta
 
 static int __cdecl Unknown_790190(const void *a, const void *b);
 // 0x78FCB0 (the index loop is Load's own: its count kept in edx and &Count in ecx across the First store, 0x78FFD2, where 0x7901C0 indexes through the entry, 0x79020E)
-bool Unknown_78F700Class::Load(const char *filename)
+bool PersonalityClass::Load(const char *filename)
 {
 	INIClass ini(filename);
 	char header[64];
@@ -138,7 +138,7 @@ static int __cdecl Unknown_790190(const void *a, const void *b)	// NAME 1: neutr
 }
 
 // 0x7901C0
-void Unknown_78F700Class::Unknown_7901C0()
+void PersonalityClass::Unknown_7901C0()
 {
 	qsort(BAnims, Get_BAnim_Count(), sizeof(BAnimStruct), Unknown_790190);
 	memset(Index, 0, sizeof(Index));
@@ -176,12 +176,12 @@ Unknown_790260Class::~Unknown_790260Class()
 
 // 0x790360
 
-Unknown_78F700Class *Unknown_790260Class::Unknown_790360()
+PersonalityClass *Unknown_790260Class::Unknown_790360()
 {
 	bool needs_load = Data == NULL; // NAME 1: the null predicate materialized at 0x790384
 	if (needs_load) {
 		if (Data == NULL) {
-			Data = new Unknown_78F700Class;
+			Data = new PersonalityClass;
 		} else {
 			Data->Unknown_78F9F0();
 		}

@@ -27,7 +27,7 @@
 class GadgetCollectionInterface;
 class DynamicElementGadgetClass;
 
-class UIItemExaminationSpecialClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationSpecialClass]: as the attributes panel's row
+class UIItemExaminationSpecialClass : public HorizontalDynamicWindow  // NAME 2 [UIItemExaminationSpecialClass]: as the attributes panel's row
 {
 public:
 	UIItemExaminationSpecialClass(const RefCountPtr<ClientItemPropertySpecialClass> &special, GadgetCollectionInterface *listener);	// 0x538350  // NAME 1 [special, listener]
@@ -51,7 +51,7 @@ public:
 protected:
 	GadgetCollectionInterface *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
 	std::vector< RefCountPtr<ClientItemPropertySpecialClass> > Specials;				// +0x68  // NAME 1 [Specials]
-	RefCountPtr<DynamicWindowVerticalClass> List;											// +0x78 (the rows)  // NAME 1 [List]
+	RefCountPtr<VerticalDynamicWindow> List;											// +0x78 (the rows)  // NAME 1 [List]
 };
 
 #endif

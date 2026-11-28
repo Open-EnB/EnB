@@ -20,7 +20,7 @@
 #include "input.h"
 #include "winmsg.h"
 
-class Win32KeyboardHandlerClass : public KeyboardClass	// NAME 1 [Win32KeyboardHandlerClass]: after w32mouse.cpp's Win32MouseHandlerClass
+class Win32KeyboardHandlerClass : public KeyboardHandlerClass	// NAME 1 [Win32KeyboardHandlerClass]: after w32mouse.cpp's Win32MouseHandlerClass
 {
 public:
 	Win32KeyboardHandlerClass(KeyQueueClass *queue);								// 0x430490
@@ -28,7 +28,7 @@ public:
 	virtual void Unknown_04();														// 0x430700
 	virtual void Unknown_08();														// 0x430750
 	virtual bool Unknown_0C(int unknown1, int unknown2);							// 0x430CA0  // NAME 1 [unknown1, unknown2]: neutral (D10)
-	virtual bool Set_Repeat(bool enable);											// 0x4306D0  // NAME 1 [enable]: as KeyboardClass's
+	virtual bool Set_Repeat(bool enable);											// 0x4306D0  // NAME 1 [enable]: as KeyboardHandlerClass's
 };
 
 

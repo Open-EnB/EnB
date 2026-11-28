@@ -19,7 +19,7 @@
 #include "matrix3d.h"
 
 class PxWrapper;
-class DynObj;
+class DynamicObjectClass;
 
 // The fp_*.cpp family's base (table 0xAE7910): the slots fp_ita.cpp / fp_tt.cpp fill
 class FpBaseClass  // NAME 1 [FpBaseClass]: neutral (D10), the base of the fp_*.cpp classes
@@ -27,7 +27,7 @@ class FpBaseClass  // NAME 1 [FpBaseClass]: neutral (D10), the base of the fp_*.
 public:
 	virtual ~FpBaseClass() {}																	// 0x4492D0 (deleting, fp_ita.obj's copy)
 	virtual int Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch) = 0;	// +0x04  // NAME 1 [all]: what fp_tt.cpp's does with them
-	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims) = 0;	// +0x08  // NAME 1 [all but proxim]: as Unknown_04, what fp_tt.cpp's does with them; [proxim]: the G_ASSERT 'proxim.Get_Avoidance()' 0xB705E4
+	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynamicObjectClass *self, Vector3 *aims) = 0;	// +0x08  // NAME 1 [all but proxim]: as Unknown_04, what fp_tt.cpp's does with them; [proxim]: the G_ASSERT 'proxim.Get_Avoidance()' 0xB705E4
 	virtual void Unknown_0C(float &yaw, float &pitch) = 0;										// +0x0C  // NAME 1 [yaw, pitch]: the angles fp_tt.cpp's returns
 };
 
@@ -37,7 +37,7 @@ public:
 	FpItaClass(float max_turn);																	// 0x448C30 (the angle clamped to 0..pi)  // NAME 1 [max_turn]: what it does with it
 	virtual ~FpItaClass();																		// 0x448CE0 (deleting 0x448CB0)
 	virtual int Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch);	// 0x448D00 (G_ASSERT 'y_axis.Z < 0.0001f' l.151): 2
-	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims);	// 0x449330 (G_ASSERT '0' l.171): 1
+	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynamicObjectClass *self, Vector3 *aims);	// 0x449330 (G_ASSERT '0' l.171): 1
 	virtual void Unknown_0C(float &yaw, float &pitch);											// 0x449300: both 0
 
 	float MaxTurnCos;						// +0x04  // NAME 1: the cosine of the angle the X axis turns by

@@ -5,14 +5,14 @@
 static Vector2 IconSize(32.0f, 32.0f);	// 0xBE5A90 (0x539950)  // NAME 1: what it sizes
 
 UIItemExaminationTitleClass::UIItemExaminationTitleClass() :
-	DynamicWindowHorizontalClass(6)
+	HorizontalDynamicWindow(6)
 {
 	std::string icon_name = Unknown_7EA190(100);	// NAME 1 [icon_name]: neutral
 	Icon = DynamicWindowIconClass::Create(icon_name, IconSize, 0);
 	Icon->Clear_Flags(6);
-	RefCountPtr<DynamicWindowVerticalClass> column = Create_NEW(new DynamicWindowVerticalClass(6));	// NAME 1 [column]: neutral
+	RefCountPtr<VerticalDynamicWindow> column = Create_NEW(new VerticalDynamicWindow(6));	// NAME 1 [column]: neutral
 	Text = DynamicWindowTextClass::Create("TITLE_IEI00", "", 6);
-	Subtitles = Create_NEW(new DynamicWindowHorizontalClass(6));
+	Subtitles = Create_NEW(new HorizontalDynamicWindow(6));
 	column->Insert_Element(Text, 0);
 	column->Insert_Element(Subtitles, 1);
 	Insert_Element(Icon, 0);

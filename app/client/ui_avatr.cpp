@@ -84,7 +84,7 @@ public:
 void Unknown_5860B0(float *weights, Vector2 uv);		// 0x5860B0 (cdecl)  // NAME 1 [Unknown_5860B0, weights, uv]: neutral (D10)
 extern RandomClass Unknown_BDBB84; extern GadgetClass *Unknown_BE5F24; extern GadgetClass *Unknown_BE5F28; void Unknown_42ECF0(float *x, float *y); void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// NAME 1 [Unknown_BDBB84]: neutral (D10), as eff_o.cpp's; 0x42ECF0 (the pointer, 0..1), 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [x, y, robj, u, v, color]: as gadget.cpp's / ro_funcs.cpp's
 
-// The +0x8C object's +0x194 is avatar.h's CharacterViewAvatarClass (the view's AvatarRObj)
+// The +0x8C object's +0x194 is avatar.h's AvatarClass (the view's AvatarRObj)
 
 
 
@@ -154,7 +154,7 @@ public:
 	void Unknown_67AB20(int type, const char *name);	// 0x67AB20
 	void Unknown_67A290(const Vector3 &position, const Vector3 &rotation, float fov);	// 0x67A290
 	void Unknown_67A3F0();								// 0x67A3F0 (+0x194 released)
-	void Unknown_67A440(AvatarDescClass *desc, bool copy);	// 0x67A440
+	void Unknown_67A440(AvatarDescriptionClass *desc, bool copy);	// 0x67A440
 	void Unknown_67A670();								// 0x67A670 (+0x198 released)
 	void Unknown_67B270();								// 0x67B270 ('Are you sure you want to quit?')
 	void Unknown_67B4F0(bool on);						// 0x67B4F0
@@ -164,7 +164,7 @@ public:
 	void Unknown_67C270(const Vector2 *offsets, int size, int which);	// 0x67C270 (charview.h's: the offsets in)
 	void Unknown_67C310(const Vector2 *in, int index);	// 0x67C310
 	void Unknown_67C380(const Vector3 *in, int index);	// 0x67C380
-	void Unknown_5594B0(AvatarDescClass desc);			// 0x5594B0 (out of line in this file: +0x88 = desc; ui_avsel.cpp's too)  // NAME 1 [desc]: neutral
+	void Unknown_5594B0(AvatarDescriptionClass desc);			// 0x5594B0 (out of line in this file: +0x88 = desc; ui_avsel.cpp's too)  // NAME 1 [desc]: neutral
 	void Unknown_67C7B0();								// 0x67C7B0
 	void Unknown_67C920(std::string name);				// 0x67C920
 	char Unknown00[0x14];								// +0x00
@@ -174,9 +174,9 @@ public:
 	char Unknown38[0x68 - 0x38];						// +0x38
 	CameraClass *Unknown068;							// +0x68
 	char Unknown6C[0x88 - 0x6C];						// +0x6C
-	AvatarDescClass Unknown088;							// +0x88
-	CharacterViewAvatarClass *Peek_Unknown194() { return(Unknown194); }	// NAME 1: neutral (D10)
-	CharacterViewAvatarClass *Unknown194;					// +0x194 (AvatarRObj)
+	AvatarDescriptionClass Unknown088;							// +0x88
+	AvatarClass *Peek_Unknown194() { return(Unknown194); }	// NAME 1: neutral (D10)
+	AvatarClass *Unknown194;					// +0x194 (AvatarRObj)
 	char Unknown198[0x1B8 - 0x198];						// +0x198
 	RenderObjClass *Peek_Model() { return(Unknown1B8); }	// NAME 1: neutral (D10)
 	RenderObjClass *Unknown1B8;							// +0x1B8 (ViewRObjs[0], the model: its texts by name)
@@ -229,7 +229,7 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 
 
 
-// The window's +0x94: ship_pip.cpp's gadget (0xF4 bytes, vtable 0xB07DF4); its +0x54 is avatar.h's CharacterViewAvatarClass
+// The window's +0x94: ship_pip.cpp's gadget (0xF4 bytes, vtable 0xB07DF4); its +0x54 is avatar.h's AvatarClass
 #include "ship_pip.h"
 
 
@@ -405,7 +405,7 @@ public:
 	int Unknown088;										// +0x88 (the tab, 0x556B20)
 	CharacterViewClass *Unknown08C;					// +0x8C
 	UIAvatrLoginTaskClass *Unknown090;					// +0x90 (the view's task)
-	ShipPipClass *Unknown094;					// +0x94
+	ShipPIPClass *Unknown094;					// +0x94
 	ButtonGadgetClass *Unknown098[16]; ButtonGadgetClass *Unknown0D8[19]; ButtonGadgetClass *Unknown124[15];	// +0x98 / +0xD8 / +0x124 (UIAvatrParts' gadgets, by tab)
 	UIAvatrPullClass *Unknown160;						// +0x160 (the body's pull)
 	Vector2 Unknown164;									// +0x164 (0x558060's point)
@@ -425,7 +425,7 @@ public:
 	bool Unknown1C8;									// +0x1C8
 	bool Unknown1C9;									// +0x1C9
 	char Unknown1CA[2];									// +0x1CA
-	AvatarDescClass Unknown1CC;							// +0x1CC
+	AvatarDescriptionClass Unknown1CC;							// +0x1CC
 	bool Unknown2D8;									// +0x2D8
 	UIAvatrUnknown2ECStruct *Unknown2DC;				// +0x2DC (0x559F30 deletes the seven)
 	UIAvatrUnknown2ECStruct *Unknown2E0;				// +0x2E0
@@ -470,7 +470,7 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
 // Nine dead Peek_Model() after the second palette site and two after the mp3 (D272) send both palette models' ~RefCountPtr out as
-// 0x5543C0 / 0x554478; the +0x1BC pair's inline constructor holds the AvatarDescClass this / EH state after +0x1C0 as the client
+// 0x5543C0 / 0x554478; the +0x1BC pair's inline constructor holds the AvatarDescriptionClass this / EH state after +0x1C0 as the client
 // 0x553AF0
 AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
@@ -562,8 +562,8 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	}
 
 
-		RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-		Unknown094 = new ShipPipClass(1);
+		RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+		Unknown094 = new ShipPIPClass(1);
 		Unknown094->Unknown_74(desc->Desc.Race);
 		Unknown094->Unknown_80C220((ViewClass *)Unknown08C);
 		Unknown094->Unknown_65FFC0(1, NULL);
@@ -670,7 +670,7 @@ void AvatarCreationInterface::Unknown_60()
 	Unknown_55A960();
 	Unknown_55BAC0();
 	Unknown094->Unknown_78();
-	((CharacterViewAvatarClass *)Unknown094->Unknown054.Peek())->Unknown_1C4();
+	((AvatarClass *)Unknown094->Unknown054.Peek())->Unknown_1C4();
 }
 
 // The cases in the client's body order (jump table 0x555B20 by address: 4, 1, 2, 3, 0xF, 0x10, 0x3A, 5, 0xA, ...),
@@ -686,7 +686,7 @@ bool AvatarCreationInterface::Unknown_68(int key)
 	if (Unknown1C4 || Unknown1C5 || Unknown1C6 || Unknown1C7 || Unknown1C8 || Unknown1C9) {
 		return(false);
 	}
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	switch (key) {
 		case 4:
 			Unknown_557290();
@@ -946,7 +946,7 @@ void AvatarCreationInterface::Unknown_556630(int tab, bool on)
 					Unknown160->Gadget->Unknown_8C(true);
 					Unknown160->Pull->Set_Hidden(true);
 				}
-				RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+				RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 				if (desc->Desc.Gender == 1) {
 					Unknown0D8[2]->Unknown_40(false);
 					Unknown0D8[2]->Unknown_8C(true);
@@ -1005,7 +1005,7 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			{ CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = false;
+			{ AvatarClass *avatar = (AvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = false;
 			avatar->Unknown214 = true; }
 			break;
 		case 1:
@@ -1020,7 +1020,7 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown094->Set_Unknown0DC(true);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			{ CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = true;
+			{ AvatarClass *avatar = (AvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = true;
 			avatar->Unknown214 = true; }
 			break;
 		case 2:
@@ -1034,7 +1034,7 @@ void AvatarCreationInterface::Unknown_556B20(int tab)
 			Unknown094->Set_Unknown0DC(false);
 			Unknown094->Unknown_88();
 			Unknown094->Unknown_8C();
-			{ CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = false;
+			{ AvatarClass *avatar = (AvatarClass *)Unknown094->Peek_Unknown054(); avatar->Unknown231 = false;
 			avatar->Unknown214 = true; } frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek(); frame.Peek();	// dead Peek()s (D130; not the client's): they spend VC6's inline budget, so the palette helper's copies call their ~RefCountPtr out of line (5 too few)
 			break;
 	}
@@ -1109,16 +1109,16 @@ void AvatarCreationInterface::Unknown_5598D0()
 // 0x559350
 void AvatarCreationInterface::Unknown_559350()
 {
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	Unknown08C->Unknown_5594B0(*desc->Get_Desc());
 	Unknown08C->Unknown_67C270(Unknown184, 7, desc->Desc.Gender);
 	Unknown08C->Unknown_67C310(&Unknown164, desc->Desc.Gender);
 	Unknown08C->Unknown_67C380(&Unknown170, desc->Desc.Gender);
 }
 
-// From the client's 0x5594B0 (AvatarDescClass's assignment)
+// From the client's 0x5594B0 (AvatarDescriptionClass's assignment)
 // 0x5594B0
-void CharacterViewClass::Unknown_5594B0(AvatarDescClass desc)
+void CharacterViewClass::Unknown_5594B0(AvatarDescriptionClass desc)
 {
 	Unknown088 = desc;
 }
@@ -1167,7 +1167,7 @@ void AvatarCreationInterface::Unknown_559900()
 	char texture[64];
 	Unknown_559F30();
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 
 
 	_snprintf(name, sizeof(name), "%s%shead", UIAvatrGenders[desc->Desc.Gender], UIAvatrRaces[desc->Desc.Race]);
@@ -1204,7 +1204,7 @@ void AvatarCreationInterface::Unknown_559900()
 void AvatarCreationInterface::Unknown_55AFD0()
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	FontSys *text = Unknown_BE67C4->Get_Style("male_fe_avatar00", model.Peek());
 	if (Unknown08C->Peek_Unknown194()->Desc.Gender == 1) {
 		text->Change_Text("Gender: Female", 0);
@@ -1216,7 +1216,7 @@ void AvatarCreationInterface::Unknown_55AFD0()
 // 0x55B110
 void AvatarCreationInterface::Unknown_55B110(int arg)
 {
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	switch (arg) {
 		case 0x20:
 			Unknown1BC.Part = 0;
@@ -1252,7 +1252,7 @@ void AvatarCreationInterface::Unknown_55B110(int arg)
 // 0x55B2D0
 void AvatarCreationInterface::Unknown_55B2D0()
 {
-	AvatarDescClass desc(Unknown08C->Peek_Unknown194()->Desc);
+	AvatarDescriptionClass desc(Unknown08C->Peek_Unknown194()->Desc);
 	bool movable;
 	int scale;
 	desc.Get_Facial_Feature(movable, scale);
@@ -1405,7 +1405,7 @@ void AvatarCreationInterface::Unknown_Set_Palette(const char *name)
 // 0x558D30
 void AvatarCreationInterface::Unknown_558D30(int dir)
 {
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	int body = desc->Desc.Body_Type;
 	int pants = desc->Desc.Pants_Type;
 	if (dir == 2) {
@@ -1424,7 +1424,7 @@ void AvatarCreationInterface::Unknown_558D30(int dir)
 // 0x558EA0
 void AvatarCreationInterface::Unknown_558EA0(int dir)
 {
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	int body = desc->Desc.Body_Type;
 	int pants = desc->Desc.Pants_Type;
 	if (dir == 2) {
@@ -1448,7 +1448,7 @@ void AvatarCreationInterface::Unknown_559010(int dir)
 	} else {
 		Unknown2E0->Unknown_585C90();
 	}
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	if (desc->Desc.Gender == 1 && Unknown2E0->Unknown18 == 0) {
 		Unknown_559010(dir);
 		return;
@@ -1468,7 +1468,7 @@ void AvatarCreationInterface::Unknown_5591E0(int dir)
 		Unknown2E4->Unknown_585C90();
 	}
 	Unknown08C->Peek_Unknown194()->Unknown_77FD30(Unknown2E4->Get_Unknown18(), true);
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	Unknown094->Unknown_84(desc);
 }
@@ -1506,10 +1506,10 @@ void AvatarCreationInterface::Unknown_55A960()
 		float u; if (point.X < 0.01f) { u = 0.01f; } else if (point.X > 0.99f) { u = 0.99f; } else { u = point.X; }
 		float v; if (point.Y < 0.01f) { v = 0.01f; } else if (point.Y > 0.99f) { v = 0.99f; } else { v = point.Y; }
 		Vector3 color;
-		RObjGadgetClass *area = Unknown180->Gadget->As_RObjGadget(); Unknown_496C00(area->RObj, u, 1.0f - v, &color);
+		RenderObjGadgetClass *area = Unknown180->Gadget->As_RObjGadget(); Unknown_496C00(area->RObj, u, 1.0f - v, &color);
 		Unknown184[Unknown1BC.Part].Set(u, v);
 
-		CharacterViewAvatarClass *avatar = Unknown08C->Peek_Unknown194();
+		AvatarClass *avatar = Unknown08C->Peek_Unknown194();
 		switch (Unknown1BC.Part) {
 			case 0: avatar->Unknown_77FFA0(color, true); break;
 			case 1: avatar->Unknown_7804A0(color); break;
@@ -1533,7 +1533,7 @@ void AvatarCreationInterface::Unknown_55B9A0(int arg)
 	if (Unknown088 != 2) {
 		return;
 	}
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	Unknown1BC.Metal = arg;
 	switch (Unknown1BC.Part) {
 		case 3: desc->Unknown_780790(1, arg); break;
@@ -1550,8 +1550,8 @@ void AvatarCreationInterface::Unknown_55B9A0(int arg)
 void AvatarCreationInterface::Unknown_5582A0()
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
-	AvatarDescClass old(desc->Desc);
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	AvatarDescriptionClass old(desc->Desc);
 	Unknown08C->Unknown_67C270(Unknown184, 7, old.Gender);
 	Vector2 *v164 = &Unknown164;
 	Unknown08C->Unknown_67C310(v164, old.Gender);
@@ -1567,7 +1567,7 @@ void AvatarCreationInterface::Unknown_5582A0()
 		Unknown08C->Unknown_67C2E0(v164, Unknown1CC.Gender);
 		Unknown08C->Unknown_67C340(v170, Unknown1CC.Gender);
 	} else {
-		AvatarDescClass copy(desc->Desc);
+		AvatarDescriptionClass copy(desc->Desc);
 		Unknown08C->Unknown_67A3F0();
 		Unknown08C->Unknown_67A440(&copy, true);
 		Unknown_559900();
@@ -1589,7 +1589,7 @@ void AvatarCreationInterface::Unknown_5582A0()
 	Unknown1CC = old;
 	Unknown2D8 = true;
 	Unknown_559350();
-	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
 	avatar->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 	avatar->Unknown232 = true;
 	Unknown094->Unknown_84(avatar);
@@ -1607,7 +1607,7 @@ void AvatarCreationInterface::Unknown_5582A0()
 void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
-	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
 	if (avatar.Peek() != NULL) {
 
 
@@ -1650,7 +1650,7 @@ void AvatarCreationInterface::Unknown_557950(int which, bool keep, bool stored)
 // 0x557290
 void AvatarCreationInterface::Unknown_557290()
 {
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	int gender = desc->Desc.Gender;
 	if (Unknown088 == 0 || Unknown088 == 1) {
 		desc->Unknown_77F000(Unknown_BDBB84(0, Unknown2DC->Get_Unknown20()));
@@ -1693,7 +1693,7 @@ void AvatarCreationInterface::Unknown_557290()
 	}
 }
 
-static inline void Set_Rate(float &rate, float value) { rate = value; }	// the client stores each rate through the FPU, as an inline float setter does (probably ShipPipClass's own: interim here)  // NAME 1: neutral (D10)
+static inline void Set_Rate(float &rate, float value) { rate = value; }	// the client stores each rate through the FPU, as an inline float setter does (probably ShipPIPClass's own: interim here)  // NAME 1: neutral (D10)
 // The bottom buttons held (gadget.cpp's 0xBE5F24 / 0xBE5F28) into the pip's turn / pan / zoom rates; the rates are .rdata constants (0xAEF964-0xAEF96C)
 // 0x556F80
 void AvatarCreationInterface::Unknown_556F80()
@@ -1740,7 +1740,7 @@ void AvatarCreationInterface::Unknown_556F80()
 // 0x55A060
 void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
 {
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	float body[5]; Unknown_5860B0(body, uv);
 	desc->Unknown_77E900(body);
 	float face[5]; Unknown_5860B0(face, uv);
@@ -1915,7 +1915,7 @@ void AvatarCreationInterface::Unknown_55BFB0()
 	if (Unknown088 != 2) {
 		return;
 	}
-	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
+	RefCountPtr<AvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	int base = UIAvatrWeightBase[desc->Desc.Race * 2 + desc->Desc.Gender]; int range = UIAvatrWeightRange[desc->Desc.Race * 2 + desc->Desc.Gender];
 	int lbs = (int)((range * Unknown164.X) + (range * Unknown164.Y) + base);

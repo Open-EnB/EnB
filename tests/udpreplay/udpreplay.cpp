@@ -33,7 +33,7 @@
 // The end: counters per session.
 //
 //     udpreplay --loop N IN.txt OUT.txt [MS [WINDOW]]
-//     udpreplay --conn [--loop N] ...  (the same, read through UDPConnection: M lines, conn_replay.cpp)
+//     udpreplay --conn [--loop N] ...  (the same, read through UDPConnectionClass: M lines, conn_replay.cpp)
 //
 // The loop test: the same messages (W) and closes (Q), but each side's own datagrams go to the
 // other side over a link that drops every Nth datagram in each direction (N = 0: none); each D
@@ -71,7 +71,7 @@ CordHarnessCounters *Cord_Harness_Counters(const CordCon *con)
 {
 	return &Cord_Counters[con];
 }
-// --conn: deliver through app\common's UDPConnection and stream framing (conn_replay.cpp)
+// --conn: deliver through app\common's UDPConnectionClass and stream framing (conn_replay.cpp)
 extern bool Conn_Mode;
 extern int Conn_Errors;
 extern int Conn_Built;
@@ -161,7 +161,7 @@ sint32 UDP::Read(uint8 *msg, uint32 len, sockaddr_in *from)
 	return (int)n;
 }
 
-// CordMgr::Wait's select: the replay never waits (nothing calls UDPConnection::Connect(true) here).
+// CordMgr::Wait's select: the replay never waits (nothing calls UDPConnectionClass::Connect(true) here).
 int UDP::Wait(sint32, sint32, fd_set &, fd_set &)
 {
 	return 0;
@@ -366,14 +366,14 @@ static void Pump_Side(FILE *out, Session *s, Side &tx, Side &rx, int n, const ch
 static void Write_Side(FILE *out, Session *s, Side &tx, const char *dir, const char *name, int d, int channel,
 	int mode, const std::vector<unsigned char> &data)
 {
-	CordChannelClass *tc = tx.Con->Get_Channel(channel);
+	CordChannel *tc = tx.Con->Get_Channel(channel);
 	if (tc->Mode == 0) {
 		unsigned int got = 0;
 		tx.Con->openc(&got, mode, 0);
 		if ((int)got != channel) {
 			fprintf(out, "O %s %s %d %u\n", dir, name, channel, got);
 			s->OpenMismatch[d]++;
-			CordChannelClass *wrong = tx.Con->Channels_[got];
+			CordChannel *wrong = tx.Con->Channels_[got];
 			wrong->Mode = 0;
 			wrong->IsClosed = true;
 			tx.Con->Active_.pop_back();

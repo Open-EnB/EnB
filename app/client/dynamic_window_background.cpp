@@ -164,7 +164,7 @@ DynamicWindowBackgroundClass::~DynamicWindowBackgroundClass()
 	AnimCombo = NULL;
 }
 
-void DynamicWindowBackgroundClass::Set_Contents(const RefCountPtr<DynamicWindowElementClass> &contents)
+void DynamicWindowBackgroundClass::Set_Contents(const RefCountPtr<DynamicWindowElement> &contents)
 {
 	if (Contents) {
 		Contents->Remove_From_Scene();
@@ -307,7 +307,7 @@ void DynamicWindowBackgroundClass::Set_Position(const Vector2 &position)
 
 
 
-void DynamicWindowBackgroundClass::Child_Changed(DynamicWindowElementClass &child)
+void DynamicWindowBackgroundClass::Child_Changed(DynamicWindowElement &child)
 {
 	G_ASSERT(Contents.Peek() == &child);
 	Invalidate();
@@ -334,7 +334,7 @@ void DynamicWindowBackgroundClass::Remove_All_Children(bool recursive)
 
 
 
-bool DynamicWindowBackgroundClass::Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child)
+bool DynamicWindowBackgroundClass::Remove_Child(const RefCountPtr<DynamicWindowElement> &child)
 {
 	FAIL_IF(!child) return false;
 	if (child.Peek() != Contents.Peek()) {

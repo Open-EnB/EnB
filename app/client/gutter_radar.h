@@ -23,7 +23,7 @@ class SimpleSceneClass;
 class ClientObjectClass;
 class TargetReticleClass;
 
-class MouseTargetClass;
+class MouseTargeting;
 class RadarSystemDataCacheClass;
 
 class GutterRadarClass	// NAME 3: class-from-file (D24) for gutter_radar.cpp
@@ -32,7 +32,7 @@ public:
 	GutterRadarClass(SClient *client, const RefCountPtr<SimpleSceneClass> &scene);	// 0x7B6BD0  // NAME 2 [client, scene]: what it stores
 	~GutterRadarClass();															// 0x7B6D80
 
-	void Set_Targets(ClientObjectClass *first, ClientObjectClass *second, MouseTargetClass *mouse_target);	// 0x7B6E40 (radar_system.cpp's 0x7BCA70)  // NAME 2: what it does
+	void Set_Targets(ClientObjectClass *first, ClientObjectClass *second, MouseTargeting *mouse_target);	// 0x7B6E40 (radar_system.cpp's 0x7BCA70)  // NAME 2: what it does
 	void Update(RadarSystemDataCacheClass *entry);									// 0x7B7040 (radar_system.cpp's 0x7BCA70)  // NAME 2: what it does
 	void Clear_Mouse_Target();														// 0x7B71B0 (radar_system.cpp's 0x7BCA70)  // NAME 2: what it does
 
@@ -46,7 +46,7 @@ private:
 	TargetReticleClass *Reticle0C;					// +0x0C: sort level 0x1A, with text  // NAME 1: neutral (D10)
 	Vector3 Position;								// +0x10: X, Y 0..1 of the screen, the icon's centre; Z the view-space depth  // NAME 2: what it holds
 	float Size;										// +0x1C: in the same units  // NAME 2: what it holds
-	MouseTargetClass *MouseTarget;					// +0x20 (the G_ASSERT's name)
+	MouseTargeting *MouseTarget;					// +0x20 (the G_ASSERT's name)
 };
 
 #endif //__GUTTER_RADAR_H

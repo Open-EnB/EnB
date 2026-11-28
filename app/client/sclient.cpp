@@ -163,10 +163,10 @@ public:
 	// 0x84 bytes: no members of its own here
 };
 
-class UITalkTreeSpaceClass : public UITalkTreeClass
+class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UITalkTreeSpaceClass(SClient *client);				// 0x64F310
+	SpaceTalkTreeInterface(SClient *client);				// 0x64F310
 	void Unknown_64EED0();								// 0x64EED0 (0x742530, for the main and +0x135C views)
 	char Unknown180[0x184 - 0x180];
 };
@@ -183,11 +183,11 @@ public:
 
 
 
-class GalaxyMapClientClass
+class GalaxyMapClient  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GalaxyMapClientClass();								// 0x7A4830
-	virtual ~GalaxyMapClientClass();
+	GalaxyMapClient();								// 0x7A4830
+	virtual ~GalaxyMapClient();
 
 	char Unknown04[0xCC - 0x04];
 };
@@ -282,7 +282,7 @@ static void Unknown_740050(const char *text, const char *delimiters, unsigned ma
 		if (token != NULL) words.push_back(token); }
 	delete [] copy; }
 // The font database Init asks: sclient.h's SClientFontDatabaseClass (fontdatabase.cpp's at 0xBE67BC; the options
-// at 0xBE8B38 are option.h's OptionClass::Instance)
+// at 0xBE8B38 are option.h's OptionManagerClass::Instance)
 
 #define __CHATGADG_MEMBERS	// pkclientchat.h's 0x878D90: the tells' chat stream (0x749590, 0x749A70)
 
@@ -291,8 +291,8 @@ static void Unknown_740050(const char *text, const char *delimiters, unsigned ma
 
 #include "mesh.h"										// 0xBBB084 is MeshClass::Legacy_Meshes_Fogged (mesh.cpp's .data, true): Init clears it
 // 0xC07550 is Render2DClass::ScreenResolution (render2d.h, included above): the text's coordinate range
-// (Init, Shutdown and Do_Frame push PxProcess on px_process.h's PxProcessClass::Push 0x455D10 and pop it with
-// PxProcessClass::Pop 0x455F60)
+// (Init, Shutdown and Do_Frame push PxProcess on px_process.h's PxProcessList::Push 0x455D10 and pop it with
+// PxProcessList::Pop 0x455F60)
 void Unknown_6E6A90(EffectObjectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutdown, per effect left
 
 static std::string Unknown_BE81B0("megan_wlc.wav");	// 0xBE81B0: not used (its initialiser 0x740400 and atexit destructor 0x7404C0 sit between 0x740050 and the constructor)  // NAME 1 [Unknown_BE81B0]: neutral (D10)
@@ -377,9 +377,9 @@ SClient::~SClient()
 	EnvironmentMapManager = NULL;
 	if (ProjDecalManager) delete ProjDecalManager;
 	ProjDecalManager = NULL;
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
+	std::hash_map<unsigned, AvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); it++) {
-		CharacterViewAvatarClass *object = (*it).second;
+		AvatarClass *object = (*it).second;
 		if (object) {
 			object->Remove();
 			object->Release_Ref();
@@ -403,13 +403,13 @@ void SClient::Load_INIs()
 	INIUsers++;
 }
 
-static inline PxProcessClass *Unknown_Px_Process(SClient *client) { return(client->PxProcess); } static inline void Unknown_Set_FOV(CameraManagerClass *cm, float fov) { cm->FOV = fov; }	// SClient::Init 0x741180: PxProcess and CameraManager->FOV through inline accessors (the client's registers at Load_INIs / ChatPanel / FOV / Font)  // NAME 1 [Unknown_Px_Process, Unknown_Set_FOV, client, cm, fov]: neutral
+static inline PxProcessList *Unknown_Px_Process(SClient *client) { return(client->PxProcess); } static inline void Unknown_Set_FOV(CameraManagerClass *cm, float fov) { cm->FOV = fov; }	// SClient::Init 0x741180: PxProcess and CameraManager->FOV through inline accessors (the client's registers at Load_INIs / ChatPanel / FOV / Font)  // NAME 1 [Unknown_Px_Process, Unknown_Set_FOV, client, cm, fov]: neutral
 // 0x741180
 void SClient::Init()
 {
 	Unknown_BE67BC->Load(0);
 	VerbManager = new VerbManagerClass(this);
-	PxProcessClass::Push(Unknown_Px_Process(this));
+	PxProcessList::Push(Unknown_Px_Process(this));
 	MeshClass::Legacy_Meshes_Fogged = false;
 	Unknown_745350();
 	Unknown13CC.Unknown_765010();
@@ -426,10 +426,10 @@ void SClient::Init()
 	Mouse->Unknown_515120(2);
 	ChatPanel = Create_NEW(new ChatPanelInterface(this));
 	ChatPanel->Unknown_54();
-	LineDisplay = new UILineDisplayClass((LineDisplayClientClass *)this);
+	LineDisplay = new LineDisplayInterface((LineDisplayClientClass *)this);
 	LineDisplay->Unknown_54();
-	GalaxyMap = new GalaxyMapClientClass;
-	Targeting = new TargetingClass(this);
+	GalaxyMap = new GalaxyMapClient;
+	Targeting = new TargetSelectClass(this);
 	PDAInterface = new PDAInterfaceClass(this);
 	PDAInterface->Unknown_54();
 	Bridge = new BridgeInterface(this);
@@ -440,10 +440,10 @@ void SClient::Init()
 	LoadingView = new LoadingViewClass(Task);
 	LoadingView->Unknown_04();
 	EnvironmentMapManager->Load("envmaps.ini");
-	Unknown1358 = new Unknown514CC0ViewClass(Task);
+	Unknown1358 = new MenuViewClass(Task);
 	Unknown1358->Unknown_04();
 	Unknown1358->Unknown_08();
-	Unknown129C = Create_NEW(new UITalkTreeSpaceClass(this));
+	Unknown129C = Create_NEW(new SpaceTalkTreeInterface(this));
 	Unknown129C->Unknown_54();
 	Unknown129C->Unknown_7C(MainView, 0);
 	Unknown_74C9D0(Unknown129C); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek(); Unknown129C.Peek();	// dead reads (D272): the site's nested budget, so the converting operator= 0x758970 stays out of line in 0x74C9D0's else branch as the client's call at 0x74165B
@@ -462,7 +462,7 @@ void SClient::Init()
 	CameraModuleClass::Get_Signal_Map().connect((CameraModuleClass *)CameraManager->Module, this, &SClient::Unknown_744E50);	// the typed connect: the client takes the sender (ebx) and the member pointer (edi:ebp) before calling Get_Signal_Map
 
 
-	if (OptionClass::Instance->Get_Bool("Bridge_Mode")) {
+	if (OptionManagerClass::Instance->Get_Bool("Bridge_Mode")) {
 		Set_Camera_Mode(0);
 	} else {
 		Unknown_75A5D0();
@@ -480,7 +480,7 @@ void SClient::Init()
 
 	MusicManager = new MusicManagerClass;
 	Unknown_7518A0();
-	PxProcessClass::Pop();
+	PxProcessList::Pop();
 	Unknown1380 = 0;
 	if (Unknown137C) {
 		MainView->Unknown_514220();
@@ -518,7 +518,7 @@ void SClient::Shutdown()
 	// (0x74C9D0 inlined: the talk tree back to the space one)
 
 	Unknown_742530(0);
-	PxProcessClass::Push(PxProcess);
+	PxProcessList::Push(PxProcess);
 
 	// two empty frames
 	SimpleSceneClass *scene = new SimpleSceneClass;
@@ -621,7 +621,7 @@ void SClient::Shutdown()
 	Font = NULL;
 	delete Text;
 	Text = NULL;
-	PxProcessClass::Pop();
+	PxProcessList::Pop();
 }
 
 // 0x742530
@@ -671,7 +671,7 @@ void SClient::Process_Packets()
 	WWPROFILE("SClient::Process_Packets");
 
 	PacketClass *packet;
-	while ((packet = ((PeekConnectionClass *)Connection)->Peek()) != NULL) {
+	while ((packet = ((BufferedConnectionClass *)Connection)->Peek()) != NULL) {
 		if (Task->Is_Focused() && LoadingView->Unknown68) {
 			LoadingView->Unknown_0C(true);
 		}
@@ -727,7 +727,7 @@ unsigned SClient::Set_Avatar_ID(unsigned id)
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
-// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). Unknown12B0 (one DurationClass) set through its Time: the conversion (the constructor and the template's user operator=) makes this too heavy to inline four times into 0x7436A0 as the client does; Init and ctrngadg assign through it (their high half from xor reg, reg, as the client's). The mode through SOptionsClass::Current_Camera_Mode(): 0x7436A0's case-3 copy reads it through this+0x1150
+// 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out). Unknown12B0 (one DurationClass) set through its Time: the conversion (the constructor and the template's user operator=) makes this too heavy to inline four times into 0x7436A0 as the client does; Init and ctrngadg assign through it (their high half from xor reg, reg, as the client's). The mode through SpaceClientOptionsClass::Current_Camera_Mode(): 0x7436A0's case-3 copy reads it through this+0x1150
 void SClient::Unknown_744D80() {
 	Unknown12B0.Time = Unknown10BC;
 	CameraModeStruct &mode = Current_Camera_Mode();
@@ -805,7 +805,7 @@ int SClient::Do_Frame(bool focused)
 		Unknown1388 = true;
 		Unknown_74D990(0x13, "Lost connection to server.", 0);
 		delete Connection;
-		Connection = new PeekConnectionClass(new NullConnectionClass);
+		Connection = new BufferedConnectionClass(new NullConnectionClass);
 	} else {
 		float a, b, c, d, e, f;
 		int g = 0;
@@ -825,7 +825,7 @@ int SClient::Do_Frame(bool focused)
 			node = node->Next();
 		}
 	}
-	PxProcessClass::Push(PxProcess);
+	PxProcessList::Push(PxProcess);
 	int saved = Unknown_BE350C;
 	Unknown_BE350C = Unknown1128 ^ 1; Unknown1128 = Unknown_BE350C;
 	Unknown12D4 = 0;
@@ -897,7 +897,7 @@ int SClient::Do_Frame(bool focused)
 		}
 	}
 	Unknown_BE350C = saved;
-	PxProcessClass::Pop();
+	PxProcessList::Pop();
 	return(Unknown12D4);
 }
 
@@ -1107,14 +1107,14 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				Unknown_74D990(0x17, "*SNAP* Done!", 0);
 				return(true);
 			case 1:
-				Connection->Send_Packet(&MovePacketClass(Get_Avatar_ID(), 13));
+				Connection->Send_Packet(&MovementPacketClass(Get_Avatar_ID(), 13));
 				return(true);
 			case 2:
 				Unknown_744D80();
 				return(true);
 			case 3:
 				if (!CurrentView || CurrentView != Unknown135C) {
-					BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Bridge_Mode");
+					BoolOptionStruct *option = OptionManagerClass::Instance->Find_Bool("Bridge_Mode");
 					if (CameraMode == 0) {
 						unsigned m = Unknown_75A5D0(); Print(0x17, "Camera set to 3rd person mode %i,", m);
 						if (option) option->Set_Value(false);
@@ -1328,9 +1328,9 @@ void SClient::Unknown_745750()
 	}
 	Unknown_Delete_Records(Unknown86CList);
 	Unknown_755600();
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
+	std::hash_map<unsigned, AvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); it++) {
-		CharacterViewAvatarClass *object = (*it).second;
+		AvatarClass *object = (*it).second;
 		if (object) {
 			object->Remove();
 			object->Release_Ref();
@@ -1353,7 +1353,7 @@ void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
-		Unknown717010Class *state = (Unknown717010Class *)avatar->PositionalState; state->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
+		Unknown717010Class *state = (Unknown717010Class *)avatar->PositionalState; state->Unknown_717430((int)&Unknown10D4, (DeltaContainer *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
 	}
 }
 
@@ -1362,7 +1362,7 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
-		Unknown717010Class *state = (Unknown717010Class *)avatar->PositionalState; state->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
+		Unknown717010Class *state = (Unknown717010Class *)avatar->PositionalState; state->Unknown_7179A0((int)&Unknown10D4, (DeltaContainer *)avatar->AuxData, Unknown10BC, level, auto_level);
 	}
 }
 
@@ -1391,7 +1391,7 @@ void SClient::Unknown_745D50(float turn, float tilt)
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
-		((Unknown717010Class *)avatar->PositionalState)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, &turn, &tilt, NULL, false);
+		((Unknown717010Class *)avatar->PositionalState)->Unknown_717430((int)&Unknown10D4, (DeltaContainer *)avatar->AuxData, Unknown10BC, &turn, &tilt, NULL, false);
 	}
 }
 
@@ -1400,7 +1400,7 @@ void SClient::Unknown_745DD0()
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->PositionalState->Get_Type() == 4) {
-		((Unknown717010Class *)avatar->PositionalState)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, true);
+		((Unknown717010Class *)avatar->PositionalState)->Unknown_7179A0((int)&Unknown10D4, (DeltaContainer *)avatar->AuxData, Unknown10BC, true, true);
 	}
 }
 
@@ -2156,12 +2156,12 @@ void SClient::Unknown_745160()
 {
 	Unknown1198 = false;
 	FAIL_IF(!MainView) return;
-	UICpitClass *cockpit = MainView->Cpit;
+	CockpitInterface *cockpit = MainView->Cpit;
 	FAIL_IF(!cockpit) return;
 	cockpit->Unknown_584A60();
 }
 
-// 0x745080 (no caller in the client: dead code kept): settings.ini's 'Lights' 'GlobalZ' from SOptionsClass +0x1C, then
+// 0x745080 (no caller in the client: dead code kept): settings.ini's 'Lights' 'GlobalZ' from SpaceClientOptionsClass +0x1C, then
 // the main view's and +0x1358's interface objects (0x6B4900), saved
 void SClient::Unknown_745080()
 {
@@ -3051,9 +3051,9 @@ bool SClient::Unknown_749020(const char *text)
 {
 	if (strncmp(text, "/resethud", 9) == 0) {
 		Unknown_74D990(1, "Hud option values have been reset.", 0);
-		OptionClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = 1000.0f;
-		OptionClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = 6000.0f;
-		OptionClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = 0.5f;
+		OptionManagerClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = 1000.0f;
+		OptionManagerClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = 6000.0f;
+		OptionManagerClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = 0.5f;
 		return(true);
 	}
 	if (strncmp(text, "/sethud", 7) == 0) {
@@ -3062,9 +3062,9 @@ bool SClient::Unknown_749020(const char *text)
 		strtok(buffer, " \t");
 		char *type = strtok(NULL, " \t");
 		char *value_text = strtok(NULL, " \t");
-		float close_dist = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Distance");
-		float far_dist = OptionClass::Instance->Get_Float("Gutter_Icon_Max_Distance");
-		float min_scale = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Scale");
+		float close_dist = OptionManagerClass::Instance->Get_Float("Gutter_Icon_Min_Distance");
+		float far_dist = OptionManagerClass::Instance->Get_Float("Gutter_Icon_Max_Distance");
+		float min_scale = OptionManagerClass::Instance->Get_Float("Gutter_Icon_Min_Scale");
 		if (type != NULL) {
 			if (value_text == NULL) {
 				if (stricmp(type, "closedist") == 0) {
@@ -3089,7 +3089,7 @@ bool SClient::Unknown_749020(const char *text)
 							return(true);
 						}
 						Print(0x13, "HUD closedist value is now set at %d.", (int)value);
-						OptionClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = value;
+						OptionManagerClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = value;
 						return(true);
 					}
 					Unknown_74D990(0x13, "closedist value out of range.", 1);
@@ -3100,14 +3100,14 @@ bool SClient::Unknown_749020(const char *text)
 							return(true);
 						}
 						Print(0x13, "HUD fardist value is now set at %d.", (int)value);
-						OptionClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = value;
+						OptionManagerClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = value;
 						return(true);
 					}
 					Unknown_74D990(0x13, "fardist value out of range.", 1);
 				} else if (stricmp(type, "minscale") == 0) {
 					if (value >= 0.25f && value <= 1.0f) {
 						Print(0x13, "HUD minscale value is now set at %0.2f", value);
-						OptionClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = value;
+						OptionManagerClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = value;
 						return(true);
 					}
 					Unknown_74D990(0x13, "minscale value out of range.", 1);
@@ -3198,10 +3198,10 @@ bool SClient::Unknown_749020(const char *text)
 
 
 // The player's avatar object, as 0x74C7B0 for Get_Avatar_ID() through a const_iterator: inlined (0x749590, 0x749A70)
-static inline CharacterViewAvatarClass *Unknown_Player_Avatar(SClient *client, unsigned id) {	// NAME 2: what it does (the callers pass Get_Avatar_ID())
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = client->Unknown1394.find(id);
+static inline AvatarClass *Unknown_Player_Avatar(SClient *client, unsigned id) {	// NAME 2: what it does (the callers pass Get_Avatar_ID())
+	std::hash_map<unsigned, AvatarClass *>::const_iterator it = client->Unknown1394.find(id);
 	if (it != client->Unknown1394.end() && (*it).second) {
-		CharacterViewAvatarClass *object = (*it).second->Unknown_77E3F0();
+		AvatarClass *object = (*it).second->Unknown_77E3F0();
 		EnvironmentMapManagerClass *env = client->EnvironmentMapManager; object->Unknown_780810(env);
 		return(object); }
 	return(NULL); }
@@ -3274,7 +3274,7 @@ bool SClient::Unknown_749590(const char *text)
 	}
 	std::string name = Unknown_73FEF0(words[0].c_str());
 	std::string message = Unknown_73FEF0(words[1].c_str());
-	CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
+	AvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
 	if (avatar) {
 		avatar->Unknown_781760(message.c_str());
 		int id = Unknown1138; ClientChatRequestPacketClass packet(1, id);
@@ -3311,7 +3311,7 @@ bool SClient::Unknown_749A70(const char *text)
 			Unknown_74D990(0x11, "Unable to reply - nothing to reply to.", 0);
 			return(true);
 		}
-		CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
+		AvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
 		if (avatar) {
 			char *message = buffer + skip;
 			avatar->Unknown_781760(message);
@@ -3337,7 +3337,7 @@ bool SClient::Unknown_749A70(const char *text)
 // (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel); the channel goes in the packet's +0x24 string (0x74A789)
 bool SClient::Unknown_749ED0(const char *text)
 {
-	OptionClass *options = OptionClass::Instance;
+	OptionManagerClass *options = OptionManagerClass::Instance;
 	std::string channel = "";
 	bool valid = true;
 	bool monitoring = true;
@@ -4146,10 +4146,10 @@ ClientObjectClass *SClient::Unknown_74BF80()
 #include "aux_ship_player.h"			// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass (0x74BFB0's Info, '/starbase reset', 0x74D950, the chat-event colour)
 #include "sbase_info.h"	// StarbaseInfoClass: the starbase view's Info (0x74BFB0)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's, ui_mfd.cpp's)  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's, ui_mfd.cpp's)  // NAME 1: neutral (D10)
 // NOT EXACT: registers (masked residue 48, was 81): the type, the avatar's description and the levels through file-static layers and two dead size() reads after the find (D272) give the client's 26 calls (conversions 0x755BD0, the first Find_Field 0x514B60, the Casts 0x531590 out of line); left: the client keeps type in ebp and race in ebx, ours spills type; attempts.py show 0x74BFB0
 // 0x74BFB0 (0x744690, after the listener: every frame): MusicManagerClass::Update's type, level, race and theme race, then the aux data's MusicID
-static inline int Unknown_Field_Value(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Find_Valid<DeltaTemplateClass<int> >(root, name)->Value); }	// NAME 1: neutral (D10)
+static inline int Unknown_Field_Value(DeltaContainer *root, const AuxDataName &name) { return(Unknown_Find_Valid<DeltaTemplateClass<int> >(root, name)->Value); }	// NAME 1: neutral (D10)
 // 0x74BFB0's layers (the client calls the conversions 0x755BD0, the first Find_Field and the Casts out of line)
 static inline int Unknown_Music_Type(SClient *client, int &theme_race)	// NAME 1: neutral (D10)
 {
@@ -4158,14 +4158,14 @@ static inline int Unknown_Music_Type(SClient *client, int &theme_race)	// NAME 1
 	} else if (client->CameraManager && client->CameraManager->Unknown_79B630()) { type = -1;
 	} else if (client->CameraManager && client->CameraManager->Unknown_79B650()) { type = 4;
 	} else if (client->CurrentView && client->CurrentView == client->Unknown135C) {
-		type = 3; SBaseViewClass *view = (SBaseViewClass *)client->Unknown135C;
+		type = 3; StarbaseViewClass *view = (StarbaseViewClass *)client->Unknown135C;
 		if (view && view->Info) { theme_race = view->Info->Style; if (theme_race > 2) theme_race = 8; }
 	} else if (client->ViewMode == 1 || client->ViewMode == 5) { type = 2; }
 	return(type);
 }
-static inline AvatarDescClass *Unknown_Avatar_Desc(SClient *client)	// NAME 1: neutral (D10)
+static inline AvatarDescriptionClass *Unknown_Avatar_Desc(SClient *client)	// NAME 1: neutral (D10)
 {
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = client->Unknown1394.find(client->Get_Avatar_ID());
+	std::hash_map<unsigned, AvatarClass *>::const_iterator it = client->Unknown1394.find(client->Get_Avatar_ID());
 	if (it == client->Unknown1394.end() || !(*it).second) return(NULL);
 	return(&(*it).second->Desc);
 }
@@ -4174,18 +4174,18 @@ void SClient::Unknown_74BFB0()
 	int theme_race = 8;
 	int type = Unknown_Music_Type(this, theme_race);
 	if (Unknown_74D730()) type = 1;
-	AvatarDescClass *desc = Unknown_Avatar_Desc(this);
+	AvatarDescriptionClass *desc = Unknown_Avatar_Desc(this);
 	Unknown1394.size();
 	Unknown1394.size();
 	if (!desc) return;
 	int race = desc->Race;
 
 	G_ASSERT(AuxData);
-	int level = Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.CombatLevel"));
-	level += Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.TradeLevel"));
-	level += Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.ExploreLevel"));
+	int level = Unknown_Field_Value((DeltaContainer *)AuxData, AuxDataName("RPGInfo.CombatLevel"));
+	level += Unknown_Field_Value((DeltaContainer *)AuxData, AuxDataName("RPGInfo.TradeLevel"));
+	level += Unknown_Field_Value((DeltaContainer *)AuxData, AuxDataName("RPGInfo.ExploreLevel"));
 	MusicManager->Update(type, level, race, theme_race);
-	DeltaTemplateClass<int> *music = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("MusicID"));
+	DeltaTemplateClass<int> *music = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)AuxData, AuxDataName("MusicID"));
 	if (music && music->Unknown70 > 1) {
 		MusicManager->Play_Music(music->Value);
 	}
@@ -4260,10 +4260,10 @@ void SClient::Unknown_74C370(RefCountClass *object)
 }
 // Exact with two dead reads after operator[] (D130, not the client's): they take its nested budget, so resize 0x759660, the node allocator 0x759030 and the second bucket count go out of line as the client's
 #pragma auto_inline(off)	// 0x74C3B0 (out of line in 0x7511A0, as the client has it)
-void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
+void SClient::Unknown_74C3B0(int game_id, AvatarDescriptionClass &desc)
 {
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
-	CharacterViewAvatarClass *object = new CharacterViewAvatarClass(&desc, false, false, NULL);
+	AvatarClass *object = new AvatarClass(&desc, false, false, NULL);
 	Unknown1394[game_id] = object; Unknown1394.size(); Unknown1394.size();	// (dead, D130)
 	if (AvatarID == (unsigned)game_id) Bridge->Set_Avatar(&object->Desc);
 }
@@ -4272,9 +4272,9 @@ void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 // taken out of +0x1394
 void SClient::Unknown_74C530(unsigned id)
 {
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		CharacterViewAvatarClass *object = (*it).second;
+		AvatarClass *object = (*it).second;
 		object->Remove();
 		object->Release_Ref();
 		Unknown1394.erase(id);
@@ -4283,9 +4283,9 @@ void SClient::Unknown_74C530(unsigned id)
 // 0x74C690
 void SClient::Unknown_74C690()
 {
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
+	std::hash_map<unsigned, AvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		CharacterViewAvatarClass *object = (*it).second;
+		AvatarClass *object = (*it).second;
 		if (object) {
 			object->Remove();
 			object->Release_Ref();
@@ -4294,11 +4294,11 @@ void SClient::Unknown_74C690()
 	Unknown1394.clear();
 }
 // 0x74C7B0
-CharacterViewAvatarClass *SClient::Unknown_74C7B0(unsigned id)
+AvatarClass *SClient::Unknown_74C7B0(unsigned id)
 {
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		CharacterViewAvatarClass *object = (*it).second->Unknown_77E3F0();
+		AvatarClass *object = (*it).second->Unknown_77E3F0();
 		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
@@ -4306,11 +4306,11 @@ CharacterViewAvatarClass *SClient::Unknown_74C7B0(unsigned id)
 }
 
 // 0x74C840
-CharacterViewAvatarClass *SClient::Unknown_74C840(unsigned id)
+AvatarClass *SClient::Unknown_74C840(unsigned id)
 {
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		CharacterViewAvatarClass *object = (*it).second->Unknown_77E610();
+		AvatarClass *object = (*it).second->Unknown_77E610();
 		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
@@ -4319,7 +4319,7 @@ CharacterViewAvatarClass *SClient::Unknown_74C840(unsigned id)
 
 // Exact with one dead read after the last return (D130, not the client's): it spends the budget that sends 0x74C840's nested hash_map::find out of line (0x756820, the key in the argument slot) as the client has it
 // 0x74C8D0 (0x74C840 for the named object's GameID)
-CharacterViewAvatarClass *SClient::Unknown_74C8D0(const char *name) {
+AvatarClass *SClient::Unknown_74C8D0(const char *name) {
 	ClientObjectClass *object = Find_Object(name);
 	if (object) return(Unknown_74C840(object->GameID));
 	return(NULL); Unknown1394.size(); }	// (dead, D130)
@@ -4327,7 +4327,7 @@ CharacterViewAvatarClass *SClient::Unknown_74C8D0(const char *name) {
 // 0x74C960
 int *SClient::Unknown_74C960(unsigned id)
 {
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, AvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
 		return((int *)&(*it).second->Desc);
 	}
@@ -4335,7 +4335,7 @@ int *SClient::Unknown_74C960(unsigned id)
 }
 
 // 0x74C9D0
-void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree)
+void SClient::Unknown_74C9D0(const RefCountPtr<TalkTreeInterface> &tree)
 {
 	if (!(tree == Unknown1298)) {
 		if (tree) {
@@ -4479,10 +4479,10 @@ void Unknown_74CA90(const char *filename)
 // 0x74D570 (the player is in a group: one of GroupInfo.Members' first five has a name)
 bool SClient::Unknown_74D570()
 {
-	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(AuxData, name);
+	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(AuxData, name);
 	if (group && group->Unknown70) {
 		for (int i = 0; i < 5; i++) {
-			const char *name = ((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String;
+			const char *name = ((DeltaGroupMember *)group->Members.Children[i])->Name.String;
 			if (name && strcmp(name, "") != 0) return(true);
 		}
 	}
@@ -4492,7 +4492,7 @@ bool SClient::Unknown_74D570()
 // 0x74D690 (the player leads its group: GroupInfo.IsGroupLeader)
 bool SClient::Unknown_74D690()
 {
-	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(AuxData, name);
+	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(AuxData, name);
 	return(group && group->Unknown70 && group->IsGroupLeader.Value);
 }
 
@@ -4503,10 +4503,10 @@ bool SClient::Unknown_74D690()
 // when the player's ClientSendUITriggers field is set and positive
 void SClient::Unknown_744560(int arg)
 {
-	NameClass name("ClientSendUITriggers");
-	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+	AuxDataName name("ClientSendUITriggers");
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)AuxData, name);
 	if (t && t->Unknown70 && t->Value > 0) {
-		Send_Packet(&UiTriggerPacketClass(Get_Avatar_ID(), arg));
+		Send_Packet(&UITriggerPacketClass(Get_Avatar_ID(), arg));
 	}
 }
 
@@ -4585,9 +4585,9 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 {
 	if (!text || !*text) return;
 	switch (color) {
-		case 17: if (OptionClass::Instance->Get_Bool("Chat_Errors_IC")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2); break;
-		case 19: if (OptionClass::Instance->Get_Bool("Chat_Errors_System")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2); break;
-		case 21: if (!OptionClass::Instance->Get_Bool("Chat_Warnings")) SoundLibraryClass::Play_2D_Sound("Text_Warning", 2); break;
+		case 17: if (OptionManagerClass::Instance->Get_Bool("Chat_Errors_IC")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2); break;
+		case 19: if (OptionManagerClass::Instance->Get_Bool("Chat_Errors_System")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2); break;
+		case 21: if (!OptionManagerClass::Instance->Get_Bool("Chat_Warnings")) SoundLibraryClass::Play_2D_Sound("Text_Warning", 2); break;
 	}
 	ChatPanelInterface *chatpanel = ChatPanel.Peek();
 	FAIL_IF(!chatpanel) return;
@@ -4813,11 +4813,11 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_LEADER_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildLeaderAcceptClientPacketClass(Get_Unknown1138(), Unknown119C.c_str(), true));
+		Send_Packet(&GuildLeaderAcceptClientPacket(Get_Unknown1138(), Unknown119C.c_str(), true));
 		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildLeaderAcceptClientPacketClass(Get_Unknown1138(), Unknown119C.c_str(), false));
+		Send_Packet(&GuildLeaderAcceptClientPacket(Get_Unknown1138(), Unknown119C.c_str(), false));
 	}
 	button = dialog->Unknown_5890B0("GUILD_PROMOTE_CONFIRM");
 	if (button == 1) {
@@ -4868,11 +4868,11 @@ void SClient::Unknown_74EDB0()
 	button = dialog->Unknown_5890B0("GUILD_RECRUIT_CONFIRM");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildRecruitAcceptClientPacketClass(Get_Unknown1138(), true));
+		Send_Packet(&GuildRecruitAcceptClientPacket(Get_Unknown1138(), true));
 		changed = true;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&GuildRecruitAcceptClientPacketClass(Get_Unknown1138(), false));
+		Send_Packet(&GuildRecruitAcceptClientPacket(Get_Unknown1138(), false));
 	}
 	button = dialog->Unknown_5890B0("GUILD_GM_DISBAND_CONFIRM");
 	if (button == 1) {
@@ -5007,9 +5007,9 @@ void SClient::Unknown_74F5C0()
 					timedlist.erase(it);
 				}
 				if (button == 1) {
-					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacketClass(avatar_id, id, true));
+					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacket(avatar_id, id, true));
 				} else {
-					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacketClass(avatar_id, id, false));
+					unsigned avatar_id = AvatarID; Send_Packet(&ConfirmedActionResponsePacket(avatar_id, id, false));
 				}
 			}
 			Unknown_750210();
@@ -5189,7 +5189,7 @@ void SClient::Unknown_750800()
 			if (it != timedlist.end()) {
 				timedlist.erase(it);
 			}
-			Send_Packet(&ConfirmedActionResponsePacketClass(AvatarID, id, true));
+			Send_Packet(&ConfirmedActionResponsePacket(AvatarID, id, true));
 		}
 		ChatPanel->Unknown_56BAA0(0, NULL);
 	}
@@ -5260,7 +5260,7 @@ bool SClient::Unknown_750B60()
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->AuxData) {
-		NameClass name("IsIncapacitated"); DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
+		AuxDataName name("IsIncapacitated"); DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaContainer *)avatar->AuxData, name);
 		if (t && t->Unknown70) return(t->Value);
 	}
 	return(false);
@@ -5291,11 +5291,11 @@ void SClient::Unknown_750C20(int index)
 	for (unsigned i = 0; i < count; i++) {
 		EffectObjectClass *effect = Unknown_6E9490(desc_id, 0, duration, i * interval - delay + Unknown10BC, this, scale, hsv_shift, speedup, -1, 0);
 		if (effect) {
-			UnknownB00060EffectClass *unary = effect->Unknown_10();
+			UnaryEffectClass *unary = effect->Unknown_10();
 			if (unary) {
 				unary->Set_Source_Object_ID(AvatarID);
 			} else {
-				UnknownB0009CEffectClass *binary = effect->Unknown_14();
+				BinaryEffectClass *binary = effect->Unknown_14();
 				if (binary) {
 					if (target) {
 						binary->Set_Target_Object_ID(AvatarID);
@@ -5331,19 +5331,19 @@ void SClient::Unknown_7511A0()
 {
 	int count = 0;
 	std::vector<unsigned> ids;
-	std::vector<AvatarDescClass *> descs;
-	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
+	std::vector<AvatarDescriptionClass *> descs;
+	std::hash_map<unsigned, AvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		CharacterViewAvatarClass *object = (*it).second;
+		AvatarClass *object = (*it).second;
 		if (object) {
 			ids.push_back((*it).first);
-			descs.insert(descs.end(), new AvatarDescClass(object->Desc));
+			descs.insert(descs.end(), new AvatarDescriptionClass(object->Desc));
 			count++;
 		}
 	}
 	Unknown_74C690();
 	for (int i = 0; i < count; i++) {
-		AvatarDescClass *desc = descs[i];
+		AvatarDescriptionClass *desc = descs[i];
 		Unknown_74C3B0(ids[i], *desc);
 		delete desc;
 		descs[i] = NULL;
@@ -5414,7 +5414,7 @@ void SClient::Unknown_751660()
 	int button = dialog->Unknown_5890B0("SPEND_BUDDY_POINTS");
 	if (button == 1) {
 		dialog->Unknown_5C();
-		Send_Packet(&Packet_00E8Class(Unknown14F4));
+		Send_Packet(&SpendReferralPointPacketClass(Unknown14F4));
 		Unknown14F4 = 0;
 	} else if (button > 1) {
 		dialog->Unknown_5C();
@@ -5487,7 +5487,7 @@ void SClient::Unknown_7555B0()
 // the root to's state set from from's encoding (0x755600's two roots)
 template<class T> inline void Unknown_Copy_Root(T *to, T *from)	// NAME 1: neutral (D10)
 {
-	LinearBufferClass buf(0x400, 0x400);
+	LinearBuffer buf(0x400, 0x400);
 	DurationClass base(0);
 	from->Unknown_0C(buf);
 	buf.Seek(0);
@@ -5610,11 +5610,11 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/beacon") == 0) {
-		Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(AvatarID, true));
+		Connection->Send_Packet(&IncapacitanceDistressBeaconPacket(AvatarID, true));
 		return(true);
 	}
 	if (stricmp(text, "/beacon off") == 0) {
-		int id = AvatarID; Connection->Send_Packet(&IncapacitanceDistressBeaconPacketClass(id, false));
+		int id = AvatarID; Connection->Send_Packet(&IncapacitanceDistressBeaconPacket(id, false));
 		return(true);
 	}
 	if (stricmp(text, "/rescue") == 0) {
@@ -5622,7 +5622,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/starbase reset") == 0 && CurrentView && CurrentView == Unknown135C) {
-		UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+		StarbaseInterface *starbase = (StarbaseInterface *)((StarbaseViewClass *)Unknown135C)->Get_Starbase().Peek();
 		starbase->Unknown_640150();
 		return(true);
 	}
@@ -5640,7 +5640,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/self tag on") == 0) {
-		BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Show_Self_Name");
+		BoolOptionStruct *option = OptionManagerClass::Instance->Find_Bool("Show_Self_Name");
 		if (option) {
 			option->Value = true;
 			Unknown_74D990(0x17, "Your own avatar name tag will now be displayed.", 0);
@@ -5648,7 +5648,7 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	if (stricmp(text, "/self tag off") == 0) {
-		BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Show_Self_Name");
+		BoolOptionStruct *option = OptionManagerClass::Instance->Find_Bool("Show_Self_Name");
 		if (option) {
 			option->Value = false;
 			Unknown_74D990(0x17, "Your own avatar name tag will now be hidden.", 0);
@@ -5695,8 +5695,8 @@ bool SClient::Unknown_34(const char *text)
 // its +0x174 object's +0x18C is set
 void SClient::Unknown_74D950()
 {
-	if (CurrentView && CurrentView == Unknown135C && ((SBaseViewClass *)Unknown135C)->Unknown174) {
-		((SBaseViewClass *)Unknown135C)->Unknown174->Unknown18C = true;
+	if (CurrentView && CurrentView == Unknown135C && ((StarbaseViewClass *)Unknown135C)->Unknown174) {
+		((StarbaseViewClass *)Unknown135C)->Unknown174->Unknown18C = true;
 	}
 }
 
@@ -5727,7 +5727,7 @@ void SClient::Unknown_750F70(const char *name, int channel)
 	Vector3 color = Unknown13CC.Unknown_765DF0(channel);
 	if (CurrentView && CurrentView == Unknown135C) {
 		if (!Unknown135C) return;
-		UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+		StarbaseInterface *starbase = (StarbaseInterface *)((StarbaseViewClass *)Unknown135C)->Get_Starbase().Peek();
 		if (!starbase) return;
 		starbase->Unknown_6425D0(sender.c_str(), color);
 		return;
@@ -5829,7 +5829,7 @@ void SClient::Unknown_74B680(bool request, int starbase_id)
 	if (request) {
 		if (!Unknown1324) {
 			int id = Unknown1138;
-			Send_Packet(&StarbaseRequestPacketClass(id, 0, starbase_id));
+			Send_Packet(&StarbaseReqPacketClass(id, 0, starbase_id));
 		}
 	} else if (!Unknown135C) {
 		Unknown_745E40(0, false);
@@ -5837,7 +5837,7 @@ void SClient::Unknown_74B680(bool request, int starbase_id)
 		Unknown_745C70(0.0f);
 		Unknown1324 = starbase_id;
 		Unknown_750A70(starbase_id);
-		Unknown135C = new SBaseViewClass(Task, Unknown1324);
+		Unknown135C = new StarbaseViewClass(Task, Unknown1324);
 		Unknown135C->Unknown_04();
 		Unknown135C->Unknown_08();
 		Unknown_745F30(4);
@@ -5854,7 +5854,7 @@ void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
 				LoadingView->Unknown_692160();
 			}
 			int id = Unknown1138;
-			Send_Packet(&StarbaseRequestPacketClass(id, 1, Unknown1324));
+			Send_Packet(&StarbaseReqPacketClass(id, 1, Unknown1324));
 		}
 	} else if (Unknown135C && starbase_id == Unknown1324) {
 		Unknown_745F30(mode);
@@ -5883,7 +5883,7 @@ void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
 **	budget counts loops in an inlined callee). The movie callback stores its vtable before Client: a body
 **	assignment, not an initialiser.
 **	cpacket.cpp's handlers are PacketClass's slot +0x08 (Process_Packet(SClient *)): Process_Packets
-**	peeks the connection (PeekConnectionClass +0x34), hands the packet to its handler and, when that
+**	peeks the connection (BufferedConnectionClass +0x34), hands the packet to its handler and, when that
 **	returns true, takes it off the connection (+0x0C) and deletes it; false leaves it for the next frame.
 **	0x750260 under D165's FAIL_IF (the && form, cheaper for the inline budget): a dead
 **	'WWAudioClass::Get_Instance();' before the two FAIL_IFs keeps StringClass::Store_Length out of line and

@@ -363,7 +363,7 @@ void EffectObjectClass::Unknown_6E74B0(int arg)
 }
 
 // 0x6E7540
-UnknownB00060EffectClass::UnknownB00060EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
+UnaryEffectClass::UnaryEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
 	EffectObjectClass(client, id, start_time, duration, cycle_time),
 	SourceObject(NULL),
 	SourceNode(NULL),
@@ -372,7 +372,7 @@ UnknownB00060EffectClass::UnknownB00060EffectClass(ClientClass *client, unsigned
 }
 
 // 0x6E7690
-void UnknownB00060EffectClass::Unknown_04(int arg)
+void UnaryEffectClass::Unknown_04(int arg)
 {
 	if ((DataNode<UnknownAF0DD0Class *> *)arg == &SourceNode) {
 		SourceObject = NULL;
@@ -475,7 +475,7 @@ void UnknownB00060EffectClass::Unknown_04(int arg)
 
 
 // 0x6E7770
-void UnknownB00060EffectClass::Set_Source_Object_ID(int game_id)
+void UnaryEffectClass::Set_Source_Object_ID(int game_id)
 {
 	SourceObject = Client->Find_Object(game_id);
 	if (SourceObject) {
@@ -490,14 +490,14 @@ void UnknownB00060EffectClass::Set_Source_Object_ID(int game_id)
 }
 
 // 0x6E7810
-void UnknownB00060EffectClass::Unknown_6E7810(int game_id, const LegoIdentifierClass &lego)
+void UnaryEffectClass::Unknown_6E7810(int game_id, const LegoIdentifierClass &lego)
 {
 	SourceLego = lego;
 	Set_Source_Object_ID(game_id);
 }
 
 // 0x6E7850
-void UnknownB00060EffectClass::Unknown_18()
+void UnaryEffectClass::Unknown_18()
 {
 	if (SourceObject) {
 		Unknown_6E7AA0();
@@ -505,7 +505,7 @@ void UnknownB00060EffectClass::Unknown_18()
 }
 
 // 0x6E7870
-void UnknownB00060EffectClass::Unknown_1C()
+void UnaryEffectClass::Unknown_1C()
 {
 	if (SourceObject && (bool)Flag.Unknown7) {
 		Unknown_6E7AA0();
@@ -528,7 +528,7 @@ void UnknownB00060EffectClass::Unknown_1C()
 
 
 // 0x6E78A0
-void UnknownB00060EffectClass::Unknown_24(int next)
+void UnaryEffectClass::Unknown_24(int next)
 {
 	EffectObjectClass *link = (next == 0) ? StartLink : NextLink;
 	if (link) {
@@ -537,7 +537,7 @@ void UnknownB00060EffectClass::Unknown_24(int next)
 		if ((bool)Flag.Unknown2) {
 			link->Unknown_6E6E30();
 		}
-		UnknownB00060EffectClass *unary = link->Unknown_10();
+		UnaryEffectClass *unary = link->Unknown_10();
 		if (unary) {
 			if (SourceObject) {
 				if (!SourceLego.Is_Empty()) {
@@ -557,7 +557,7 @@ void UnknownB00060EffectClass::Unknown_24(int next)
 }
 
 // 0x6E7AA0
-void UnknownB00060EffectClass::Unknown_6E7AA0()
+void UnaryEffectClass::Unknown_6E7AA0()
 {
 
 
@@ -572,7 +572,7 @@ void UnknownB00060EffectClass::Unknown_6E7AA0()
 }
 
 // 0x6E7D70
-UnknownB0009CEffectClass::UnknownB0009CEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
+BinaryEffectClass::BinaryEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
 	EffectObjectClass(client, id, start_time, duration, cycle_time),
 	SourceObject(NULL),
 	TargetObject(NULL),
@@ -585,7 +585,7 @@ UnknownB0009CEffectClass::UnknownB0009CEffectClass(ClientClass *client, unsigned
 }
 
 // 0x6E7ED0
-void UnknownB0009CEffectClass::Unknown_04(int arg)
+void BinaryEffectClass::Unknown_04(int arg)
 {
 	if ((DataNode<UnknownAF0DD0Class *> *)arg == &SourceNode) {
 		SourceObject = NULL;
@@ -625,7 +625,7 @@ void UnknownB0009CEffectClass::Unknown_04(int arg)
 
 
 // 0x6E80D0
-void UnknownB0009CEffectClass::Set_Source_Object_ID(int game_id)
+void BinaryEffectClass::Set_Source_Object_ID(int game_id)
 {
 	SourceObject = Client->Find_Object(game_id);
 	if (SourceObject) {
@@ -640,7 +640,7 @@ void UnknownB0009CEffectClass::Set_Source_Object_ID(int game_id)
 }
 
 // 0x6E8170
-void UnknownB0009CEffectClass::Unknown_2C(int game_id, const LegoIdentifierClass &lego)
+void BinaryEffectClass::Unknown_2C(int game_id, const LegoIdentifierClass &lego)
 {
 	SourceLego = lego;
 	Set_Source_Object_ID(game_id);
@@ -652,7 +652,7 @@ void UnknownB0009CEffectClass::Unknown_2C(int game_id, const LegoIdentifierClass
 
 
 // 0x6E81B0
-void UnknownB0009CEffectClass::Set_Target_Object_ID(int game_id)
+void BinaryEffectClass::Set_Target_Object_ID(int game_id)
 {
 	TargetObject = Client->Find_Object(game_id);
 	Unknown_73FDB0(&TargetNode, TargetObject);
@@ -667,7 +667,7 @@ void UnknownB0009CEffectClass::Set_Target_Object_ID(int game_id)
 }
 
 // 0x6E82A0
-void UnknownB0009CEffectClass::Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset)
+void BinaryEffectClass::Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset)
 {
 	if (TargetObject) {
 		if (unknown34 == 0) {
@@ -704,13 +704,13 @@ void UnknownB0009CEffectClass::Unknown_6E82A0(short unknown36, short unknown34, 
 }
 
 // 0x6E87C0
-void UnknownB0009CEffectClass::Unknown_6E87C0(const Vector3 &offset)
+void BinaryEffectClass::Unknown_6E87C0(const Vector3 &offset)
 {
 	TargetOffset = offset;
 }
 
 // 0x6E8800
-void UnknownB0009CEffectClass::Unknown_18()
+void BinaryEffectClass::Unknown_18()
 {
 	if (SourceObject) {
 		Unknown_6E8F80();
@@ -722,7 +722,7 @@ void UnknownB0009CEffectClass::Unknown_18()
 
 
 // 0x6E8890
-void UnknownB0009CEffectClass::Unknown_1C()
+void BinaryEffectClass::Unknown_1C()
 {
 	if (SourceObject && (bool)Flag.Unknown7) {
 		Unknown_6E8F80();
@@ -779,7 +779,7 @@ void UnknownB0009CEffectClass::Unknown_1C()
 
 
 // 0x6E8B60
-void UnknownB0009CEffectClass::Unknown_24(int next)
+void BinaryEffectClass::Unknown_24(int next)
 {
 	EffectObjectClass *link = (next == 0) ? StartLink : NextLink;
 	if (link) {
@@ -788,7 +788,7 @@ void UnknownB0009CEffectClass::Unknown_24(int next)
 		if ((bool)Flag.Unknown2) {
 			link->Unknown_6E6E30();
 		}
-		UnknownB0009CEffectClass *binary = link->Unknown_14();
+		BinaryEffectClass *binary = link->Unknown_14();
 		if (binary) {
 			if (SourceObject) {
 				if (!SourceLego.Is_Empty()) {
@@ -807,7 +807,7 @@ void UnknownB0009CEffectClass::Unknown_24(int next)
 			binary->TargetOffset = TargetOffset;
 			return;
 		}
-		UnknownB00060EffectClass *unary = link->Unknown_10();
+		UnaryEffectClass *unary = link->Unknown_10();
 		if (unary) {
 			Unknown_3C(unary, next);
 			return;
@@ -819,7 +819,7 @@ void UnknownB0009CEffectClass::Unknown_24(int next)
 }
 
 // 0x6E8DD0
-void UnknownB0009CEffectClass::Unknown_3C(UnknownB00060EffectClass *unary, int next)
+void BinaryEffectClass::Unknown_3C(UnaryEffectClass *unary, int next)
 {
 	if (Flags & ((next != 0) ? 0x1000 : 0x800)) {
 		if (TargetObject) {
@@ -847,7 +847,7 @@ void UnknownB0009CEffectClass::Unknown_3C(UnknownB00060EffectClass *unary, int n
 
 
 // 0x6E8F80
-void UnknownB0009CEffectClass::Unknown_6E8F80()
+void BinaryEffectClass::Unknown_6E8F80()
 {
 	FAIL_IF(!SourceObject) return;
 	if (SourceLego.Is_Empty()) {
@@ -868,7 +868,7 @@ void UnknownB0009CEffectClass::Unknown_6E8F80()
 
 
 // 0x6E9190
-void UnknownB0009CEffectClass::Unknown_6E9190()
+void BinaryEffectClass::Unknown_6E9190()
 {
 	FAIL_IF(!TargetObject) return;
 	TargetPosition = TargetObject->Unknown_24() + TargetOffset;
@@ -876,7 +876,7 @@ void UnknownB0009CEffectClass::Unknown_6E9190()
 
 // 0x6E9230
 UnknownB000F0EffectClass::UnknownB000F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time) :
-	UnknownB00060EffectClass(client, id, start_time, duration, cycle_time)
+	UnaryEffectClass(client, id, start_time, duration, cycle_time)
 {
 	Set_Flag(0x80, true);
 }

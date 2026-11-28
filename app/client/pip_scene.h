@@ -27,11 +27,11 @@ class CameraClass;
 class RenderObjClass;
 class UIViewClass;
 
-class PipSceneClass  // NAME 3: class-from-file (D24) for app\client\pip_scene.cpp
+class PIPSceneClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	PipSceneClass(SClient *client);						// 0x7BA9C0  // NAME 1 [client]: what it stores
-	virtual ~PipSceneClass();							// +0x00 0x7BAC10 (deleting 0x7BABE0)
+	PIPSceneClass(SClient *client);						// 0x7BA9C0  // NAME 1 [client]: what it stores
+	virtual ~PIPSceneClass();							// +0x00 0x7BAC10 (deleting 0x7BABE0)
 
 	bool Unknown_7BACD0(const RefCountPtr<RenderObjClass> &vp, bool arg);	// 0x7BACD0 (FAIL_IF '!vp')  // NAME 2 [vp]: the FAIL_IF's  // NAME 1 [arg]: neutral (true: the 'tl' / 'br' bones, false: the bounding box)
 	bool Unknown_7BB080(UIViewClass *view, int arg1, int arg2);	// 0x7BB080 (FAIL_IF '!view'; UIViewClass::Unknown_65B7A0's poly budget, sort level)  // NAME 2 [view]: the FAIL_IF's  // NAME 1 [arg1, arg2]: neutral

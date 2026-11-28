@@ -92,23 +92,23 @@ void InvDataClass::Unknown_688870(unsigned int mask, const std::hash_set<int> *i
 
 
 // 0x6889F0
-DeltaCompoundClass *InvDataClass::Unknown_1C()
+DeltaContainer *InvDataClass::Unknown_1C()
 {
 	G_ASSERT(!Peek_Object());
-	DeltaCompoundClass *root = NULL;
+	DeltaContainer *root = NULL;
 	ClientObjectClass *object = NULL;
 	switch (Unknown50) {
 		case 3:
 		case 19:
 		case 20:
-			root = (DeltaCompoundClass *)Get_Client()->AuxData;
+			root = (DeltaContainer *)Get_Client()->AuxData;
 			break;
 		case 1:
 		case 2:
 			object = Get_Client()->Get_Ship();
 			break;
 		case 4:
-			root = (DeltaCompoundClass *)Get_Client()->AuxData;
+			root = (DeltaContainer *)Get_Client()->AuxData;
 			break;
 		case 5:
 		case 6:
@@ -143,7 +143,7 @@ DeltaCompoundClass *InvDataClass::Unknown_1C()
 			G_ASSERT(false);
 			return(NULL);
 	}
-	if (object != NULL && (root = (DeltaCompoundClass *)object->AuxData) != NULL) {
+	if (object != NULL && (root = (DeltaContainer *)object->AuxData) != NULL) {
 		Unknown_08(object);
 	}
 	Unknown54.Attach(root);
@@ -211,7 +211,7 @@ void InvDataClass::Unknown_24()
 {
 	Unknown160 = 0;
 	Unknown17C.clear();
-	DeltaCompoundClass *root = Peek_Aux_Data();
+	DeltaContainer *root = Peek_Aux_Data();
 	Unknown54.Attach(root);
 	UnknownD8.Attach(root);
 	SlotDataClass::Unknown_24();

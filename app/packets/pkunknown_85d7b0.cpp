@@ -2,21 +2,21 @@
 #include "pkunknown_85d7b0.h"
 #include <stdio.h>
 
-Packet_7533Class::Packet_7533Class(int game_id, int type, float radius) :
+GameEditorAddPacketClass::GameEditorAddPacketClass(int game_id, int type, float radius) :
 	GameID(game_id),
 	Type(type),
 	Radius(radius)
 {
 }
 
-Packet_7533Class::Packet_7533Class(RawPacketClass *raw)
+GameEditorAddPacketClass::GameEditorAddPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(&Radius, sizeof(Radius));
 }
 
-RawPacketClass *Packet_7533Class::Build()
+RawPacketClass *GameEditorAddPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30003, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -25,17 +25,17 @@ RawPacketClass *Packet_7533Class::Build()
 	return(raw);
 }
 
-int Packet_7533Class::Get_Data_Size()
+int GameEditorAddPacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(Type) + sizeof(Radius));
 }
 
-int Packet_7533Class::Print(char *buffer, int)
+int GameEditorAddPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d Type=%d Radius=%f}", "GameEditorAdd", GameID, Type, Radius));
 }
 
-bool Packet_7533Class::Process_Packet(void *)
+bool GameEditorAddPacketClass::Process_Packet(void *)
 {
 	return(true);
 }

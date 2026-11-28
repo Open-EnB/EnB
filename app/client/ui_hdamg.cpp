@@ -92,7 +92,7 @@ void UIHullDamageClass::Set_Object(ClientObjectClass *object)
 
 
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as co.cpp's
 
 // 0x59C190
 void UIHullDamageClass::Update()
@@ -101,8 +101,8 @@ void UIHullDamageClass::Update()
 
 	frame++;
 	if (Object) {
-		DeltaCompoundClass *aux = (DeltaCompoundClass *)Object->AuxData;
-		NameClass name("VisibleQuadrantDamagePercent");
+		DeltaContainer *aux = (DeltaContainer *)Object->AuxData;
+		AuxDataName name("VisibleQuadrantDamagePercent");
 		DeltaArrayClass<float> *damage = Unknown_Find_Valid<DeltaArrayClass<float> >(aux, name);
 		if (damage) {
 			for (int i = 0; i < 4; i++) {
@@ -111,7 +111,7 @@ void UIHullDamageClass::Update()
 				Message_Stat("", "HullDamage", __FILE__, __LINE__, (frame & 1) ? 0 : 30, i, "%2.2f -- %2.2f", value, damage->Get_Value(i));
 			}
 		}
-	} return; Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(NameClass *)this);	// D130: dead spenders after the find send rtti.h's Cast (0x59C670) out of line
+	} return; Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(AuxDataName *)this); Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(AuxDataName *)this); Unknown_Find_Valid<DeltaArrayClass<float> >(NULL, *(AuxDataName *)this);	// D130: dead spenders after the find send rtti.h's Cast (0x59C670) out of line
 }
 
 // 0x59C3B0

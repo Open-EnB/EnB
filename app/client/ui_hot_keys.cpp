@@ -106,7 +106,7 @@ bool UIHotKeysClass::Unknown_68(int key)
 	FAIL_IF(!Client) return(false);
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
-	TargetingClass *targeting = sclient->Targeting;
+	TargetSelectClass *targeting = sclient->Targeting;
 
 	FAIL_IF(!targeting) return(false);
 	if (sclient->CurrentView != (UIViewClass *)sclient->MainView) {
@@ -114,7 +114,7 @@ bool UIHotKeysClass::Unknown_68(int key)
 	}
 	switch (key) {
 		case 0:
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 12));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 12));
 			return(true);
 		case 1:
 			((ClientClass *)Client)->Send_Packet(&ActionPacketClass(Unknown_Avatar_ID(Client), 9, Unknown_Avatar_ID(Client), 0));

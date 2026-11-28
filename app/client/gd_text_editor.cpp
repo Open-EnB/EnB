@@ -116,8 +116,8 @@ void Unknown_671300Class::Unknown_671740(bool on, float speed)
 	Unknown_66C360();
 }
 // @0x671790
-TextEditorGadgetClass::TextEditorGadgetClass(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &model, const char *font, GadgetSlider *slider, int maxlen, const char *text) :
-	RObjGadgetClass(NULL, 0x105),
+TextEditorGadget::TextEditorGadget(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &model, const char *font, GadgetSlider *slider, int maxlen, const char *text) :
+	RenderObjGadgetClass(NULL, 0x105),
 	Unknown60(true),
 	Edit(NULL),
 	Font(font),
@@ -141,15 +141,15 @@ TextEditorGadgetClass::TextEditorGadgetClass(InterfaceClass *iface, const RefCou
 		slider->Unknown_65FFC0(-1, this);
 	}
 	Cursor = Unknown_685680(iface, RefCountPtr<RenderObjClass>());
-	Edit = new StrEditClass(maxlen, text, Unknown_B08CC4, NULL);
-	Split = new FontSplitStringClass(RefCountPtr<Font32Class>());
+	Edit = new StringEditClass(maxlen, text, Unknown_B08CC4, NULL);
+	Split = new FontSplitStringClass(RefCountPtr<Font32Bit>());
 	Split->Set_Escaped_New_Lines(false);
 	Split->Set_Trim_Last(false);
 	Split->Set_Trim_Lines(false);
 	Set_Render_Obj(model.Peek());
 }
 // @0x671B30
-TextEditorGadgetClass::~TextEditorGadgetClass()
+TextEditorGadget::~TextEditorGadget()
 {
 	Set_Render_Obj(NULL);
 	delete Edit;
@@ -161,14 +161,14 @@ TextEditorGadgetClass::~TextEditorGadgetClass()
 
 // NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped
 // @0x671CB0
-void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
+void TextEditorGadget::Set_Render_Obj(RenderObjClass *robj)
 {
 	for (std::vector<RefCountPtr<FontSys> >::iterator it = Lines.begin(); it != Lines.end(); it++) {
 		RefCountPtr<FontSys> line = *it;
 		line->Remove();
 	}
 	Lines.clear();
-	RObjGadgetClass::Set_Render_Obj(robj);
+	RenderObjGadgetClass::Set_Render_Obj(robj);
 	float height;
 	RenderObjClass *object = RObj;
 	if (object) {
@@ -204,7 +204,7 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 	}
 }
 // @0x6720A0
-bool TextEditorGadgetClass::Unknown_30(float x, float y)
+bool TextEditorGadget::Unknown_30(float x, float y)
 {
 	if (Slider) {
 		if (Slider->Is_Held()) {
@@ -215,11 +215,11 @@ bool TextEditorGadgetClass::Unknown_30(float x, float y)
 			Update_Lines(false);
 		}
 	}
-	return RObjGadgetClass::Unknown_30(x, y);
+	return RenderObjGadgetClass::Unknown_30(x, y);
 }
 
 // @0x672120
-bool TextEditorGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
+bool TextEditorGadget::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	if (Unknown_BE5F24 == this) {
 		if (Unknown_A9) {
@@ -265,7 +265,7 @@ bool TextEditorGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y
 		}
 		if (mask & 5) {
 			GadgetClass::Unknown_2C(event, x, y, mask);
-			if (!RObjGadgetClass::Unknown_30(x, y) || Unknown_6735A0(x, y)) {
+			if (!RenderObjGadgetClass::Unknown_30(x, y) || Unknown_6735A0(x, y)) {
 				Drop_Focus();
 			} else if (mask & 1) {
 				Unknown_6732F0(x, y);
@@ -284,7 +284,7 @@ bool TextEditorGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y
 	return false;
 }
 // @0x6725B0
-bool TextEditorGadgetClass::Unknown_68()
+bool TextEditorGadget::Unknown_68()
 {
 	if (GadgetClass::Unknown_68()) {
 		for (std::vector<RefCountPtr<FontSys> >::iterator it = Lines.begin(); it != Lines.end(); it++) {
@@ -297,7 +297,7 @@ bool TextEditorGadgetClass::Unknown_68()
 }
 
 // @0x672680
-void TextEditorGadgetClass::Unknown_6C()
+void TextEditorGadget::Unknown_6C()
 {
 	GadgetClass::Unknown_6C();
 	for (std::vector<RefCountPtr<FontSys> >::iterator it = Lines.begin(); it != Lines.end(); it++) {
@@ -308,20 +308,20 @@ void TextEditorGadgetClass::Unknown_6C()
 }
 
 // @0x672740
-void TextEditorGadgetClass::Unknown_74()
+void TextEditorGadget::Unknown_74()
 {
 	RefCountPtr<SceneClass> scene = Create_Peek(Layer.Peek_Scene());
 	Cursor->Unknown_685A30(scene);
 }
 
 // @0x6727E0
-void TextEditorGadgetClass::Unknown_78()
+void TextEditorGadget::Unknown_78()
 {
 	Cursor->Unknown_685A30(NULL);
 }
 
 // @0x672870
-std::string TextEditorGadgetClass::Get_Text()
+std::string TextEditorGadget::Get_Text()
 {
 	char *string = Edit->Get_String();
 	std::string text(string);
@@ -330,7 +330,7 @@ std::string TextEditorGadgetClass::Get_Text()
 }
 
 // @0x6729B0
-void TextEditorGadgetClass::Set_Text(const std::string &text)
+void TextEditorGadget::Set_Text(const std::string &text)
 {
 	Edit->Set_String(text);
 	Update_Lines(true);
@@ -338,7 +338,7 @@ void TextEditorGadgetClass::Set_Text(const std::string &text)
 }
 
 // @0x6729F0
-void TextEditorGadgetClass::Insert_Text(const std::string &text)
+void TextEditorGadget::Insert_Text(const std::string &text)
 {
 	if (Unknown60) {
 		Edit->Clear();
@@ -356,7 +356,7 @@ void TextEditorGadgetClass::Insert_Text(const std::string &text)
 
 
 // @0x672A60
-void TextEditorGadgetClass::Unknown_672A60()
+void TextEditorGadget::Unknown_672A60()
 {
 	FAIL_IF(!Slider) {
 		return;
@@ -366,7 +366,7 @@ void TextEditorGadgetClass::Unknown_672A60()
 }
 
 // @0x672AD0
-void TextEditorGadgetClass::Unknown_672AD0()
+void TextEditorGadget::Unknown_672AD0()
 {
 	if (Slider) {
 		Slider->Unknown_66FD80(false);
@@ -374,7 +374,7 @@ void TextEditorGadgetClass::Unknown_672AD0()
 }
 
 // @0x672B00
-void TextEditorGadgetClass::Update_Lines(bool split)
+void TextEditorGadget::Update_Lines(bool split)
 {
 	if (split) {
 		char *text = Edit->Get_String();
@@ -419,7 +419,7 @@ void TextEditorGadgetClass::Update_Lines(bool split)
 }
 
 // @0x672DC0
-bool TextEditorGadgetClass::Cursor_Up(bool update)
+bool TextEditorGadget::Cursor_Up(bool update)
 {
 	bool moved = false;
 	if (CursorLine) {
@@ -435,7 +435,7 @@ bool TextEditorGadgetClass::Cursor_Up(bool update)
 
 #pragma auto_inline(off)
 // @0x672E40
-bool TextEditorGadgetClass::Cursor_Down(bool update)
+bool TextEditorGadget::Cursor_Down(bool update)
 {
 	bool moved = false;
 	if (CursorLine + 1 < LineCount) {
@@ -452,7 +452,7 @@ bool TextEditorGadgetClass::Cursor_Down(bool update)
 #pragma auto_inline(on)
 
 // @0x672F00
-bool TextEditorGadgetClass::Page_Up()
+bool TextEditorGadget::Page_Up()
 {
 	int count = Lines.size() - 1;
 	while (count--) {
@@ -462,7 +462,7 @@ bool TextEditorGadgetClass::Page_Up()
 }
 
 // @0x672FF0
-void TextEditorGadgetClass::Page_Down()
+void TextEditorGadget::Page_Down()
 {
 	int count = Lines.size() - 1;
 	while (count--) {
@@ -472,7 +472,7 @@ void TextEditorGadgetClass::Page_Down()
 }
 
 // @0x673040
-bool TextEditorGadgetClass::Cursor_Home()
+bool TextEditorGadget::Cursor_Home()
 {
 	bool moved;
 	if (CursorColumn) {
@@ -490,7 +490,7 @@ bool TextEditorGadgetClass::Cursor_Home()
 }
 
 // @0x6730B0
-bool TextEditorGadgetClass::Cursor_End()
+bool TextEditorGadget::Cursor_End()
 {
 	const char *line = Split->Get(CursorLine);
 	if (line) {
@@ -512,7 +512,7 @@ bool TextEditorGadgetClass::Cursor_End()
 }
 
 // @0x673150
-void TextEditorGadgetClass::Take_Focus()
+void TextEditorGadget::Take_Focus()
 {
 	if (Unknown_BE5F24 != this && Unknown_BE5F24 == NULL) {
 		if ((Unknown_BE5F34 & 0xF) == 0) {
@@ -530,7 +530,7 @@ void TextEditorGadgetClass::Take_Focus()
 }
 
 // @0x673240
-void TextEditorGadgetClass::Drop_Focus()
+void TextEditorGadget::Drop_Focus()
 {
 	if (Unknown_BE5F24 == this) {
 		Unknown_6C();
@@ -539,13 +539,13 @@ void TextEditorGadgetClass::Drop_Focus()
 }
 
 // @0x673280
-bool TextEditorGadgetClass::Has_Focus()
+bool TextEditorGadget::Has_Focus()
 {
 	return Unknown_BE5F24 == this;
 }
 
 // @0x6732A0
-bool TextEditorGadgetClass::Unknown_6732A0()
+bool TextEditorGadget::Unknown_6732A0()
 {
 	if (Unknown_BE5F24 != this) {
 		Unknown_BE5F34 = 1;
@@ -559,7 +559,7 @@ bool TextEditorGadgetClass::Unknown_6732A0()
 
 // NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy
 // @0x6732F0
-void TextEditorGadgetClass::Unknown_6732F0(float x, float y)
+void TextEditorGadget::Unknown_6732F0(float x, float y)
 {
 	const Matrix3D &tm = Unknown_66C6C0();
 	float top = tm[1][3];
@@ -611,7 +611,7 @@ void TextEditorGadgetClass::Unknown_6732F0(float x, float y)
 #pragma auto_inline(off)
 // NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx)
 // @0x6735A0
-bool TextEditorGadgetClass::Unknown_6735A0(float x, float y)
+bool TextEditorGadget::Unknown_6735A0(float x, float y)
 {
 	if (Client) {
 		UIViewClass *view;

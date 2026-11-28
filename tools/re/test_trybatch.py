@@ -420,14 +420,14 @@ SRC_MARKED = ('// NOT EXACT: order-only (the shadowed vertex; attempts.csv 0x46C
 class Resolve(unittest.TestCase):
     """3. (SCAN) a stale or annotated SYMBOL, a header FILE, a base-only run."""
 
-    NAMES = ['?Value_To_String@@YAPADPADHW4VerbEnum@@@Z', '??0UDPConnection@@QAE@PBDG_N@Z',
-             '??0UDPConnection@@QAE@PAVCordCon@@PAVCordMgr@@@Z', '_$E28', '_$E29',
+    NAMES = ['?Value_To_String@@YAPADPADHW4VerbEnum@@@Z', '??0UDPConnectionClass@@QAE@PBDG_N@Z',
+             '??0UDPConnectionClass@@QAE@PAVCordCon@@PAVCordMgr@@@Z', '_$E28', '_$E29',
              '?Get@?$ClientObjectDataAccessClass@VRadarDataClass@@@@SAPAVRadarDataClass@@PAVClientObjectClass@@_N@Z',
              '?Get@?$ClientObjectDataAccessClass@VGutterDataClass@@@@SAPAVGutterDataClass@@PAVClientObjectClass@@_N@Z',
              '?Compute_Lighting@LandClass@@QAEXH@Z']
     INDEX = {
-        '??0UDPConnection@@QAE@PBDG_N@Z': ('public: __thiscall UDPConnection::UDPConnection(char const *,unsigned short,bool)', ['udpconn']),
-        '??0UDPConnection@@QAE@PAVCordCon@@PAVCordMgr@@@Z': ('public: __thiscall UDPConnection::UDPConnection(class CordCon *,class CordMgr *)', ['udpconn']),
+        '??0UDPConnectionClass@@QAE@PBDG_N@Z': ('public: __thiscall UDPConnectionClass::UDPConnectionClass(char const *,unsigned short,bool)', ['udpconn']),
+        '??0UDPConnectionClass@@QAE@PAVCordCon@@PAVCordMgr@@@Z': ('public: __thiscall UDPConnectionClass::UDPConnectionClass(class CordCon *,class CordMgr *)', ['udpconn']),
         '?Get@?$ClientObjectDataAccessClass@VRadarDataClass@@@@SAPAVRadarDataClass@@PAVClientObjectClass@@_N@Z':
             ('public: static class RadarDataClass * __cdecl ClientObjectDataAccessClass<class RadarDataClass>::Get(class ClientObjectClass *,bool)', ['co_data']),
         '?Value_To_String@@YAPADPADHW4VerbEnum@@@Z': ('char * __cdecl Value_To_String(char *,int,enum VerbEnum)', ['unknown_verb'])}
@@ -438,7 +438,7 @@ class Resolve(unittest.TestCase):
     def test_signatures(self):
         self.assertEqual(T.norm_sig('public: void __thiscall A<class B>::f(char *,int)'), ('A<B>::f', '(char*,int)'))
         self.assertEqual(self.cands('Value_To_String(char *, int, VerbEnum)')[0], [self.NAMES[0]])
-        self.assertEqual(self.cands('UDPConnection::UDPConnection(CordCon *, CordMgr *)')[0], [self.NAMES[2]])
+        self.assertEqual(self.cands('UDPConnectionClass::UDPConnectionClass(CordCon *, CordMgr *)')[0], [self.NAMES[2]])
         self.assertEqual(self.cands('ClientObjectDataAccessClass<RadarDataClass>::Get')[0], [self.NAMES[5]])
 
     def test_annotation_and_markers(self):

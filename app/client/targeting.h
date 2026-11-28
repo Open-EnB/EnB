@@ -17,11 +17,11 @@
 
 #include "target_find.h"
 
-class TargetingClass : public TargetFindClass	// NAME 2: the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp)
+class TargetSelectClass : public TargetFindClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	TargetingClass(SClient *client);								// 0x7C6120
-	virtual ~TargetingClass();										// +0x00 0x7C6160 (deleting), 0x7C6190
+	TargetSelectClass(SClient *client);								// 0x7C6120
+	virtual ~TargetSelectClass();										// +0x00 0x7C6160 (deleting), 0x7C6190
 	virtual ClientObjectClass *Select(ClientObjectClass *co);		// +0x04 0x7C62B0: sends REQUEST_TARGET when co isn't the target already
 
 	void Clear_Target();											// 0x7C61B0 (ui_mfd.cpp's 0x5BC5E0)  // NAME 2: what it does

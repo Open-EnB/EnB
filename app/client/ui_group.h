@@ -9,19 +9,19 @@
 
 class GadgetClass;			// gadget.cpp's
 class ButtonGadgetClass;	// unknown_675120.h's (the formation buttons at +0xC0, the members' buttons; deleted through gadget.h's 0x65EED0)
-class UIGroupClass;
+class GroupInterface;
 
 // (The interface base, Unknown5BB320Class, is in unknown_5bb250.h, which sclient.h includes: D137)
 class UIPowerClass;
 // What a member's +0x2C points to: ui_power.h's UIPowerClass (constructor 0x5DBFC0)
 
 // One member of the group (0x54 bytes, in Members; destructor 0x5932E0): the asserts' Get_Interface() is its +0x00
-class UIGroupMemberClass	// NAME 2: what UIGroupClass's Members holds
+class UIGroupMemberClass	// NAME 2: what GroupInterface's Members holds
 {
 public:
-	UIGroupMemberClass(UIGroupClass *owner);			// 0x593200 (Add_Member 0x596130)  // NAME 1 [owner]: what it holds
+	UIGroupMemberClass(GroupInterface *owner);			// 0x593200 (Add_Member 0x596130)  // NAME 1 [owner]: what it holds
 	~UIGroupMemberClass();								// 0x5932E0
-	UIGroupClass *Get_Interface() { return(Owner); }	// (the asserts' 'Get_Interface()')  // NAME 3: the asserts'
+	GroupInterface *Get_Interface() { return(Owner); }	// (the asserts' 'Get_Interface()')  // NAME 3: the asserts'
 	void Unknown_5934A0();								// 0x5934A0: the four buttons and +0x34 released (G_ASSERT line 403)
 	void Unknown_5935C0();								// 0x5935C0: the timers +0x24 / +0x20 run down (G_ASSERT line 456)
 	bool Unknown_593750();								// 0x593750: the object's presence differs from +0x1C
@@ -30,7 +30,7 @@ public:
 	void Unknown_593830(const RefCountPtr<RenderObjClass> &object);	// 0x593830: +0x30 set  // NAME 1 [object]: neutral
 	void Unknown_593B50();								// 0x593B50: +0x3C and +0x38 released
 
-	UIGroupClass *Owner;								// +0x00 (the asserts' 'Get_Interface()->Is_Active()': the group window's +0x7C)  // NAME 2: what it holds
+	GroupInterface *Owner;								// +0x00 (the asserts' 'Get_Interface()->Is_Active()': the group window's +0x7C)  // NAME 2: what it holds
 	std::string Name;									// +0x04 (0x596090 compares it; the assert's 'Get_Member(name)')  // NAME 2 [Name]: the assert's name
 	int ID;												// +0x14 (0x596040 / 0x5982A0 look members up by it; ClientClass::Find_Object)  // NAME 2: what it holds
 	int Unknown18;										// +0x18 (the constructor's -1; Add_Member's third argument)
@@ -64,9 +64,9 @@ public:
 	RefCountPtr<RenderObjClass> Unknown_5944A0();		// 0x5944A0 (0x594040, 0x598370): Unknown04
 	void Unknown_592C50();								// 0x592C50 (0x598370)
 
-	UIGroupUnknownE8Class(UIGroupClass *owner);			// 0x592910 (0x594040)  // NAME 1 [owner]: what 0x594040 passes
+	UIGroupUnknownE8Class(GroupInterface *owner);			// 0x592910 (0x594040)  // NAME 1 [owner]: what 0x594040 passes
 
-	UIGroupClass *Unknown00;							// +0x00 (the constructor's argument)
+	GroupInterface *Unknown00;							// +0x00 (the constructor's argument)
 	RefCountPtr<RenderObjClass> Unknown04;				// +0x04 (0x5944A0 returns it)
 	RefCountPtr<RenderObjClass> Unknown08[6];			// +0x08 (the eh vector destructor iterator with 0x4740B0)
 	int Unknown20;										// +0x20 (0x592BB0 clears +0x20..+0x28)
@@ -81,11 +81,11 @@ public:
 #define MAX_VISIBLE_GROUP_MEMBERS	5	// the client's FAIL_IF 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' compares with 5 (0x596130)
 
 // ui_group.cpp's group window (the main view's +0x1D8; 0xF4 bytes, table 0xAF1C34)
-class UIGroupClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_group.cpp
+class GroupInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UIGroupClass(SClient *client);						// 0x593BD0 (0xF4 bytes; the main view's 0x50C690)  // NAME 1 [client]: what 0x50C690 passes
-	virtual ~UIGroupClass();							// 0x593D70 (slot 0x593D40)
+	GroupInterface(SClient *client);						// 0x593BD0 (0xF4 bytes; the main view's 0x50C690)  // NAME 1 [client]: what 0x50C690 passes
+	virtual ~GroupInterface();							// 0x593D70 (slot 0x593D40)
 	virtual void Unknown_54();							// 0x594040 (0x50C690 calls it after construction)
 	virtual void Unknown_60();							// 0x5944D0
 	virtual bool Unknown_68(int key);					// 0x5946D0

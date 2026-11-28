@@ -3,7 +3,7 @@
 #include "..\aux_skill.h"
 #include "..\..\shared\auxdata\auxdata.h"
 #include "..\..\shared\auth_product.h"
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 
 
@@ -108,9 +108,9 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialRaceRe
 // 0x52E500
 bool ClientItemPropertySpecialRaceRequirementClass::Is_Usable()
 {
-	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
+	DeltaContainer *aux_data = (DeltaContainer *)SpaceClient->AuxData;
 	FAIL_IF(!aux_data) return(false);
-	NameClass name("RPGInfo.Race");
+	AuxDataName name("RPGInfo.Race");
 	DeltaTemplateClass<RaceType> *race_aux_data = Unknown_Find_Valid<DeltaTemplateClass<RaceType> >(aux_data, name);
 	FAIL_IF(!race_aux_data) return(false);
 	if (Races & (1 << race_aux_data->Value)) { return(false); } return(true);

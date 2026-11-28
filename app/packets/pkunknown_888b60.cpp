@@ -146,17 +146,17 @@ int Packet_00AEClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "GroupServerRequestPacketClass"));
 }
 
-Packet_00AFClass::Packet_00AFClass(int unknown0_c, int unknown10) : Unknown0C(unknown0_c), Unknown10(unknown10)
+GroupServerResponsePacketClass::GroupServerResponsePacketClass(int unknown0_c, int unknown10) : Unknown0C(unknown0_c), Unknown10(unknown10)
 {
 }
 
-Packet_00AFClass::Packet_00AFClass(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
+GroupServerResponsePacketClass::GroupServerResponsePacketClass(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
 {
 	raw->Get(Unknown0C);
 	raw->Get(&Unknown10, sizeof(Unknown10));
 }
 
-RawPacketClass *Packet_00AFClass::Build()
+RawPacketClass *GroupServerResponsePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(175, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -164,12 +164,12 @@ RawPacketClass *Packet_00AFClass::Build()
 	return(raw);
 }
 
-int Packet_00AFClass::Get_Data_Size()
+int GroupServerResponsePacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C) + sizeof(Unknown10));
 }
 
-int Packet_00AFClass::Print(char *buffer, int)
+int GroupServerResponsePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GroupServerResponsePacketClass"));
 }

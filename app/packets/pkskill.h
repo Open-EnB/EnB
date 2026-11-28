@@ -35,11 +35,11 @@ public:
 };
 
 // opcode 88 (0x0058, SKILL_ABILITY): vtable 0xB0BA78, constructor 0x8A4CF0, 0x18 bytes
-class SkillPacket_88Class : public PacketClass  // NAME 3: the client's Print text 'Skill {' and the PacketClass convention; opcode added (another opcode's class has the name)
+class SkillAbilityPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	SkillPacket_88Class(int game_id, int action, int ability_index);	// 0x8A4C70
-	SkillPacket_88Class(RawPacketClass *raw);	// 0x8A4CF0
+	SkillAbilityPacketClass(int game_id, int action, int ability_index);	// 0x8A4C70
+	SkillAbilityPacketClass(RawPacketClass *raw);	// 0x8A4CF0
 	virtual RawPacketClass *Build();	// +0x04 0x8A4DB0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867E60 (clientstub.cpp l.74)
 	virtual int Get_Data_Size();	// +0x0C 0x8A4E90

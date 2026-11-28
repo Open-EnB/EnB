@@ -29,7 +29,7 @@ class CompositeMatrixMapperClass;
 // mappers reset at the start (ResetMappers); the projections, stage 0 then stage 1: 0x800 / 0x8000 along Y,
 // 0x1000 / 0x10000 along Z (clear: X), 0x2000 / 0x20000 a world scale, 0x4000 / 0x40000 the model's box (clear: a
 // cylinder round the axis).
-class PassEffectClass : public UnknownB00060EffectClass	// NAME 3: effect.ini's EffectClass 'PassEffect' (0xB92E30's list), and the helper 0x6EB9B0's "for PassEffect %d"
+class PassEffectClass : public UnaryEffectClass	// NAME 3: effect.ini's EffectClass 'PassEffect' (0xB92E30's list), and the helper 0x6EB9B0's "for PassEffect %d"
 {
 public:
 	PassEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, const RefCountPtr<MaterialPassClass> &pass, bool projection0, bool projection1);	// 0x6ED6C0 (flag 0x80 set)  // NAME 1 [client .. cycle_time]: the base's; pass: the member; projection0, projection1: effect.ini's Projection0Axis / Projection1Axis present

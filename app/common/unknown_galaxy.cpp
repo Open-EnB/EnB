@@ -10,7 +10,7 @@
 #include "..\shared\auxdata\linearbu.h"
 
 // 0x83C730
-bool LoginGalaxyClass::Write(LinearBufferClass *buffer)
+bool LoginGalaxyClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(Name, 0x40);
 	buffer->Write(&ID, 4);
@@ -23,7 +23,7 @@ bool LoginGalaxyClass::Write(LinearBufferClass *buffer)
 }
 
 // 0x83C7C0
-bool LoginGalaxyClass::Read(LinearBufferClass *buffer)
+bool LoginGalaxyClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(Name, 0x40);
 	buffer->Read(&ID, 4);

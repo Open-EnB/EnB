@@ -71,11 +71,11 @@ public:
 };
 
 // opcode 170 (0x00AA, ?): vtable 0xB09F90, constructor 0x87C230, 0x14 bytes
-class Packet_00AAClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AA
+class ChatProxyResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00AAClass(int unknown0_c, int unknown10);	// 0x87C190
-	Packet_00AAClass(RawPacketClass *raw);	// 0x87C230
+	ChatProxyResponsePacketClass(int unknown0_c, int unknown10);	// 0x87C190
+	ChatProxyResponsePacketClass(RawPacketClass *raw);	// 0x87C230
 	virtual RawPacketClass *Build();	// +0x04 0x87C2D0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868D30 (clientstub.cpp l.311)
 	virtual int Get_Data_Size();	// +0x0C 0x87C3A0

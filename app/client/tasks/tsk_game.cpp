@@ -18,7 +18,7 @@
 #include "..\fontdatabase.h"	// FontDatabaseClass at 0xBE67B8 (P-H12-3)
 #include "..\..\packets\pkmasterjoin.h"	// opcode 53: 0x8974C0, 0x897650
 #include "..\..\packets\pklogin.h"	// opcode 2: 0x89A740, 0x89A940
-class ServerRedirectPacketClass : public PacketClass { public: ServerRedirectPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; unsigned long Address; unsigned short Port; };	// opcode 54: 0x8A1590, 0x18 bytes (pk_classes.h declares no fields)  // NAME 1 [Address, Port]: handed to Redirect
+class ClientRedirectPacketClass : public PacketClass { public: ClientRedirectPacketClass(RawPacketClass *raw); virtual bool Process_Packet(void *client); int Unknown0C; unsigned long Address; unsigned short Port; };  // NAME 5: thunk order, binary.md 5.11; opcode 54: 0x8A1590, 0x18 bytes (pk_classes.h declares no fields)  // NAME 1 [Address, Port]: handed to Redirect
 // 0x765F80
 ClientTaskClass::ClientTaskClass(const std::string &username, const std::string &password) :
 	Ticket(0),
@@ -39,7 +39,7 @@ ClientTaskClass::~ClientTaskClass()
 		Master_Connection = NULL;
 	}
 	if (Client) {
-		OptionClass::Instance->Save();
+		OptionManagerClass::Instance->Save();
 		delete Client;
 		Client = NULL;
 	}
@@ -62,7 +62,7 @@ bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::
 	Login_Key = login_key;
 	Client = new SClient(this);
 	Ticket = Client->Ticket = *ticket;
-	OptionClass::Instance->Load(ticket->Character_ID, Client);
+	OptionManagerClass::Instance->Load(ticket->Character_ID, Client);
 	fontDatabase->Unknown_6C47B0();
 	SoundLibraryClass::Apply_Volumes();
 	Client->Kernel = kernel;
@@ -344,7 +344,7 @@ bool ClientTaskClass::Shutdown()
 
 
 // 0x766FC0
-bool ServerRedirectPacketClass::Process_Packet(void *client)
+bool ClientRedirectPacketClass::Process_Packet(void *client)
 {
 	ClientTaskClass *task = (ClientTaskClass *)client;
 	Unknown_Log("HANDOFF:INF", "Redirect packet received.");

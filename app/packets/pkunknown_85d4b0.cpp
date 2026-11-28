@@ -3,14 +3,14 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\shared\auth_product.h"
-Packet_004DClass::Packet_004DClass(int unknown0c, const char *unknown10, __int64 unknown58) :
+RegistrationResultPacketClass::RegistrationResultPacketClass(int unknown0c, const char *unknown10, __int64 unknown58) :
 	Unknown0C(unknown0c),
 	Unknown58(unknown58)
 {
 	strcpy(Unknown10, unknown10);
 }
 
-Packet_004DClass::Packet_004DClass(RawPacketClass *raw)
+RegistrationResultPacketClass::RegistrationResultPacketClass(RawPacketClass *raw)
 {
 	int value;
 	raw->Get(value);
@@ -19,7 +19,7 @@ Packet_004DClass::Packet_004DClass(RawPacketClass *raw)
 	Unknown0C = value;
 }
 
-RawPacketClass *Packet_004DClass::Build()
+RawPacketClass *RegistrationResultPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(77, Get_Data_Size());
 	int value = Unknown0C;
@@ -29,12 +29,12 @@ RawPacketClass *Packet_004DClass::Build()
 	return(raw);
 }
 
-int Packet_004DClass::Get_Data_Size()
+int RegistrationResultPacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C) + sizeof(Unknown10) + sizeof(Unknown58));
 }
 
-int Packet_004DClass::Print(char *buffer, int)
+int RegistrationResultPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Registration Result"));
 }

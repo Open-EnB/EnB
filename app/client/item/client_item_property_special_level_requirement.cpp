@@ -4,7 +4,7 @@
 #include "..\aux_skill.h"
 #include "..\..\shared\auxdata\auxdata.h"
 #include "..\..\shared\auth_product.h"
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 
 
@@ -91,17 +91,17 @@ std::vector<ClientItemPropertySpecialLineStruct> ClientItemPropertySpecialLevelR
 // 0x531080 (the dead aux_data->Children.size() in the failure branch spends the inline budget: the Cast 0x531590 called out of line, as the client's; D272)
 bool ClientItemPropertySpecialLevelRequirementClass::Is_Usable()
 {
-	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)SpaceClient->AuxData;
+	DeltaContainer *aux_data = (DeltaContainer *)SpaceClient->AuxData;
 	FAIL_IF(!aux_data) return(false);
 
 	if (Kind == KIND_TOTAL) {
-		NameClass name("RPGInfo");
+		AuxDataName name("RPGInfo");
 		DeltaRPGInfoClass *rpg_aux_data = Unknown_Find_Valid<DeltaRPGInfoClass>(aux_data, name);
 
 		FAIL_IF(!rpg_aux_data) return(false);
 	} else {
 		std::string field = std::string("RPGInfo.") + Kind_Name(Kind) + "Level";
-		NameClass name(field.c_str());
+		AuxDataName name(field.c_str());
 		DeltaTemplateClass<int> *level_aux_data = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux_data, name);
 
 

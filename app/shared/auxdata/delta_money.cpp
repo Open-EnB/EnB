@@ -62,7 +62,7 @@ void DeltaTemplateClass<MoneyClass>::Unknown_00(KVEncoderClass *visitor) { visit
 
 
 
-bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const DurationClass &)
+bool DeltaTemplateClass<MoneyClass>::Read(LinearBuffer &buf, const DurationClass &)
 {
 	__int64 value;
 	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {
@@ -80,7 +80,7 @@ bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const Duration
 
 
 
-bool DeltaTemplateClass<MoneyClass>::Write(LinearBufferClass &buf)
+bool DeltaTemplateClass<MoneyClass>::Write(LinearBuffer &buf)
 {
 	if (buf.Write(&Value, sizeof(Value)) != sizeof(Value)) {
 		G_ASSERT(0);

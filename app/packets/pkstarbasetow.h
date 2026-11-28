@@ -21,11 +21,11 @@
 char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (app/common/sector_types.h; declared here too: pk_classes.h is pad-sensitive)  // NAME 2: what it returns
 
 // opcode 78 (0x004E, STARBASE_REQUEST): vtable 0xB0B868, constructor 0x8A2DF0, 0x18 bytes
-class StarbaseRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name STARBASE_REQUEST (the Net-7 opcode table; no structure check)
+class StarbaseReqPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StarbaseRequestPacketClass(int player_id, unsigned char action, int starbase_id);	// 0x8A2D70 (ui_avatar_cust.cpp's 0x551C80: the client's Unknown1138, 10, 0)  // NAME 1 [player_id, action, starbase_id]: after the members they set
-	StarbaseRequestPacketClass(RawPacketClass *raw);	// 0x8A2DF0
+	StarbaseReqPacketClass(int player_id, unsigned char action, int starbase_id);	// 0x8A2D70 (ui_avatar_cust.cpp's 0x551C80: the client's Unknown1138, 10, 0)  // NAME 1 [player_id, action, starbase_id]: after the members they set
+	StarbaseReqPacketClass(RawPacketClass *raw);	// 0x8A2DF0
 	virtual RawPacketClass *Build();	// +0x04 0x8A2EB0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867F80 (clientstub.cpp l.92)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2F90

@@ -24,8 +24,8 @@ class MoneyPacketDataClass : public Unknown_PacketDataClass  // NAME 2: what it 
 {
 public:
 	MoneyPacketDataClass(MoneyClass *money) : Money(money) {}
-	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x873A00
-	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x873A40
+	virtual bool Write(LinearBuffer *buffer);	// +0x00 0x873A00
+	virtual bool Read(LinearBuffer *buffer);	// +0x04 0x873A40
 	virtual int Get_Size();	// +0x08 0x873A90
 
 	MoneyClass *Money;	// +0x04  // NAME 2: what it points at

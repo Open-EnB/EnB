@@ -24,7 +24,7 @@
 // Ship.Inventory.Cargo.N (0x6FA150)
 inline
 DeltaItemClass::DeltaItemClass(const char *name) :
-	DeltaCompoundClass(name),
+	DeltaContainer(name),
 	ItemTemplateID("ItemTemplateID", -1),
 	StackCount("StackCount"),
 	Price("Price", MoneyClass(-1)),

@@ -30,13 +30,13 @@
 #include "..\..\libs\wwonline\wnet\tcpmgr.h"
 #include "..\..\libs\wwonline\wnet\tcpcon.h"
 
-class TCPConnection : public StreamConnectionClass	// NAME 1: after the file tcpconn.cpp (no RTTI or string)
+class TCPConnectionClass : public StreamConnectionClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	TCPConnection(const char *host, unsigned short port, bool encrypt);	// 0x828C80
-	TCPConnection(SOCKET socket);										// 0x829C80: over an accepted socket, encrypted
-	TCPConnection(unsigned int ip, unsigned short port, bool encrypt);	// 0x828DE0
-	virtual ~TCPConnection();										// +0x00 0x828DB0 / 0x828EC0
+	TCPConnectionClass(const char *host, unsigned short port, bool encrypt);	// 0x828C80
+	TCPConnectionClass(SOCKET socket);										// 0x829C80: over an accepted socket, encrypted
+	TCPConnectionClass(unsigned int ip, unsigned short port, bool encrypt);	// 0x828DE0
+	virtual ~TCPConnectionClass();										// +0x00 0x828DB0 / 0x828EC0
 	virtual unsigned int Get_Address();								// +0x10 0x8299D0: the peer's address
 	virtual bool Connect(bool wait);								// +0x14 0x828F90
 	virtual bool Is_Connected();									// +0x18 0x829930
@@ -65,7 +65,7 @@ public:
 
 // The server's TCP listener (vtable 0xB08880, constructor 0x829E50, 0x918 bytes): a listening socket,
 // the accepted connections still in the RSA key exchange, the server's key pair
-class TCPListenerClass : public ConnectionListenerClass	// NAME 1: after the file tcpconn.cpp
+class TCPListenerClass : public ConnectionSourceClass	// NAME 1: after the file tcpconn.cpp
 {
 public:
 	TCPListenerClass();												// 0x829E50: loads 'server_rsa_keyset.dat'
@@ -77,12 +77,12 @@ public:
 	virtual ConnectionClass *Accept();								// +0x14 0x82A6A0: Accept(true)
 	ConnectionClass *Accept(bool pump);								// 0x82A6C0  // NAME 2: what it does
 	ConnectionClass *Pump_Pending();								// 0x82AA10: a connection whose exchange finished  // NAME 2: what it does
-	void Send_Key(TCPConnection *connection);						// 0x82A830: the server's public key  // NAME 2: what it does
+	void Send_Key(TCPConnectionClass *connection);						// 0x82A830: the server's public key  // NAME 2: what it does
 	static void Pump_All();										// 0x82A990 (no caller; inlined in 0x829180): Accept(false) on every listener  // NAME 2: what it does
 
 	SOCKET Socket;							// +0x04 (S: the asserts)
 	unsigned short PortNumber;				// +0x08 (S: the asserts)
-	std::list<TCPConnection *> Pending;		// +0x0C  // NAME 2: what it holds
+	std::list<TCPConnectionClass *> Pending;		// +0x0C  // NAME 2: what it holds
 	RSAKeyClass KeyPair;					// +0x18 the server's key pair (constructor 0x829E50)  // NAME 2: what it holds
 };
 

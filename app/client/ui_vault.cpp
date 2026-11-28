@@ -68,7 +68,7 @@ UIVaultClass::UIVaultClass(SClient *client) :
 	for (int i = 0; i < NUM_BUTTONS; i++) {
 		Buttons3[i] = NULL;
 	}
-	OptionClass *options = OptionClass::Instance; if (options) {
+	OptionManagerClass *options = OptionManagerClass::Instance; if (options) {
 		SortIndex = options->Get_Bool("Inv_Sort_Vault");
 		SortReverse = options->Get_Bool("Inv_Sort_Vault_Reverse");
 		FilterName = options->Get_String("Inv_Filter_Vault");
@@ -116,7 +116,7 @@ void UIVaultClass::Unknown_54()
 	Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 	bool made = Unknown_C4(InterfaceMesh.Peek(), "VAULT00.C%02d", 36);
-	SlotDataGadgetClass *first_bttn = made ? Buttons[0] : NULL;
+	SlotDataGadget *first_bttn = made ? Buttons[0] : NULL;
 
 
 
@@ -185,8 +185,8 @@ void UIVaultClass::Unknown_58()
 void UIVaultClass::Unknown_5C()
 {
 	if (Active) {
-		if (OptionClass::Instance) {
-			OptionClass::Instance->Save();
+		if (OptionManagerClass::Instance) {
+			OptionManagerClass::Instance->Save();
 		}
 		Filter->Unknown_5C();
 		UIInvClass::Unknown_5C();
@@ -240,7 +240,7 @@ bool UIVaultClass::Unknown_68(int key)
 	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 	FilterName = Filter->Get_Selected_Text();
 	if (FilterName.size() != 0) {
-		StringOptionStruct *option = OptionClass::Instance->Find_String("Inv_Filter_Vault");
+		StringOptionStruct *option = OptionManagerClass::Instance->Find_String("Inv_Filter_Vault");
 		if (option) {
 			option->Value = FilterName.c_str();
 		}
@@ -255,7 +255,7 @@ bool UIVaultClass::Unknown_68(int key)
 // 0x657DA0
 void UIVaultClass::Unknown_657DA0(bool reverse)
 {
-	OptionClass *options = OptionClass::Instance;
+	OptionManagerClass *options = OptionManagerClass::Instance;
 	if (options) {
 		if (reverse) {
 			SortReverse = !SortReverse;
@@ -277,7 +277,7 @@ void UIVaultClass::Unknown_657DA0(bool reverse)
 			_snprintf(buffer, sizeof(buffer), "Sorting Vault by %s", sort_name.c_str());
 		}
 		Client->As_Space_Client()->Unknown_74D990(0, buffer, 0);
-		((ClientClass *)Client)->Send_Packet(&InventorySortPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (InventoryEnum)3, sort1, sort2, sort3, SortReverse));
+		((ClientClass *)Client)->Send_Packet(&InvSortPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (InventoryEnum)3, sort1, sort2, sort3, SortReverse));
 		if (reverse) {
 			BoolOptionStruct *option = options->Find_Bool("Inv_Sort_Vault_Reverse");
 			if (option) {

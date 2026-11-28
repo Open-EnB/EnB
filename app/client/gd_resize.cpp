@@ -4,8 +4,8 @@
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
 
-ResizeGadgetClass::ResizeGadgetClass(const RefCountPtr<RenderObjClass> &robj) :
-	Unknown_675120Class(robj.Peek(), 0x77),
+ResizeGadget::ResizeGadget(const RefCountPtr<RenderObjClass> &robj) :
+	UIMeshGadgetClass(robj.Peek(), 0x77),
 	Unknown60(0.0f, 0.0f),
 	Unknown68(0.0f, 0.0f),
 	Unknown70(0.0f, 0.0f),
@@ -15,7 +15,7 @@ ResizeGadgetClass::ResizeGadgetClass(const RefCountPtr<RenderObjClass> &robj) :
 {
 }
 
-ResizeGadgetClass::~ResizeGadgetClass()
+ResizeGadget::~ResizeGadget()
 {
 }
 
@@ -59,7 +59,7 @@ ResizeGadgetClass::~ResizeGadgetClass()
 
 
 // 0x66BB10
-bool ResizeGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
+bool ResizeGadget::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	FAIL_IF(!Peek_Render_Obj()) {
 		return(false);
@@ -95,13 +95,13 @@ bool ResizeGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, un
 	return(true);
 }
 
-void ResizeGadgetClass::Unknown_40(bool on)
+void ResizeGadget::Unknown_40(bool on)
 {
 	Unknown_8C(!on);
 	GadgetClass::Unknown_40(on);
 }
 
-void ResizeGadgetClass::Unknown_66BDA0()
+void ResizeGadget::Unknown_66BDA0()
 {
 	if (RObj) {
 		Vector3 robjpos = RObj->Get_Position();
@@ -120,5 +120,5 @@ void ResizeGadgetClass::Unknown_66BDA0()
 **	The drag (0x66BB10): the pointer to 640 x 480 coordinates around the centre; a press takes the model's offset
 **	from it and holds the gadget (slot +0x68), a release lets go (+0x6C); every accepted event clamps the pointer's
 **	offset from the origin +0x60 to the corners +0x70 / +0x78 into +0x68 (WWMath::Clamp inlined). Its caller is
-**	0x5723B0. Unknown_675120Class: unknown_675120.cpp (interim, D137).
+**	0x5723B0. UIMeshGadgetClass: unknown_675120.cpp (interim, D137).
 */

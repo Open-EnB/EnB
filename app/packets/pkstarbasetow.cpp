@@ -2,21 +2,21 @@
 #include "pkstarbasetow.h"
 #include <stdio.h>
 
-StarbaseRequestPacketClass::StarbaseRequestPacketClass(int player_id, unsigned char action, int starbase_id) :
+StarbaseReqPacketClass::StarbaseReqPacketClass(int player_id, unsigned char action, int starbase_id) :
 	PlayerID(player_id),
 	StarbaseID(starbase_id),
 	Action(action)
 {
 }
 
-StarbaseRequestPacketClass::StarbaseRequestPacketClass(RawPacketClass *raw)
+StarbaseReqPacketClass::StarbaseReqPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&PlayerID, sizeof(PlayerID));
 	raw->Get(&StarbaseID, sizeof(StarbaseID));
 	raw->Get(&Action, sizeof(Action));
 }
 
-RawPacketClass *StarbaseRequestPacketClass::Build()
+RawPacketClass *StarbaseReqPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(78, Get_Data_Size());
 	raw->Add(&PlayerID, sizeof(PlayerID));
@@ -25,12 +25,12 @@ RawPacketClass *StarbaseRequestPacketClass::Build()
 	return(raw);
 }
 
-int StarbaseRequestPacketClass::Get_Data_Size()
+int StarbaseReqPacketClass::Get_Data_Size()
 {
 	return(sizeof(PlayerID) + sizeof(StarbaseID) + sizeof(Action));
 }
 
-int StarbaseRequestPacketClass::Print(char *buffer, int)
+int StarbaseReqPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {PlayerID=%d StarbaseID=%d Action=%d}", "Starbase_Request", PlayerID, StarbaseID, Action));
 }

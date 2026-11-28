@@ -2,7 +2,7 @@
 #include "gd_dynamicelement.h"
 #include "dynamic_window_render_object.h"
 
-DynamicElementGadgetClass::DynamicElementGadgetClass(DynamicWindowElementClass *element) :
+DynamicElementGadgetClass::DynamicElementGadgetClass(DynamicWindowElement *element) :
 	GadgetClass(0x55),
 	Element(element)
 {

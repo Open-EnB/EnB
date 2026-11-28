@@ -22,7 +22,7 @@ class SegmentedLineClass;
 // The line effect (vtable 0xAFFF4C, 16 slots, 0x114 bytes, constructor 0x6E5040, destructor 0x6E5600,
 // scalar deleting 0x6E54E0). Flags 0x4000 / 0x8000 (InvertGrow, InvertShrink) grow and shrink from the
 // other end; 0x10000 / 0x20000 mark the source / the target as the player's object (the near plane test).
-class LineEffectClass : public UnknownB0009CEffectClass	// NAME 3: effect.ini's EffectClass 'LineEffect', which the helper 0x6EAC50 makes
+class LineEffectClass : public BinaryEffectClass	// NAME 3: effect.ini's EffectClass 'LineEffect', which the helper 0x6EAC50 makes
 {
 public:
 	LineEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, SegmentedLineClass *line, float start_offset, float end_offset, int grow_time, int shrink_time, float grow_accel, float shrink_accel, float tiling_min_length);	// 0x6E5040 (FAIL_IF '!SegLineRObj' l.51)  // NAME 3 [start_offset .. tiling_min_length]: effect.ini's keys  // NAME 1 [client .. cycle_time, line]: the base's

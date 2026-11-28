@@ -9,7 +9,7 @@
 #include "ui_mount.h"
 #include "layer.h"
 
-class ProxyRObj;			// ro_proxy.h's
+class ProxyRenderObjClass;			// ro_proxy.h's
 
 // The hull mount points window (0x430 bytes; constructor 0x58B680 over ui_mount.cpp's 0x5C73B0, tables 0xAF1438 /
 // 0xAF142C / 0xAF1420; no caller of the constructor in the client). The mount points window's buttons over Model,
@@ -29,7 +29,7 @@ public:
 
 	LayerClass Layer;									// +0x404 (the constructor's, copied)  // NAME 1: its type
 	RenderObjClass *Model;								// +0x428 (the constructor's; not referenced)  // NAME 1: neutral
-	ProxyRObj *Proxy;									// +0x42C (0xC4 bytes, ProxyRObj(false); released by the destructor)  // NAME 1: its type
+	ProxyRenderObjClass *Proxy;									// +0x42C (0xC4 bytes, ProxyRenderObjClass(false); released by the destructor)  // NAME 1: its type
 };
 
 #endif // UNKNOWN_58B680_H

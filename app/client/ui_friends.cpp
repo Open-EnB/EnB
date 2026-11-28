@@ -32,14 +32,14 @@ public:
 };
 #include "..\shared\auth_product.h"
 // 0x58F0F0
-UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string location)
+FriendsInfoClass::FriendsInfoClass(std::string name, std::string location)
 {
 	Name = name;
 	Location = location;
 }
 
 // One player deleted (inline)
-static inline void Unknown_Delete_Player(UIFriendsPlayerInfoClass *info)	// NAME 1 [Unknown_Delete_Player, info]: neutral
+static inline void Unknown_Delete_Player(FriendsInfoClass *info)	// NAME 1 [Unknown_Delete_Player, info]: neutral
 {
 	delete info;
 }
@@ -78,8 +78,8 @@ UIFriendsClass::UIFriendsClass(SClient *client) :
 		Unknown114[i] = NULL;
 		Unknown130[i] = NULL;
 	}
-	if (OptionClass::Instance) {
-		Unknown0AD = OptionClass::Instance->Get_Bool("RestrictedStatus");
+	if (OptionManagerClass::Instance) {
+		Unknown0AD = OptionManagerClass::Instance->Get_Bool("RestrictedStatus");
 	}
 }
 
@@ -93,7 +93,7 @@ UIFriendsClass::~UIFriendsClass()
 	if (Slider) {
 		Slider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
 	}
-	OptionClass *options = OptionClass::Instance;
+	OptionManagerClass *options = OptionManagerClass::Instance;
 	if (options) {
 		BoolOptionStruct *option = options->Find_Bool("RestrictedStatus");
 		if (option && option->Get_Value() != Unknown0AD) {
@@ -150,7 +150,7 @@ void UIFriendsClass::Unknown_58()
 	if (!Is_Active()) {
 		InterfaceSortScopeClass sort(this);
 		ChatPanelUIBase::Unknown_58();
-		std::vector<UIFriendsPlayerInfoClass *>::iterator it;
+		std::vector<FriendsInfoClass *>::iterator it;
 		for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
 			delete *it;
 		}
@@ -163,7 +163,7 @@ void UIFriendsClass::Unknown_58()
 
 		Unknown_591030(true);
 		if (Unknown0D0[0]) {
-			((RObjGadgetClass *)Unknown0D0[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Unknown0D0[0])->Unknown_66C360();
 		}
 	}
 }
@@ -314,7 +314,7 @@ void UIFriendsClass::Unknown_590550()
 	for (int i = 0; i < 7; i++) {
 		unsigned int index = Top + i;
 		if (index < PlayersInfo.size()) {
-			UIFriendsPlayerInfoClass *info = PlayersInfo[index];
+			FriendsInfoClass *info = PlayersInfo[index];
 			Unknown114[i]->Change_Text(info->Name.c_str(), 0);
 			Unknown130[i]->Change_Text(info->Location.c_str(), 0);
 			Unknown0F0[i]->Unknown_40(true);
@@ -338,7 +338,7 @@ void UIFriendsClass::Unknown_590550()
 // 0x5906C0
 void UIFriendsClass::Unknown_5906C0()
 {
-	std::vector<UIFriendsPlayerInfoClass *>::iterator it;
+	std::vector<FriendsInfoClass *>::iterator it;
 	for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
 		Unknown_Delete_Player(*it);
 	}
@@ -348,7 +348,7 @@ void UIFriendsClass::Unknown_5906C0()
 // 0x590810
 void UIFriendsClass::Unknown_590810()
 {
-	std::list<UIFriendsPlayerInfoClass *>::iterator it;
+	std::list<FriendsInfoClass *>::iterator it;
 	for (it = Unknown0C4.begin(); it != Unknown0C4.end(); ++it) {
 		Unknown_Delete_Player(*it);
 	}
@@ -360,11 +360,11 @@ void UIFriendsClass::Unknown_5908B0()
 {
 	Unknown_5906C0();
 
-	for (std::list<UIFriendsPlayerInfoClass *>::iterator node = Unknown0C4.begin(); node != Unknown0C4.end(); node++) {
-		UIFriendsPlayerInfoClass *info = *node;
-		std::vector<UIFriendsPlayerInfoClass *>::iterator pos;
+	for (std::list<FriendsInfoClass *>::iterator node = Unknown0C4.begin(); node != Unknown0C4.end(); node++) {
+		FriendsInfoClass *info = *node;
+		std::vector<FriendsInfoClass *>::iterator pos;
 		for (pos = PlayersInfo.begin(); pos != PlayersInfo.end(); pos++) {
-			UIFriendsPlayerInfoClass *other = *pos;
+			FriendsInfoClass *other = *pos;
 			int result;
 			if (Unknown0AC) {
 				if (stricmp(info->Location.c_str(), "offline") == 0 && stricmp(other->Location.c_str(), "offline") != 0) {
@@ -383,7 +383,7 @@ void UIFriendsClass::Unknown_5908B0()
 				}
 			}
 		}
-		PlayersInfo.insert(pos, new UIFriendsPlayerInfoClass(info->Name, info->Location));
+		PlayersInfo.insert(pos, new FriendsInfoClass(info->Name, info->Location));
 	}
 
 	Top = -1;
@@ -584,7 +584,7 @@ void UIFriendsClass::Unknown_5910D0()
 {
 	int list_size = PlayersInfo.size();
 	FAIL_IF(Selection < 0 || Selection >= list_size) return;
-	UIFriendsPlayerInfoClass *info = PlayersInfo[Selection];
+	FriendsInfoClass *info = PlayersInfo[Selection];
 	int id = ((ClientClass *)Client)->Unknown1138;
 	ClientChatRequestPacketClass packet(9, id);
 	packet.Unknown14 = std::string(info->Name.c_str());
@@ -610,7 +610,7 @@ void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<
 	FAIL_IF(player_list_size != location_list_size) return;
 	Unknown_590810(); std::vector<std::string>::iterator it, loc;
 	for (it = names.begin(), loc = locations.begin(); it != names.end(); ++it, ++loc) {
-		Unknown0C4.push_back(new UIFriendsPlayerInfoClass(*it, *loc));
+		Unknown0C4.push_back(new FriendsInfoClass(*it, *loc));
 	}
 	Unknown_5908B0();
 	Unknown_590550();
@@ -620,7 +620,7 @@ void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<
 // 0x5916B0
 void UIFriendsClass::Unknown_5916B0(std::string name, std::string location)
 {
-	Unknown0C4.push_back(new UIFriendsPlayerInfoClass(name, location));
+	Unknown0C4.push_back(new FriendsInfoClass(name, location));
 	Unknown_5908B0();
 	Unknown_590550();
 }
@@ -628,8 +628,8 @@ void UIFriendsClass::Unknown_5916B0(std::string name, std::string location)
 // 0x591880
 void UIFriendsClass::Unknown_591880(std::string name)
 {
-	for (std::list<UIFriendsPlayerInfoClass *>::iterator it = Unknown0C4.begin(); it != Unknown0C4.end(); it++) {
-		UIFriendsPlayerInfoClass *info = *it;
+	for (std::list<FriendsInfoClass *>::iterator it = Unknown0C4.begin(); it != Unknown0C4.end(); it++) {
+		FriendsInfoClass *info = *it;
 		if (strcmp(info->Name.c_str(), name.c_str()) == 0) {
 			delete info;
 			Unknown0C4.erase(it);
@@ -660,17 +660,17 @@ void UIFriendsClass::Unknown_591A30()
 #include "aux_group.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 
 // auxdata.h's find through one more inline level, as ui_group.cpp's; the dead size() reads here and in 0x591C30's loop spend the inline budget (D130, not the client's code) so the find 0x5927E0 and the name's _Eos stay out of line as in the client
-template<class C> inline C *Unknown_Friends_Find(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Friends_Find(DeltaContainer *root, const AuxDataName &name) { root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)
 
 // 0x591C30
 void UIFriendsClass::Unknown_591C30()
 {
-	DeltaCompoundClass *aux = Client->As_Space_Client()->AuxData;
-	NameClass field("GroupInfo");
+	DeltaContainer *aux = Client->As_Space_Client()->AuxData;
+	AuxDataName field("GroupInfo");
 	DeltaGroupInfoClass *group = Unknown_Friends_Find<DeltaGroupInfoClass>(aux, field);
 	if (group && group->Unknown70) {
 		for (int i = 0; i < 5; i++) {
-			DeltaGroupMemberClass *member = (DeltaGroupMemberClass *)group->Members.Children[i];
+			DeltaGroupMember *member = (DeltaGroupMember *)group->Members.Children[i];
 			std::string name(member->Name.String);
 			PlayersInfo.size();
 			if (name.length()) {
@@ -718,7 +718,7 @@ void UIFriendsClass::Unknown_591EE0()
 	FAIL_IF(!cpanel) return;
 
 
-	UIFriendsPlayerInfoClass *friend_info = PlayersInfo[Selection];
+	FriendsInfoClass *friend_info = PlayersInfo[Selection];
 	FAIL_IF(!friend_info) return;
 	if (strcmp(friend_info->Location.c_str(), "offline") == 0) {
 		sclient->Unknown_74D990(0x11, "Friend not online.", 0);

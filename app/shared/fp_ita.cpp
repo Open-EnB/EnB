@@ -166,7 +166,7 @@ int FpItaClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float di
 // 0x449300
 void FpItaClass::Unknown_0C(float &yaw, float &pitch) { yaw = 0.0f; pitch = 0.0f; }
 // 0x449330
-int FpItaClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims)
+int FpItaClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynamicObjectClass *self, Vector3 *aims)
 {
 	G_ASSERT(0);
 	return(1);

@@ -4,14 +4,14 @@
 #include <string.h>
 #include "..\shared\auth_product.h"
 
-Packet_0074Class::Packet_0074Class(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64) :
+GlobalPlayerStatusPacketClass::GlobalPlayerStatusPacketClass(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64) :
 	Unknown0C(unknown0c), Unknown58(unknown58), Unknown60(unknown60), Unknown64(unknown64)
 {
 	strncpy(Unknown10, unknown10, sizeof(Unknown10) - 1);
 	Unknown10[sizeof(Unknown10) - 1] = 0;
 }
 
-Packet_0074Class::Packet_0074Class(RawPacketClass *raw)
+GlobalPlayerStatusPacketClass::GlobalPlayerStatusPacketClass(RawPacketClass *raw)
 {
 	raw->Get(Unknown0C);
 	raw->Get(Unknown10, sizeof(Unknown10));
@@ -20,7 +20,7 @@ Packet_0074Class::Packet_0074Class(RawPacketClass *raw)
 	raw->Get(Unknown64);
 }
 
-RawPacketClass *Packet_0074Class::Build()
+RawPacketClass *GlobalPlayerStatusPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -31,17 +31,17 @@ RawPacketClass *Packet_0074Class::Build()
 	return(raw);
 }
 
-int Packet_0074Class::Get_Type()
+int GlobalPlayerStatusPacketClass::Get_Type()
 {
 	return(116);
 }
 
-int Packet_0074Class::Get_Data_Size()
+int GlobalPlayerStatusPacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C) + sizeof(Unknown10) + sizeof(Unknown58) + sizeof(Unknown60) + sizeof(Unknown64));
 }
 
-int Packet_0074Class::Print(char *buffer, int)
+int GlobalPlayerStatusPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GlobalPlayerStatus"));
 }

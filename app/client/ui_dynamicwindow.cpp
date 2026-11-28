@@ -247,16 +247,16 @@ void UIDynamicWindowClass::Get_Center(Vector2 &center)
 
 
 // 0x58A670
-void UIDynamicWindowClass::Add_Object(DynamicWindowElementClass *object, int row_index)
+void UIDynamicWindowClass::Add_Object(DynamicWindowElement *object, int row_index)
 {
 	FAIL_IF(!object) return;
 	MainWindow->Add_Object(object, row_index);
 }
 // 0x58A6C0
-void UIDynamicWindowClass::Remove_Object(DynamicWindowElementClass *object)
+void UIDynamicWindowClass::Remove_Object(DynamicWindowElement *object)
 {
 	FAIL_IF(!object) return;
-	RefCountPtr<DynamicWindowElementClass> element = RefCountPtr<DynamicWindowElementClass>(Create_Peek(object));
+	RefCountPtr<DynamicWindowElement> element = RefCountPtr<DynamicWindowElement>(Create_Peek(object));
 	MainWindow->Remove_Child(element);
 }
 // 0x58A7E0
@@ -269,11 +269,11 @@ void UIDynamicWindowClass::Add_Object(DynamicWindowRenderObjectClass *object, in
 void UIDynamicWindowClass::Remove_Object(DynamicWindowRenderObjectClass *object)
 {
 	FAIL_IF(!object) return;
-	RefCountPtr<DynamicWindowElementClass> element = Create_Peek(object);
+	RefCountPtr<DynamicWindowElement> element = Create_Peek(object);
 	MainWindow->Remove_Child(element);
 }
 // 0x58A950
-void UIDynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index)
+void UIDynamicWindowClass::Add_Element(const RefCountPtr<DynamicWindowElement> &element, int row_index)
 {
 	FAIL_IF(!MainWindow) return;
 	MainWindow->Add_Element(element, row_index);
@@ -285,7 +285,7 @@ void UIDynamicWindowClass::Remove_All(bool recursive)
 	MainWindow->Remove_All(recursive);
 }
 // 0x58A9F0
-void UIDynamicWindowClass::Remove_Element(const RefCountPtr<DynamicWindowElementClass> &element)
+void UIDynamicWindowClass::Remove_Element(const RefCountPtr<DynamicWindowElement> &element)
 {
 	FAIL_IF(!MainWindow) return;
 	MainWindow->Remove_Element(element, -1);

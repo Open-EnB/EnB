@@ -20,11 +20,11 @@
 #include "..\shared\avatar_desc.h"
 
 // opcode 141 (0x008D, INCAPACITANCE_REQUEST): vtable 0xB099F4, constructor 0x871FE0, 0x10 bytes
-class IncapacitanceRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name INCAPACITANCE_REQUEST (the Net-7 opcode table; no structure check)
+class IncapacitanceDetailsRequestPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	IncapacitanceRequestPacketClass(int game_id);	// 0x871F70
-	IncapacitanceRequestPacketClass(RawPacketClass *raw);	// 0x871FE0
+	IncapacitanceDetailsRequestPacket(int game_id);	// 0x871F70
+	IncapacitanceDetailsRequestPacket(RawPacketClass *raw);	// 0x871FE0
 	virtual RawPacketClass *Build();	// +0x04 0x872070
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A30 (clientstub.cpp l.263)
 	virtual int Get_Data_Size();	// +0x0C 0x872130
@@ -34,11 +34,11 @@ public:
 };
 
 // opcode 142 (0x008E, ?): vtable 0xB09A24, constructor 0x872200, 0x14 bytes
-class IncapacitanceDistressBeaconPacketClass : public PacketClass  // NAME 3: the client's Print text 'Incapacitance Distress Beacon {'
+class IncapacitanceDistressBeaconPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	IncapacitanceDistressBeaconPacketClass(int game_id, bool on);	// 0x872180
-	IncapacitanceDistressBeaconPacketClass(RawPacketClass *raw);	// 0x872200
+	IncapacitanceDistressBeaconPacket(int game_id, bool on);	// 0x872180
+	IncapacitanceDistressBeaconPacket(RawPacketClass *raw);	// 0x872200
 	virtual RawPacketClass *Build();	// +0x04 0x8722A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868A60 (clientstub.cpp l.266)
 	virtual int Get_Data_Size();	// +0x0C 0x872370
@@ -66,7 +66,7 @@ public:
 class IncapacitanceDetailsPacket : public PacketClass  // NAME 3: the client's Print text 'Incapacitance Details' (kept from pk_classes.h)
 {
 public:
-	IncapacitanceDetailsPacket(const std::string &unknown0C, const AvatarDescClass &desc, const std::string &unknown128, const std::string &unknown138, const std::string &unknown148, const std::string &unknown158, const std::string &unknown168, const std::string &unknown178, const std::string &unknown188);	// 0x8725F0
+	IncapacitanceDetailsPacket(const std::string &unknown0C, const AvatarDescriptionClass &desc, const std::string &unknown128, const std::string &unknown138, const std::string &unknown148, const std::string &unknown158, const std::string &unknown168, const std::string &unknown178, const std::string &unknown188);	// 0x8725F0
 	// the destructor is the implicit one: +0x00 0x872840 / 0x872870
 	IncapacitanceDetailsPacket(RawPacketClass *raw);	// 0x872A80
 	virtual RawPacketClass *Build();	// +0x04 0x872F70
@@ -75,7 +75,7 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x873230
 
 	std::string Unknown0C;	// +0x0C  // NAME 1: neutral (D10)
-	AvatarDescClass Desc;	// +0x1C (its Read / Write called directly on the message's buffer)  // NAME 2: what it holds
+	AvatarDescriptionClass Desc;	// +0x1C (its Read / Write called directly on the message's buffer)  // NAME 2: what it holds
 	std::string Unknown128;	// +0x128  // NAME 1: neutral (D10)
 	std::string Unknown138;	// +0x138  // NAME 1: neutral (D10)
 	std::string Unknown148;	// +0x148  // NAME 1: neutral (D10)

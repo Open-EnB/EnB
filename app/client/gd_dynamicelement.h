@@ -20,18 +20,18 @@
 #include "aabox.h"
 #include "gadget.h"
 
-class DynamicWindowElementClass;
+class DynamicWindowElement;
 
 class DynamicElementGadgetClass : public GadgetClass  // NAME 1 [DynamicElementGadgetClass]: what it is (no RTTI, no string)
 {
 public:
-	DynamicElementGadgetClass(DynamicWindowElementClass *element);		// 0x6686F0 (mask 0x55)  // NAME 1 [element]: what it holds
+	DynamicElementGadgetClass(DynamicWindowElement *element);		// 0x6686F0 (mask 0x55)  // NAME 1 [element]: what it holds
 	virtual ~DynamicElementGadgetClass() {}								// +0x00 0x668750 (deleting 0x668720)
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x668770 (the pointer inside the element's bounds)
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x668840 (the element's bounds)
 
 protected:
-	DynamicWindowElementClass *Element;									// +0x30  // NAME 1: what it holds
+	DynamicWindowElement *Element;									// +0x30  // NAME 1: what it holds
 };
 
 #endif

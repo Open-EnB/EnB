@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\shared\auth_product.h"
-Packet_0049Class::Packet_0049Class(__int64 unknown10, int unknown18, const char *unknown1c, __int64 unknown60) :
+DeleteCharacterPacketClass::DeleteCharacterPacketClass(__int64 unknown10, int unknown18, const char *unknown1c, __int64 unknown60) :
 	Unknown10(unknown10),
 	Unknown18(unknown18),
 	Unknown60(unknown60)
@@ -11,7 +11,7 @@ Packet_0049Class::Packet_0049Class(__int64 unknown10, int unknown18, const char 
 	strcpy(Unknown1C, unknown1c);
 }
 
-Packet_0049Class::Packet_0049Class(RawPacketClass *raw)
+DeleteCharacterPacketClass::DeleteCharacterPacketClass(RawPacketClass *raw)
 {
 	raw->Get(Unknown10);
 	raw->Get(Unknown18);
@@ -19,7 +19,7 @@ Packet_0049Class::Packet_0049Class(RawPacketClass *raw)
 	raw->Get(Unknown60);
 }
 
-RawPacketClass *Packet_0049Class::Build()
+RawPacketClass *DeleteCharacterPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(73, Get_Data_Size());
 	raw->Add(Unknown10);
@@ -29,12 +29,12 @@ RawPacketClass *Packet_0049Class::Build()
 	return(raw);
 }
 
-int Packet_0049Class::Get_Data_Size()
+int DeleteCharacterPacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown10) + sizeof(Unknown18) + sizeof(Unknown1C) + sizeof(Unknown60));
 }
 
-int Packet_0049Class::Print(char *buffer, int)
+int DeleteCharacterPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Delete Character"));
 }

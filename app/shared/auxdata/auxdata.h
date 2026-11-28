@@ -142,9 +142,9 @@
 
 
 
-// The field named name under root, as a C (a delta class: DeltaTemplateClass<T>, DeltaStringClass);
+// The field named name under root, as a C (a delta class: DeltaTemplateClass<T>, DeltaString);
 // NULL when there is no root, no such field, or (asserting) a field of another type (rtti.h's test).
-template<class C> C *Unknown_Find_Field(DeltaCompoundClass *root, const NameClass &name)  // NAME 1: neutral (D10)
+template<class C> C *Unknown_Find_Field(DeltaContainer *root, const AuxDataName &name)  // NAME 1: neutral (D10)
 {
 	if (!root) return(NULL);
 	LookupClass *lookup = root->Get_Lookup();
@@ -157,7 +157,7 @@ template<class C> C *Unknown_Find_Field(DeltaCompoundClass *root, const NameClas
 }
 
 // A field under root that is set (+0x70), else NULL.
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Set_Field(DeltaContainer *root, const AuxDataName &name)	// NAME 1: neutral (D10)
 {
 	C *t = Unknown_Find_Field<C>(root, name);
 	if (t) {

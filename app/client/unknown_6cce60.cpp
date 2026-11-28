@@ -64,7 +64,7 @@ void FontSys::Unknown_6CCE60()
 			Add_Dots(text);
 		}
 		const char *buf = text.Get_Buffer(text.Get_Length());
-		Font32Class *font = Font.Peek(); *(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+		Font32Bit *font = Font.Peek(); *(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
 		Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buf, 0);
 		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(buf);
 		Unknown420[3] = Unknown2C8 = Font->Get_Height();
@@ -253,9 +253,9 @@ void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 	}
 }
 
-// Font32Class::XSpacing (+0xD28) back to MinSpacing (+0xD2C): the client stores it directly (both protected in
-// font32bit.h; an inline of Font32Class's or a friend in the original).
-static inline void Reset_XSpacing(Font32Class *font)
+// Font32Bit::XSpacing (+0xD28) back to MinSpacing (+0xD2C): the client stores it directly (both protected in
+// font32bit.h; an inline of Font32Bit's or a friend in the original).
+static inline void Reset_XSpacing(Font32Bit *font)
 {
 	*(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);
 }

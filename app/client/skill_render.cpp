@@ -436,7 +436,7 @@ SkillDataClass *SkillRenderClass::Unknown_6A7310()
 
 
 // 0x6A7380
-SkillRenderClass *Unknown_6A7380(SlotDataGadgetClass *gadget)
+SkillRenderClass *Unknown_6A7380(SlotDataGadget *gadget)
 {
 	SlotDataRenderClass *slot_render = gadget->SlotRender;
 	FAIL_IF(!slot_render) return(0);

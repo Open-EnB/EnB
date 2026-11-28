@@ -2,55 +2,55 @@
 #include "pkunknown_866ac0.h"
 #include <stdio.h>
 
-Packet_0077Class::Packet_0077Class(const char *name) :
+GlobalSetReferrerPacketClass::GlobalSetReferrerPacketClass(const char *name) :
 	Name(name),
 	Unknown1C(0)
 {
 }
 
-Packet_0077Class::Packet_0077Class(RawPacketClass *raw) :
+GlobalSetReferrerPacketClass::GlobalSetReferrerPacketClass(RawPacketClass *raw) :
 	Unknown1C(0)
 {
 	raw->Get(&Name);
 }
 
-RawPacketClass *Packet_0077Class::Build()
+RawPacketClass *GlobalSetReferrerPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(119, Get_Data_Size());
 	raw->Add(Name);
 	return(raw);
 }
 
-int Packet_0077Class::Get_Data_Size()
+int GlobalSetReferrerPacketClass::Get_Data_Size()
 {
 	return(RawPacketClass::Get_Size(Name));
 }
 
 // The client hands sprintf the string object itself (its four words), not its text
-int Packet_0077Class::Print(char *buffer, int)
+int GlobalSetReferrerPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s : ReferrerName=%s", "Global SetReferrer", Name));
 }
 
 
-Packet_0078Class::Packet_0078Class(RawPacketClass *raw)
+GlobalSetReferrerResponsePacketClass::GlobalSetReferrerResponsePacketClass(RawPacketClass *raw)
 {
 	raw->Get(Result);
 }
 
-RawPacketClass *Packet_0078Class::Build()
+RawPacketClass *GlobalSetReferrerResponsePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(120, Get_Data_Size());
 	raw->Add(Result);
 	return(raw);
 }
 
-int Packet_0078Class::Get_Data_Size()
+int GlobalSetReferrerResponsePacketClass::Get_Data_Size()
 {
 	return(sizeof(Result));
 }
 
-int Packet_0078Class::Print(char *buffer, int)
+int GlobalSetReferrerResponsePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s : Result=%d", "Global SetReferrerResponse", Result));
 }

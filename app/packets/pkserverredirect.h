@@ -19,11 +19,11 @@
 
 // Server_Ready 59's members and Build / Get_Data_Size (0x8A62A0, 0x8A63A0), its own type and Print.
 // opcode 54 (0x0036, SERVER_REDIRECT): vtable 0xB0B6B4, constructor 0x8A1590, 0x18 bytes
-class ServerRedirectPacketClass : public Packet_003BClass  // NAME 2: Net-7's opcode name SERVER_REDIRECT (the Net-7 opcode table; the client's Print text 'Client_Redirect')
+class ClientRedirectPacketClass : public ServerReadyPacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	ServerRedirectPacketClass(int sector, int ip, unsigned short port);	// 0x8A1500
-	ServerRedirectPacketClass(RawPacketClass *raw);	// 0x8A1590
+	ClientRedirectPacketClass(int sector, int ip, unsigned short port);	// 0x8A1500
+	ClientRedirectPacketClass(RawPacketClass *raw);	// 0x8A1590
 	virtual bool Process_Packet(void *client);	// +0x08 0x766FC0 (tsk_game.cpp)
 	virtual int Print(char *buffer, int len);	// +0x10 0x8A15E0
 	virtual int Get_Type();	// +0x28 0x8A15C0

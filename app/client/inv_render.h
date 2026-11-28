@@ -24,11 +24,11 @@ class InvDataClass;
 class ShortcutRangeGaugeClass;	// shortcut_range_gauge.h
 class Unknown688830Item;
 
-class InvRenderClass : public SlotDataRenderClass	// NAME 3: class-from-file (D24) for app\Client\inv_render.cpp
+class InventoryRenderClass : public SlotDataRenderClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	InvRenderClass(bool arg);												// 0x68BF10  // NAME 1 [arg]: neutral
-	virtual ~InvRenderClass();												// +0x04 0x68C190 (deleting 0x68C160)
+	InventoryRenderClass(bool arg);												// 0x68BF10  // NAME 1 [arg]: neutral
+	virtual ~InventoryRenderClass();												// +0x04 0x68C190 (deleting 0x68C160)
 	virtual bool Unknown_08(SlotDataClass *sd, RenderObjClass *robj);		// +0x08 0x68C2D0
 	virtual void *Unknown_18() { return(this); }							// +0x18 0x68C110
 	virtual const char *Unknown_28(std::string *string);					// +0x28 0x68CCC0
@@ -53,11 +53,11 @@ public:
 	char Unknown54[4];														// +0x54
 };
 
-class Unknown68D870Class : public InvRenderClass	// NAME 1: neutral (D10)
+class InvItemRenderClass : public InventoryRenderClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown68D870Class();													// 0x68D870
-	virtual ~Unknown68D870Class();											// +0x04 0x68D8E0 (deleting 0x68D8B0)
+	InvItemRenderClass();													// 0x68D870
+	virtual ~InvItemRenderClass();											// +0x04 0x68D8E0 (deleting 0x68D8B0)
 	virtual void Unknown_2C(bool force);									// +0x2C 0x68D9E0
 	virtual void Unknown_40(int slot);										// +0x40 0x68D950
 	virtual void Unknown_50(int count);										// +0x50 0x68D900 (Unknown58's text)
@@ -68,7 +68,7 @@ public:
 	int Unknown5C;															// +0x5C (-1)
 };
 
-class Unknown68DC20Class : public InvRenderClass	// NAME 1: neutral (D10)
+class Unknown68DC20Class : public InventoryRenderClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown68DC20Class();													// 0x68DC20

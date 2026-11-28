@@ -97,7 +97,7 @@ bool Unknown65A020Class::Unknown_68(int key)
 {
 	if (key > 0 && key <= 2) {
 		SoundLibraryClass::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
-		((SBaseViewClass *)View->Unknown_30())->Unknown_69F440();
+		((StarbaseViewClass *)View->Unknown_30())->Unknown_69F440();
 		return(true);
 	}
 	return(false);
@@ -106,7 +106,7 @@ bool Unknown65A020Class::Unknown_68(int key)
 /*
 **	Reconstruction notes (client 0x65A020-0x65A6C0; PROVISIONAL file, D137).
 **
-**	* The object: UIVerbClass's destructor 0x65A010 ends ui_verb.cpp's; this one's functions 0x65A020-0x65A657, the
+**	* The object: VerbInterface's destructor 0x65A010 ends ui_verb.cpp's; this one's functions 0x65A020-0x65A657, the
 **	  guarded std::ctype<unsigned short>::id initialiser 0x65A670 (the end of an object including <string>), then the
 **	  adjustors 0x65A6A0 / 0x65A6B0 of the tables 0xAF96A4 / 0xAF9698; uiview.cpp's UIViewClass constructor
 **	  follows at 0x65A6C0. Its data: the button names 0xB8C58C, 'FA_JWEB00.INI' 0xB8C598, 'JWEB00' 0xB8C5A8,

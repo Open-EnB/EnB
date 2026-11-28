@@ -137,7 +137,7 @@ bool InvTransactionClass::Unknown_690AA0(int from_inv, int from_slot, int num, b
 	if (one) {
 		State = 2;
 	} else {
-		InterfaceSortClass sort(View, true);	// NAME 1 [sort]: neutral
+		LocalInterfaceSort sort(View, true);	// NAME 1 [sort]: neutral
 		State = 1;
 		QuantityGadget->Set_Max(Num);
 		GadgetListManagerClass *manager = View->Unknown2C;	QuantityGadget->Unknown_54(manager, 0);	// NAME 1 [manager]: the slot's parameter
@@ -238,7 +238,7 @@ void InvTransactionClass::Unknown_690D20()
 	ClientClass *client = View->Unknown4C;	// NAME 1 [client]: neutral
 	if (client) {
 		int id = client->ShipID;	// NAME 1 [id]: neutral
-		client->Send_Packet(&InventoryMovePacketClass(id, (InventoryEnum)FromInv, FromSlot, (InventoryEnum)ToInv, ToSlot, Num));
+		client->Send_Packet(&InvPacketClass(id, (InventoryEnum)FromInv, FromSlot, (InventoryEnum)ToInv, ToSlot, Num));
 	}
 	State = 0;
 }

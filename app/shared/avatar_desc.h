@@ -26,19 +26,19 @@
 // vtables 0xAEB9D0 (wire: six slots) / 0xAEB9CC (key/value); constructors 0x4BEB50, 0x4BEBF0, 0x4BECC0.
 // The destructor is the implicit one (inline in 0x7683F0, out of line at 0x53BB50).
 class INIClass;
-class AvatarDescClass : public Unknown_PacketDataClass, public DeltaInterfaceClass	// NAME 3: by convention (D24) from the client's avatar_desc.cpp
+class AvatarDescriptionClass : public Unknown_PacketDataClass, public DeltaInterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	static INIClass AvatarDefinitions;					// 0xBE55D8: avatardef.ini (Load_Defaults loads it)  // NAME 2: what it holds
-	AvatarDescClass();									// 0x4BEB50
-	AvatarDescClass(int type, int unknown, int unknown2);	// 0x4BEBF0 (Race, Profession, Gender)  // NAME 1 [unknown, unknown2]: neutral (D10)
-	AvatarDescClass(int type, const char *name);		// 0x4BECC0  // NAME 2 [name]: Load_Defaults'
-	AvatarDescClass(const AvatarDescClass &that);		// 0x4BED80 (16 callers in the UI)
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x4BF260
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x4BF550
+	AvatarDescriptionClass();									// 0x4BEB50
+	AvatarDescriptionClass(int type, int unknown, int unknown2);	// 0x4BEBF0 (Race, Profession, Gender)  // NAME 1 [unknown, unknown2]: neutral (D10)
+	AvatarDescriptionClass(int type, const char *name);		// 0x4BECC0  // NAME 2 [name]: Load_Defaults'
+	AvatarDescriptionClass(const AvatarDescriptionClass &that);		// 0x4BED80 (16 callers in the UI)
+	virtual bool Write(LinearBuffer *buffer);		// +0x00 0x4BF260
+	virtual bool Read(LinearBuffer *buffer);		// +0x04 0x4BF550
 	virtual int Get_Size();								// +0x08 0x4BF910
-	virtual bool Write_Short(LinearBufferClass *buffer);	// +0x0C 0x4BF930: without +0x0C and the string  // NAME 2: what it does
-	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4BFBF0  // NAME 2: what it does
+	virtual bool Write_Short(LinearBuffer *buffer);	// +0x0C 0x4BF930: without +0x0C and the string  // NAME 2: what it does
+	virtual bool Read_Short(LinearBuffer *buffer);	// +0x10 0x4BFBF0  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4BFEB0  // NAME 2: what it does
 	virtual void Unknown_00(KVEncoderClass *visitor);				// second table +0x00 0x4BFED0 (a LoginKVVisitorClass)
 

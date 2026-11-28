@@ -222,7 +222,7 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 			SkillGadgets[i] = new ButtonGadgetClass(sub.Peek(), *layer, 0x55, 3);
 			Unknown64.Unknown_6870E0(SkillGadgets[i], i + 0x11, View, 1, 0);
 			if (Unknown_B7DC44[i].SubObject != NULL) {
-				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, model); ((RObjGadgetClass *)SkillGadgets[i])->Unknown_98(style);
+				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7DC44[i].SubObject, model); ((RenderObjGadgetClass *)SkillGadgets[i])->Unknown_98(style);
 			}
 		}
 	}
@@ -489,8 +489,8 @@ void ClassSelectInterface::Unknown_575CD0()
 // @0x575D50
 void ClassSelectInterface::Unknown_575D50()
 {
-	AvatarDescClass *desc = &CharacterView->Unknown088;
-	CharacterView->Unknown088 = AvatarDescClass(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession, desc->Gender);
+	AvatarDescriptionClass *desc = &CharacterView->Unknown088;
+	CharacterView->Unknown088 = AvatarDescriptionClass(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession, desc->Gender);
 }
 
 
@@ -513,7 +513,7 @@ void ClassSelectInterface::Unknown_5760C0(bool arg)
 		}
 	}
 	Buttons[4]->Unknown_40(false);
-	((RObjGadgetClass *)Buttons[4])->Unknown_8C(true);
+	((RenderObjGadgetClass *)Buttons[4])->Unknown_8C(true);
 	Unknown_BE67C4->Get_Style("skill_fe_class00", CharacterView->Peek_Model())->Set_Hidden(1);
 }
 
@@ -539,11 +539,11 @@ void ClassSelectInterface::Unknown_576270()
 {
 	for (int i = 0; i < 8; i++) {
 		if (SliderValue + i < (int)Descriptions.size()) {
-			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text(Descriptions[SliderValue + i].c_str(), 0);
+			((RenderObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text(Descriptions[SliderValue + i].c_str(), 0);
 			SkillGadgets[i]->Set_Unknown14(SkillDescriptions[SliderValue + i].c_str());
 			SkillGadgets[i]->Unknown2C_06 = 0;
 		} else {
-			((RObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text("", 0);
+			((RenderObjGadgetClass *)SkillGadgets[i])->Unknown34->Change_Text("", 0);
 			SkillGadgets[i]->Set_Unknown14("");
 			SkillGadgets[i]->Unknown2C_06 = 0;
 		}

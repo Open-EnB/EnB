@@ -99,7 +99,7 @@ bool UIPetitionClass::Unknown_68(int key)
 		case 2:
 			if (!Page) {
 				Unknown_5C();
-				Page = Create_Get(new UIPopupBrowserClass((SClient *)((ClientClass *)Client)->As_Space_Client(), 0, "Knowledgebase", NULL));
+				Page = Create_Get(new PopupBrowserInterface((SClient *)((ClientClass *)Client)->As_Space_Client(), 0, "Knowledgebase", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -108,7 +108,7 @@ bool UIPetitionClass::Unknown_68(int key)
 		case 3:
 			if (!Page) {
 				Unknown_5C();
-				Page = Create_Get(new UIPopupBrowserClass((SClient *)((ClientClass *)Client)->As_Space_Client(), 2, "Bug Submission", NULL));
+				Page = Create_Get(new PopupBrowserInterface((SClient *)((ClientClass *)Client)->As_Space_Client(), 2, "Bug Submission", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -117,7 +117,7 @@ bool UIPetitionClass::Unknown_68(int key)
 		case 4:
 			if (!Page) {
 				Unknown_5C();
-				Page = Create_Get(new UIPopupBrowserClass((SClient *)((ClientClass *)Client)->As_Space_Client(), 1, "Tech Support", NULL));
+				Page = Create_Get(new PopupBrowserInterface((SClient *)((ClientClass *)Client)->As_Space_Client(), 1, "Tech Support", NULL));
 				Page->Unknown_54();
 				Page->Unknown_7C(View, 1);
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);

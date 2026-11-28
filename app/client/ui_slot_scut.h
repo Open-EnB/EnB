@@ -53,22 +53,22 @@ public:
 };
 class Unknown6A90A0Interface; SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, RenderObjClass *robj);	// 0x6A90A0 (slot_data_render.cpp; FAIL_IF '!iface')
 // gd_slot_data.cpp's gadget, as far as this file calls it
-class SlotDataGadgetClass : public RObjGadgetClass	// NAME 2: gd_slot_data.cpp's file, the asserts' 'sdata_gadg'
+class SlotDataGadget : public RenderObjGadgetClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	virtual SlotDataGadgetClass *Unknown_A4();			// +0xA4 (0x6309F0: 'scut_gadg')
+	virtual SlotDataGadget *Unknown_A4();			// +0xA4 (0x6309F0: 'scut_gadg')
 	virtual void Unknown_A8(int arg);					// +0xA8 (0x6309F0 passes 0)  // NAME 1 [arg]: neutral
 	int Unknown_670910();								// 0x670910 (its render's slot)
 
-	char Unknown60[0x64 - sizeof(RObjGadgetClass)];
+	char Unknown60[0x64 - sizeof(RenderObjGadgetClass)];
 	SlotDataRenderClass *SlotRender;					// +0x64 (0x670910's FAIL_IF '!SlotRender')  // NAME 3: the FAIL_IF's
 };
 
 // The 0x70-byte gadget of a shortcut (table 0xAFB1A4)
-class SlotDataShortcutGadgetClass : public SlotDataGadgetClass	// NAME 3: ui_inv.cpp's assert 'As_SlotDataShortcutGadget'
+class SlotDataShortcutGadget : public SlotDataGadget  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	SlotDataShortcutGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30 (gd_slot_data.h's, which this declaration must match)
+	SlotDataShortcutGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30 (gd_slot_data.h's, which this declaration must match)
 	char Unknown68[0x70 - 0x68];
 };
 
@@ -90,15 +90,15 @@ public:
 
 // The shortcut gadgets of a slot interface's slots (0x60 bytes, table 0xAF82A8; 0x62E150 makes it). The name is the client's RTTI:
 // MemberCallback<SlotDataClass, SlotDataShortcutInterface, ...> 0xB8A7C0
-class SlotDataShortcutInterface : public UIScutGadgetsClass	// NAME 5: the client's RTTI
+class SlotDataShortcutInterface : public ShortcutGadgetsInterface	// NAME 5: the client's RTTI
 {
 public:
 	SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SClient *sclient);	// 0x630490 (FAIL_IFs l.61, l.64)  // NAME 3 [slot_iface]: the FAIL_IF's; NAME 2 [name, sclient]: the base's
 	virtual ~SlotDataShortcutInterface();				// +0x00 0x6307B0 (deleting 0x630650; FAIL_IF l.72)
-	virtual void Set_UI(const RefCountPtr<UIScutClass> &ui);	// +0x04 0x630980 (FAIL_IF l.83)  // NAME 2: the base's
-	virtual RObjGadgetClass *Unknown_0C(int slot);		// +0x0C 0x631000 (FAIL_IFs l.247-256)  // NAME 2 [slot]: what the render's slot +0x40 gets
-	virtual bool Unknown_10(RObjGadgetClass *gadget, std::string &key);	// +0x10 0x631540 (FAIL_IFs l.295, l.298)  // NAME 2 [gadget, key]: the base's
-	virtual RObjGadgetClass *Unknown_14(const char *key);	// +0x14 0x631270 (FAIL_IFs l.269-276)  // NAME 3 [key]: the FAIL_IF's
+	virtual void Set_UI(const RefCountPtr<ShortcutInterface> &ui);	// +0x04 0x630980 (FAIL_IF l.83)  // NAME 2: the base's
+	virtual RenderObjGadgetClass *Unknown_0C(int slot);		// +0x0C 0x631000 (FAIL_IFs l.247-256)  // NAME 2 [slot]: what the render's slot +0x40 gets
+	virtual bool Unknown_10(RenderObjGadgetClass *gadget, std::string &key);	// +0x10 0x631540 (FAIL_IFs l.295, l.298)  // NAME 2 [gadget, key]: the base's
+	virtual RenderObjGadgetClass *Unknown_14(const char *key);	// +0x14 0x631270 (FAIL_IFs l.269-276)  // NAME 3 [key]: the FAIL_IF's
 	virtual int Unknown_18();							// +0x18 0x6315C0 (FAIL_IF l.306)
 
 	void Slot_Data_Changed(SlotDataEventDataChange *event, SlotDataClass *slot_data);	// 0x6309D0 (the SlotDataEventDataChange callback)  // NAME 2: what it does; NAME 2 [event, slot_data]: the callback's types

@@ -87,7 +87,7 @@ int Packet_7536Class::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorCancelKeyValues", GameID));
 }
 
-Packet_7537Class::Packet_7537Class(int game_id, char *data, int size) :
+GameEditorKVUpdatePacketClass::GameEditorKVUpdatePacketClass(int game_id, char *data, int size) :
 	GameID(game_id),
 	Data(data),
 	Size(size),
@@ -95,7 +95,7 @@ Packet_7537Class::Packet_7537Class(int game_id, char *data, int size) :
 {
 }
 
-Packet_7537Class::Packet_7537Class(RawPacketClass *raw)
+GameEditorKVUpdatePacketClass::GameEditorKVUpdatePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Size, sizeof(Size));
@@ -122,14 +122,14 @@ Packet_7537Class::Packet_7537Class(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_7537Class::~Packet_7537Class()
+GameEditorKVUpdatePacketClass::~GameEditorKVUpdatePacketClass()
 {
 	if (Owned) {
 		delete [] Data;
 	}
 }
 
-RawPacketClass *Packet_7537Class::Build()
+RawPacketClass *GameEditorKVUpdatePacketClass::Build()
 {
 	RawPacketClass *packet = new RawPacketClass(30007, Get_Data_Size());
 
@@ -140,23 +140,23 @@ RawPacketClass *Packet_7537Class::Build()
 	return(packet);
 }
 
-int Packet_7537Class::Get_Data_Size()
+int GameEditorKVUpdatePacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(GameID) + sizeof(Size));
 }
 
-int Packet_7537Class::Print(char *buffer, int)
+int GameEditorKVUpdatePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorUpdateKeyValues", GameID));
 }
 
-bool Packet_7537Class::Process_Packet(void *)
+bool GameEditorKVUpdatePacketClass::Process_Packet(void *)
 {
 	return(true);
 }
 
 
-Packet_7538Class::Packet_7538Class(int game_id, char *data, int size) :
+GameEditorKVModifyPacketClass::GameEditorKVModifyPacketClass(int game_id, char *data, int size) :
 	GameID(game_id),
 	Data(data),
 	Size(size),
@@ -164,7 +164,7 @@ Packet_7538Class::Packet_7538Class(int game_id, char *data, int size) :
 {
 }
 
-Packet_7538Class::Packet_7538Class(RawPacketClass *raw)
+GameEditorKVModifyPacketClass::GameEditorKVModifyPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Size, sizeof(Size));
@@ -183,14 +183,14 @@ Packet_7538Class::Packet_7538Class(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_7538Class::~Packet_7538Class()
+GameEditorKVModifyPacketClass::~GameEditorKVModifyPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
 	}
 }
 
-RawPacketClass *Packet_7538Class::Build()
+RawPacketClass *GameEditorKVModifyPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30008, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -199,12 +199,12 @@ RawPacketClass *Packet_7538Class::Build()
 	return(raw);
 }
 
-int Packet_7538Class::Get_Data_Size()
+int GameEditorKVModifyPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(GameID) + sizeof(Size));
 }
 
-int Packet_7538Class::Print(char *buffer, int)
+int GameEditorKVModifyPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorModifyKeyValues", GameID));
 }

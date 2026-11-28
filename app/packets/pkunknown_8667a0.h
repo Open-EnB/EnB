@@ -19,11 +19,11 @@
 #include "pk.h"
 
 // opcode 116 (0x0074, ?): vtable 0xB095F4, constructor 0x866870, 0x68 bytes
-class Packet_0074Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0074
+class GlobalPlayerStatusPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_0074Class(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64);	// 0x8667A0  // NAME 2: the stores (no caller left)
-	Packet_0074Class(RawPacketClass *raw);	// 0x866870
+	GlobalPlayerStatusPacketClass(int unknown0c, const char *unknown10, __int64 unknown58, int unknown60, int unknown64);	// 0x8667A0  // NAME 2: the stores (no caller left)
+	GlobalPlayerStatusPacketClass(RawPacketClass *raw);	// 0x866870
 	virtual RawPacketClass *Build();	// +0x04 0x866930
 	virtual bool Process_Packet(void *client);	// +0x08 0x868910 (clientstub.cpp l.245)
 	virtual int Get_Data_Size();	// +0x0C 0x866A40

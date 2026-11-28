@@ -28,7 +28,7 @@
 #include "matrix3d.h"
 #include "..\shared\duration.h"
 class KernelClass;
-class HeightFieldClass;
+class HeightMapClass;
 class RenderObjClass;
 class SubPartsPacket;
 class PacketClass;
@@ -187,7 +187,7 @@ public:
 
 	int Unknown04;										// +0x04 (the constructor leaves it)
 	PxList *Px;											// +0x08  // NAME 3: px.cpp's
-	PxProcessClass *PxProcess;							// +0x0C  // NAME 3: px_process.cpp's
+	PxProcessList *PxProcess;							// +0x0C  // NAME 3: px_process.cpp's
 	bool DebugMode;										// +0x10 (slots +0x38 / +0x3C, the DEBUG packet's user data)  // NAME 2: what it holds
 	bool Unknown11;										// +0x11 (Set_Avatar_ID's DEBUG packet's user data)
 	KernelClass *Kernel;								// +0x14 ClientTaskClass::Init sets it  // NAME 2: what it holds
@@ -229,7 +229,7 @@ public:
 	int Unknown1138;									// +0x1138 rand() after srand(timeGetTime())
 	int Unknown113C;									// +0x113C (counted down: the client's own ids, Next_Local_ID)
 	bool ObjectsChanged;								// +0x1140 set by Add_Object / Remove_Object  // NAME 2: what it holds
-	HeightFieldClass *Unknown1144;						// +0x1144: the land's height field (SERVER_PARAMETERS 66 copies LandClass +0x90)
+	HeightMapClass *Unknown1144;						// +0x1144: the land's height field (SERVER_PARAMETERS 66 copies LandClass +0x90)
 	SplineDatabaseClass *Splines;						// +0x1148 splines.wsd  // NAME 2: what it holds
 	int Unknown114C;									// +0x114C
 };

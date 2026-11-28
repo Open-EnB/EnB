@@ -9,7 +9,7 @@
 
 // 0x47F560
 OffsetRenderObjClass::OffsetRenderObjClass(void) :
-	ProxyRObj(false),
+	ProxyRenderObjClass(false),
 	Offset(0.0f, 0.0f, 0.0f)
 {
 }
@@ -74,7 +74,7 @@ void OffsetRenderObjClass::Set_Offset(Vector3 &offset)	// not const: retail's ?S
 **	- 0xB71AA0 is absolute, where headers included from other directories read '..\shared/...' (workflow.md 2.1):
 **	  the translation unit that included the header sits in the header's own directory.
 **	- 0x47F560-0x47F8DD are out-of-line bodies (all of this class), then the adjustors 0x47F900 / 0x47F910 and the
-**	  inlines to 0x47FA56; ProxyRObj's object repeats that shape from 0x47FA70 to its adjustors 0x480AD0 / 0x480AE0
+**	  inlines to 0x47FA56; ProxyRenderObjClass's object repeats that shape from 0x47FA70 to its adjustors 0x480AD0 / 0x480AE0
 **	  and Class_ID 0x480AF0. Out-of-line bodies after a run of inlines start a new object, so this is neither one
 **	  object with ro_proxy.cpp nor part of the land.cpp before it (triage's low hint: its inlines end at 0x47F520).
 **	- Get_Sort_Level / Set_Sort_Level (0x47F920 / 0x47F940) are ro_proxy.h's inlines, kept here as this object's copies.

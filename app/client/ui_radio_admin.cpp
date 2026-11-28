@@ -83,7 +83,7 @@ void UIRadioAdminClass::Unknown_58()
 		Unknown_5E5B10();
 		Unknown_5E5A40(true);
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }

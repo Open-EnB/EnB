@@ -1812,7 +1812,7 @@ void Unknown713B00Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 }
 
 
-Unknown713C80Class::Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client)
+ComponentNode::ComponentNode(ComponentPositionalUpdatePacketClass *packet, ClientClass *client)
 {
 	Current = new Unknown713D70Class(packet, client);
 }
@@ -1905,7 +1905,7 @@ Vector3 Unknown713D70Class::Unknown_14()
 }
 
 
-Unknown714340Class::Unknown714340Class(SClient *client, FormationPositionalUpdatePacketClass *packet) :
+FormationNode::FormationNode(SClient *client, FormationPositionalUpdatePacketClass *packet) :
 	Client(client),
 	LeaderID(packet->LeaderID),
 	Offset(packet->Offset),
@@ -1915,7 +1915,7 @@ Unknown714340Class::Unknown714340Class(SClient *client, FormationPositionalUpdat
 
 
 // 0x714410
-void Unknown714340Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+void FormationNode::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
 {
 	ClientObjectClass *leader = Client->Find_Object(LeaderID);
 	if (leader == 0) {

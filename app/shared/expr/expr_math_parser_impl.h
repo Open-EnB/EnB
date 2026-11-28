@@ -22,7 +22,7 @@
 #include "expr_math_parser.h"
 #include "expr_math_lexer.h"
 
-class ExprMathParserImplClass : public ExprMathParserClass	// NAME 3 [ExprMathParserImplClass]: from the file name
+class ExprMathParserImplClass : public ExprMathParser	// NAME 3 [ExprMathParserImplClass]: from the file name
 {
 public:
 	struct GroupStruct	// NAME 3 [GroupStruct]: 0x14 bytes, one precedence level
@@ -34,15 +34,15 @@ public:
 	void Add_Group(int type, const char *ops);							// 0x4D0AC0  // NAME 3 [Add_Group]
 	void Add_Similar(int type, const char *ops, const char *similar);	// 0x4D0DF0  // NAME 3 [Add_Similar]
 
-	virtual ExprMathTreeClass *Parse(ExprMathLexerClass *lex);			// 0x4D10A0
-	virtual ExprMathTreeClass *Parse_Primary(ExprMathLexerClass *lex);	// 0x4D18A0  // NAME 3 [Parse_Primary]
+	virtual ExprMathTreeNode *Parse(ExprLexer *lex);			// 0x4D10A0
+	virtual ExprMathTreeNode *Parse_Primary(ExprLexer *lex);	// 0x4D18A0  // NAME 3 [Parse_Primary]
 
 protected:
-	ExprMathTreeClass *Parse_Level(ExprMathLexerClass *lex, int level);	// 0x4D10E0  // NAME 3 [Parse_Level]
-	ExprMathTreeClass *Parse_Unary(ExprMathLexerClass *lex, int level);	// 0x4D13E0  // NAME 3 [Parse_Unary]
-	ExprMathTreeClass *Parse_Binary(ExprMathLexerClass *lex, int level);	// 0x4D1600  // NAME 3 [Parse_Binary]
-	bool Is_Operator(const ExprMathTokenClass &token, int level);		// 0x4D19E0  // NAME 3 [Is_Operator]
-	ExprMathTokenClass Peek(ExprMathLexerClass *lex);					// 0x4D1AC0  // NAME 3 [Peek]: skips type-0 tokens
+	ExprMathTreeNode *Parse_Level(ExprLexer *lex, int level);	// 0x4D10E0  // NAME 3 [Parse_Level]
+	ExprMathTreeNode *Parse_Unary(ExprLexer *lex, int level);	// 0x4D13E0  // NAME 3 [Parse_Unary]
+	ExprMathTreeNode *Parse_Binary(ExprLexer *lex, int level);	// 0x4D1600  // NAME 3 [Parse_Binary]
+	bool Is_Operator(const ExprLexerToken &token, int level);		// 0x4D19E0  // NAME 3 [Is_Operator]
+	ExprLexerToken Peek(ExprLexer *lex);					// 0x4D1AC0  // NAME 3 [Peek]: skips type-0 tokens
 
 	std::vector<GroupStruct> m_groups;
 };

@@ -51,7 +51,7 @@ public:
 		G_ASSERT(factory);
 	}
 
-	virtual void Visit_Unary(ExprMathUnaryClass *node)
+	virtual void Visit_Unary(ExprMathTreeUnary *node)
 	{
 		PtrType child;
 		node->Get_Child()->Accept(this);
@@ -69,7 +69,7 @@ public:
 	}
 
 	// NOT EXACT: 0x4CB260 (float), 0x4CFB00 (int): the client releases left on the first early return and leaves right to a shared exit; ours releases both in place
-	virtual void Visit_Binary(ExprMathBinaryClass *node)
+	virtual void Visit_Binary(ExprMathTreeBinary *node)
 	{
 		PtrType left;
 		PtrType right;
@@ -92,9 +92,9 @@ public:
 		}
 	}
 
-	virtual void Visit_Leaf(ExprMathTreeClass *node)
+	virtual void Visit_Leaf(ExprMathTreeNode *node)
 	{
-		const ExprMathTokenClass &token = node->Get_Token();
+		const ExprLexerToken &token = node->Get_Token();
 		switch (token.Type) {
 			case 2:
 				m_result = m_factory->Create_Constant(token.Text);
@@ -122,13 +122,13 @@ class ExprMathBuilderClass	// NAME 3 [ExprMathBuilderClass]
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
 
-	ExprMathBuilderClass(ExprMathLexerClass *lexer, ExprMathParserClass *parser, ExprMathEvalFactoryClass<T> *factory) :
+	ExprMathBuilderClass(ExprLexer *lexer, ExprMathParser *parser, ExprMathEvalFactoryClass<T> *factory) :
 		m_lexer(lexer), m_parser(parser), m_factory(factory) {}
 
 	PtrType Build(const char *source, std::vector<std::string> *names)
 	{
 		m_lexer->Set_Source(source);
-		ExprMathTreeClass *tree = m_parser->Parse(m_lexer);
+		ExprMathTreeNode *tree = m_parser->Parse(m_lexer);
 		if (tree == NULL) {
 			return NULL;
 		}
@@ -151,8 +151,8 @@ public:
 	}
 
 protected:
-	ExprMathLexerClass *m_lexer;				// NAME 3 [m_lexer]
-	ExprMathParserClass *m_parser;				// NAME 3 [m_parser]
+	ExprLexer *m_lexer;				// NAME 3 [m_lexer]
+	ExprMathParser *m_parser;				// NAME 3 [m_parser]
 	ExprMathEvalFactoryClass<T> *m_factory;		// NAME 3 [m_factory]
 };
 

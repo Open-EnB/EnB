@@ -6,7 +6,7 @@
 #include "..\packets\pkrequesttarget.h"
 #include "..\shared\auth_product.h"
 // @0x7C6120
-TargetingClass::TargetingClass(SClient *client) :
+TargetSelectClass::TargetSelectClass(SClient *client) :
 	TargetFindClass(client),
 	Unknown0C(0),
 	Unknown10(false)
@@ -14,48 +14,48 @@ TargetingClass::TargetingClass(SClient *client) :
 }
 
 // @0x7C6190
-TargetingClass::~TargetingClass()
+TargetSelectClass::~TargetSelectClass()
 {
 }
 
 // @0x7C61B0
-void TargetingClass::Clear_Target()
+void TargetSelectClass::Clear_Target()
 {
 	Select(NULL);
 }
 
 // @0x7C61D0
-ClientObjectClass *TargetingClass::Get_Target()
+ClientObjectClass *TargetSelectClass::Get_Target()
 {
 	return(Client->Get_Target());
 }
 
 // @0x7C61F0
-ClientObjectClass *TargetingClass::Select_Next_Target()
+ClientObjectClass *TargetSelectClass::Select_Next_Target()
 {
 	return(Select_Next(Get_Target()));
 }
 
 // @0x7C6220
-ClientObjectClass *TargetingClass::Select_Prev_Target()
+ClientObjectClass *TargetSelectClass::Select_Prev_Target()
 {
 	return(Select_Prev(Get_Target()));
 }
 
 // @0x7C6250
-ClientObjectClass *TargetingClass::Select_Next_Target_Filtered()
+ClientObjectClass *TargetSelectClass::Select_Next_Target_Filtered()
 {
 	return(Select_Next_Filtered(Get_Target()));
 }
 
 // @0x7C6280
-ClientObjectClass *TargetingClass::Select_Prev_Target_Filtered()
+ClientObjectClass *TargetSelectClass::Select_Prev_Target_Filtered()
 {
 	return(Select_Prev_Filtered(Get_Target()));
 }
 
 // @0x7C62B0
-ClientObjectClass *TargetingClass::Select(ClientObjectClass *co)
+ClientObjectClass *TargetSelectClass::Select(ClientObjectClass *co)
 {
 	if (co != Get_Target()) {
 		Client->Send_Packet(&RequestTargetPacketClass(Client->Get_Avatar_ID(), co ? co->Get_Game_ID() : 0));

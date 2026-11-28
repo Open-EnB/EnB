@@ -167,7 +167,7 @@ bool String_To_Value(const char *buf, ChatErrorType *error)
 **	Reconstruction notes
 **
 **	The object: 0x830460-0x830BC3, after the guarded <string> initialiser 0x830430 of the file before it
-**	(this one has none; circbuff.cpp's CircBuffClass constructor 0x830BF0 follows). Both tables are built
+**	(this one has none; circbuff.cpp's CircularBufferClass constructor 0x830BF0 follows). Both tables are built
 **	at start-up (their entries in the initialiser list 0xB6CF2C / 0xB6CF30 sit together between two
 **	zero separators), so their structs have constructors: the tables live in .bss (0xBF3090, 0xBF3188),
 **	the names in .data with the FAIL_IF texts and the __FILE__ string 0xBA9030. The event names are the

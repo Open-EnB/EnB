@@ -2,21 +2,21 @@
 #include "pkserverready.h"
 #include <stdio.h>
 
-Packet_003BClass::Packet_003BClass(int sector, int ip, unsigned short port) :
+ServerReadyPacketClass::ServerReadyPacketClass(int sector, int ip, unsigned short port) :
 	Sector(sector),
 	IP(ip),
 	Port(port)
 {
 }
 
-Packet_003BClass::Packet_003BClass(RawPacketClass *raw)
+ServerReadyPacketClass::ServerReadyPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Sector, sizeof(Sector));
 	raw->Get(&IP, sizeof(IP));
 	raw->Get(&Port, sizeof(Port));
 }
 
-RawPacketClass *Packet_003BClass::Build()
+RawPacketClass *ServerReadyPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Sector, sizeof(Sector));
@@ -25,12 +25,12 @@ RawPacketClass *Packet_003BClass::Build()
 	return(raw);
 }
 
-int Packet_003BClass::Get_Data_Size()
+int ServerReadyPacketClass::Get_Data_Size()
 {
 	return(sizeof(Sector) + sizeof(IP) + sizeof(Port));
 }
 
-int Packet_003BClass::Print(char *buffer, int)
+int ServerReadyPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Sector=%d IP=%x Port=%hd}", "Server_Ready", Sector, IP, Port));
 }

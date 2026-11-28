@@ -11,11 +11,11 @@
 #ifndef PX_CALLBACK_H  // NAME 1 [px_callback.h]: provisional header name (no string)
 #define PX_CALLBACK_H
 
-class DynObj;
+class DynamicObjectClass;
 class PxList;
 class PxObject;
 
-typedef void (*PxCallbackFunction)(DynObj *a, DynObj *b, int event);  // NAME 2: the callbacks' Process passes the two boxes' objects and a PxCallbackEvent
+typedef void (*PxCallbackFunction)(DynamicObjectClass *a, DynamicObjectClass *b, int event);  // NAME 2: the callbacks' Process passes the two boxes' objects and a PxCallbackEvent
 
 class PxCallback  // NAME 2: PxWrapper's 'Update(Callbacks)' calls them
 {

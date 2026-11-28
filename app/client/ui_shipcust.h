@@ -19,7 +19,7 @@ class CharacterViewClass;
 class EnvironmentMapManagerClass;
 class SClientUnknown1334Class;
 class FlashingGadgetEvent;
-class ShipPipClass;
+class ShipPIPClass;
 class UIAvatrPullClass;
 
 // The window's ship: its description with the models built from it (0x184 bytes; constructor 0x620D20, copy
@@ -118,7 +118,7 @@ public:
 	int Unknown218;									// +0x218 (how it leaves: 5 the next step, else back)
 	RefCountPtr<TextureClass> Unknown21C;			// +0x21C 'BLACK.TGA' (no insignia)
 	RenderObjClass *Unknown220[3];					// +0x220 the metal buttons' models (page 2)
-	ShipPipClass *Unknown22C;					// +0x22C the ship preview gadget (id 0x34)
+	ShipPIPClass *Unknown22C;					// +0x22C the ship preview gadget (id 0x34)
 	LayerClass *Layer;								// +0x230  // NAME 1: as ui_login.cpp's
 	int Page;										// +0x234 (0 hull, 1 paint, 2 insignia, 3 name)  // NAME 1: what it holds
 	std::map<int, ShipCustGadgetStruct> Gadgets;	// +0x238  // NAME 1: what it holds

@@ -12,11 +12,11 @@
 
 class SClient;
 class RenderObjClass;
-class SlotDataGadgetClass;		// gd_slot_data.h's slot gadgets (+0x88)
+class SlotDataGadget;		// gd_slot_data.h's slot gadgets (+0x88)
 class SlotDataClass;			// slot_data.h's (+0x98)
 class SlotDataEventDataChange;	// slot_data.h's (the signal's event)
 struct KernelEventClass;
-class UIScutGadgetsClass;		// ui_scut_gadgets.h's (+0x84)
+class ShortcutGadgetsInterface;		// ui_scut_gadgets.h's (+0x84)
 class DragSlotDataClass;		// drag_slot_data.cpp's (+0xA0)
 class UISlotInfoClass;			// ui_slot_info.h's (+0x9C)
 
@@ -43,12 +43,12 @@ public:
 	virtual InterfaceClass *Unknown_8C() { return(this); }	// +0x8C 0x549760 (inline)
 	virtual InterfaceClass *Unknown_90() { return(NULL); }	// +0x90 0x549780 (inline: the inventory windows' answer, slot_data_render.cpp's factory)
 	virtual InterfaceClass *Unknown_94() { return(NULL); }	// +0x94 0x585160 (inline: the skill windows' answer, slot_data_render.cpp's factory)
-	virtual bool Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask);	// +0x98 0x62E8B0 (a right press: the slot's information)  // NAME 1 [gadget, event, mask]: gd_slot_data.h's SlotDataIFaceClass
+	virtual bool Unknown_98(SlotDataGadget *gadget, KernelEventClass *event, unsigned int mask);	// +0x98 0x62E8B0 (a right press: the slot's information)  // NAME 1 [gadget, event, mask]: gd_slot_data.h's SlotDataIFaceClass
 	virtual bool Unknown_9C(int slot, bool arg);		// +0x9C 0x62DE30 (false)  // NAME 1 [slot, arg]: what ui_inv.cpp's 0x59FA80 does with them
-	virtual bool Unknown_A0(SlotDataGadgetClass *gadget) { return(true); }	// +0xA0 0x585180 (inline)  // NAME 1 [gadget]: what 0x62E8B0 passes
+	virtual bool Unknown_A0(SlotDataGadget *gadget) { return(true); }	// +0xA0 0x585180 (inline)  // NAME 1 [gadget]: what 0x62E8B0 passes
 	virtual void Unknown_A4(std::string &name, int index, int arg) = 0;	// +0xA4 (ui_inv.cpp's 0x59FB20: the name and '_%d'; 0x62EB90 passes the slot and the button)  // NAME 1 [name, index, arg]: what 0x59FB20 does with them (arg unused)
 	virtual const char *Unknown_A8() = 0;				// +0xA8 (ui_inv.cpp's 0x5851C0: its +0xCC; the skill windows' 'Skills')
-	virtual SlotDataGadgetClass *Unknown_AC(RenderObjClass *robj, const int *slot);	// +0xAC 0x62EF80 (FAIL_IFs l.701 / 704 / 711: a button made for the model)  // NAME 1 [robj, slot]: neutral (ui_mount.cpp passes a button's sub-object and NULL)
+	virtual SlotDataGadget *Unknown_AC(RenderObjClass *robj, const int *slot);	// +0xAC 0x62EF80 (FAIL_IFs l.701 / 704 / 711: a button made for the model)  // NAME 1 [robj, slot]: neutral (ui_mount.cpp passes a button's sub-object and NULL)
 	virtual void Unknown_B0();							// +0xB0 0x62ED40 (every button's slot from UnknownA8 on)
 	virtual void Unknown_B4(int slot, int index);		// +0xB4 0x62EB90 (FAIL_IF '!gadget' l.565: one button's slot and tooltip)  // NAME 1 [slot, index]: neutral
 	virtual void Unknown_B8(bool arg);					// +0xB8 0x62EE10 (FAIL_IF '!gadget' l.655: every button's +0xA8)  // NAME 1 [arg]: neutral
@@ -64,13 +64,13 @@ public:
 	bool Unknown_62E9E0(int notches, unsigned int notch_size);	// 0x62E9E0 (FAIL_IFs l.479 / 480: up)  // NAME 3 [notch_size]: the FAIL_IFs'; NAME 1 [notches]: neutral
 	bool Unknown_62EAA0(unsigned int notches, unsigned int notch_size);	// 0x62EAA0 (FAIL_IFs l.511 / 512: down)  // NAME 3 [notch_size]: the FAIL_IFs'; NAME 1 [notches]: neutral
 	void Unknown_62EDC0(int count);						// 0x62EDC0 (VisibleButtons, at most the buttons)  // NAME 1 [count]: neutral
-	SlotDataGadgetClass *Unknown_62F290(unsigned int idx);	// 0x62F290 (FAIL_IF 'idx >= Buttons.size()' l.780)  // NAME 3 [idx]: the FAIL_IF's
+	SlotDataGadget *Unknown_62F290(unsigned int idx);	// 0x62F290 (FAIL_IF 'idx >= Buttons.size()' l.780)  // NAME 3 [idx]: the FAIL_IF's
 	void Unknown_62F4D0(RefCountPtr<RenderObjClass> &frame, int id);	// 0x62F4D0 (FAIL_IF '!robj' l.822: a back gadget; the attributes tab passes its 'new_frame' and 0x138C)  // NAME 1 [frame, id]: neutral
 	void Unknown_62F5B0(bool on);						// 0x62F5B0 (UnknownB8_2 and every button's 0x670C90)  // NAME 1 [on]: neutral
 	void Unknown_62F620(const char *name);				// 0x62F620 (a name into every button's render)  // NAME 1 [name]: neutral
 
-	UIScutGadgetsClass *ShortcutUI;					// +0x84 (0x62E150 news it: FAIL_IF 'ShortcutUI' l.172; ui_inv.cpp's 0x5A0740 makes the shortcut)  // NAME 3: the assert's
-	std::vector<SlotDataGadgetClass *> Buttons;		// +0x88 (the slots' gadgets: the trade window's 0x652890 reads 0..4 as '!bttn')  // NAME 3: the FAIL_IF 'idx >= Buttons.size()'
+	ShortcutGadgetsInterface *ShortcutUI;					// +0x84 (0x62E150 news it: FAIL_IF 'ShortcutUI' l.172; ui_inv.cpp's 0x5A0740 makes the shortcut)  // NAME 3: the assert's
+	std::vector<SlotDataGadget *> Buttons;		// +0x88 (the slots' gadgets: the trade window's 0x652890 reads 0..4 as '!bttn')  // NAME 3: the FAIL_IF 'idx >= Buttons.size()'
 	SlotDataClass *SlotData;							// +0x98 (referenced; FAIL_IF '!SlotData' l.149)  // NAME 3: the FAIL_IF's
 	UISlotInfoClass *Unknown9C;							// +0x9C (referenced: ui_slot_info.cpp's 0x630280 makes it)  // NAME 1: neutral (D10)
 	DragSlotDataClass *SlotDrag;						// +0xA0 (0x62DF90 news it, drag_slot_data.cpp's 0x6851B0)  // NAME 3: ui_skills.cpp's assert 'from_slot != SlotDrag->Get_Slot()'

@@ -5,7 +5,7 @@
 **	a proposal)
 **
 **	The terrain: a render object built from a land ini (the client: land%04d.ini, mainview.cpp;
-**	VIDTEST: land.ini) over a HeightFieldClass (+0x90), with a colour map lit into lightmap textures
+**	VIDTEST: land.ini) over a HeightMapClass (+0x90), with a colour map lit into lightmap textures
 **	by the sun (a worker thread, +0x194), a detail map, an optional sea, a grid of patches drawn at a
 **	level of detail chosen per patch, and decorations.
 **
@@ -48,7 +48,7 @@
 #include "matrix3d.h"
 #include "land_lighting.h"
 
-class HeightFieldClass;
+class HeightMapClass;
 class TextureClass;
 class DX8VertexBufferClass;
 class IndexBufferClass;
@@ -237,7 +237,7 @@ protected:
 protected:
 // NAME 2: members after what the ctor 0x468E90, the dtor 0x46A480 and Load_Assets 0x4691D0 do with them; UnknownXX: use not known
 	int							LightmapSerial;						// +0x8C, counts the lightmap swaps (0x46D8B0)
-	HeightFieldClass *		Field;									// +0x90, HeightFieldClass::Load; never set by the ctor
+	HeightMapClass *		Field;									// +0x90, HeightMapClass::Load; never set by the ctor
 	IndexBufferClass *		StripBuffers[MAX_LEVELS];			// NAME 2: a level's triangle strip over a patch (Build_Index_Buffers 0x478240)
 	int							StripCounts[MAX_LEVELS];			// NAME 2: its index count less 2
 	IndexBufferClass *		EdgeBuffers[MAX_LEVELS];			// NAME 2: a level's edge fans, four sides (none at level 0)

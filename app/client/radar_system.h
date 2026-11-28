@@ -21,9 +21,9 @@
 
 class SClient;
 class GutterRadarClass;
-class NavListBuilderClass;
+class NavigationListBuilder;
 class NavigationListClass;
-class StarmapPipClass;
+class StarmapPIPClass;
 class RadarSystemClass;
 class RadarSystemDataCacheClass;
 class RefCountClass;
@@ -49,7 +49,7 @@ public:
 	void Unknown_7BCA40(bool arg);						// 0x7BCA40 (the main view's slot +0x18): both paths cleared  // NAME 1 [arg]: never read
 	bool Unknown_7BD980();								// 0x7BD980: the warp path is built
 	const NavigationListClass &Unknown_7BD960();		// 0x7BD960
-	void Unknown_7BCA70(GutterRadarClass *object, StarmapPipClass *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame)  // NAME 2 [object, arg, scene]: the gutter, the starmap, the scene
+	void Unknown_7BCA70(GutterRadarClass *object, StarmapPIPClass *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame)  // NAME 2 [object, arg, scene]: the gutter, the starmap, the scene
 
 	ClientObjectClass *Unknown_7BD4C0();				// 0x7BD4C0: the next object on the starmap after the target
 	ClientObjectClass *Unknown_7BD5D0();				// 0x7BD5D0: the one before it
@@ -61,8 +61,8 @@ public:
 	SClient *Client;									// +0x00 (the G_ASSERT's name)
 	RadarSystemWatchClass Hover;						// +0x04  // NAME 2: 0x7BD860 sets it
 	RadarSystemWatchClass Target;						// +0x20  // NAME 2: 0x7BD6E0 sets it
-	NavListBuilderClass *WarpPath;						// +0x3C  // NAME 2: the starmap's FAIL_IF '!WarpPath'
-	NavListBuilderClass *TargetPath;					// +0x40  // NAME 2: the starmap's FAIL_IF '!TargetPath'
+	NavigationListBuilder *WarpPath;						// +0x3C  // NAME 2: the starmap's FAIL_IF '!WarpPath'
+	NavigationListBuilder *TargetPath;					// +0x40  // NAME 2: the starmap's FAIL_IF '!TargetPath'
 	float ScanRange;									// +0x44 (the avatar's aux field)  // NAME 2: what it holds
 	int GutterCount;									// +0x48  // NAME 2: what it holds
 	bool Unknown4C;										// +0x4C: the mouse is on the starmap

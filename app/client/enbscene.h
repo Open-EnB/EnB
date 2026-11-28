@@ -3,7 +3,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\enbscene.h (name assumed from enbscene.cpp's __FILE__)
 **
-**	The main view's scene (mainview.cpp's +0x10C): a ProjSceneClass that also sorts what is added to it into
+**	The main view's scene (mainview.cpp's +0x10C): a ProjectionSceneClass that also sorts what is added to it into
 **	the 'plt' models (their day / night), the 'clouds' emitters (their colour) and the land and the meshes
 **	(+0xDC; the land also in Land, the assert's name).
 **
@@ -23,16 +23,16 @@ class OBBoxClass;
 class Vector3;
 struct CastResultStruct;
 
-class MainViewSceneClass : public ProjSceneClass	// NAME 1: neutral (D10): mainview.cpp's scene
+class ENBSceneClass : public ProjectionSceneClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	MainViewSceneClass(void);												// 0x75ECF0
-	virtual ~MainViewSceneClass(void);										// 0x75EED0 (deleting 0x75EE70)
+	ENBSceneClass(void);												// 0x75ECF0
+	virtual ~ENBSceneClass(void);										// 0x75EED0 (deleting 0x75EE70)
 
 	virtual void	Add_Render_Object(RenderObjClass * obj);				// +0x0C 0x75F180
 	virtual void	Remove_Render_Object(RenderObjClass * obj);			// +0x10 0x75F440
 	virtual void	Remove_All_Render_Objects(void);							// +0x60 0x75F560
-	virtual void	Apply_Projectors(CameraClass * camera);				// +0x68 0x75F8B0 (ProjSceneClass's, then the land's projectors)
+	virtual void	Apply_Projectors(CameraClass * camera);				// +0x68 0x75F8B0 (ProjectionSceneClass's, then the land's projectors)
 
 	void Unknown_75F690(const Vector3 &sun, const Vector3 &camera);		// 0x75F690 (mainview.cpp's Update, space mode)  // NAME 1 [sun, camera]: what Update passes
 	void Unknown_75F700(const Vector3 &color);								// 0x75F700 (mainview.cpp's Update, planet mode)  // NAME 1 [color]: what Update passes

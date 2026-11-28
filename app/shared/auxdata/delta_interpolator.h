@@ -22,10 +22,10 @@
 #include "..\g_assert.h"
 
 // vtable 0xAEAE54, size 0x250
-class DeltaInterpolatorClass : public DeltaCompoundClass  // NAME 3: by convention (D24) from the client's file delta_interpolator.cpp (D59)
+class DeltaInterpolator : public DeltaContainer  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	DeltaInterpolatorClass(const char *name);											// 0x4A6110
+	DeltaInterpolator(const char *name);											// 0x4A6110
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A6930
 	virtual void Unknown_3C(DeltaClass *delta);									// +0x3C 0x4A68E0
 

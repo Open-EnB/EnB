@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "..\shared\auth_product.h"
 
-Packet_0073Class::Packet_0073Class(int unknown0c, int unknown10, int unknown14, const char *unknown18, int unknown60, int unknown5c, bool unknown64) :
+GlobalHelloPacketClass::GlobalHelloPacketClass(int unknown0c, int unknown10, int unknown14, const char *unknown18, int unknown60, int unknown5c, bool unknown64) :
 	Unknown0C(unknown0c), Unknown10(unknown10), Unknown14(unknown14), Unknown5C(unknown5c), Unknown60(unknown60), Unknown64(0)
 {
 	Bounded_Strcpy(Unknown18, sizeof(Unknown18) - 1, unknown18);
@@ -13,7 +13,7 @@ Packet_0073Class::Packet_0073Class(int unknown0c, int unknown10, int unknown14, 
 	}
 }
 
-Packet_0073Class::Packet_0073Class(RawPacketClass *raw)
+GlobalHelloPacketClass::GlobalHelloPacketClass(RawPacketClass *raw)
 {
 	raw->Get(Unknown0C);
 	raw->Get(Unknown10);
@@ -24,7 +24,7 @@ Packet_0073Class::Packet_0073Class(RawPacketClass *raw)
 	raw->Get(Unknown64);
 }
 
-RawPacketClass *Packet_0073Class::Build()
+RawPacketClass *GlobalHelloPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -37,17 +37,17 @@ RawPacketClass *Packet_0073Class::Build()
 	return(raw);
 }
 
-int Packet_0073Class::Get_Type()
+int GlobalHelloPacketClass::Get_Type()
 {
 	return(115);
 }
 
-int Packet_0073Class::Get_Data_Size()
+int GlobalHelloPacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C) + sizeof(Unknown10) + sizeof(Unknown14) + sizeof(Unknown18) + sizeof(Unknown5C) + sizeof(Unknown60) + sizeof(Unknown64));
 }
 
-int Packet_0073Class::Print(char *buffer, int)
+int GlobalHelloPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Global Hello"));
 }

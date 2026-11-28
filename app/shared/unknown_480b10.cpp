@@ -130,7 +130,7 @@ void SplineLightClass::Update(float t, LightClass *light)
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x480B10-0x481A20 (after ro_proxy.cpp's ProxyRObj 0x480AF0, before stars.cpp 0x481A20; no
+**	client.exe 0x480B10-0x481A20 (after ro_proxy.cpp's ProxyRenderObjClass 0x480AF0, before stars.cpp 0x481A20; no
 **	guarded static initialiser in between). The object's own functions:
 **
 **	  0x480B10 SplineLightClass::SplineLightClass      0x481020 Save

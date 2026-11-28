@@ -2,7 +2,7 @@
 #include "pkgmresetmission.h"
 #include <stdio.h>
 #include "..\shared\auth_product.h"
-GMResetMissionPacketClass::GMResetMissionPacketClass(RawPacketClass *raw) :
+GMResetMissionRequestPacketClass::GMResetMissionRequestPacketClass(RawPacketClass *raw) :
 	Unknown0C(0),
 	Unknown20(false)
 {
@@ -15,7 +15,7 @@ GMResetMissionPacketClass::GMResetMissionPacketClass(RawPacketClass *raw) :
 	delete [] name;
 }
 
-GMResetMissionPacketClass::GMResetMissionPacketClass(int unknown0c, const char *mission_name, bool unknown20) :
+GMResetMissionRequestPacketClass::GMResetMissionRequestPacketClass(int unknown0c, const char *mission_name, bool unknown20) :
 	Unknown0C(unknown0c),
 	Unknown20(unknown20)
 {
@@ -24,11 +24,11 @@ GMResetMissionPacketClass::GMResetMissionPacketClass(int unknown0c, const char *
 	}
 }
 
-GMResetMissionPacketClass::~GMResetMissionPacketClass()
+GMResetMissionRequestPacketClass::~GMResetMissionRequestPacketClass()
 {
 }
 
-RawPacketClass *GMResetMissionPacketClass::Build()
+RawPacketClass *GMResetMissionRequestPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(237, Get_Data_Size());
 	raw->Add(Unknown0C);
@@ -38,12 +38,12 @@ RawPacketClass *GMResetMissionPacketClass::Build()
 	return(raw);
 }
 
-int GMResetMissionPacketClass::Get_Data_Size()
+int GMResetMissionRequestPacketClass::Get_Data_Size()
 {
 	return(MissionName.length() + 1 + sizeof(Unknown0C) + sizeof(int));
 }
 
-int GMResetMissionPacketClass::Print(char *buffer, int)
+int GMResetMissionRequestPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "GM Reset Mission { Mission Name = %s }", MissionName.c_str()));
 }

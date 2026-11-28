@@ -261,7 +261,7 @@ bool CreatePacketClass::Process_Packet(void *instance)
 
 
 
-// ui_talkt.cpp's talk tree interface UITalkTreeClass (SClient +0x1298, the talk tree packets call its
+// ui_talkt.cpp's talk tree interface TalkTreeInterface (SClient +0x1298, the talk tree packets call its
 // Unknown_90 / Unknown_64D230): sclient.h (the starbase view's +0x190 is one too). ui_talkt_space.cpp's
 // derives from it.
 //
@@ -271,21 +271,21 @@ bool CreatePacketClass::Process_Packet(void *instance)
 //
 //
 //
-class UITalkTreeSpaceClass : public UITalkTreeClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
+class SpaceTalkTreeInterface : public TalkTreeInterface  // NAME 5: thunk order, binary.md 5.11
 {
 };
 
 // galaxy_map_client.cpp's map (SClient +0x12A0), declared as far as GALAXY_MAP 151 calls it (each reads
 // the packet's data from the buffer)
-class GalaxyMapClientClass	// NAME 3: class-from-file (D24) for app\client\galaxy_map_client.cpp
+class GalaxyMapClient  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	void Unknown_7A4C50(SClient *sclient, LinearBufferClass &buffer);	// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
-	void Unknown_7A4FC0(LinearBufferClass &buffer);	// 0x7A4FC0 (type 5)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A50A0(LinearBufferClass &buffer);	// 0x7A50A0 (types 6, 7, 8, 11)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A5180(LinearBufferClass &buffer);	// 0x7A5180 (type 9)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A5260(LinearBufferClass &buffer);	// 0x7A5260 (type 2)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A52F0(LinearBufferClass &buffer);	// 0x7A52F0 (type 3)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A4C50(SClient *sclient, LinearBuffer &buffer);	// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
+	void Unknown_7A4FC0(LinearBuffer &buffer);	// 0x7A4FC0 (type 5)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A50A0(LinearBuffer &buffer);	// 0x7A50A0 (types 6, 7, 8, 11)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5180(LinearBuffer &buffer);	// 0x7A5180 (type 9)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5260(LinearBuffer &buffer);	// 0x7A5260 (type 2)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A52F0(LinearBuffer &buffer);	// 0x7A52F0 (type 3)  // NAME 1 [buffer]: the packet's data
 };
 
 // co_player_relationship.cpp's handlers of the relationship packets (cdecl)
@@ -334,12 +334,12 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
 		if (!object->PositionalState) {
-			object->PositionalState = new Unknown714B50Class(this);
+			object->PositionalState = new ConstantPositionalStateClass(this);
 		} else if (object->PositionalState->Get_Type() != 1) {
 			delete object->PositionalState;
-			object->PositionalState = new Unknown714B50Class(this);
+			object->PositionalState = new ConstantPositionalStateClass(this);
 		} else {
-			Unknown714B50Class *state = (Unknown714B50Class *)object->PositionalState;
+			ConstantPositionalStateClass *state = (ConstantPositionalStateClass *)object->PositionalState;
 			state->Unknown_714D50(this);
 		}
 		object->Unknown_3C();
@@ -437,18 +437,18 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 			}
 		} else {
 			if (object->PositionalState && object->PositionalState->Get_Type() == 8) {
-				((Unknown715EF0Class *)object->PositionalState)->Unknown_716140(sclient->Unknown10BC, this);
+				((ShipPositionalStateClass *)object->PositionalState)->Unknown_716140(sclient->Unknown10BC, this);
 			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
 				PositionalStateClass *state = object->PositionalState->Unknown_28();
 				if (state && state->Get_Type() == 8) {
-					((Unknown715EF0Class *)state)->Unknown_716140(sclient->Unknown10BC, this);
+					((ShipPositionalStateClass *)state)->Unknown_716140(sclient->Unknown10BC, this);
 				} else {
 					delete state;
-					object->PositionalState->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
+					object->PositionalState->Unknown_24(new ShipPositionalStateClass(sclient->Unknown10BC, this));
 				}
 			} else {
 				delete object->PositionalState;
-				object->PositionalState = new Unknown715EF0Class(sclient->Unknown10BC, this);
+				object->PositionalState = new ShipPositionalStateClass(sclient->Unknown10BC, this);
 			}
 		}
 	}
@@ -464,12 +464,12 @@ bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
 		if (!object->PositionalState) {
-			object->PositionalState = new Unknown715CF0Class(this, sclient);
+			object->PositionalState = new PlanetPositionalStateClass(this, sclient);
 		} else if (object->PositionalState->Get_Type() != 5) {
 			delete object->PositionalState;
-			object->PositionalState = new Unknown715CF0Class(this, sclient);
+			object->PositionalState = new PlanetPositionalStateClass(this, sclient);
 		} else {
-			Unknown715CF0Class *state = (Unknown715CF0Class *)object->PositionalState;
+			PlanetPositionalStateClass *state = (PlanetPositionalStateClass *)object->PositionalState;
 			state->Unknown_715E60(this);
 		}
 	}
@@ -613,7 +613,7 @@ bool ObjectEffectPacketClass::Process_Packet(void *instance)
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
-	UnknownB00060EffectClass *target = effect->Unknown_10();
+	UnaryEffectClass *target = effect->Unknown_10();
 	if (target) {
 		target->Set_Source_Object_ID(GameID);
 	} else {
@@ -641,7 +641,7 @@ bool PointEffectPacketClass::Process_Packet(void *instance)
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
-	UnknownB00060EffectClass *target = effect->Unknown_10();
+	UnaryEffectClass *target = effect->Unknown_10();
 	if (target) {
 		target->Unknown_2C(Matrix3D(Location));
 	} else {
@@ -668,7 +668,7 @@ bool ObjectToObjectEffectPacketClass::Process_Packet(void *instance)
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
-	UnknownB0009CEffectClass *binary = effect->Unknown_14();
+	BinaryEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -706,7 +706,7 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
-	UnknownB0009CEffectClass *binary = effect->Unknown_14();
+	BinaryEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -716,7 +716,7 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 		binary->Set_Target_Object_ID(0);
 		EffectObjectClass *target = sclient->Get_Effect(TargetGameID);
 		Vector3 position = target->Unknown_08(Vector3(binary->SourcePosition));
-		UnknownB0009CEffectClass *target_binary = target->Unknown_14();
+		BinaryEffectClass *target_binary = target->Unknown_14();
 		if (Unknown34 != 0 && target_binary) {
 			Vector3 other = target_binary->TargetPosition; position = position * 0.5f + other * 0.5f;
 		}
@@ -757,7 +757,7 @@ bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *instanc
 
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, 0, time, sclient, Scale, HSVShift, Speedup, DurationLinkedEffectDescID, 0);
 	FAIL_IF(!effect) return(true);
-	UnknownB0009CEffectClass *binary = effect->Unknown_14();
+	BinaryEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -796,7 +796,7 @@ bool ObjectToPointEffectPacketClass::Process_Packet(void *instance)
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
-	UnknownB0009CEffectClass *binary = effect->Unknown_14();
+	BinaryEffectClass *binary = effect->Unknown_14();
 	if (binary) {
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
@@ -900,12 +900,12 @@ bool AuxDataPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	if (GameID == 0) {
 		DurationClass base(sclient->Unknown10C0);
-		sclient->AuxData->Decode(LinearBufferClass(Data, Size, 0x400, false), base);
+		sclient->AuxData->Decode(LinearBuffer(Data, Size, 0x400, false), base);
 		return(true);
 	}
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		((DeltaCompoundClass *)object->AuxData)->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
+		((DeltaContainer *)object->AuxData)->Decode(LinearBuffer(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
 	}
 	return(true);
 }
@@ -916,7 +916,7 @@ bool AuxDataPlayerVarPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("AuxDataPlayerVarPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	sclient->PlayerVarAuxData[GameID]->Decode(LinearBufferClass(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
+	sclient->PlayerVarAuxData[GameID]->Decode(LinearBuffer(Data, Size, 0x400, false), DurationClass(sclient->Unknown10C0));
 	return(true);
 }
 
@@ -970,7 +970,7 @@ bool GroupPacketClass::Process_Packet(void *instance)
 bool PriorityMessageLinePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("PriorityMessageLinePacketClass::Process_Packet()");
-	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	LineDisplayInterface *display = ((SClient *)instance)->LineDisplay;
 	if (display) {
 		display->Add_Line(Get_String(), Get_Time_MS(), Get_Ephemeral_Type(), Get_Display_Priority());
 	}
@@ -981,7 +981,7 @@ bool PriorityMessageLinePacketClass::Process_Packet(void *instance)
 bool QueueMessageLinePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("QueueMessageLinePacketClass::Process_Packet()");
-	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	LineDisplayInterface *display = ((SClient *)instance)->LineDisplay;
 	if (display) {
 		display->Add_Line_7(Get_String(), Get_Time_MS(), Get_Ephemeral_Type());
 	}
@@ -992,7 +992,7 @@ bool QueueMessageLinePacketClass::Process_Packet(void *instance)
 bool PushMessageLinePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("PushMessageLinePacketClass::Process_Packet()");
-	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	LineDisplayInterface *display = ((SClient *)instance)->LineDisplay;
 	if (display) {
 		display->Add_Line_3(Get_String(), Get_Time_MS(), Get_Ephemeral_Type());
 	}
@@ -1003,7 +1003,7 @@ bool PushMessageLinePacketClass::Process_Packet(void *instance)
 bool SuperLinePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("SuperLinePacketClass::Process_Packet()");
-	UILineDisplayClass *display = ((SClient *)instance)->LineDisplay;
+	LineDisplayInterface *display = ((SClient *)instance)->LineDisplay;
 	if (display) {
 		display->Show_Ephemeral(Get_String());
 	}
@@ -1169,18 +1169,18 @@ bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 			} return(true);
 		} else {
 			if (object->PositionalState && object->PositionalState->Get_Type() == 8) {
-				((Unknown715EF0Class *)object->PositionalState)->Unknown_716220(sclient, this);
+				((ShipPositionalStateClass *)object->PositionalState)->Unknown_716220(sclient, this);
 			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
 				PositionalStateClass *state = object->PositionalState->Unknown_28();
 				if (state && state->Get_Type() == 8) {
-					((Unknown715EF0Class *)state)->Unknown_716220(sclient, this);
+					((ShipPositionalStateClass *)state)->Unknown_716220(sclient, this);
 				} else {
 					delete state;
-					object->PositionalState->Unknown_24(new Unknown715EF0Class(sclient, this));
+					object->PositionalState->Unknown_24(new ShipPositionalStateClass(sclient, this));
 				}
 			} else {
 				delete object->PositionalState;
-				object->PositionalState = new Unknown715EF0Class(sclient, this);
+				object->PositionalState = new ShipPositionalStateClass(sclient, this);
 			}
 		}
 	}
@@ -1557,7 +1557,7 @@ bool StarbaseTowPacketClass::Process_Packet(void *instance)
 }
 
 // 0x7383D0
-bool ClientSoundPacketClass::Process_Packet(void *instance)
+bool SoundPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("SoundPacketClass::Process_Packet(void * instance)");
 	if (Queue) {
@@ -1596,7 +1596,7 @@ bool LoungeNPCPacketClass::Process_Packet(void *instance)
 	WWPROFILE("LoungeNPCPacketClass::Process_Packet(void * instance)");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
-		((SBaseViewClass *)sclient->Unknown135C)->Unknown_6A0FD0(this);
+		((StarbaseViewClass *)sclient->Unknown135C)->Unknown_6A0FD0(this);
 	}
 	return(true);
 }
@@ -1807,7 +1807,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
 
 
 
-// gadget.cpp's gadget, its slot +0x08's answer (gd_robj.h's RObjGadgetClass) and gadget_list_manager.cpp's list
+// gadget.cpp's gadget, its slot +0x08's answer (gd_robj.h's RenderObjGadgetClass) and gadget_list_manager.cpp's list
 // (SClient +0x1278), as GADGET 103 calls them
 #include "gadget.h"
 #include "gd_robj.h"
@@ -1849,7 +1849,7 @@ bool GadgetPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	GadgetClass *gadget = ((GadgetListManagerClass *)sclient->Unknown1278)->Unknown_661940(Name);
 	FAIL_IF(!gadget) return(true);
-	RObjGadgetClass *iface = gadget->As_RObjGadget();
+	RenderObjGadgetClass *iface = gadget->As_RObjGadget();
 	if ((Function & 1) && iface) iface->Unknown_8C(true);
 	if ((Function & 2) && iface) iface->Unknown_8C(false);
 	if (Function & 4) gadget->Unknown_40(true);
@@ -1922,7 +1922,7 @@ bool LootHulkPermissionPacketClass::Process_Packet(void *instance)
 	WWPROFILE("LootHulkPermissionPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (!sclient->MainView) return(true);
-	UICpitClass *cpit = sclient->MainView->Cpit;
+	CockpitInterface *cpit = sclient->MainView->Cpit;
 	if (!cpit) return(true);
 	ClientObjectClass *hulk = sclient->Find_Object(HulkGameID);
 	if (!hulk) return(true);
@@ -1989,7 +1989,7 @@ bool OpenInterfacePacketClass::Process_Packet(void *instance)
 	WWPROFILE("OpenInterfacePacketClass::Process_Packet(void * instance)");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (!sclient->MainView) return(true);
-	UICpitClass *cpit = sclient->MainView->Cpit; if (!cpit) return(true);
+	CockpitInterface *cpit = sclient->MainView->Cpit; if (!cpit) return(true);
 	if (UIType) {
 		G_ASSERT(false);
 	} else cpit->Unknown_5820C0(UIChange == 0);
@@ -2076,7 +2076,7 @@ bool JobListPacketClass::Process_Packet(void *instance)
 	WWPROFILE("JobListPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
-		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		RefCountPtr<UIJobsClass> jobs = ((StarbaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
 			jobs->Unknown_5A3BC0(this);
 		}
@@ -2090,7 +2090,7 @@ bool JobDescriptionPacketClass::Process_Packet(void *instance)
 	WWPROFILE("JobDescriptionPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
-		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		RefCountPtr<UIJobsClass> jobs = ((StarbaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
 			jobs->Unknown_5A3F10(this);
 		}
@@ -2104,7 +2104,7 @@ bool JobDeletePacketClass::Process_Packet(void *instance)
 	WWPROFILE("JobDeletePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
-		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		RefCountPtr<UIJobsClass> jobs = ((StarbaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
 			jobs->Unknown_5A4430(JobID);
 		}
@@ -2118,7 +2118,7 @@ bool JobAcceptReplyPacketClass::Process_Packet(void *instance)
 	WWPROFILE("JobAcceptReplyPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
-		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
+		RefCountPtr<UIJobsClass> jobs = ((StarbaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
 			jobs->Unknown_5A3FB0(this);
 		}
@@ -2164,11 +2164,11 @@ bool TradePacketClass::Process_Packet(void *instance)
 	WWPROFILE("TradePacketClass::Process_Packet(void * instance)");
 	ClientClass *client = (ClientClass *)instance;
 	SClient *sclient = (SClient *)client->As_Space_Client();
-	UIStarbaseClass *starbase = NULL;
-	UIPTradeClass *trade = NULL;
+	StarbaseInterface *starbase = NULL;
+	PlayerTradeInterface *trade = NULL;
 	if (sclient->Unknown_744B60() && sclient->Unknown135C) {
-		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade.Peek();
-		starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+		trade = ((StarbaseViewClass *)sclient->Unknown135C)->PTrade.Peek();
+		starbase = (StarbaseInterface *)((StarbaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	} else if (!sclient->Unknown_744B60() && sclient->MainView) {
 		trade = sclient->MainView->Unknown1E4;
 	}
@@ -2317,7 +2317,7 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("StarbaseAvatarUpdatePacketClass::Process_Packet ()");
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
-	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	StarbaseInterface *starbase = (StarbaseInterface *)((StarbaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	int room;
 	if (!starbase || (room = starbase->Room) != Room || !starbase->Active) return(true);
 	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
@@ -2333,7 +2333,7 @@ bool StarbaseAvatarRoomUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("StarbaseAvatarRoomUpdatePacketClass::Process_Packet ()");
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
-	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	StarbaseInterface *starbase = (StarbaseInterface *)((StarbaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	if (!starbase || !starbase->Active) return(true);
 	starbase->Unknown_63CF30(AvatarID, NewRoom);
 	return(true);
@@ -2354,9 +2354,9 @@ bool GalaxyMapPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("GalaxyMapPacketClass::Process_Packet(void * instance)");
 	SClient *sclient = (SClient *)instance;
-	GalaxyMapClientClass *map = sclient->GalaxyMap;
+	GalaxyMapClient *map = sclient->GalaxyMap;
 	FAIL_IF(!map) return(true);
-	LinearBufferClass buffer(Data, Size, 0x400, false);
+	LinearBuffer buffer(Data, Size, 0x400, false);
 	switch (Type) {
 		case 2:
 			map->Unknown_7A5260(buffer);
@@ -2572,7 +2572,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			return(true);
 		case 4:
 			if (name) {
-				CharacterViewAvatarClass *avatar;
+				AvatarClass *avatar;
 				ClientObjectClass *object;
 				unsigned id;
 				if (Unknown78 && (object = sclient->Find_Object(name)) != NULL && (avatar = sclient->Unknown_74C840(id = object->GameID)) != NULL) {
@@ -2773,14 +2773,14 @@ const std::string &ClientChatEventPacketClass::Get_Unknown64()
 }
 
 // The avatar description at +0xF8 of an avatar (MESSAGE_CHATSTREAM 95 reads its full name)
-static inline AvatarDescClass &Unknown_Avatar_Desc(CharacterViewAvatarClass *avatar) { return(avatar->Desc); }	// NAME 1: neutral (D10): what it returns
+static inline AvatarDescriptionClass &Unknown_Avatar_Desc(AvatarClass *avatar) { return(avatar->Desc); }	// NAME 1: neutral (D10): what it returns
 static inline int Chat_Avatar_ID(SClient *sclient) { return(sclient->AvatarID); }
 // 0x736F10 (placed here, out of address order: it has no assert)
 bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("MessageChatstreamPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(ShipID);
+	AvatarClass *avatar = sclient->Unknown_74C840(ShipID);
 	if (avatar) {
 		avatar->Unknown_784B80(ChatString, Chatsize, true);
 		if (Color == 3 || Color == 4) {
@@ -2788,7 +2788,7 @@ bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 				sclient->ChatPanel->Unknown_563910(ShipID, false);
 			}
 			if (Chat_Avatar_ID(sclient) != ShipID && avatar->Unknown_7817E0()->Unknown_4C4940()) {
-				AvatarDescClass &desc = Unknown_Avatar_Desc(avatar); std::string name;
+				AvatarDescriptionClass &desc = Unknown_Avatar_Desc(avatar); std::string name;
 				desc.Get_Full_Name(name);
 				int len = Chatsize + name.size() + 16;
 				char *text = new char[len];
@@ -2856,7 +2856,7 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 			UIFriendsClass *friends = panel->UnknownDC; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); goto done; } }
 			break;
 		case 1: {
-			UIPlayerOptClass *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); goto done; } }
+			PlayerOptionsInterface *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); goto done; } }
 			break;
 		case 3: {
 			UIRadioListClass *e4 = panel->UnknownE4; if (e4 && e4->State == 0) { e4->Unknown_5E8E30(0, Unknown20); goto done; } }
@@ -3131,7 +3131,7 @@ bool CTAResponsePacketClass::Process_Packet(void *instance)
 	}
 
 	FAIL_IF(!sclient->MainView) return(true);
-	UIGroupClass *group_interface = sclient->MainView->Group;
+	GroupInterface *group_interface = sclient->MainView->Group;
 
 	FAIL_IF(!group_interface) return(true);
 	switch (RequestType) {
@@ -3172,7 +3172,7 @@ bool CTAResponsePacketClass::Process_Packet(void *instance)
 	return(true);
 }
 // 0x73DC60
-bool ConfirmedActionOfferPacketClass::Process_Packet(void *instance)
+bool ConfirmedActionOfferPacket::Process_Packet(void *instance)
 {
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
@@ -3181,7 +3181,7 @@ bool ConfirmedActionOfferPacketClass::Process_Packet(void *instance)
 }
 
 // 0x73DCB0
-bool ConfirmedActionTimeoutPacketClass::Process_Packet(void *instance)
+bool ConfirmedActionTimeoutPacket::Process_Packet(void *instance)
 {
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
@@ -3305,7 +3305,7 @@ bool GuildMessageSectorPacket::Process_Packet(void *instance)
 	WWPROFILE("GuildMessageSectorPacket::Process_Packet");
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
-	SymbolSubstitutionClass symbols;
+	SymbolTableClass symbols;
 	symbols.Add_Symbol("OtherName", OtherName);
 	symbols.Add_Symbol("GuildName", GuildName);
 	std::string text(Unknown_83D900(MessageType));
@@ -3420,7 +3420,7 @@ bool RecustomizeShipStartPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 
 	FAIL_IF(!sclient) return(true);
-	StarbaseShipCustomizeInterface *ship_ui = ((SBaseViewClass *)sclient->Unknown135C)->ShipUI.Peek();
+	StarbaseShipCustomizeInterface *ship_ui = ((StarbaseViewClass *)sclient->Unknown135C)->ShipUI.Peek();
 
 	FAIL_IF(!ship_ui) return(true);
 	ship_ui->Unknown_61F250(&Desc, &Cost, Unknown1A4, Unknown1A8, Unknown1AC, Unknown1B0);
@@ -3433,7 +3433,7 @@ bool RecustomizeAvatarStartPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 
 	FAIL_IF(!sclient) return(true);
-	StarbaseAvatarCreationInterface *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI.Peek();
+	StarbaseAvatarCreationInterface *avatar_ui = ((StarbaseViewClass *)sclient->Unknown135C)->AvatarUI.Peek();
 
 	FAIL_IF(!avatar_ui) return(true);
 	avatar_ui->Unknown_551C40(Cost);
@@ -3445,7 +3445,7 @@ bool RecustomizeAvatarUpdatePacketClass::Process_Packet(void *instance)
 {
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
-	UIStarbaseClass *starbase = (UIStarbaseClass *)((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	StarbaseInterface *starbase = (StarbaseInterface *)((StarbaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	starbase->Unknown_6437A0(Unknown118, &Desc);
 	return(true);
 }

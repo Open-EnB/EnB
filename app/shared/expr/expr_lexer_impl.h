@@ -21,26 +21,26 @@
 #include "expr_math_lexer.h"
 
 // 0x3C bytes, vtable 0xAEBADC.
-class ExprLexerImplClass : public ExprMathLexerClass	// NAME 3 [ExprLexerImplClass]: class-from-file (D24)
+class ExprLexerImpl : public ExprLexer  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprLexerImpl]: class-from-file (D24)
 {
 public:
-	ExprLexerImplClass();										// 0x4C4980
-	virtual ~ExprLexerImplClass();								// 0x4C4B40
+	ExprLexerImpl();										// 0x4C4980
+	virtual ~ExprLexerImpl();								// 0x4C4B40
 
-	virtual ExprMathTokenClass Get_Token();						// 0x4C4F60
+	virtual ExprLexerToken Get_Token();						// 0x4C4F60
 	virtual bool Has_Token();									// 0x4C50F0
 	virtual bool Has_Error();									// 0x4C5110
 	virtual void Next();										// 0x4C5150
 	virtual void Set_Source(const char *source);				// 0x4C5410
 	virtual void Reset();										// 0x4C5530
 
-	void Add_Matcher(int type, ExprLexerMatchClass *m);		// 0x4C4CF0  // NAME 3 [Add_Matcher]: 'm' from the assert; the lexer deletes it
+	void Add_Matcher(int type, ExprLexerMatch *m);		// 0x4C4CF0  // NAME 3 [Add_Matcher]: 'm' from the assert; the lexer deletes it
 
 protected:
-	std::vector<std::pair<int, ExprLexerMatchClass *> > m_matchers;	// +4  // NAME 3 [m_matchers]: m_ as the asserts' m
+	std::vector<std::pair<int, ExprLexerMatch *> > m_matchers;	// +4  // NAME 3 [m_matchers]: m_ as the asserts' m
 	std::string m_source;											// +0x14  // NAME 3 [m_source]
 	const char *m_cursor;											// +0x24  // NAME 3 [m_cursor]
-	ExprMathTokenClass m_token;										// +0x28  // NAME 3 [m_token]: as ExprMathTreeClass's
+	ExprLexerToken m_token;										// +0x28  // NAME 3 [m_token]: as ExprMathTreeNode's
 };
 
 #endif

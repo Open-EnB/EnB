@@ -2,14 +2,14 @@
 #include "pkglobalavatarlist.h"
 #include <stdio.h>
 #include "..\shared\auth_product.h"
-GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(LoginCharacterClass *characters, AvatarDescClass *avatars, const std::list<LoginGalaxyClass> *galaxies)
+GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(LoginCharacterClass *characters, AvatarDescriptionClass *avatars, const std::list<LoginGalaxyClass> *galaxies)
 {
 	if (characters == NULL) {
 		characters = new LoginCharacterClass[5];
 	}
 	Characters = characters;
 	if (avatars == NULL) {
-		avatars = new AvatarDescClass[5];
+		avatars = new AvatarDescriptionClass[5];
 	}
 	Avatars = avatars;
 	if (galaxies != NULL) {
@@ -20,7 +20,7 @@ GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(LoginCharacterClass *ch
 GlobalAvatarListPacketClass::GlobalAvatarListPacketClass(RawPacketClass *raw)
 {
 	Characters = new LoginCharacterClass[5];
-	Avatars = new AvatarDescClass[5];
+	Avatars = new AvatarDescriptionClass[5];
 	for (int i = 0; i < 5; i++) {
 		raw->Get(&Characters[i]);
 		raw->Get(&Avatars[i]);

@@ -14,7 +14,7 @@ class TextureClass *Unknown_4960C0(RenderObjClass *robj, int index);	// 0x4960C0
 bool Unknown_496960(RenderObjClass *robj, float x, float y, const LayerClass &layer);	// 0x496960 (FAIL_IFs on the layer's scene and camera: a pick)  // NAME 1 [robj, x, y, layer]: neutral
 
 // NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact
-RObjGadgetClass::RObjGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask) :
+RenderObjGadgetClass::RenderObjGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask) :
 	GadgetClass(mask),
 	RObj(NULL),
 	Unknown34(NULL),
@@ -27,7 +27,7 @@ RObjGadgetClass::RObjGadgetClass(RenderObjClass *robj, const LayerClass &layer, 
 	Set_Render_Obj(robj);
 }
 
-RObjGadgetClass::RObjGadgetClass(RenderObjClass *robj, unsigned int mask) :
+RenderObjGadgetClass::RenderObjGadgetClass(RenderObjClass *robj, unsigned int mask) :
 	GadgetClass(mask),
 	RObj(NULL),
 	Unknown34(NULL)
@@ -39,7 +39,7 @@ RObjGadgetClass::RObjGadgetClass(RenderObjClass *robj, unsigned int mask) :
 	Set_Render_Obj(robj);
 }
 
-RObjGadgetClass::~RObjGadgetClass()
+RenderObjGadgetClass::~RenderObjGadgetClass()
 {
 	Set_Render_Obj(NULL);
 	if (Unknown34) {
@@ -48,7 +48,7 @@ RObjGadgetClass::~RObjGadgetClass()
 	Unknown34 = NULL;
 }
 
-void RObjGadgetClass::Set_Render_Obj(RenderObjClass *robj)
+void RenderObjGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 {
 	if (robj == RObj) {
 		return;
@@ -86,7 +86,7 @@ void RObjGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 	}
 }
 
-void RObjGadgetClass::Unknown_98(FontSys *style)
+void RenderObjGadgetClass::Unknown_98(FontSys *style)
 {
 	if (style) {
 		style->Add_Ref();
@@ -97,26 +97,26 @@ void RObjGadgetClass::Unknown_98(FontSys *style)
 	Unknown34 = style;
 }
 
-void RObjGadgetClass::Unknown_66C220(float r, float g, float b)
+void RenderObjGadgetClass::Unknown_66C220(float r, float g, float b)
 {
 	if (!(bool)Unknown2C_0A) {
 		Unknown_496110(RObj, r, g, b);
 	}
 }
 
-void RObjGadgetClass::Unknown_66C260(const Vector3 &color)
+void RenderObjGadgetClass::Unknown_66C260(const Vector3 &color)
 {
 	if (!(bool)Unknown2C_0A) {
 		Unknown_496110(RObj, color.X, color.Y, color.Z);
 	}
 }
 
-void RObjGadgetClass::Unknown_66C2A0(float opacity)
+void RenderObjGadgetClass::Unknown_66C2A0(float opacity)
 {
 	Unknown_496240(RObj, opacity);
 }
 
-void RObjGadgetClass::Unknown_66C2D0()
+void RenderObjGadgetClass::Unknown_66C2D0()
 {
 	if (!(bool)Unknown2C_0A && !Unknown5C_00) {
 		Vector3 color = Unknown_9C();
@@ -128,7 +128,7 @@ void RObjGadgetClass::Unknown_66C2D0()
 	}
 }
 
-void RObjGadgetClass::Unknown_66C360()
+void RenderObjGadgetClass::Unknown_66C360()
 {
 	if (!(bool)Unknown2C_0A && Unknown5C_00) {
 		Vector3 color = Unknown_A0();
@@ -140,7 +140,7 @@ void RObjGadgetClass::Unknown_66C360()
 	}
 }
 
-void RObjGadgetClass::Unknown_8C(bool on)
+void RenderObjGadgetClass::Unknown_8C(bool on)
 {
 	if (Unknown5C_02 != on) {
 		if (RObj) {
@@ -153,17 +153,17 @@ void RObjGadgetClass::Unknown_8C(bool on)
 	}
 }
 
-void RObjGadgetClass::Unknown_90(TextureClass *texture)
+void RenderObjGadgetClass::Unknown_90(TextureClass *texture)
 {
 	Unknown_495FD0(RObj, texture, 0);
 }
 
-TextureClass *RObjGadgetClass::Unknown_66C4A0()
+TextureClass *RenderObjGadgetClass::Unknown_66C4A0()
 {
 	return(Unknown_4960C0(RObj, 0));
 }
 
-bool RObjGadgetClass::Unknown_30(float x, float y)
+bool RenderObjGadgetClass::Unknown_30(float x, float y)
 {
 	if (RObj && !RObj->Is_Hidden() && RObj->Peek_Scene()) {
 		return(Unknown_496960(RObj, x, y, Layer));
@@ -171,7 +171,7 @@ bool RObjGadgetClass::Unknown_30(float x, float y)
 	return(false);
 }
 
-RenderObjClass *RObjGadgetClass::Unknown_24(Vector3 *position, float *frame, bool indicator)
+RenderObjClass *RenderObjGadgetClass::Unknown_24(Vector3 *position, float *frame, bool indicator)
 {
 	if (!Unknown5C_03) {
 		return(NULL);
@@ -184,7 +184,7 @@ RenderObjClass *RObjGadgetClass::Unknown_24(Vector3 *position, float *frame, boo
 	return(RObj);
 }
 
-void RObjGadgetClass::Unknown_28(LayerClass *layer)
+void RenderObjGadgetClass::Unknown_28(LayerClass *layer)
 {
 	bool inscene = Unknown5C_01;
 	if (inscene) {
@@ -196,7 +196,7 @@ void RObjGadgetClass::Unknown_28(LayerClass *layer)
 	}
 }
 
-void RObjGadgetClass::Unknown_74()
+void RenderObjGadgetClass::Unknown_74()
 {
 	if (RObj) {
 		Unknown5C_01 = true;
@@ -204,7 +204,7 @@ void RObjGadgetClass::Unknown_74()
 	}
 }
 
-void RObjGadgetClass::Unknown_78()
+void RenderObjGadgetClass::Unknown_78()
 {
 	Unknown_6607D0();
 	if (RObj) {
@@ -213,19 +213,19 @@ void RObjGadgetClass::Unknown_78()
 	}
 }
 
-void RObjGadgetClass::Unknown_54(GadgetListManagerClass *manager, InterfaceClass *iface)
+void RenderObjGadgetClass::Unknown_54(GadgetListManagerClass *manager, InterfaceClass *iface)
 {
 	Unknown_74();
 	GadgetClass::Unknown_54(manager, iface);
 }
 
-void RObjGadgetClass::Unknown_58(GadgetListManagerClass *manager)
+void RenderObjGadgetClass::Unknown_58(GadgetListManagerClass *manager)
 {
 	Unknown_78();
 	GadgetClass::Unknown_58(manager);
 }
 
-const Matrix3D &RObjGadgetClass::Unknown_66C6C0()
+const Matrix3D &RenderObjGadgetClass::Unknown_66C6C0()
 {
 	if (RObj) {
 		return(RObj->Get_Transform());
@@ -245,7 +245,7 @@ const Matrix3D &RObjGadgetClass::Unknown_66C6C0()
 
 
 
-void RObjGadgetClass::Unknown_64(AABoxClass &box)
+void RenderObjGadgetClass::Unknown_64(AABoxClass &box)
 {
 	G_ASSERT(RObj);
 	if (RObj) {
@@ -255,12 +255,12 @@ void RObjGadgetClass::Unknown_64(AABoxClass &box)
 	GadgetClass::Unknown_64(box);
 }
 
-Vector3 RObjGadgetClass::Unknown_9C()
+Vector3 RenderObjGadgetClass::Unknown_9C()
 {
 	return(Vector3(0.35f, 0.35f, 0.35f));
 }
 
-Vector3 RObjGadgetClass::Unknown_A0()
+Vector3 RenderObjGadgetClass::Unknown_A0()
 {
 	return(Vector3(1.0f, 1.0f, 1.0f));
 }

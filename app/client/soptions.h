@@ -3,7 +3,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\soptions.h (name assumed from soptions.cpp)
 **
-**	SOptionsClass, the client's options: SClient's second base (+0x1150). 0x48 bytes, constructor
+**	SpaceClientOptionsClass, the client's options: SClient's second base (+0x1150). 0x48 bytes, constructor
 **	0x75A280 (the render budgets from the registry key 'Software\Westwood Studios\Earth and
 **	Beyond\Render', read only), destructor 0x75A4E0, vtable 0xB03C00 (one slot; SClient's copy
 **	0xB0323C), soptions.cpp (docs/kernel-map-step9.md 2.2, D90 9d).
@@ -35,11 +35,11 @@ struct CameraModeStruct		// NAME 2: what it holds
 	bool operator!=(const CameraModeStruct &that) const { return(!(*this == that)); }	// VectorClass's operator== 0x75A790
 };
 
-class SOptionsClass		// NAME 3: class-from-file (D24) for soptions.cpp
+class SpaceClientOptionsClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	SOptionsClass();									// 0x75A280
-	~SOptionsClass();									// 0x75A4E0 (not virtual: it stores its vtable first)
+	SpaceClientOptionsClass();									// 0x75A280
+	~SpaceClientOptionsClass();									// 0x75A4E0 (not virtual: it stores its vtable first)
 
 	virtual unsigned Set_Camera_Mode(unsigned cameramode);	// +0x00 0x75A530 (returns the mode: 0x75A5D0 hands it on to SClient 0x7436A0; assert 'cameramode >=0 && cameramode < CameraModeCount', l.53)  // NAME 2: what it does
 	CameraModeStruct &Current_Camera_Mode() { return(CameraModes[CameraMode]); }	// (inline: SClient::Init 0x741180 reads the mode through this base, [edi+0x2C] / [edi+0x3C] with edi = this+0x1150)  // NAME 2: what it returns

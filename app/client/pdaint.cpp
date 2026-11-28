@@ -76,11 +76,11 @@ void PDAInterfaceClass::Unknown_54()
 	Cargo->Unknown_54();
 	Vault = Create_NEW(new UIVaultClass(Get_Client()->As_Space_Client()));
 	Vault->Unknown_54();
-	Character = Create_NEW(new UICinfoClass(client));
+	Character = Create_NEW(new CharacterInfoInterface(client));
 	Character->Unknown_54();
-	Ping = Create_NEW(new UIPingClass((LineDisplayClientClass *)Get_Client()->As_Space_Client()));
+	Ping = Create_NEW(new PingInterface((LineDisplayClientClass *)Get_Client()->As_Space_Client()));
 	Ping->Unknown_54();
-	Starmap = Create_NEW(new UIStarmapClass(client));
+	Starmap = Create_NEW(new StarmapInterface(client));
 	Starmap->Unknown_54();
 
 	for (int i = 0; i < NUM_BUTTONS; i++) {

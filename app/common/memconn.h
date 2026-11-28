@@ -75,7 +75,7 @@ public:
 };
 
 // The memory listener (vtables 0xB08818 / 0xB08814, constructor 0x826EB0, 0x18 bytes)
-class MemoryListenerClass : public ConnectionListenerClass, public MemoryServerClass	// NAME 1: describes what it is
+class MemoryListenerClass : public ConnectionSourceClass, public MemoryServerClass	// NAME 1: describes what it is
 {
 public:
 	MemoryListenerClass();											// 0x826EB0

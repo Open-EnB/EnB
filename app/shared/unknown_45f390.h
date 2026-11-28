@@ -11,12 +11,12 @@ class Sound3DClass;
 
 // The 'sound' render state (vtable 0xAE821C, 0x3C bytes; rs.ini TYPE 'sound'): a message state that plays
 // a 3D sound by name while it is active, moved along with the owner's transform; flag 3 keeps it looping.
-class Unknown45F390Class : public Unknown45D840Class	// NAME 1: neutral (D10)
+class RenderStateSoundClass : public Unknown45D840Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 1 [sound, message]: rs_list.cpp's keys
-	Unknown45F390Class(RenderStateListClass *list, const Unknown45F390Class &source);	// 0x45F4D0  // NAME 1 [list, source]: neutral
-	virtual ~Unknown45F390Class();									// 0x45F6C0 (deleting 0x45F4A0)
+	RenderStateSoundClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 1 [sound, message]: rs_list.cpp's keys
+	RenderStateSoundClass(RenderStateListClass *list, const RenderStateSoundClass &source);	// 0x45F4D0  // NAME 1 [list, source]: neutral
+	virtual ~RenderStateSoundClass();									// 0x45F6C0 (deleting 0x45F4A0)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x45F5B0
 	virtual void Unknown_0C();										// +0x0C 0x45FAA0 (stops the sound)
 	virtual bool Unknown_10();										// +0x10 0x45FB10 (starts it: true when it plays)

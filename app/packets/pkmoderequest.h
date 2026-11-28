@@ -18,11 +18,11 @@
 #include "pk.h"
 
 // opcode 75 (0x004B, ?): vtable 0xB0B314, constructor 0x89CE70, 0x14 bytes
-class Packet_004BClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x004B
+class ModeRequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_004BClass(int unknown0c, int mode);	// 0x89CDB0
-	Packet_004BClass(RawPacketClass *raw);	// 0x89CE70
+	ModeRequestPacketClass(int unknown0c, int mode);	// 0x89CDB0
+	ModeRequestPacketClass(RawPacketClass *raw);	// 0x89CE70
 	virtual RawPacketClass *Build();	// +0x04 0x89CF10
 	virtual bool Process_Packet(void *client);	// +0x08 0x738100 (cpacket.cpp)
 	virtual int Get_Data_Size();	// +0x0C PKMODEREQUEST_HDS

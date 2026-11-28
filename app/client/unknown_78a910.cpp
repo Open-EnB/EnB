@@ -40,10 +40,10 @@ struct Unknown78A910AnimStruct	// NAME 1: neutral (D10)
 };
 
 // The starbase avatar (0x3E4 bytes), declared as far as the rebuilt functions use it; the constructor's stores
-class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neutral (D10)
+class Unknown78A910AvatarClass : public AvatarClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (ui_starbase.cpp's 0x642740)  // NAME 1 [a]: neutral
+	Unknown78A910AvatarClass(int a, AvatarDescriptionClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (ui_starbase.cpp's 0x642740)  // NAME 1 [a]: neutral
 	virtual ~Unknown78A910AvatarClass();				// 0x78AA80
 	virtual void Unknown_1C4();							// 0x78ACE0 (0x78B660 when +0x384 is 3, then the base's)
 
@@ -80,8 +80,8 @@ public:
 };
 
 // 0x78A910
-Unknown78A910AvatarClass::Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps)
-	: CharacterViewAvatarClass(desc, true, false, env_maps),
+Unknown78A910AvatarClass::Unknown78A910AvatarClass(int a, AvatarDescriptionClass *desc, EnvironmentMapManagerClass *env_maps)
+	: AvatarClass(desc, true, false, env_maps),
 	  Unknown384(a),
 	  Unknown3B8(false),
 	  Unknown3B9(false),
@@ -113,7 +113,7 @@ void Unknown78A910AvatarClass::Unknown_1C4()
 		if (Unknown384 == 3) {
 			Unknown_78B660();
 		}
-		CharacterViewAvatarClass::Unknown_1C4();
+		AvatarClass::Unknown_1C4();
 	}
 }
 

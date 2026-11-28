@@ -21,7 +21,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // 0x68FB60
 InvTradeRenderClass::InvTradeRenderClass() :
-	InvRenderClass(true),
+	InventoryRenderClass(true),
 	DescriptionGroup(0)
 {
 	Unknown_BE67BC->Load("fa_ce02a.ini");
@@ -65,7 +65,7 @@ InvTradeRenderClass::~InvTradeRenderClass()
 // 0x68FE10
 void InvTradeRenderClass::Unknown_2C(bool force)
 {
-	InvRenderClass::Unknown_2C(force);
+	InventoryRenderClass::Unknown_2C(force);
 	int slot = Unknown20;
 	bool hidden = true;	// NAME 1 [hidden, data, cost, stack, slots, owned, name, item]: neutral
 	if (slot != -1) {

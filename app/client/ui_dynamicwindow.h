@@ -12,7 +12,7 @@
 class GadgetClass;
 class DynamicWindowClass;
 class Vector2;
-class DynamicWindowElementClass;
+class DynamicWindowElement;
 class DynamicWindowRenderObjectClass;
 class DynamicWindowGadgetClass;
 class RenderObjClass;
@@ -35,13 +35,13 @@ public:
 	virtual void Unknown84_0C(GadgetClass *gadget);											// 0x58AD00  // NAME 1: neutral (D10)
 	virtual int Unknown84_10();																// 0x58AD80  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Get_Render_Object();										// 0x58A530 (MainWindow's +0x08, or NULL; dynamic_window_move.cpp's 0x51A9C0)  // NAME 1 [Get_Render_Object]: DynamicWindowRenderObjectClass's
-	void Add_Object(DynamicWindowElementClass *object, int row_index);						// 0x58A670 (FAIL_IF '!object'; MainWindow's)  // NAME 1 [Add_Object, object, row_index]: DynamicWindowClass's
-	void Remove_Object(DynamicWindowElementClass *object);									// 0x58A6C0 (FAIL_IF '!object'; MainWindow's Remove_Child)  // NAME 1 [Remove_Object, object]: DynamicWindowClass's
+	void Add_Object(DynamicWindowElement *object, int row_index);						// 0x58A670 (FAIL_IF '!object'; MainWindow's)  // NAME 1 [Add_Object, object, row_index]: DynamicWindowClass's
+	void Remove_Object(DynamicWindowElement *object);									// 0x58A6C0 (FAIL_IF '!object'; MainWindow's Remove_Child)  // NAME 1 [Remove_Object, object]: DynamicWindowClass's
 	void Add_Object(DynamicWindowRenderObjectClass *object, int row_index);					// 0x58A7E0 (FAIL_IF '!object'; MainWindow's)  // NAME 1 [the overload's type]: DynamicWindowClass's
 	void Remove_Object(DynamicWindowRenderObjectClass *object);								// 0x58A830 (FAIL_IF '!object'; MainWindow's Remove_Child)  // NAME 1 [the overload's type]: DynamicWindowClass's
-	void Add_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index);	// 0x58A950 (FAIL_IF '!MainWindow'; MainWindow's Add_Element)  // NAME 1 [Add_Element, element, row_index]: DynamicWindowClass's
+	void Add_Element(const RefCountPtr<DynamicWindowElement> &element, int row_index);	// 0x58A950 (FAIL_IF '!MainWindow'; MainWindow's Add_Element)  // NAME 1 [Add_Element, element, row_index]: DynamicWindowClass's
 	void Remove_All(bool recursive);														// 0x58A9A0 (FAIL_IF '!MainWindow'; MainWindow's Remove_All)  // NAME 1 [Remove_All, recursive]: DynamicWindowClass's
-	void Remove_Element(const RefCountPtr<DynamicWindowElementClass> &element);				// 0x58A9F0 (FAIL_IF '!MainWindow'; MainWindow's, row -1)  // NAME 1 [Remove_Element, element]: DynamicWindowClass's
+	void Remove_Element(const RefCountPtr<DynamicWindowElement> &element);				// 0x58A9F0 (FAIL_IF '!MainWindow'; MainWindow's, row -1)  // NAME 1 [Remove_Element, element]: DynamicWindowClass's
 	void Unknown_58A580(Vector2 position);													// 0x58A580 (MainWindow's Set_Center; ui_starmap.cpp's 0x7C8490)  // NAME 2 [position]: what the caller passes
 	void Get_Center(Vector2 &center);														// 0x58A640 (MainWindow's; ui_slot_info.cpp's 0x630070)  // NAME 2 [Get_Center, center]: DynamicWindowClass's
 	void Unknown_58ADA0();																	// 0x58ADA0 (FAIL_IF 'Is_Active()'; the gadgets of Unknown94 destroyed)  // NAME 1: neutral (D10)

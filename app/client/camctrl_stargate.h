@@ -8,11 +8,11 @@
 
 // The camera manager's fourth controller (state 3; vtable 0xB05014, 0x1C bytes): the gate at SClient +0x13BC; phase
 // 0 until 7 seconds have passed or the avatar is within half the gate's reach, then phase 1 and request 0x18
-class CameraController03Class : public CameraControllerClass	// NAME 1: neutral (D10)
+class StargateCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	CameraController03Class(SClient *client);			// 0x795900
-	virtual ~CameraController03Class();					// 0x7959D0, deleting 0x7959A0
+	StargateCameraControllerClass(SClient *client);			// 0x795900
+	virtual ~StargateCameraControllerClass();					// 0x7959D0, deleting 0x7959A0
 	virtual void Unknown_04();							// +0x04 0x795A50
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x795A80
 	virtual void Unknown_0C();							// +0x0C 0x795C60

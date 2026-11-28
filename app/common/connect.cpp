@@ -196,9 +196,9 @@ ConnectionClass *Create_Connection(const char *name, unsigned short port, bool e
 		G_ASSERT(new_connection);
 	} else {
 		if (protocol != 0 && stricmp(protocol, "UDP") == 0) {
-			new_connection = new UDPConnection(name, port, encrypt);
+			new_connection = new UDPConnectionClass(name, port, encrypt);
 		} else {
-			new_connection = new TCPConnection(name, port, encrypt);
+			new_connection = new TCPConnectionClass(name, port, encrypt);
 		}
 
 
@@ -226,7 +226,7 @@ ConnectionClass *Create_Connection(const char *name, unsigned short port, bool e
 
 	bool stats = ArgvClass().Find("-PACKET_STATS") != 0;
 	if (stats) {
-		new_connection = new StatsConnectionClass(new_connection);
+		new_connection = new PacketStatsConnection(new_connection);
 		G_ASSERT(new_connection);
 	}
 	Unknown_Debug_End_Step("done");
@@ -423,8 +423,8 @@ bool ForwardingConnectionClass::Get_Stats(float *a, float *b, float *c, float *d
 	return(Connection->Get_Stats(a, b, c, d, e, f, g));
 }
 
-// PeekConnectionClass (vtable 0xB0854C)
-PeekConnectionClass::PeekConnectionClass(ConnectionClass *connection) :
+// BufferedConnectionClass (vtable 0xB0854C)
+BufferedConnectionClass::BufferedConnectionClass(ConnectionClass *connection) :
 	ForwardingConnectionClass(connection),
 	Last_Packet(0)
 {
@@ -447,7 +447,7 @@ bool ForwardingConnectionClass::Unknown_30(int option, int *data) { if (Connecti
 
 
 
-PeekConnectionClass::~PeekConnectionClass()
+BufferedConnectionClass::~BufferedConnectionClass()
 {
 	if (Last_Packet != 0) {
 		delete Last_Packet;
@@ -455,7 +455,7 @@ PeekConnectionClass::~PeekConnectionClass()
 	}
 }
 
-PacketClass *PeekConnectionClass::Peek()
+PacketClass *BufferedConnectionClass::Peek()
 {
 	if (Last_Packet != 0) return(Last_Packet);
 	Last_Packet = ForwardingConnectionClass::Receive();
@@ -463,7 +463,7 @@ PacketClass *PeekConnectionClass::Peek()
 
 }
 
-PacketClass *PeekConnectionClass::Receive()
+PacketClass *BufferedConnectionClass::Receive()
 {
 	PacketClass *packet = Peek();
 	if (packet == 0) return(0);
@@ -472,7 +472,7 @@ PacketClass *PeekConnectionClass::Receive()
 	return(packet);
 }
 
-bool PeekConnectionClass::Is_Dead()
+bool BufferedConnectionClass::Is_Dead()
 {
 	return(Last_Packet == 0 && ForwardingConnectionClass::Is_Dead());
 }
@@ -530,7 +530,7 @@ void ConnectionManagerClass::Set_Name(const char *name)
 	Name = nstrdup(name);
 }
 
-void ConnectionManagerClass::Set_Listener(ConnectionListenerClass *listener)
+void ConnectionManagerClass::Set_Listener(ConnectionSourceClass *listener)
 {
 	if (Listener != 0) {
 		if (Listener->Is_Listening()) {
@@ -741,7 +741,7 @@ bool ConnectionManagerClass::Remove_Connection(ConnectionClass *connection)
 
 
 
-bool ConnectionManagerClass::Add_Unwrapped(PeekConnectionClass *connection)
+bool ConnectionManagerClass::Add_Unwrapped(BufferedConnectionClass *connection)
 {
 	FAIL_IF(!connection) return(false);
 	Connections.push_back(ConnectionEntryClass(connection));
@@ -838,13 +838,13 @@ bool ConnectionManagerClass::Add_Connection(ConnectionClass *connection)
 {
 	FAIL_IF(!connection) return(false);
 	bool stats = ArgvClass().Find("-PACKET_STATS") != 0;
-	PeekConnectionClass *peek;
+	BufferedConnectionClass *peek;
 	if (Unknown1C) {
-		peek = new PeekConnectionClass(new TimedLogConnectionClass(connection, Name));
+		peek = new BufferedConnectionClass(new TimedLogConnectionClass(connection, Name));
 	} else if (stats) {
-		peek = new PeekConnectionClass(new StatsConnectionClass(connection));
+		peek = new BufferedConnectionClass(new PacketStatsConnection(connection));
 	} else {
-		peek = new PeekConnectionClass(connection);
+		peek = new BufferedConnectionClass(connection);
 	}
 	Connections.push_back(ConnectionEntryClass(peek));
 	return(true);
@@ -866,7 +866,7 @@ bool ConnectionManagerClass::Add_Connection(ConnectionClass *connection)
 ConnectionManagerClass *Create_Connection_Manager(const char *server_type)
 {
 	INIClass &ini = NetworkINIClass::Get_Network_INI();
-	ConnectionListenerClass *listener = new CompositeListenerClass;
+	ConnectionSourceClass *listener = new CompositeListenerClass;
 	unsigned short port;
 	if (server_type != 0 && (port = ini.Get_Int(server_type, "Port", 0)) != 0) {
 		bool success = listener->Listen(port);

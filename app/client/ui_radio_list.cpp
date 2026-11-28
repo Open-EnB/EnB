@@ -86,7 +86,7 @@ void UIRadioListClass::Unknown_58()
 		Unknown_5E8860(true);
 		Unknown_5E8040();
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }
@@ -286,7 +286,7 @@ void UIRadioListClass::Unknown_5E8860(bool on)
 		if (State == 0) {
 			Buttons[1]->Unknown_40(false);
 		} else if (State == 1) {
-			((RObjGadgetClass *)Buttons[2])->Unknown_8C(true);
+			((RenderObjGadgetClass *)Buttons[2])->Unknown_8C(true);
 			Buttons[2]->Unknown_40(false);
 		}
 	}

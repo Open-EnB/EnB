@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction)
 /*
-**	PROVISIONAL file name (no assert or __FILE__ names it): CharacterCreatorClass and
+**	PROVISIONAL file name (no assert or __FILE__ names it): AvatarFileClass and
 **	LoginNameDataClass (unknown_creator.h), client 0x78CEE0-0x78E190, partly rebuilt.
 */
 
@@ -18,7 +18,7 @@
 #include <string.h>
 
 // 0x78CEE0
-CharacterCreatorClass::CharacterCreatorClass()
+AvatarFileClass::AvatarFileClass()
 {
 	RegistryClass creator("SOFTWARE\\Westwood Studios\\Earth and Beyond\\Character and Starship Creator", false);
 	if (creator.Is_Valid()) {
@@ -70,10 +70,10 @@ int __stdcall Unknown_78D450(const unsigned char *data, unsigned int size)
 }
 
 // 0x78D480
-void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
+void AvatarFileClass::Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescriptionClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
 {
 	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
-	LinearBufferClass buffer(size, 0x400);
+	LinearBuffer buffer(size, 0x400);
 	StringClass path;
 	RawFileClass file;
 
@@ -105,10 +105,10 @@ void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *charac
 
 
 // 0x78D8A0
-void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name) {
+void AvatarFileClass::Unknown_78D8A0(int slot, AvatarDescriptionClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name) {
 	StringClass path;
 	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
-	LinearBufferClass buffer(size, 0x400);
+	LinearBuffer buffer(size, 0x400);
 	RawFileClass file;
 	bool ok = Get_File_Name(slot, path);
 	path.Peek_Buffer();
@@ -128,11 +128,11 @@ void CharacterCreatorClass::Unknown_78D8A0(int slot, AvatarDescClass *avatar, Sh
 
 
 // 0x78DAF0
-void CharacterCreatorClass::Unknown_78DAF0(int slot)
+void AvatarFileClass::Unknown_78DAF0(int slot)
 {
 	StringClass path;
 	RawFileClass file;
-	int size = AvatarDescClass().Get_Short_Size() + ShipCustDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size();
+	int size = AvatarDescriptionClass().Get_Short_Size() + ShipCustDescClass().Get_Short_Size() + LoginNameDataClass().Get_Size();
 
 	if (Get_File_Name(slot, path)) {
 		file.Open(path, RawFileClass::READ | RawFileClass::WRITE);
@@ -152,7 +152,7 @@ void CharacterCreatorClass::Unknown_78DAF0(int slot)
 }
 
 // 0x78DE40
-bool CharacterCreatorClass::Get_File_Name(int slot, StringClass &name)
+bool AvatarFileClass::Get_File_Name(int slot, StringClass &name)
 {
 	if (!Folder.Is_Empty()) {
 		name = Folder;
@@ -184,14 +184,14 @@ void LoginNameDataClass::Set_Name(const char *name)
 }
 
 // 0x78E0E0
-bool LoginNameDataClass::Write(LinearBufferClass *buffer)
+bool LoginNameDataClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(Name, sizeof(Name));
 	return(true);
 }
 
 // 0x78E110
-bool LoginNameDataClass::Read(LinearBufferClass *buffer)
+bool LoginNameDataClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(Name, sizeof(Name));
 	return(true);
@@ -206,7 +206,7 @@ int LoginNameDataClass::Get_Size()
 /*
 **	Reconstruction notes
 **
-**	0x78D480 reads 'Avatar<slot>.dat' through RawFileClass into a LinearBufferClass and
+**	0x78D480 reads 'Avatar<slot>.dat' through RawFileClass into a LinearBuffer and
 **	checks it. The unsigned countdown in Unknown_78D450 preserves its standalone bytes and
 **	matches the checksum loop inlined into 0x78D480. 0x78DAF0 constructs the temporary
 **	avatar, ship and login-name descriptors in that order, reproducing its initialization sequence.

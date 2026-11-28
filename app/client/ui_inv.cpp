@@ -78,7 +78,7 @@ public:
 	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C();
 	virtual void Unknown_90(); virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C();
 	virtual void Unknown_A0();
-	virtual class SlotDataShortcutGadgetClass *As_SlotDataShortcutGadget();	// +0xA4  // NAME 3: the FAIL_IF's
+	virtual class SlotDataShortcutGadget *As_SlotDataShortcutGadget();	// +0xA4  // NAME 3: the FAIL_IF's
 };
 
 struct UIInvViewUnknown44Struct	// NAME 1: neutral (D10): the view's slot +0x44, as this file reads it
@@ -468,7 +468,7 @@ InvDataClass *UIInvClass::Unknown_59FE10()
 
 // NOT EXACT: 0.62: the client keeps the slot in edi and the button test in the event's argument slot, this the gadget in edi and a frame slot (register allocation; tried: no shadowed parameter, the event's bit as a bitfield)
 // 0x59FE30
-bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)
+bool UIInvClass::Unknown_98(SlotDataGadget *slot_gadget, KernelEventClass *event, unsigned int mask)
 {
 	bool down = ((UIInvEventStruct *)event)->Flags >> 12 & 1;
 	bool button = (mask & 0xF0) != 0;
@@ -485,7 +485,7 @@ bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *
 		UIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;
 		FAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);
 		if (down) {
-			((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));
+			((ClientClass *)Client)->Send_Packet(&UseInventoryPacketClass(((ClientClass *)Client)->ShipID, InvType, slot));
 		}
 		return(true);
 	}
@@ -648,7 +648,7 @@ void UIInvClass::Unknown_5A0450(int type, int *num_items, int *num_slots)
 }
 
 // 0x5A05B0
-void UIInvClass::Unknown_5A05B0(SlotDataGadgetClass *gadget, KernelEventClass *event, bool arg)
+void UIInvClass::Unknown_5A05B0(SlotDataGadget *gadget, KernelEventClass *event, bool arg)
 {
 	if (!Is_Busy() && ((UIInvViewUnknown44Struct *)View->Unknown_44())->Unknown2C == NULL) {
 		int slot = gadget->Unknown_670910();
@@ -673,7 +673,7 @@ void UIInvClass::Unknown_5A05B0(SlotDataGadgetClass *gadget, KernelEventClass *e
 }
 
 // 0x5A06C0
-void UIInvClass::Unknown_5A06C0(SlotDataGadgetClass *gadget)
+void UIInvClass::Unknown_5A06C0(SlotDataGadget *gadget)
 {
 	if (UnknownB8_2 && !Is_Busy() && ((UIInvViewUnknown44Struct *)View->Unknown_44())->Unknown2C == SlotDrag && Unknown_5A0740(gadget)) {
 		SlotDrag->Unknown_0C();
@@ -738,7 +738,7 @@ void UIInvClass::Unknown_5A06C0(SlotDataGadgetClass *gadget)
 
 // NOT EXACT: 0.74, the client's 1154 bytes and blocks (register-only): the client loads the ship's ID, the views, the stack's inventory and the drag's mode through other scratch registers (eax / edx / ecx turned round) and sets the result through cl where this has dl
 // 0x5A0740
-bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
+bool UIInvClass::Unknown_5A0740(SlotDataGadget *slot_gadget)
 {
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(true);
@@ -756,7 +756,7 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 				sclient->Unknown_74D990(0x11, "Cannot perform action while incapacitated.", 0);
 				return(true);
 			}
-			sclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));
+			sclient->Send_Packet(&UseInventoryPacketClass(sclient->ShipID, InvType, from_slot));
 			return(true);
 		} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {
 			if (SlotDrag->Unknown20) {
@@ -837,7 +837,7 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 				ShortcutUI->Save_Current();
 			}
 		} else if (!gadget->As_SlotDataShortcutGadget() && target) {
-			SlotDataGadgetClass *inv_gadget = (SlotDataGadgetClass *)target->As_SlotDataGadget();
+			SlotDataGadget *inv_gadget = (SlotDataGadget *)target->As_SlotDataGadget();
 			if (inv_gadget && inv_gadget->Unknown_670950() && ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10()) {
 				if (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(handled);
 				Unknown_5A0D00(from_slot, inv_gadget);
@@ -937,7 +937,7 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 
 // NOT EXACT: 0.58: the client keeps the slot in ebx and spills the first list's peek, this the reverse (register allocation)
 // 0x5A0D00
-bool UIInvClass::Unknown_5A0D00(int slot, SlotDataGadgetClass *inv_gadget)
+bool UIInvClass::Unknown_5A0D00(int slot, SlotDataGadget *inv_gadget)
 {
 	FAIL_IF(!inv_gadget) return(false);
 	InvDataClass *inv = SlotData->Unknown_10();

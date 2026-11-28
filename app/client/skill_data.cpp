@@ -6,7 +6,7 @@
 // (0x818590's assert names it; skillnam.cpp is not rebuilt yet)
 class SkillNamesDatabase { public: static int Max_Skill(); };	// NAME 5: 0x6A4F40's assert
 // as co.cpp's
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)
 // (+0x10BC of the client: the time; sclient.h does not hold it, skill_render.cpp's stand-in does)
 struct UnknownClientTime { char Unknown00[0x10BC]; unsigned int Time; };	// NAME 2: describes what it does
 
@@ -16,8 +16,8 @@ SkillDataClass::SkillDataClass(SClient *client) :
 	Skills(client),
 	Abilities(client)
 {
-	Skills.Attach((DeltaCompoundClass *)Client->AuxData);
-	Abilities.Attach((DeltaCompoundClass *)Client->AuxData);
+	Skills.Attach((DeltaContainer *)Client->AuxData);
+	Abilities.Attach((DeltaContainer *)Client->AuxData);
 }
 
 // 0x6A4710
@@ -60,7 +60,7 @@ int SkillDataClass::Get_Skill_Points()
 {
 
 	FAIL_IF(!Peek_Aux_Data()) return(0);
-	NameClass name("RPGInfo.SkillPoints");
+	AuxDataName name("RPGInfo.SkillPoints");
 	DeltaTemplateClass<int> *int_ptr = Unknown_Find_Valid<DeltaTemplateClass<int> >(Peek_Aux_Data(), name);
 	FAIL_IF(!int_ptr) return(0);
 	return(int_ptr->Value);
@@ -70,7 +70,7 @@ int SkillDataClass::Get_Skill_Points()
 int SkillDataClass::Get_Skill_Powerup_Start()
 {
 	FAIL_IF(!Peek_Aux_Data()) return(0);
-	NameClass name("RPGInfo.SkillPowerupStart"); DeltaTemplateClass<DurationClass> *time_ptr = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(Peek_Aux_Data(), name);
+	AuxDataName name("RPGInfo.SkillPowerupStart"); DeltaTemplateClass<DurationClass> *time_ptr = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(Peek_Aux_Data(), name);
 	FAIL_IF(!time_ptr) return(0);
 	return(time_ptr->Value.Get());
 }
@@ -78,7 +78,7 @@ int SkillDataClass::Get_Skill_Powerup_Start()
 int SkillDataClass::Get_Skill_Powerup_End()
 {
 	FAIL_IF(!Peek_Aux_Data()) return(0);
-	NameClass name("RPGInfo.SkillPowerupEnd"); DeltaTemplateClass<DurationClass> *time_ptr = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(Peek_Aux_Data(), name);
+	AuxDataName name("RPGInfo.SkillPowerupEnd"); DeltaTemplateClass<DurationClass> *time_ptr = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(Peek_Aux_Data(), name);
 	FAIL_IF(!time_ptr) return(0);
 	return(time_ptr->Value.Get());
 }
@@ -87,7 +87,7 @@ int SkillDataClass::Get_Skill_Powerup_End()
 int SkillDataClass::Get_Skill_Powerup_Ability_Number()
 {
 	FAIL_IF(!Peek_Aux_Data()) return(0);
-	NameClass name("RPGInfo.SkillPowerupAbilityNumber");
+	AuxDataName name("RPGInfo.SkillPowerupAbilityNumber");
 	DeltaTemplateClass<int> *int_ptr = Unknown_Find_Valid<DeltaTemplateClass<int> >(Peek_Aux_Data(), name);
 	FAIL_IF(!int_ptr) return(0);
 	return(int_ptr->Value);
@@ -116,9 +116,9 @@ void SkillDataClass::Unknown_24()
 
 
 // 0x6A4EE0
-DeltaCompoundClass *SkillDataClass::Unknown_1C()
+DeltaContainer *SkillDataClass::Unknown_1C()
 {
-	return((DeltaCompoundClass *)Client->AuxData);
+	return((DeltaContainer *)Client->AuxData);
 }
 
 

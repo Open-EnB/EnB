@@ -10,8 +10,8 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 	Name = object->Get_Name();
 	Id = object;
 	Unknown08 = 0;
-	for (std::hash_map<std::string, FontStringStruct *>::iterator it = fontDatabase->Strings.begin(); it != fontDatabase->Strings.end(); ++it) {
-		FontStringStruct *def = it->second;
+	for (std::hash_map<std::string, StringInfo *>::iterator it = fontDatabase->Strings.begin(); it != fontDatabase->Strings.end(); ++it) {
+		StringInfo *def = it->second;
 		if (stricmp(def->RenderObj, Name) == 0) {
 			if (def->StringID[0] == 'W') {
 				Unknown_6CF930(def, object);
@@ -24,7 +24,7 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 
 ManagedFontClass::ManagedFontClass(const char *name, RenderObjClass *object)
 {
-	FontStringStruct *def = fontDatabase->Find_String(name);
+	StringInfo *def = fontDatabase->Find_String(name);
 	Styles.clear();
 	if (def) {
 		Unknown_6CF930(def, object);
@@ -41,7 +41,7 @@ ManagedFontClass::~ManagedFontClass()
 }
 
 
-void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, RenderObjClass *object)
+void ManagedFontClass::Unknown_6CF930(StringInfo *def, RenderObjClass *object)
 {
 
 	float width = 640.0f;
@@ -77,7 +77,7 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, RenderObjClass *obj
 		char suffix[8];
 		sprintf(suffix, "_%d", i);
 		id += suffix;
-		FontStringStruct copy(*def);
+		StringInfo copy(*def);
 		copy.Unknown04 = id;
 		copy.Text = split.Get(i);
 		FontSys *style = new FontSys(copy, Id, 0);
@@ -169,10 +169,10 @@ void ManagedFontClass::Unknown_6D0A20(const char *name, const char *text, int un
 	Unknown_6D1600(name)->Change_Text(text, unknown);
 }
 
-// 0x6D0A70 (exact with FontStringStruct's implicit operator= over its TPoint2D<float> points: the written-out one spent the budget the key's std::string("") needs, F1B)
+// 0x6D0A70 (exact with StringInfo's implicit operator= over its TPoint2D<float> points: the written-out one spent the budget the key's std::string("") needs, F1B)
 void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 {
-	FontStringStruct def;
+	StringInfo def;
 	std::hash_map<std::string, FontSys *>::iterator it = Styles.begin();
 	while (it != Styles.end()) {
 		FontSys *style = (*it).second;
@@ -585,14 +585,14 @@ ManagedFontClass *FontManagerClass::Unknown_6D2AE0(const RefCountPtr<RenderObjCl
 **	0x6D3730 and 0x6D3DB0, which the linker placed after 0x6D2A70, so its object is this one (so is
 **	ManagedFontClass's block from 0x6CE990: its constructor calls 0x6D2BA0 / 0x6D3F40, 0x6CF520 calls
 **	0x6D3350). 0x6D0F70 is FontSoundStruct's implicit operator=, emitted after its first caller
-**	0x6D0A70 (FU1). 0x6D0A70 inlines FontStringStruct's implicit operator= (F1B: with Offset / Target /
+**	0x6D0A70 (FU1). 0x6D0A70 inlines StringInfo's implicit operator= (F1B: with Offset / Target /
 **	BoxOffset as TPoint2D<float>, as Load_String's Get_Point copies show; with float[2] arrays the implicit
 **	one is called out of line, and written out it costs the key's std::string("") its inlining). 0x6D2700 exact (H21: a flat style test and a key copy). 0x6D2400 / 0x6D2480 / 0x6D2500 exact once their callees 0x6D0390 / 0x6D0550 / 0x6D0A20 are
 **	defined (FU1). FontSys is a DynamicMeshClass (0x6D47C0 builds the base, vtable 0xAFECB4): its
 **	+0x16C is Set_Sort_Level (0x6D01C0), its +0x184 Set_Hidden (0x6D0390 / 0x6D0550; its override 0x67EF40).
 **	The font is keyed by its render object's address: the constructor 0x6CE990 takes the object (its Get_Name
 **	is the font's name, its address the id) and loads the database's templates whose RenderObj is that name;
-**	FontStringStruct's implicit copy constructor 0x6CECC0 and the styles table's destructor 0x6CEBF0 follow it.
+**	StringInfo's implicit copy constructor 0x6CECC0 and the styles table's destructor 0x6CEBF0 follow it.
 **	0x6CF930 (LS1): a 'W' template's lines as styles, one each, through FontSplitStringClass
 **	(unknown_font_split_string.cpp) at the template's width less "..."'s; exact once the lines' bottom
 **	is WWMath::Max(y, height - box + y) with height kept apart from the box (VC6 hoists only the

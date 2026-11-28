@@ -24,7 +24,7 @@ unsigned int Unknown_Get_Ticks();	// 0x4A3B40 (delta_time.cpp; unknown_root.h's,
 #include <ctype.h>
 #include "..\..\shared\auth_product.h"
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
-class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescClass *desc, const ShipCustDescClass *ship, unsigned char unknown); virtual ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: a view of pkglobalcreatecharacter.h's class (including that header moves 0x76B520's scheduling: order-only)
+class GlobalCreateCharacterPacketClass : public PacketClass { public: GlobalCreateCharacterPacketClass(int galaxy, int slot, const char *name, const AvatarDescriptionClass *desc, const ShipCustDescClass *ship, unsigned char unknown); virtual ~GlobalCreateCharacterPacketClass(); char Unknown0C[0x2BC]; };	// opcode 114: a view of pkglobalcreatecharacter.h's class (including that header moves 0x76B520's scheduling: order-only)
 class GlobalConnectPacketClass : public PacketClass { public: GlobalConnectPacketClass(const char *ticket, const char *password); ~GlobalConnectPacketClass(); char Unknown0C[0x08]; };	// opcode 109: 0x863400, 0x863570  // NAME 1 [password]: '123456'
 void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 static char *AUTH_INI = "auth.ini";				// 0xB9B9D0 (0xB9B9CC before it: auth_product.h's AUTH_PRODUCT)  // NAME 1 [AUTH_PRODUCT, AUTH_INI]: their texts
@@ -43,8 +43,8 @@ Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral 
 #include "..\..\packets\pkglobalerror.h"	// opcode 117 (GlobalErrorPacketClass, rebuilt there; this file's view before)
 #include "..\..\packets\pkglobalticket.h"	// opcode 111 (GLOBAL_TICKET)
 // opcode 118 (GlobalLoginPacketClass): pkgloballogin.h, included by tsk_login.h
-// opcode 119 (Packet_0077Class): pkunknown_866ac0.h, included above
-class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
+// opcode 119 (GlobalSetReferrerPacketClass): pkunknown_866ac0.h, included above
+class GlobalAvatarListPacketClass : public PacketClass { public: GlobalAvatarListPacketClass(RawPacketClass *raw); virtual ~GlobalAvatarListPacketClass(); virtual bool Process_Packet(void *client); LoginCharacterClass *Characters; AvatarDescriptionClass *Avatars; std::list<LoginGalaxyClass> Galaxies; };	// opcode 112: 0x862D90, 0x20 bytes  // NAME 1 [Galaxies]: copied to the task's
 void Unknown_7E5F70();								// NAME 1 [Unknown_7E5F70]: neutral (D10); once, by the first LoginTaskClass(mode)
 // Unknown_7228C0: mousetbl.h, included above
 #include "..\..\audio\soundlib.h"
@@ -457,7 +457,7 @@ void LoginTaskClass::Process_Packets()
 // 0x7683F0
 void LoginTaskClass::Unknown_50()
 {
-	CharacterCreatorClass unknown;
+	AvatarFileClass unknown;
 	if (Characters[Get_Selected()].ID == 0) {
 		return;
 	}
@@ -469,13 +469,13 @@ void LoginTaskClass::Unknown_50()
 		Unknown001D = true;
 	}
 	Characters[Selected] = LoginCharacterClass();
-	Unknown0350[Selected] = AvatarDescClass();
+	Unknown0350[Selected] = AvatarDescriptionClass();
 	Unknown088C[Get_Selected()] = ShipCustDescClass();
 }
 
 
 // 0x7689E0
-void LoginTaskClass::Unknown_48(AvatarDescClass *a, ShipCustDescClass *b, int galaxy, bool c)
+void LoginTaskClass::Unknown_48(AvatarDescriptionClass *a, ShipCustDescClass *b, int galaxy, bool c)
 {
 	if (GlobalConnection) {
 		FAIL_IF(Galaxies.empty()) return;
@@ -519,14 +519,14 @@ bool LoginTaskClass::Unknown_4C()
 
 
 // 0x768CB0
-void LoginTaskClass::Unknown_768CB0(LoginCharacterClass *characters, AvatarDescClass *unknown)
+void LoginTaskClass::Unknown_768CB0(LoginCharacterClass *characters, AvatarDescriptionClass *unknown)
 {
 	for (int i = 0; i < 5; i++) {
 		if (characters[i].ID != 0) {
 			Characters[i] = characters[i];
 			Unknown0350[i] = unknown[i];
 		} else {
-			CharacterCreatorClass creator;
+			AvatarFileClass creator;
 			LoginNameDataClass name;
 			creator.Unknown_78D480(i, &Characters[i], &Unknown0350[i], &Unknown088C[i], &name);
 		}
@@ -1027,7 +1027,7 @@ void LoginTaskClass::Unknown_76A370()
 				if (Characters[Selected].ID == 0) {
 					Unknown0020 = 0;
 					Error = 0;
-					AvatarDescClass info;
+					AvatarDescriptionClass info;
 					ShipCustDescClass look;
 					std::string name("Fast");
 					name += Username;
@@ -1250,7 +1250,7 @@ void LoginTaskClass::Handle_Global_Login(GlobalLoginPacketClass *packet)
 }
 
 // 0x76B2F0
-void LoginTaskClass::Handle_Referrer_Response(Packet_0078Class *packet)
+void LoginTaskClass::Handle_Referrer_Response(GlobalSetReferrerResponsePacketClass *packet)
 {
 	Referrer_Result = packet->Result;
 	if (Referrer_Result == 1 || Referrer_Result == 2) {
@@ -1262,7 +1262,7 @@ void LoginTaskClass::Handle_Referrer_Response(Packet_0078Class *packet)
 void LoginTaskClass::Send_Referrer(const char *name)
 {
 	Referrer_Result = 0;
-	GlobalConnection->Send_Packet(&Packet_0077Class(name));
+	GlobalConnection->Send_Packet(&GlobalSetReferrerPacketClass(name));
 }
 
 
@@ -1399,7 +1399,7 @@ bool GlobalLoginPacketClass::Process_Packet(void *client)
 
 
 // 0x76BB70
-bool Packet_0078Class::Process_Packet(void *client)
+bool GlobalSetReferrerResponsePacketClass::Process_Packet(void *client)
 {
 	LoginTaskClass *task = (LoginTaskClass *)client;
 	G_ASSERT(task);
@@ -1416,7 +1416,7 @@ bool Packet_0078Class::Process_Packet(void *client)
 **	docs/attempts/769E70), 0x76A370, the EA.Com ticket 0x76A7B0 (kcom's authFactory / iauth), 0x76AC60,
 **	and the avatar list's handler 0x76B520. Near misses in the tree: attempts.py list --lib app.
 **	Go_Next_Step / Go_Back_Step inline Set_Step (called through the class: it is virtual), Unknown_5C
-**	inlines Show_Message(text, button), Packet_0078Class::Process_Packet Handle_Referrer_Response,
+**	inlines Show_Message(text, button), GlobalSetReferrerResponsePacketClass::Process_Packet Handle_Referrer_Response,
 **	GlobalLoginPacketClass::Process_Packet Handle_Global_Login. The packet classes declared at the top
 **	(opcodes 111, 117, 118, 119) are views with the fields these handlers read; pk_classes.h declares
 **	them without fields (they belong there once app/packets decodes them).

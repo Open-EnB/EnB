@@ -19,11 +19,11 @@
 #include "pk.h"
 
 // opcode 69 (0x0045, ?): vtable 0xB0B838, constructor 0x8A2C20, 0xC bytes
-class Packet_0045Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0045
+class RequestVersionPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_0045Class();	// 0x8A2B70
-	Packet_0045Class(RawPacketClass *raw);	// 0x8A2C20
+	RequestVersionPacketClass();	// 0x8A2B70
+	RequestVersionPacketClass(RawPacketClass *raw);	// 0x8A2C20
 	virtual RawPacketClass *Build();	// +0x04 0x8A2C60
 	virtual bool Process_Packet(void *client);	// +0x08 0x867EF0 (clientstub.cpp l.83)
 	virtual int Get_Data_Size();	// +0x0C 0x8A2CF0

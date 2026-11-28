@@ -21,8 +21,8 @@ RefCountPtr<ExprMathEvalClass<int> > Expr_Math_Int(unsigned int flags, const cha
 {
 	FAIL_IF(!s) return NULL;
 
-	ExprMathLexerClass *lexer = ExprMathLexerFactoryClass::Create(flags, 1, 0);
-	ExprMathParserClass *parser = ExprMathParserFactoryClass::Create(flags);
+	ExprLexer *lexer = ExprMathLexerFactoryClass::Create(flags, 1, 0);
+	ExprMathParser *parser = ExprMathParserFactoryClass::Create(flags);
 	ExprMathIntFactoryClass factory(flags);
 	ExprMathBuilderClass<int> builder(lexer, parser, &factory);
 	RefCountPtr<ExprMathEvalClass<int> > result = builder.Build(s, names);

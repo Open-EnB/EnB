@@ -174,10 +174,10 @@ public:
 };
 
 // The component node (vtable 0xB025C8, 0x14 bytes)
-class Unknown713C80Class : public Unknown70F4F0Class	// NAME 1: neutral (D10)
+class ComponentNode : public Unknown70F4F0Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown713C80Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what postate's state passes
+	ComponentNode(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x713C80  // NAME 1 [packet, client]: what postate's state passes
 };
 
 // A blend from one node to another between two times (vtable 0xB024C0, 0x78 bytes)
@@ -282,10 +282,10 @@ public:
 };
 
 // A formation member: the leader's state plus an offset (vtable 0xB02628, 0x48 bytes)
-class Unknown714340Class : public StateNode	// NAME 1: neutral (D10)
+class FormationNode : public StateNode  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown714340Class(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes
+	FormationNode(SClient *client, FormationPositionalUpdatePacketClass *packet);	// 0x714340  // NAME 1 [client, packet]: what postate's state passes
 	virtual void Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown);	// +0x1C 0x714410  // NAME 2: as the base's
 	virtual void Set_Motion(unsigned int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate) {}	// +0x20 0x7147B0  // NAME 2: as the base's
 	virtual void End_Tilt(int time, float rate) {}	// +0x24 0x7147D0  // NAME 2: as the base's

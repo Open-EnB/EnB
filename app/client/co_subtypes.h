@@ -3,7 +3,7 @@
 **	Original location: unknown. The run 0x70DBC0-0x70F030 (after co_player_relationship.cpp, before extrap.cpp)
 **	has no assert and no __FILE__, so the file name is provisional (D122): app\client\co_subtypes.cpp.
 **	CREATE 4's two object subclasses (type 24 0x70E2E0, type 28 0x70E5A0) and type 24's base 0x70DBC0, which adds
-**	dynamic_obj.cpp's DynObj to ClientObjectClass. Notes at the end of co_subtypes.cpp.
+**	dynamic_obj.cpp's DynamicObjectClass to ClientObjectClass. Notes at the end of co_subtypes.cpp.
 */
 #if defined(_MSC_VER)
 #pragma once
@@ -16,11 +16,11 @@
 
 // type 24's base (constructor 0x70DBC0, vtables 0xB02084 / 0xB0206C / 0xB020E4; 0x20C bytes): a ClientObjectClass that
 // is also a proximity object, with two transforms indexed by the frame toggle 0xBE350C
-class Unknown70DBC0Class : public ClientObjectClass, public DynObj	// NAME 1: neutral (D10); its Get_Name text is 'Unnamed ClientProximityObject' (0x70DD20)
+class ClientProximityObjectClass : public ClientObjectClass, public DynamicObjectClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown70DBC0Class(ClientClass *client, int type, unsigned id);	// 0x70DBC0  // NAME 1 [client, type, id]: as the base's
-	virtual ~Unknown70DBC0Class();						// +0x00 0x70E0C0 (scalar deleting 0x70E090; thunks 0x70E2A0, 0x70E2B0)
+	ClientProximityObjectClass(ClientClass *client, int type, unsigned id);	// 0x70DBC0  // NAME 1 [client, type, id]: as the base's
+	virtual ~ClientProximityObjectClass();						// +0x00 0x70E0C0 (scalar deleting 0x70E090; thunks 0x70E2A0, 0x70E2B0)
 	virtual void Unknown_20();							// +0x20 0x70E150 (this frame's transform from slot +0x4C, then the base's update)
 	virtual Vector3 Unknown_24();						// +0x24 0x70DD40 (the base's; also the proximity object's +0x34, thunk 0x70E2C0)
 	virtual Vector3 Unknown_2C();						// +0x2C 0x70DDE0 (the base's; also the proximity object's +0x40, thunk 0x70E2D0)
@@ -30,7 +30,7 @@ public:
 	virtual Vector3 Unknown_48();						// +0x48 0x70DD70 (slot +0x4C's x axis)
 	virtual Matrix3D Unknown_4C();						// +0x4C 0x70DDB0 (the base's slot +0x28 with thrust)
 
-	virtual DynObj *Unknown_Dyn04();		// +0x04 0x70DC90 (this)
+	virtual DynamicObjectClass *Unknown_Dyn04();		// +0x04 0x70DC90 (this)
 	virtual unsigned Unknown_Dyn1C();					// +0x1C 0x70E1F0 (the client's +0x10BC / 100)
 	virtual int Unknown_Dyn20();						// +0x20 0x70E220 (Type)
 	virtual const char *Unknown_Dyn30();				// +0x30 0x70DD20 ('Unnamed ClientProximityObject')
@@ -48,7 +48,7 @@ public:
 };
 
 // type 24 (constructor 0x70E2E0, vtables 0xB02294 / 0xB0227C / 0xB021B0, 0x224 bytes)
-class Unknown70E2E0Class : public Unknown70DBC0Class	// NAME 1: neutral (D10)
+class Unknown70E2E0Class : public ClientProximityObjectClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown70E2E0Class(ClientClass *client, int type, unsigned id);	// 0x70E2E0 (CREATE 4 passes its SClient, the packet's Type and GameID)  // NAME 1 [client, type, id]: as the base's

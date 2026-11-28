@@ -39,7 +39,7 @@
 //     (4l): synthetic CLIENT_CHAT_LIST 164 (the chat panel's lists, or the printed list), CLIENT_CHAT_ERROR 166 (the error
 //     and success lines) and GUILD_SIMPLE_SECTOR_CLIENT 204 (the guild questions).
 //
-// Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SOptionsClass's
+// Never: a modal dialog (asserts and FAIL_IF go to the trace), the registry (SpaceClientOptionsClass's
 // constructor is a stand-in), the network (the memory connection), the game's install folder.
 #include <windows.h>
 #include <stdio.h>
@@ -115,9 +115,9 @@ static void Set_View_744B60(SClient *client, bool on)
 	}
 }
 bool Stub_Focused = false;
-// TaskClass::Is_Focused is the real one (kernel.cpp): a fake task on a real KernelClass whose Current_Task is the fake
+// KernelTaskClass::Is_Focused is the real one (kernel.cpp): a fake task on a real KernelClass whose Current_Task is the fake
 // while Stub_Focused is set
-class FakeTaskClass : public TaskClass
+class FakeTaskClass : public KernelTaskClass
 {
 public:
 	virtual int Get_Interval() { return 0; }
@@ -164,7 +164,7 @@ static void Check(bool ok, const char *what)
 
 extern unsigned int Unknown_BE71D4;	// postate.cpp (CLIENT_SET_TIME 52 stores the round trip time)
 static unsigned int Test_Ticks = 0;
-unsigned int Unknown_Get_Ticks();	// unknown_root.cpp's 0x4A3B40 (timeGetTime since the first call), linked for real since DeltaCompoundClass::Decode is
+unsigned int Unknown_Get_Ticks();	// unknown_root.cpp's 0x4A3B40 (timeGetTime since the first call), linked for real since DeltaContainer::Decode is
 static unsigned int Test_Get_Ticks() { return Test_Ticks; }		// the aux-data clock (dbgconn.cpp's rate wrapper; SClient::Do_Frame's clock): 0 but in (4)
 // main() jumps the real clock to Test_Get_Ticks (a second definition would be a LNK2005 with unknown_root.obj)
 void Hook_Audio_Functions();	// audio_stubs.cpp: WWAudioClass::Flush_Cache to a trace line
@@ -239,7 +239,7 @@ static SimpleSceneClass *__stdcall Orbital_View_00_Slot() { Trace("orbitals' vie
 static void *Cpit_Table[64];
 static void View138_58_Slot() { Trace("mainview 138's +0x58 (on)"); }	// 0x514010
 static void View138_5C_Slot() { Trace("mainview 138's +0x5C (off)"); }
-static void Cpit_58_Slot() { Trace("cockpit +0x58 (on)"); }	// 0x514010 (UICpitClass)
+static void Cpit_58_Slot() { Trace("cockpit +0x58 (on)"); }	// 0x514010 (CockpitInterface)
 static void Cpit_5C_Slot() { Trace("cockpit +0x5C (off)"); }
 static void *Scene10C_Table[32];
 static void __stdcall Scene10C_Add_Slot(RenderObjClass *obj) { Trace("mainview scene Add_Render_Object"); }	// slot 3
@@ -257,7 +257,7 @@ static void __stdcall Switch_5C_Slot() {}
 static void *Switch_Pda[0xC0 / 4];			// SClient +0x1284 (Test_Path puts the +0xA8 object in it)
 static void *Switch_Hot_Keys[0x84 / 4];		// SClient +0x1290
 static void *Switch_Main_34[0x1F8 / 4];	// the main view's +0x34 object: sclient.h's ViewUnknown34Class (0x1F8 bytes; its 0x5890B0 is real: +0xB0, the button, stays 0)
-// InterfaceSortClass (local_interface_sort.cpp, real now) takes the view's slot +0x50 scene's sort list at +0x9C: a zeroed scene whose list
+// LocalInterfaceSort (local_interface_sort.cpp, real now) takes the view's slot +0x50 scene's sort list at +0x9C: a zeroed scene whose list
 // is a zeroed InterfaceStaticSortListClass (no current, front or back interface), so Set_Current_Front / Back swap nothing
 static char Fake_Sort_List[0x100];
 static char Fake_Interface_Scene_Storage[0x100];
@@ -797,7 +797,7 @@ static bool Load_Messages(const char *path)
 }
 
 // SClient::Process_Packets stops at a handler that returns false and leaves the packet on the peek
-// connection (PeekConnectionClass +0x34 keeps it): the next call hands the same packet over again
+// connection (BufferedConnectionClass +0x34 keeps it): the next call hands the same packet over again
 static void Test_Refuse(SClient *client)
 {
 	Trace("== (3a) a handler that refuses twice");
@@ -1041,7 +1041,7 @@ static bool Model_Deleted(int number)
 // SClient's camera manager (camera_manager.cpp, real: Process_AI's 0x799E40, CAMERA_CONTROL's 0x79B2B0): its constructor
 // would make the twelve controllers (stand-ins), so the client gets one with no requests and state 0, every state held
 // by a controller that leaves the camera where it is (mode 0); in (4) the main view's +0x7C gives Fake_Camera
-// (Path_Views). Its 0x79B4F0 asks OptionClass::Instance: an empty one (every Get_Bool false) unless one is set
+// (Path_Views). Its 0x79B4F0 asks OptionManagerClass::Instance: an empty one (every Get_Bool false) unless one is set
 class FakeCameraControllerClass : public CameraControllerClass
 {
 public:
@@ -1174,7 +1174,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 }
 
 // (4b) CREATE 4's subclasses (cpacket.cpp's switch, co_subtypes.cpp): type 24 (0x70E2E0 over 0x70DBC0, which is also
-// dynamic_obj.cpp's DynObj at +0x188) and type 28 (0x70E5A0), from synthetic packets: no alex3 message
+// dynamic_obj.cpp's DynamicObjectClass at +0x188) and type 28 (0x70E5A0), from synthetic packets: no alex3 message
 // creates either. Set_Model's slot +0x34 reaches type 24's override (0x70DCF0: the radius also into the proximity
 // object's +0x04); SET_TARGET 25 (0x7363E0) calls type 28's 0x70E750; REMOVE 7 deletes both through their destructors.
 static std::vector<unsigned char> Set_Target_Message(int target_id, int object_id)
@@ -1203,7 +1203,7 @@ static void Test_Subtypes(SClient *client)
 		"CREATE 4 type 24 (game id 4100): in the table with its type, base asset and Set_Model's radius 12.5");
 	if (object24 != 0) {
 		Unknown70E2E0Class *type24 = (Unknown70E2E0Class *)object24;
-		DynObj *proximity = type24;
+		DynamicObjectClass *proximity = type24;
 		Check((char *)proximity - (char *)type24 == 0x188 && proximity->Unknown_Dyn04() == proximity,
 			"type 24's proximity object sits at +0x188 and its slot +0x04 (0x70DC90) returns itself");
 		Check(proximity->ProximityObject != 0 && proximity->ProximityObject->Owner == proximity,
@@ -1331,12 +1331,12 @@ static std::vector<unsigned char> Formation_Message(unsigned id, unsigned leader
 	return(Message_Bytes(65, p));
 }
 
-static Unknown714340Class *Formation_Node(ClientObjectClass *object)
+static FormationNode *Formation_Node(ClientObjectClass *object)
 {
 	if (object == 0 || object->PositionalState == 0 || (object->PositionalState->Get_Type() != 8 && object->PositionalState->Get_Type() != 4)) {
 		return(0);
 	}
-	return((Unknown714340Class *)((UnknownB027A0Class *)object->PositionalState)->Extrap);
+	return((FormationNode *)((UnknownB027A0Class *)object->PositionalState)->Extrap);
 }
 
 static void Test_Formation(SClient *client)
@@ -1358,8 +1358,8 @@ static void Test_Formation(SClient *client)
 	client->Process_Packets();
 	ClientObjectClass *f = client->Find_Object(follower);
 	ClientObjectClass *a = client->Find_Object(avatar);
-	Unknown714340Class *fn = Formation_Node(f);
-	Unknown714340Class *an = Formation_Node(a);
+	FormationNode *fn = Formation_Node(f);
+	FormationNode *an = Formation_Node(a);
 	Check(f != 0 && f->PositionalState != 0 && f->PositionalState->Get_Type() == 8 && fn != 0 && fn->LeaderID == (int)leader
 		&& fn->Offset.X == 10.0f && fn->Offset.Y == 0.0f && fn->Client == client,
 		"FORMATION 65 for object 4301: the type-8 state (0x716080) with a formation node (0x714340) holding leader 4300 and offset (10, 0, 0)");
@@ -1388,8 +1388,8 @@ static int Verb_Calls = 0;
 static int Verb_Game_ID = 0;
 static std::set<VerbEnum> Verb_Set;
 // The verb manager is the real one (verbmanager.cpp); the window it hands the verbs to is a fake object whose
-// UIVerbClass::Unknown_658F40 (ui_verb.cpp) is this stand-in, which records what the manager passed on.
-void UIVerbClass::Unknown_658F40(const std::set<VerbEnum> *verbs)
+// VerbInterface::Unknown_658F40 (ui_verb.cpp) is this stand-in, which records what the manager passed on.
+void VerbInterface::Unknown_658F40(const std::set<VerbEnum> *verbs)
 {
 	Verb_Calls++;
 	Verb_Set = *verbs;
@@ -1416,7 +1416,7 @@ static void Test_Verbs(SClient *client)
 	static char fake_window[0x400];
 	Verb_Game_ID = 4400;
 	VerbManagerClass real_manager(client);
-	real_manager.Unknown_81F890(Verb_Game_ID, (UIVerbClass *)fake_window);
+	real_manager.Unknown_81F890(Verb_Game_ID, (VerbInterface *)fake_window);
 	client->VerbManager = &real_manager;
 	Memory->Incoming.push_back(Built_Message(&VerbListPacketClass(4400, verbs)));
 	client->Process_Packets();
@@ -1431,22 +1431,22 @@ static void Test_Verbs(SClient *client)
 // starbase view (+0x135C) hands out its +0x60 interface (0x54EDA0, a RefCountPtr: the count at +0x3C goes up and back
 // down); 158 moves an avatar (0x63E5C0: AvatarID, Orient, the position, ActionFlag) only when the interface's room
 // (+0xAC) is the packet's Room and its +0x7C is set; 160 tells it an avatar's new room (0x63CF30) when +0x7C is set.
-class UIStarbaseClass
+class StarbaseInterface  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	void Clienttest_Unknown_63CF30(int avatar_id, int new_room);
 	void Clienttest_Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);
-	void Clienttest_Unknown_6437A0(int unknown, AvatarDescClass *desc);
+	void Clienttest_Unknown_6437A0(int unknown, AvatarDescriptionClass *desc);
 	void Clienttest_Unknown_640110(int state);
 };
 static std::string Starbase_Log;
-void UIStarbaseClass::Clienttest_Unknown_63CF30(int avatar_id, int new_room)
+void StarbaseInterface::Clienttest_Unknown_63CF30(int avatar_id, int new_room)
 {
 	char b[64];
 	sprintf(b, "63CF30(%d, %d) ", avatar_id, new_room);
 	Starbase_Log += b;
 }
-void UIStarbaseClass::Clienttest_Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action)
+void StarbaseInterface::Clienttest_Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action)
 {
 	char b[96];
 	sprintf(b, "63E5C0(%d, %g, (%g %g %g), %d) ", avatar_id, orient, position->X, position->Y, position->Z, action);
@@ -1523,7 +1523,7 @@ static void Test_Starbase(SClient *client)
 // the real StarbaseAvatarCreationInterface method (ui_avatar_cust.h, app.lib(ui_avatar_cust.obj)): it copies the costs to the
 // window's +0x390 and sets +0x3CC, which the test reads back on a zeroed window of the class's size (0x3D0).
 static std::string Recustomize_Log;
-void UIStarbaseClass::Clienttest_Unknown_6437A0(int unknown, AvatarDescClass *desc)
+void StarbaseInterface::Clienttest_Unknown_6437A0(int unknown, AvatarDescriptionClass *desc)
 {
 	char t[64];
 	sprintf(t, "6437A0(%d, %s) ", unknown, desc ? "desc" : "NULL");
@@ -1563,7 +1563,7 @@ static void Test_Recustomize(SClient *client)
 	avatar_start.Process_Packet(client);
 	if (((char *)fake_avatar_ui)[0x3CC])
 		Recustomize_Log += "551C40(cost) ";
-	Memory->Incoming.push_back(Built_Message(&RecustomizeAvatarUpdatePacketClass(7, AvatarDescClass())));
+	Memory->Incoming.push_back(Built_Message(&RecustomizeAvatarUpdatePacketClass(7, AvatarDescriptionClass())));
 	client->Process_Packets();
 	Trace("recustomize calls: %s", Recustomize_Log.c_str());
 	Check(Recustomize_Log == "551C40(cost) 6437A0(7, desc) ",
@@ -1649,15 +1649,15 @@ static void Test_CTA(SClient *client)
 		return;
 	}
 	char *view = (char *)client->MainView;
-	UIGroupClass **group = (UIGroupClass **)(view + 0x1D8);
-	UIGroupClass *saved = *group;
+	GroupInterface **group = (GroupInterface **)(view + 0x1D8);
+	GroupInterface *saved = *group;
 	static double fake_group[0x100 / 8];
 	*group = 0;
 	Group_Log = "";
 	Memory->Incoming.push_back(Built_Message(&CTAResponsePacketClass(9, 17, true)));
 	client->Process_Packets();
 	Check(Group_Log == "", "CTA_RESPONSE 189 without a group interface: the FAIL_IF '!group_interface', nothing called");
-	*group = (UIGroupClass *)fake_group;
+	*group = (GroupInterface *)fake_group;
 	client->Unknown13C0 = true;
 	Memory->Incoming.push_back(Built_Message(&CTAResponsePacketClass(9, 14, true)));
 	client->Process_Packets();
@@ -1688,7 +1688,7 @@ static void Test_CTA(SClient *client)
 // MESSAGE_CHATSTREAM: no avatar for ShipID, nothing happens (0x74C840 finds none). FIND_MEMBER: the chat panel's
 // +0xF8 interface's slot +0x90 result's +0xA8 (ui_groupfind.cpp) gets the packet (0x59A400) when its +0x7C is set.
 static std::string Trade_Log;
-void UIStarbaseClass::Clienttest_Unknown_640110(int state) { char b[32]; sprintf(b, "640110(%d) ", state); Trade_Log += b; }
+void StarbaseInterface::Clienttest_Unknown_640110(int state) { char b[32]; sprintf(b, "640110(%d) ", state); Trade_Log += b; }
 static void *Trade_Table[64];
 static void Trade_58_Slot() { Trade_Log += "+58 "; }
 static void Trade_5C_Slot() { Trade_Log += "+5C "; }
@@ -1935,7 +1935,7 @@ void Clienttest_UIPlayerOptClass::Unknown_5DA600(std::vector<std::string> names)
 void Clienttest_UIRadioListClass::Unknown_5E8E30(int state, std::vector<std::string> names) { List_Add(state ? "5E8E30-1" : "5E8E30-0", names); }
 void Clienttest_UIRadioAdminClass::Unknown_5E5D70(std::vector<std::string> names) { List_Add("5E5D70", names); }
 // CLIENT_CHAT_EVENT 165's calls of the same two windows (clienttest.py renames cpacket.cpp's UIRadioListClass /
-// UIRadioAdminClass / UIPlayerOptClass to these: ui_chat_panel.obj pulls the real ones in)
+// UIRadioAdminClass / PlayerOptionsInterface to these: ui_chat_panel.obj pulls the real ones in)
 void Clienttest_UIPlayerOptClass::Unknown_5DA780(std::string name) { Trace("stub Clienttest_UIPlayerOptClass::Unknown_5DA780 '%s'", name.c_str()); }
 void Clienttest_UIPlayerOptClass::Unknown_5DA8C0(std::string name) { Trace("stub Clienttest_UIPlayerOptClass::Unknown_5DA8C0 '%s'", name.c_str()); }
 void Clienttest_UIRadioListClass::Unknown_5E8FF0(int state, std::string name) { Trace("stub Clienttest_UIRadioListClass::Unknown_5E8FF0 %d '%s'", state, name.c_str()); }
@@ -2105,8 +2105,8 @@ int main(int argc, char **argv)
 	FakeMainViewClass main_view;
 	client->MainView = (MainViewClass *)&main_view;
 	client->CameraManager = Fake_Camera_Manager(client);
-	if (OptionClass::Instance == 0) {
-		OptionClass::Instance = new OptionClass();
+	if (OptionManagerClass::Instance == 0) {
+		OptionManagerClass::Instance = new OptionManagerClass();
 	}
 	// SClient's Init (0x741180, never run here) makes the bridge: a real one (bridge_int.cpp is in the link), Scene NULL
 	// so Do_Frame passes it by; AVATAR_DESCRIPTION 97's 0x74C3B0 calls its Set_Avatar 0x53B7A0 for the player's avatar
@@ -2135,7 +2135,7 @@ int main(int argc, char **argv)
 	*(void ***)&main_view.Unknown04[0x10C - 0x04] = (void **)fake_scene;
 	*(SClient **)&main_view.Unknown04[0x4C - 0x04] = client;	// +0x4C, the view's client (0x514010's G_ASSERT reads its mode)
 	static char fake_line_display[0x100];	// ui_line_display.cpp's object (0x100 bytes): client_stubs.cpp's members trace
-	client->LineDisplay = (UILineDisplayClass *)fake_line_display;
+	client->LineDisplay = (LineDisplayInterface *)fake_line_display;
 	// the chat panel (+0x127C, a RefCountPtr written raw; Init makes it): ui_chat_panel.cpp is real, so SClient's calls
 	// (Do_Frame's lag flag 0x56BA80, CLIENT_TYPE's 0x5685C0) read a panel; zeroed it has no window and no lag
 	static double fake_chat_panel[0x268 / 8 + 1];

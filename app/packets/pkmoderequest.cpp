@@ -4,19 +4,19 @@
 
 static char *ModeRequestNames[] = { "Cockpit", "Resource" };	// 0xBB56E8  // NAME 2: what it holds
 
-Packet_004BClass::Packet_004BClass(int unknown0c, int mode) :
+ModeRequestPacketClass::ModeRequestPacketClass(int unknown0c, int mode) :
 	Unknown0C(unknown0c),
 	Mode(mode)
 {
 }
 
-Packet_004BClass::Packet_004BClass(RawPacketClass *raw)
+ModeRequestPacketClass::ModeRequestPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Unknown0C, sizeof(Unknown0C));
 	raw->Get(&Mode, sizeof(Mode));
 }
 
-RawPacketClass *Packet_004BClass::Build()
+RawPacketClass *ModeRequestPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(75, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -24,12 +24,12 @@ RawPacketClass *Packet_004BClass::Build()
 	return(raw);
 }
 
-int Packet_004BClass::Get_Data_Size()
+int ModeRequestPacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C) + sizeof(Mode));
 }
 
-int Packet_004BClass::Print(char *buffer, int)
+int ModeRequestPacketClass::Print(char *buffer, int)
 {
 	char *mode = ModeRequestNames[Mode];
 	return(sprintf(buffer, "%s {Mode=%s}", "Mode Request", mode));

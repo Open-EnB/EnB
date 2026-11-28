@@ -185,7 +185,7 @@ void UIGroupOptClass::Unknown_60()
 {
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
-	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);
+	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(sclient->AuxData, name);
 	if (group && group->Unknown70 > 1) {
 		Unknown_59B990();
 		Unknown_59BC40();
@@ -196,7 +196,7 @@ void UIGroupOptClass::Unknown_60()
 		Unknown0A4 = avatar->GameID;
 	}
 	if (!FindUI->Is_Active()) {
-		((RObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[0], 0);
+		((RenderObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[0], 0);
 		GadgetClass::Set_Tooltip(Unknown0AC[2], "UI_FIND_LEAVE", "AVAILABLE_RECRUITS");
 	}
 }
@@ -215,7 +215,7 @@ bool UIGroupOptClass::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown0A0 = !Unknown0A0;
 			((ClientClass *)Client)->Send_Packet(&OptionPacketClass(game_id = ((ClientClass *)Client)->AvatarID, 0, Unknown0A0));
-			((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
+			((RenderObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
 			if (Unknown0A0) {
 				GadgetClass::Set_Tooltip(Unknown0AC[1], "UI_FIND_LEAVE", "STOP_LOOKING");
 			} else {
@@ -229,7 +229,7 @@ bool UIGroupOptClass::Unknown_68(int key)
 			} else {
 				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 16, ((ClientClass *)Client)->AvatarID, 0));
 				FindUI->Unknown_58();
-				((RObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[1], 0);
+				((RenderObjGadgetClass *)Unknown0AC[2])->Unknown34->Change_Text(Unknown_B7FDB8[1], 0);
 				GadgetClass::Set_Tooltip(Unknown0AC[2], "UI_FIND_LEAVE", "CLOSE_LIST");
 			}
 			return(true);
@@ -412,10 +412,10 @@ void UIGroupOptClass::Unknown_59BC40()
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	FAIL_IF(!sclient->AuxData) return;
-	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(sclient->AuxData, name);
+	AuxDataName name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(sclient->AuxData, name);
 	if (group && group->Unknown70) {
 		Unknown0A0 = group->LookingForGroup.Value;
-		((RObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
+		((RenderObjGadgetClass *)Unknown0AC[1])->Unknown34->Change_Text(Unknown_B7FDAC[Unknown0A0], 0);
 		Unknown0C0[0]->Unknown_7E8030(group->AllowGroupInvite.Value);
 		Unknown0C0[1]->Unknown_7E8030(group->ForceAutoSplit.Value);
 		Unknown0C0[2]->Unknown_7E8030(group->RestrictedLootingRights.Value);

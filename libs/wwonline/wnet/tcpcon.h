@@ -60,7 +60,7 @@ class TCPCon : public OutputDevice  // E&B: the base RenegadeGR commented out (0
 
  private:
    friend  class TCPMgr;
-   friend  class TCPConnection;  // E&B: tcpconn.cpp pumps the writes (0x829960, 0x829BC0)
+   friend  class TCPConnectionClass;  // E&B: tcpconn.cpp pumps the writes (0x829960, 0x829BC0)
    sint32  pumpWrites(void);  // for buffered mode  // E&B 0x8BC040: returns a value (0x8BBF00 tests it)
    void    setBufferedWrites(TCPMgr *mgrptr, bit8 enabled);
 

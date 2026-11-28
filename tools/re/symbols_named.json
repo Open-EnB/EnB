@@ -1,7 +1,7 @@
 [
  {
   "address": "0x57D830",
-  "symbol": "??0UICpitClass@@QAE@PAVMainViewClass@@ABVLayerClass@@@Z",
+  "symbol": "??0CockpitInterface@@QAE@PAVMainViewClass@@ABVLayerClass@@@Z",
   "evidence": "the main view's 0x50C690 news 0x178 bytes and calls it with (this, LayerClass); it stores UICpitClass's vtable (ui_cpit.cpp); funcmatch's 'Init_2D_Scene' (skeleton.cpp, one string TSI01A) was wrong (P-HN2-2, HN2 / MV2 2026-10-28)"
  },
  {
@@ -49,15 +49,15 @@
  },
  {
   "address": "0x705640",
-  "symbol": "?Read@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
-  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z"
  },
  {
   "address": "0x705710",
-  "symbol": "?Write@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
-  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x705AD0",
@@ -393,22 +393,22 @@
  },
  {
   "address": "0x463C80",
-  "symbol": "?Get_Height@HeightFieldClass@@QAEMII@Z",
+  "symbol": "?Get_Height@HeightMapClass@@QAEMII@Z",
   "evidence": "heightfield.obj's Get_Height / Get_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463C80 is called by LandClass::Save_Sea_Mask at 0x46BD26 (land.cpp) with unsigned loop counters (i, j)"
  },
  {
   "address": "0x463CD0",
-  "symbol": "?Get_Height_2@HeightFieldClass@@QAEMII@Z",
+  "symbol": "?Get_Height_2@HeightMapClass@@QAEMII@Z",
   "evidence": "heightfield.obj's Get_Height / Get_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463CD0 is called by LandClass::Build_Vertices at 0x474790 and LandClass::Compute_Normals at 0x46F120 in land.cpp (33 calls)"
  },
  {
   "address": "0x463D20",
-  "symbol": "?Set_Height@HeightFieldClass@@QAEXMII@Z",
+  "symbol": "?Set_Height@HeightMapClass@@QAEXMII@Z",
   "evidence": "heightfield.obj's Set_Height / Set_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463D20 is the uncalled overload of Set_Height in heightfield.cpp, defined before Set_Height_2"
  },
  {
   "address": "0x463D90",
-  "symbol": "?Set_Height_2@HeightFieldClass@@QAEXMII@Z",
+  "symbol": "?Set_Height_2@HeightMapClass@@QAEXMII@Z",
   "evidence": "heightfield.obj's Set_Height / Set_Height_2 instances (HF 2026-11-02), byte-identical to each other, told apart by their callers: 0x463D90 is called by LandClass::Unknown_46E120 at 0x46E524 (land.cpp) with contact point height"
  },
  {
@@ -627,21 +627,21 @@
  },
  {
   "address": "0x610780",
-  "symbol": "?Unknown_70@UIScutClass@@UAEXPAVControlKeysManager@@@Z",
+  "symbol": "?Unknown_70@ShortcutInterface@@UAEXPAVControlKeysManager@@@Z",
   "evidence": "UIScutClass's slot +0x70 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
-  "replaces": "?Unknown_70@UIScutClass@@UAEXPAVControlKeysManagerClass@@@Z"
+  "replaces": "?Unknown_70@ShortcutInterface@@UAEXPAVControlKeysManagerClass@@@Z"
  },
  {
   "address": "0x6107C0",
-  "symbol": "?Unknown_74@UIScutClass@@UAEXPAVControlKeysManager@@@Z",
+  "symbol": "?Unknown_74@ShortcutInterface@@UAEXPAVControlKeysManager@@@Z",
   "evidence": "UIScutClass's slot +0x74 (the vtable's proof, as before); its parameter is control_keys_manager.h's ControlKeysManager, the client's RTTI (intrface.h's stand-in ControlKeysManagerClass gone, 2026-11-03)",
-  "replaces": "?Unknown_74@UIScutClass@@UAEXPAVControlKeysManagerClass@@@Z"
+  "replaces": "?Unknown_74@ShortcutInterface@@UAEXPAVControlKeysManagerClass@@@Z"
  },
  {
   "address": "0x66C470",
-  "symbol": "?Unknown_90@RObjGadgetClass@@UAEXPAVTextureClass@@@Z",
+  "symbol": "?Unknown_90@RenderObjGadgetClass@@UAEXPAVTextureClass@@@Z",
   "evidence": "RObjGadgetClass's slot +0x90 (the vtable's proof, as before) passes its argument to ro_funcs.cpp's 0x495FD0 as the TextureClass * it takes; ui_chat_panel.cpp calls the slot with a texture (2026-11-03)",
-  "replaces": "?Unknown_90@RObjGadgetClass@@UAEXH@Z"
+  "replaces": "?Unknown_90@RenderObjGadgetClass@@UAEXH@Z"
  },
  {
   "address": "0x67EEE0",
@@ -712,15 +712,15 @@
  },
  {
   "address": "0x757B00",
-  "symbol": "?Read@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
-  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z"
  },
  {
   "address": "0x757BA0",
-  "symbol": "?Write@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
-  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x759110",
@@ -913,15 +913,15 @@
  },
  {
   "address": "0x4A55D0",
-  "symbol": "?Unknown_00@DeltaCompoundClass@@UAEXPAVKVEncoderClass@@@Z",
+  "symbol": "?Unknown_00@DeltaContainer@@UAEXPAVKVEncoderClass@@@Z",
   "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@DeltaCompoundClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "replaces": "?Unknown_00@DeltaContainer@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x4A6930",
-  "symbol": "?Unknown_00@DeltaInterpolatorClass@@UAEXPAVKVEncoderClass@@@Z",
+  "symbol": "?Unknown_00@DeltaInterpolator@@UAEXPAVKVEncoderClass@@@Z",
   "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@DeltaInterpolatorClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "replaces": "?Unknown_00@DeltaInterpolator@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x4A6C90",
@@ -937,9 +937,9 @@
  },
  {
   "address": "0x4A7E60",
-  "symbol": "?Unknown_00@DeltaStringClass@@UAEXPAVKVEncoderClass@@@Z",
+  "symbol": "?Unknown_00@DeltaString@@UAEXPAVKVEncoderClass@@@Z",
   "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@DeltaStringClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "replaces": "?Unknown_00@DeltaString@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x4A8330",
@@ -1033,9 +1033,9 @@
  },
  {
   "address": "0x4BFED0",
-  "symbol": "?Unknown_00@AvatarDescClass@@UAEXPAVKVEncoderClass@@@Z",
+  "symbol": "?Unknown_00@AvatarDescriptionClass@@UAEXPAVKVEncoderClass@@@Z",
   "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@AvatarDescClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "replaces": "?Unknown_00@AvatarDescriptionClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x4F6750",
@@ -1184,15 +1184,15 @@
  },
  {
   "address": "0x703F40",
-  "symbol": "?Write@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)",
-  "replaces": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x706FF0",
-  "symbol": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
-  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x700CB0",
@@ -1284,13 +1284,13 @@
   "address": "0x5497A0",
   "symbol": "?Unknown_94@UISkillsClass@@UAEPAVInterfaceClass@@XZ",
   "evidence": "SK1 2026-11-09: ui_attrb_skills.h's flattened skill base (Unknown62D1F0Class) is ui_skills.cpp's UISkillsClass over ui_slot_data.cpp's SlotDataInterface (the client's RTTI MemberCallback<SlotDataClass, SlotDataInterface, ...>); the inline slot is the table's (0xAF7F5C / 0xAF7DBC)",
-  "replaces": "?Unknown_94@UIAttrbSkillsClass@@UAEPAVInterfaceClass@@XZ"
+  "replaces": "?Unknown_94@AttributeSkillsInterface@@UAEPAVInterfaceClass@@XZ"
  },
  {
   "address": "0x5497C0",
   "symbol": "?Unknown_A8@UISkillsClass@@UAEPBDXZ",
   "evidence": "SK1 2026-11-09: ui_attrb_skills.h's flattened skill base (Unknown62D1F0Class) is ui_skills.cpp's UISkillsClass over ui_slot_data.cpp's SlotDataInterface (the client's RTTI MemberCallback<SlotDataClass, SlotDataInterface, ...>); the inline slot is the table's (0xAF7F5C / 0xAF7DBC)",
-  "replaces": "?Unknown_A8@UIAttrbSkillsClass@@UAEPBDXZ"
+  "replaces": "?Unknown_A8@AttributeSkillsInterface@@UAEPBDXZ"
  },
  {
   "address": "0x62E890",
@@ -1300,19 +1300,19 @@
  },
  {
   "address": "0x670760",
-  "symbol": "?Unknown_A4@SlotDataGadgetClass@@UAEPAVSlotDataShortcutGadgetClass@@XZ",
+  "symbol": "?Unknown_A4@SlotDataGadget@@UAEPAVSlotDataShortcutGadget@@XZ",
   "evidence": "SG1 2026-11-10: gd_slot_data.cpp's 0x670E30 class (table 0xAFB1A4) is the client's SlotDataShortcutGadgetClass (ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()', its +0xA4 returns this); renamed from Unknown_670E30Class",
-  "replaces": "?Unknown_A4@SlotDataGadgetClass@@UAEPAVUnknown_670E30Class@@XZ"
+  "replaces": "?Unknown_A4@SlotDataGadget@@UAEPAVUnknown_670E30Class@@XZ"
  },
  {
   "address": "0x670F00",
-  "symbol": "?Unknown_A4@SlotDataShortcutGadgetClass@@UAEPAV1@XZ",
+  "symbol": "?Unknown_A4@SlotDataShortcutGadget@@UAEPAV1@XZ",
   "evidence": "SG1 2026-11-10: gd_slot_data.cpp's 0x670E30 class (table 0xAFB1A4) is the client's SlotDataShortcutGadgetClass (ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()', its +0xA4 returns this); renamed from Unknown_670E30Class",
   "replaces": "?Unknown_A4@Unknown_670E30Class@@UAEPAV1@XZ"
  },
  {
   "address": "0x670F20",
-  "symbol": "?Unknown_88@SlotDataShortcutGadgetClass@@UAE_NXZ",
+  "symbol": "?Unknown_88@SlotDataShortcutGadget@@UAE_NXZ",
   "evidence": "SG1 2026-11-10: gd_slot_data.cpp's 0x670E30 class (table 0xAFB1A4) is the client's SlotDataShortcutGadgetClass (ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()', its +0xA4 returns this); renamed from Unknown_670E30Class",
   "replaces": "?Unknown_88@Unknown_670E30Class@@UAE_NXZ"
  },
@@ -1346,7 +1346,7 @@
  },
  {
   "address": "0x6BEA90",
-  "symbol": "??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringStruct@@@2@@std@@QAE@XZ",
+  "symbol": "??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUStringInfo@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUStringInfo@@@2@@std@@QAE@XZ",
   "evidence": "FontDatabaseClass's constructor 0x6BE5C0: unwind funclet 0xAC254F 'add ecx, 0x40; jmp', the Strings hash_map at +0x40 (0xAC2544 before it: its bucket vector); F2 2026-11-11"
  },
  {
@@ -1366,7 +1366,7 @@
  },
  {
   "address": "0x6C6270",
-  "symbol": "??0?$_Hashtable_const_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringStruct@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringStruct@@@2@@1@@Z",
+  "symbol": "??0?$_Hashtable_const_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUStringInfo@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUStringInfo@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUStringInfo@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUStringInfo@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUStringInfo@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUStringInfo@@@2@@1@@Z",
   "evidence": "the iterator -> const_iterator conversion of the Strings table (FontDatabaseClass +0x40): 0x6C1500 calls it on the _Hashtable_iterator its call 0x6C1658 to hash_map<string, FontStringStruct *>::find returns (0x6C1662, 0x6C168B; again at 0x6C1883, 0x6C18AC); an 8-byte copy, ret 4; F2 2026-11-11"
  },
  {
@@ -1376,7 +1376,7 @@
  },
  {
   "address": "0x50A8C0",
-  "symbol": "?As_RObjGadget@GadgetClass@@UAEPAVRObjGadgetClass@@XZ",
+  "symbol": "?As_RObjGadget@GadgetClass@@UAEPAVRenderObjGadgetClass@@XZ",
   "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
   "replaces": "?Unknown_08@GadgetClass@@UAEPAUGadgetUnknown08Struct@@XZ"
  },
@@ -1388,7 +1388,7 @@
  },
  {
   "address": "0x50A900",
-  "symbol": "?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadgetClass@@XZ",
+  "symbol": "?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadget@@XZ",
   "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
   "replaces": "?Unknown_10@GadgetClass@@UAEHXZ"
  },
@@ -1412,15 +1412,15 @@
  },
  {
   "address": "0x51AD20",
-  "symbol": "?As_RObjGadget@RObjGadgetClass@@UAEPAV1@XZ",
+  "symbol": "?As_RObjGadget@RenderObjGadgetClass@@UAEPAV1@XZ",
   "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
-  "replaces": "?Unknown_08@RObjGadgetClass@@UAEPAUGadgetUnknown08Struct@@XZ"
+  "replaces": "?Unknown_08@RenderObjGadgetClass@@UAEPAUGadgetUnknown08Struct@@XZ"
  },
  {
   "address": "0x670740",
-  "symbol": "?As_SlotDataGadget@SlotDataGadgetClass@@UAEPAV1@XZ",
+  "symbol": "?As_SlotDataGadget@SlotDataGadget@@UAEPAV1@XZ",
   "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
-  "replaces": "?Unknown_10@SlotDataGadgetClass@@UAEHXZ"
+  "replaces": "?Unknown_10@SlotDataGadget@@UAEHXZ"
  },
  {
   "address": "0x721E60",
@@ -1530,15 +1530,15 @@
  },
  {
   "address": "0x532460",
-  "symbol": "?Unknown_90@UIItemExaminationClass@@UAEPAVSlotDataClass@@XZ",
+  "symbol": "?Unknown_90@ItemExaminationInterface@@UAEPAVSlotDataClass@@XZ",
   "evidence": "ui_slot_info.h's phantom UISlotInfoItemClass retired: the item examination window holds the InvDataClass ui_slot_info.cpp's 0x630280 passes it (slot_data's +0x10 Unknown_10), and the slot +0x90 returns its SlotDataClass (X1, 2026-11-14)",
-  "replaces": "?Unknown_90@UIItemExaminationClass@@UAEPAVUISlotInfoItemClass@@XZ"
+  "replaces": "?Unknown_90@ItemExaminationInterface@@UAEPAVUISlotInfoItemClass@@XZ"
  },
  {
   "address": "0x531660",
-  "symbol": "??0UIItemExaminationClass@@QAE@PAVLineDisplayClientClass@@ABV?$RefCountPtr@VInvDataClass@@@@@Z",
+  "symbol": "??0ItemExaminationInterface@@QAE@PAVLineDisplayClientClass@@ABV?$RefCountPtr@VInvDataClass@@@@@Z",
   "evidence": "ui_slot_info.h's phantom UISlotInfoItemClass retired: the item examination window holds the InvDataClass ui_slot_info.cpp's 0x630280 passes it (slot_data's +0x10 Unknown_10), and the slot +0x90 returns its SlotDataClass (X1, 2026-11-14)",
-  "replaces": "??0UIItemExaminationClass@@QAE@PAVLineDisplayClientClass@@ABV?$RefCountPtr@VUISlotInfoItemClass@@@@@Z"
+  "replaces": "??0ItemExaminationInterface@@QAE@PAVLineDisplayClientClass@@ABV?$RefCountPtr@VUISlotInfoItemClass@@@@@Z"
  },
  {
   "address": "0x5328F0",
@@ -1612,9 +1612,9 @@
  },
  {
   "address": "0x714BE0",
-  "symbol": "?Get_Type@Unknown714B50Class@@UAEHXZ",
+  "symbol": "?Get_Type@ConstantPositionalStateClass@@UAEHXZ",
   "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
-  "replaces": "?Unknown_04@Unknown714B50Class@@UAEHXZ"
+  "replaces": "?Unknown_04@ConstantPositionalStateClass@@UAEHXZ"
  },
  {
   "address": "0x7152F0",
@@ -1636,15 +1636,15 @@
  },
  {
   "address": "0x715D90",
-  "symbol": "?Get_Type@Unknown715CF0Class@@UAEHXZ",
+  "symbol": "?Get_Type@PlanetPositionalStateClass@@UAEHXZ",
   "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
-  "replaces": "?Unknown_04@Unknown715CF0Class@@UAEHXZ"
+  "replaces": "?Unknown_04@PlanetPositionalStateClass@@UAEHXZ"
  },
  {
   "address": "0x715FB0",
-  "symbol": "?Get_Type@Unknown715EF0Class@@UAEHXZ",
+  "symbol": "?Get_Type@ShipPositionalStateClass@@UAEHXZ",
   "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
-  "replaces": "?Unknown_04@Unknown715EF0Class@@UAEHXZ"
+  "replaces": "?Unknown_04@ShipPositionalStateClass@@UAEHXZ"
  },
  {
   "address": "0x7170F0",
@@ -1814,7 +1814,7 @@
  },
  {
   "address": "0x543550",
-  "symbol": "??1?$RefCountPtr@VProxyRObj@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VProxyRenderObjClass@@@@QAE@XZ",
   "evidence": "AvatarPipClass::AvatarPipClass 0x7E31B0 (also 0x7E31B0, 0x7E3410) (avatar_pip.cpp): unwind funclet 0xAD3522 'mov ecx, dword ptr [ebp - 0x14]; add ecx, 0x34; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x543550 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -1904,7 +1904,7 @@
  },
  {
   "address": "0x5181D0",
-  "symbol": "??1?$RefCountPtr@VDynamicWindowVerticalClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VVerticalDynamicWindow@@@@QAE@XZ",
   "evidence": "DynamicWindowClass::DynamicWindowClass 0x517240 (also 0x517240, 0x517490, 0x531660, 0x531660, 0x533000, 0x5357E0, 0x537F00, 0x539980) (dynamic_window_class.cpp): unwind funclet 0xAAB000 'mov ecx, dword ptr [ebp - 0x20]; add ecx, 0x64; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x5181D0 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -1979,7 +1979,7 @@
  },
  {
   "address": "0x7AE840",
-  "symbol": "??1?$RefCountPtr@VGalaxyMapRObjClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VGalaxyMapSystemRObj@@@@QAE@XZ",
   "evidence": "GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass 0x7AA420 (galaxy_map_render.cpp): unwind funclet 0xAD0359 'lea ecx, [ebp + 4]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7AE840 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -1989,7 +1989,7 @@
  },
  {
   "address": "0x571BA0",
-  "symbol": "??1?$RefCountPtr@VTextCursorClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VFontSysCursor@@@@QAE@XZ",
   "evidence": "TextEditorGadgetClass::TextEditorGadgetClass 0x671790 (also 0x671790, 0x671B30, 0x6AA810, 0x6AA810, 0x6AAB60, 0x56F560, 0x56F780) (gd_text_editor.cpp): unwind funclet 0xABDFEE 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x8c; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x571BA0 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -2044,7 +2044,7 @@
  },
  {
   "address": "0x4EEB10",
-  "symbol": "??1?$RefCountPtr@VContinuousLookupTableClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VContinuousLookupTable@@@@QAE@XZ",
   "evidence": "ContinuousLookupTableClass::Create 0x4ED660 (lookup_table.cpp): unwind funclet 0xAA93E2 'lea ecx, [ebp - 0x34]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x4EEB10 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -2099,17 +2099,17 @@
  },
  {
   "address": "0x6961B0",
-  "symbol": "??1?$RefCountPtr@VUICinfoClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VCharacterInfoInterface@@@@QAE@XZ",
   "evidence": "PDAInterfaceClass::Unknown_54 0x693230 (also 0x693950) (pdaint.cpp): unwind funclet 0xABFE2C 'lea ecx, [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6961B0 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
   "address": "0x696220",
-  "symbol": "??1?$RefCountPtr@VUIStarmapClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VStarmapInterface@@@@QAE@XZ",
   "evidence": "PDAInterfaceClass::Unknown_54 0x693230 (also 0x693950, 0x7C81F0, 0x7C81F0) (pdaint.cpp): unwind funclet 0xABFE52 'lea ecx, [ebp - 0x14]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x696220 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
   "address": "0x696290",
-  "symbol": "??1?$RefCountPtr@VUIPingClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VPingInterface@@@@QAE@XZ",
   "evidence": "PDAInterfaceClass::Unknown_54 0x693230 (also 0x693950) (pdaint.cpp): unwind funclet 0xABFE3F 'lea ecx, [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x696290 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -2160,17 +2160,17 @@
  },
  {
   "address": "0x6A2B10",
-  "symbol": "??1?$RefCountPtr@VUIPTradeClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VPlayerTradeInterface@@@@QAE@XZ",
   "evidence": "SBaseViewClass::SBaseViewClass 0x69AD30 (also 0x69B0C0, 0x69B5E0) (sbaseview.cpp): unwind funclet 0xAC0522 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x1a4; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6A2B10 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
   "address": "0x6A2B80",
-  "symbol": "??1?$RefCountPtr@VUIGroupClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VGroupInterface@@@@QAE@XZ",
   "evidence": "SBaseViewClass::SBaseViewClass 0x69AD30 (also 0x69B0C0, 0x69B5E0) (sbaseview.cpp): unwind funclet 0xAC0530 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x1a8; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6A2B80 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
   "address": "0x6A2BF0",
-  "symbol": "??1?$RefCountPtr@VUIBuffClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VBuffInterface@@@@QAE@XZ",
   "evidence": "SBaseViewClass::SBaseViewClass 0x69AD30 (also 0x69B0C0, 0x69B5E0) (sbaseview.cpp): unwind funclet 0xAC053E 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x1ac; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6A2BF0 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -2185,7 +2185,7 @@
  },
  {
   "address": "0x755D30",
-  "symbol": "??1?$vector@PAVAvatarDescClass@@V?$allocator@PAVAvatarDescClass@@@std@@@std@@QAE@XZ",
+  "symbol": "??1?$vector@PAVAvatarDescriptionClass@@V?$allocator@PAVAvatarDescriptionClass@@@std@@@std@@QAE@XZ",
   "evidence": "SClient::Unknown_7511A0 0x7511A0 (sclient.cpp): unwind funclet 0xACB798 'lea ecx, [ebp - 0x2c]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x755D30 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -2255,22 +2255,22 @@
  },
  {
   "address": "0x5743D0",
-  "symbol": "??1?$RefCountPtr@VUIAttrbSkillsClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VAttributeSkillsInterface@@@@QAE@XZ",
   "evidence": "UICinfoClass::UICinfoClass 0x5734D0 (also 0x573770, 0x5738B0) (ui_cinfo.cpp): unwind funclet 0xAB1223 'mov ecx, dword ptr [ebp - 0x14]; add ecx, 0xb4; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x5743D0 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
   "address": "0x574440",
-  "symbol": "??1?$RefCountPtr@VUIMissnClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VMissionInterface@@@@QAE@XZ",
   "evidence": "UICinfoClass::UICinfoClass 0x5734D0 (also 0x573770, 0x5738B0) (ui_cinfo.cpp): unwind funclet 0xAB1231 'mov ecx, dword ptr [ebp - 0x14]; add ecx, 0xb8; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x574440 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
   "address": "0x5744B0",
-  "symbol": "??1?$RefCountPtr@VUIFactionClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VFactionInterface@@@@QAE@XZ",
   "evidence": "UICinfoClass::UICinfoClass 0x5734D0 (also 0x573770, 0x5738B0) (ui_cinfo.cpp): unwind funclet 0xAB123F 'mov ecx, dword ptr [ebp - 0x14]; add ecx, 0xbc; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x5744B0 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
   "address": "0x574520",
-  "symbol": "??1?$RefCountPtr@VUIBioClass@@@@QAE@XZ",
+  "symbol": "??1?$RefCountPtr@VBioInterface@@@@QAE@XZ",
   "evidence": "UICinfoClass::UICinfoClass 0x5734D0 (also 0x573770, 0x5738B0) (ui_cinfo.cpp): unwind funclet 0xAB124D 'mov ecx, dword ptr [ebp - 0x14]; add ecx, 0xc0; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x574520 (funclet-only callers, objmatch's tie-break never proposes it); FD 2026-11-15"
  },
  {
@@ -2506,17 +2506,17 @@
  },
  {
   "address": "0x4C4AC0",
-  "symbol": "??1ExprMathLexerClass@@UAE@XZ",
+  "symbol": "??1ExprLexer@@UAE@XZ",
   "evidence": "ExprLexerImplClass::ExprLexerImplClass 0x4C4980 (also 0x4C4B40) (expr_lexer_impl.cpp): unwind funclet 0xAA6DF0 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x4C4AC0 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
   "address": "0x4C5BD0",
-  "symbol": "??1ExprLexerMatchClass@@UAE@XZ",
+  "symbol": "??1ExprLexerMatch@@UAE@XZ",
   "evidence": "ExprLexerMatchListClass::ExprLexerMatchListClass 0x4C5930 (also 0x4C5C20, 0x4C5EC0) (expr_lexer_match_list.cpp): unwind funclet 0xAA6EB0 'mov ecx, dword ptr [ebp - 0x14]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x4C5BD0 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
   "address": "0x4D0A20",
-  "symbol": "??1ExprMathParserClass@@UAE@XZ",
+  "symbol": "??1ExprMathParser@@UAE@XZ",
   "evidence": "ExprMathFactoryParserClass::~ExprMathFactoryParserClass 0x4D0950 (expr_math_parser_factory.cpp): unwind funclet 0xAA7F70 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x4D0A20 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
@@ -2586,7 +2586,7 @@
  },
  {
   "address": "0x820C50",
-  "symbol": "??1ConnectionListenerClass@@UAE@XZ",
+  "symbol": "??1ConnectionSourceClass@@UAE@XZ",
   "evidence": "MemoryListenerClass::MemoryListenerClass 0x826EB0 (also 0x826FC0, 0x829E50, 0x82A2F0, 0x82E200, 0x82E390, 0x820B30, 0x820CD0) (memconn.cpp): unwind funclet 0xAD66F0 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x820C50 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
@@ -2647,7 +2647,7 @@
  },
  {
   "address": "0x7689C0",
-  "symbol": "??1CharacterCreatorClass@@QAE@XZ",
+  "symbol": "??1AvatarFileClass@@QAE@XZ",
   "evidence": "LoginTaskClass::Unknown_50 0x7683F0 (also 0x768CB0) (tsk_login.cpp): unwind funclet 0xACDA40 'lea ecx, [ebp - 0x184]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7689C0 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
@@ -2667,12 +2667,12 @@
  },
  {
   "address": "0x430D70",
-  "symbol": "??1KeyboardClass@@UAE@XZ",
+  "symbol": "??1KeyboardHandlerClass@@UAE@XZ",
   "evidence": "Win32KeyboardHandlerClass::Win32KeyboardHandlerClass 0x430490 (also 0x430630) (w32kbd.cpp): unwind funclet 0xAA1EF0 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x430D70 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
   "address": "0x431A80",
-  "symbol": "??1MouseClass@@UAE@XZ",
+  "symbol": "??1MouseHandlerClass@@UAE@XZ",
   "evidence": "Win32MouseHandlerClass::Win32MouseHandlerClass 0x430D90 (also 0x430EE0) (w32mouse.cpp): unwind funclet 0xAA1F30 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x431A80 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
  },
  {
@@ -2702,7 +2702,7 @@
  },
  {
   "address": "0x7BD4A0",
-  "symbol": "??1MouseTargetClass@@QAE@XZ",
+  "symbol": "??1MouseTargeting@@QAE@XZ",
   "evidence": "RadarSystemClass::Unknown_7BCA70 0x7BCA70 (radar_system.cpp; not exact: paired by its whole unwind map, 3 states, found at no other client function): unwind funclet 0xAD0EAB 'lea ecx, [ebp - 0x94]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7BD4A0 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
  },
  {
@@ -3079,7 +3079,7 @@
  },
  {
   "address": "0x89CE00",
-  "symbol": "?Get_Priority@Packet_004BClass@@UAEHXZ",
+  "symbol": "?Get_Priority@ModeRequestPacketClass@@UAEHXZ",
   "evidence": "Packet_004BClass's vtable 0xB0B314 slot +0x1C is the thunk 0x40B988 to it (returns 0x7F; pkmoderequest.h's override); PacketClass::Get_Priority is 0x52B2F0 (returns 0) (QE, 2026-11-16)",
   "replaces": "?Get_Priority@PacketClass@@UAEHXZ"
  },
@@ -3122,28 +3122,28 @@
  },
  {
   "address": "0x519240",
-  "symbol": "?Child_Changed@DynamicWindowHorizontalClass@@UAEXAAVDynamicWindowElementClass@@@Z",
+  "symbol": "?Child_Changed@HorizontalDynamicWindow@@UAEXAAVDynamicWindowElement@@@Z",
   "evidence": "slot 0 of DynamicWindowHorizontalClass's DynamicWindowContainerClass vtable 0xAED480 (thunk 0x417440), between Set_Position 0x5191F0 and Remove_All_Children 0x5192E0; byte-identical to the vertical's 0x51F600, which the tie had given this name (NM, run 2026-11-16)"
  },
  {
   "address": "0x51F600",
-  "symbol": "?Child_Changed@DynamicWindowVerticalClass@@UAEXAAVDynamicWindowElementClass@@@Z",
+  "symbol": "?Child_Changed@VerticalDynamicWindow@@UAEXAAVDynamicWindowElement@@@Z",
   "evidence": "slot 0 of DynamicWindowVerticalClass's DynamicWindowContainerClass vtable 0xAEDB74 (thunk 0x4031DE), between Set_Position 0x51F5B0 and Remove_All_Children 0x51F6D0 (NM, run 2026-11-16)",
-  "replaces": "?Child_Changed@DynamicWindowHorizontalClass@@UAEXAAVDynamicWindowElementClass@@@Z"
+  "replaces": "?Child_Changed@HorizontalDynamicWindow@@UAEXAAVDynamicWindowElement@@@Z"
  },
  {
   "address": "0x5314D0",
-  "symbol": "?Unknown_Find_Field@@YAPAVDeltaRPGInfoClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaRPGInfoClass@@PAVDeltaContainer@@ABVAuxDataName@@@Z",
   "evidence": "auxdata.h's find of a field tested against DeltaCompoundClass's type 0xBE3A74 (shared by its derived classes); its one caller, Is_Usable 0x531080 (0x5310F9), finds 'RPGInfo', a DeltaRPGInfoClass (aux_roots.h, Player.RPGInfo) (NM, run 2026-11-16)"
  },
  {
   "address": "0x5927E0",
-  "symbol": "?Unknown_Find_Field@@YAPAVDeltaGroupInfoClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaGroupInfoClass@@PAVDeltaContainer@@ABVAuxDataName@@@Z",
   "evidence": "auxdata.h's find of a field tested against 0xBE3A74; every caller (0x591C30, 0x592C50 in ui_friends.cpp, 0x596770, 0x597E40 in ui_group.cpp) finds 'GroupInfo' (0xB7F434), a DeltaGroupInfoClass (NM, run 2026-11-16)"
  },
  {
   "address": "0x610370",
-  "symbol": "?Unknown_Find_Field@@YAPAVDeltaReputationClass@@PAVDeltaCompoundClass@@ABVNameClass@@@Z",
+  "symbol": "?Unknown_Find_Field@@YAPAVDeltaReputationClass@@PAVDeltaContainer@@ABVAuxDataName@@@Z",
   "evidence": "auxdata.h's find of a field tested against 0xBE3A74; its caller 0x60F1A0 (0x60F55B, 0x60F585) finds 'Reputation' (0xB7F178), a DeltaReputationClass (NM, run 2026-11-16)"
  },
  {
@@ -3227,14 +3227,14 @@
  },
  {
   "address": "0x703EC0",
-  "symbol": "?Read@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "the client's vtable 0xB00A00 holds it (+0x00 / +0x2C; 0xB016DC's are 0x706DF0 / 0x706F60): leaf vtable 0xB00A00's value type is Vector3: its slot +0x00 0x703D50 builds KVPairTemplateClass<Vector3> (0xAEB484) with the accessor 0xB01B2C, whose Set 0x705FD0 compares with fld / fcomp (C5, AR run 2026-11-16)"
  },
  {
   "address": "0x706F60",
-  "symbol": "?Read@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@UInvSlotStruct@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "leaf vtable 0xB016DC's value type is InvSlotStruct: its slot +0x00 0x706DF0 builds KVPairTemplateClass<InvSlotStruct> (0xB01E28, Get_Type_Name 0x709C80 'InvSlotStruct') with the accessor 0xB01E4C, whose Set 0x7080C0 compares ints (C5, AR run 2026-11-16)",
-  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+  "replaces": "?Read@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z"
  },
  {
   "address": "0x7099F0",
@@ -3280,15 +3280,15 @@
  },
  {
   "address": "0x758770",
-  "symbol": "?Read@?$DeltaTemplateClass@W4FormationState@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@W4FormationState@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
-  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z"
  },
  {
   "address": "0x7587E0",
-  "symbol": "?Write@?$DeltaTemplateClass@W4FormationState@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@W4FormationState@@@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "aux_roots.h's UnknownB03970Enum renamed FormationState (148276192: the KVPair's Get_Type_Name 0x759E80 returns 0x835CF0's 'FormationState', 0xBA9734); the client address keeps its earlier proof",
-  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x759340",
@@ -3636,13 +3636,13 @@
  },
  {
   "address": "0x54EDA0",
-  "symbol": "?Get_Starbase@SBaseViewClass@@QAE?AV?$RefCountPtr@VUnknown5BB320Class@@@@XZ",
+  "symbol": "?Get_Starbase@StarbaseViewClass@@QAE?AV?$RefCountPtr@VUnknown5BB320Class@@@@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Get_Starbase@SBaseViewClass@@QAE?AV?$RefCountPtr@VUIStarbaseClass@@@@XZ"
+  "replaces": "?Get_Starbase@StarbaseViewClass@@QAE?AV?$RefCountPtr@VStarbaseInterface@@@@XZ"
  },
  {
   "address": "0x551D40",
-  "symbol": "??0?$RefCountPtr@VRefCountClass@@@@QAE@ABV?$RefCountPtr@VCharacterViewAvatarClass@@@@@Z",
+  "symbol": "??0?$RefCountPtr@VRefCountClass@@@@QAE@ABV?$RefCountPtr@VAvatarClass@@@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??0?$RefCountPtr@VRefCountClass@@@@QAE@ABV?$RefCountPtr@VUIAvatarCustAvatarClass@@@@@Z"
  },
@@ -3672,9 +3672,9 @@
  },
  {
   "address": "0x571F00",
-  "symbol": "??0UIChatWindowSplitClass@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVChatGadgetClass@@H@Z",
+  "symbol": "??0ChatWindowSplitInterface@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVChatGadgetClass@@H@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "??0UIChatWindowSplitClass@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVUnknown65BFD0Class@@H@Z"
+  "replaces": "??0ChatWindowSplitInterface@@QAE@PAVSClient@@PAVUnknown67D430Class@@PAVUnknown65BFD0Class@@H@Z"
  },
  {
   "address": "0x58E950",
@@ -3708,15 +3708,15 @@
  },
  {
   "address": "0x5DCD20",
-  "symbol": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PBD_N22HH@Z",
+  "symbol": "??0UIAnimProcessClass@@QAE@PAVUIMeshClass@@PBD_N22HH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PBD_NHHHH@Z"
+  "replaces": "??0UIAnimProcessClass@@QAE@PAVUIMeshClass@@PBD_NHHHH@Z"
  },
  {
   "address": "0x5DCF00",
-  "symbol": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PAVHAnimClass@@_N22HH@Z",
+  "symbol": "??0UIAnimProcessClass@@QAE@PAVUIMeshClass@@PAVHAnimClass@@_N22HH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "??0UIProc5DCD20Class@@QAE@PAVUIMeshClass@@PAVHAnimClass@@_NHHHH@Z"
+  "replaces": "??0UIAnimProcessClass@@QAE@PAVUIMeshClass@@PAVHAnimClass@@_NHHHH@Z"
  },
  {
   "address": "0x5F2A80",
@@ -3750,15 +3750,15 @@
  },
  {
   "address": "0x612510",
-  "symbol": "?Unknown_00@UIScutBarClass@@UAEXPAVSubjectClass@@PAX@Z",
+  "symbol": "?Unknown_00@UIScutBarClass@@UAEXPAVObserverSubjectClass@@PAX@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_00@UIScutBarClass@@UAEXPAXPAH@Z"
  },
  {
   "address": "0x614360",
-  "symbol": "?Create_Shortcut@UIScutGadgetsClass@@QAEPAVRObjGadgetClass@@HPAVUIScutProxyGadgetClass@@@Z",
+  "symbol": "?Create_Shortcut@ShortcutGadgetsInterface@@QAEPAVRenderObjGadgetClass@@HPAVUIScutProxyGadgetClass@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Create_Shortcut@UIScutGadgetsClass@@QAEPAVRObjGadgetClass@@HPAVUnknown66CB20Class@@@Z"
+  "replaces": "?Create_Shortcut@ShortcutGadgetsInterface@@QAEPAVRenderObjGadgetClass@@HPAVUnknown66CB20Class@@@Z"
  },
  {
   "address": "0x668860",
@@ -3816,9 +3816,9 @@
  },
  {
   "address": "0x6AB190",
-  "symbol": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAV?$RefCountPtr@VFont32Class@@@@AAH@Z",
+  "symbol": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAV?$RefCountPtr@VFont32Bit@@@@AAH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAPAVFont32Class@@AAH@Z"
+  "replaces": "?Unknown_6AB190@TextGadgetClass@@SAPADPADMAAPAVFont32Bit@@AAH@Z"
  },
  {
   "address": "0x6CF520",
@@ -3828,9 +3828,9 @@
  },
  {
   "address": "0x6CF930",
-  "symbol": "?Unknown_6CF930@ManagedFontClass@@QAEXPAUFontStringStruct@@PAVRenderObjClass@@@Z",
+  "symbol": "?Unknown_6CF930@ManagedFontClass@@QAEXPAUStringInfo@@PAVRenderObjClass@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_6CF930@ManagedFontClass@@QAEXPAUFontStringStruct@@H@Z"
+  "replaces": "?Unknown_6CF930@ManagedFontClass@@QAEXPAUStringInfo@@H@Z"
  },
  {
   "address": "0x6D1FD0",
@@ -3924,7 +3924,7 @@
  },
  {
   "address": "0x7AD070",
-  "symbol": "?Get_Line@GalaxyMapRenderLineClass@@QAEAAV?$RefCountPtr@VGalaxyMapLineRObjClass@@@@XZ",
+  "symbol": "?Get_Line@GalaxyMapRenderLineClass@@QAEAAV?$RefCountPtr@VGalaxyMapLineRObj@@@@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's retype (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Get_Line@GalaxyMapRenderLineClass@@QAEAAV?$RefCountPtr@VSegmentedLineClass@@@@XZ"
  },
@@ -4086,13 +4086,13 @@
  },
  {
   "address": "0x62D360",
-  "symbol": "?Unknown_98@UISkillsClass@@UAE_NPAVSlotDataGadgetClass@@PAUKernelEventClass@@I@Z",
+  "symbol": "?Unknown_98@UISkillsClass@@UAE_NPAVSlotDataGadget@@PAUKernelEventClass@@I@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_98@Unknown62D1F0Class@@UAEXXZ"
  },
  {
   "address": "0x62D540",
-  "symbol": "?Unknown_A0@UISkillsClass@@UAE_NPAVSlotDataGadgetClass@@@Z",
+  "symbol": "?Unknown_A0@UISkillsClass@@UAE_NPAVSlotDataGadget@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_A0@Unknown62D1F0Class@@UAEXXZ"
  },
@@ -4104,9 +4104,9 @@
  },
  {
   "address": "0x62D6A0",
-  "symbol": "?Unknown_AC@UISkillsClass@@UAEPAVSlotDataGadgetClass@@PAVRenderObjClass@@PBH@Z",
+  "symbol": "?Unknown_AC@UISkillsClass@@UAEPAVSlotDataGadget@@PAVRenderObjClass@@PBH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the vtable name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_AC@Unknown62D1F0Class@@UAEPAVSlotDataGadgetClass@@PAVRenderObjClass@@PBH@Z"
+  "replaces": "?Unknown_AC@Unknown62D1F0Class@@UAEPAVSlotDataGadget@@PAVRenderObjClass@@PBH@Z"
  },
  {
   "address": "0x62DC00",
@@ -4200,7 +4200,7 @@
  },
  {
   "address": "0x53B310",
-  "symbol": "?Unknown_04@ObserverClass@@UAEXPAVSubjectClass@@@Z",
+  "symbol": "?Unknown_04@ObserverClass@@UAEXPAVObserverSubjectClass@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_04@UnknownAEEA88Class@@UAEXPAV?$DynamicVectorClass@PAVUnknownAEEA88Class@@@@@Z"
  },
@@ -4218,7 +4218,7 @@
  },
  {
   "address": "0x551D20",
-  "symbol": "??C?$RefCountPtr@VCharacterViewAvatarClass@@@@QBEPAVCharacterViewAvatarClass@@XZ",
+  "symbol": "??C?$RefCountPtr@VAvatarClass@@@@QBEPAVAvatarClass@@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??C?$RefCountPtr@VUIAvatarCustAvatarClass@@@@QBEPAVUIAvatarCustAvatarClass@@XZ"
  },
@@ -4272,43 +4272,43 @@
  },
  {
   "address": "0x670E30",
-  "symbol": "??0SlotDataShortcutGadgetClass@@QAE@PAVSlotDataIFaceClass@@PAVSlotDataRenderClass@@PAVLayerClass@@@Z",
+  "symbol": "??0SlotDataShortcutGadget@@QAE@PAVSlotDataIFaceClass@@PAVSlotDataRenderClass@@PAVLayerClass@@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??0Unknown_670E30Class@@QAE@PAVSlotDataIFaceClass@@PAVSlotDataRenderClass@@PAVLayerClass@@@Z"
  },
  {
   "address": "0x670F40",
-  "symbol": "??_GSlotDataShortcutGadgetClass@@UAEPAXI@Z",
+  "symbol": "??_GSlotDataShortcutGadget@@UAEPAXI@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??_GUnknown_670E30Class@@UAEPAXI@Z"
  },
  {
   "address": "0x670F70",
-  "symbol": "??1SlotDataShortcutGadgetClass@@UAE@XZ",
+  "symbol": "??1SlotDataShortcutGadget@@UAE@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??1Unknown_670E30Class@@UAE@XZ"
  },
  {
   "address": "0x671050",
-  "symbol": "?Unknown_04@SlotDataShortcutGadgetClass@@UAEXXZ",
+  "symbol": "?Unknown_04@SlotDataShortcutGadget@@UAEXXZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_04@Unknown_670E30Class@@UAEXXZ"
  },
  {
   "address": "0x671090",
-  "symbol": "?Unknown_7C@SlotDataShortcutGadgetClass@@UAEXH@Z",
+  "symbol": "?Unknown_7C@SlotDataShortcutGadget@@UAEXH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_7C@Unknown_670E30Class@@UAEXH@Z"
  },
  {
   "address": "0x671110",
-  "symbol": "?Unknown_80@SlotDataShortcutGadgetClass@@UAEXH@Z",
+  "symbol": "?Unknown_80@SlotDataShortcutGadget@@UAEXH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_80@Unknown_670E30Class@@UAEXH@Z"
  },
  {
   "address": "0x671150",
-  "symbol": "?Unknown_84@SlotDataShortcutGadgetClass@@UAEXH@Z",
+  "symbol": "?Unknown_84@SlotDataShortcutGadget@@UAEXH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?Unknown_84@Unknown_670E30Class@@UAEXH@Z"
  },
@@ -4320,61 +4320,61 @@
  },
  {
   "address": "0x740B20",
-  "symbol": "??1?$hash_map@IPAVCharacterViewAvatarClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVCharacterViewAvatarClass@@@3@@std@@QAE@XZ",
+  "symbol": "??1?$hash_map@IPAVAvatarClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVAvatarClass@@@3@@std@@QAE@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??1?$hash_map@IPAVSClientUnknown1394Class@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVSClientUnknown1394Class@@@3@@std@@QAE@XZ"
  },
  {
   "address": "0x7567B0",
-  "symbol": "?begin@?$hashtable@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@QAE?AU?$_Hashtable_iterator@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@2@XZ",
+  "symbol": "?begin@?$hashtable@U?$pair@$$CBIPAVAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVAvatarClass@@@2@@std@@QAE?AU?$_Hashtable_iterator@U?$pair@$$CBIPAVAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVAvatarClass@@@2@@2@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?begin@?$hashtable@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@QAE?AU?$_Hashtable_iterator@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@2@XZ"
  },
  {
   "address": "0x756890",
-  "symbol": "??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@QAE@XZ",
+  "symbol": "??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@@2@@std@@QAE@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@QAE@XZ"
  },
  {
   "address": "0x7569D0",
-  "symbol": "?_M_initialize_buckets@?$hashtable@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@AAEXI@Z",
+  "symbol": "?_M_initialize_buckets@?$hashtable@U?$pair@$$CBIPAVAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVAvatarClass@@@2@@std@@AAEXI@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?_M_initialize_buckets@?$hashtable@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@AAEXI@Z"
  },
  {
   "address": "0x756D10",
-  "symbol": "?size@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@QBEIXZ",
+  "symbol": "?size@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@@2@@std@@QBEIXZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?size@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@QBEIXZ"
  },
  {
   "address": "0x756D40",
-  "symbol": "?_Destroy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@0@Z",
+  "symbol": "?_Destroy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@0@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?_Destroy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@0@Z"
  },
  {
   "address": "0x757260",
-  "symbol": "?_Ucopy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@IAEPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@PBQAU32@0PAPAU32@@Z",
+  "symbol": "?_Ucopy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@@2@@std@@IAEPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@PBQAU32@0PAPAU32@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?_Ucopy@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@IAEPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@PBQAU32@0PAPAU32@@Z"
  },
  {
   "address": "0x7572A0",
-  "symbol": "?_Ufill@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@IABQAU32@@Z",
+  "symbol": "?_Ufill@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@IABQAU32@@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?_Ufill@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@std@@@2@@std@@IAEXPAPAU?$_Hashtable_node@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@IABQAU32@@Z"
  },
  {
   "address": "0x757680",
-  "symbol": "??E?$_Hashtable_iterator@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@QAEAAU01@XZ",
+  "symbol": "??E?$_Hashtable_iterator@U?$pair@$$CBIPAVAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVAvatarClass@@@2@@std@@QAEAAU01@XZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "??E?$_Hashtable_iterator@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@QAEAAU01@XZ"
  },
  {
   "address": "0x757700",
-  "symbol": "?clear@?$hashtable@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVCharacterViewAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVCharacterViewAvatarClass@@@2@@std@@QAEXXZ",
+  "symbol": "?clear@?$hashtable@U?$pair@$$CBIPAVAvatarClass@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVAvatarClass@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVAvatarClass@@@2@@std@@QAEXXZ",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
   "replaces": "?clear@?$hashtable@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIPAVSClientUnknown1394Class@@@std@@@2@U?$equal_to@I@2@V?$allocator@PAVSClientUnknown1394Class@@@2@@std@@QAEXXZ"
  },
@@ -4680,21 +4680,21 @@
  },
  {
   "address": "0x6E7770",
-  "symbol": "?Set_Source_Object_ID@UnknownB00060EffectClass@@UAEXH@Z",
+  "symbol": "?Set_Source_Object_ID@UnaryEffectClass@@UAEXH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_28@UnknownB00060EffectClass@@UAEXH@Z"
+  "replaces": "?Unknown_28@UnaryEffectClass@@UAEXH@Z"
  },
  {
   "address": "0x6E80D0",
-  "symbol": "?Set_Source_Object_ID@UnknownB0009CEffectClass@@UAEXH@Z",
+  "symbol": "?Set_Source_Object_ID@BinaryEffectClass@@UAEXH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_28@UnknownB0009CEffectClass@@UAEXH@Z"
+  "replaces": "?Unknown_28@BinaryEffectClass@@UAEXH@Z"
  },
  {
   "address": "0x6E81B0",
-  "symbol": "?Set_Target_Object_ID@UnknownB0009CEffectClass@@UAEXH@Z",
+  "symbol": "?Set_Target_Object_ID@BinaryEffectClass@@UAEXH@Z",
   "evidence": "byte-exact here in the tree's objects (verify 2026-11-17); the exact name it replaces matches no object since the source's rename (stale-name scan .work/sn/stale_scan.py, SN, 2026-11-17)",
-  "replaces": "?Unknown_34@UnknownB0009CEffectClass@@UAEXH@Z"
+  "replaces": "?Unknown_34@BinaryEffectClass@@UAEXH@Z"
  },
  {
   "address": "0x7B18A0",
@@ -5149,17 +5149,17 @@
  },
  {
   "address": "0x705390",
-  "symbol": "?Read@?$DeltaTemplateClass@I@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@I@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
   "kind": "function",
-  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z"
  },
  {
   "address": "0x705400",
-  "symbol": "?Write@?$DeltaTemplateClass@I@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@I@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
   "kind": "function",
-  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x706450",
@@ -5226,31 +5226,31 @@
  },
  {
   "address": "0x757D50",
-  "symbol": "?Read@?$DeltaTemplateClass@W4RaceType@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@W4RaceType@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
   "kind": "function",
-  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z"
  },
  {
   "address": "0x757DC0",
-  "symbol": "?Write@?$DeltaTemplateClass@W4RaceType@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@W4RaceType@@@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
   "kind": "function",
-  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x757F70",
-  "symbol": "?Read@?$DeltaTemplateClass@W4ProfessionType@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z",
+  "symbol": "?Read@?$DeltaTemplateClass@W4ProfessionType@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z",
   "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
   "kind": "function",
-  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z"
+  "replaces": "?Read@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z"
  },
  {
   "address": "0x757FE0",
-  "symbol": "?Write@?$DeltaTemplateClass@W4ProfessionType@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "symbol": "?Write@?$DeltaTemplateClass@W4ProfessionType@@@@UAE_NAAVLinearBuffer@@@Z",
   "evidence": "the value type renamed with the client's shared KVAccessorClass tables: 0xAEC9C8 is stored by both ~KVPointerAccessorClass<ProfessionType> 0x4F76E0 and ~DeltaTemplateAccessorClass 0x7595F0, 0xAEC9DC by ~KVPointerAccessorClass<RaceType> 0x4F7730 and 0x7595D0, 0xAEB258's slot 0 is KVAccessorClass<unsigned int>'s ??_G 0x4A8600 and 0x706D80 stores it (KV, 2026-11-17)",
   "kind": "function",
-  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAE_NAAVLinearBufferClass@@@Z"
+  "replaces": "?Write@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAE_NAAVLinearBuffer@@@Z"
  },
  {
   "address": "0x759200",
@@ -5751,24 +5751,24 @@
  },
  {
   "address": "0x6E5460",
-  "symbol": "?Unknown_30@UnknownB0009CEffectClass@@UAEXABVVector3@@@Z",
+  "symbol": "?Unknown_30@BinaryEffectClass@@UAEXABVVector3@@@Z",
   "evidence": "the binary end's vtable 0xB0009C slot +0x30 holds the thunk 0x412B3E, which jumps to 0x6E5460; it writes SourcePosition +0xA8..+0xB0 (eff_o.h), emitted in eff_line.cpp's run and credited there by the ledger; the EA copies' bytematch had named it BoxRenderObjClass::Set_Color by a layout coincidence (K1, run 2026-11-24-night)",
   "replaces": "?Set_Color@BoxRenderObjClass@@QAEXABVVector3@@@Z"
  },
  {
   "address": "0x6E54A0",
-  "symbol": "?Unknown_38@UnknownB0009CEffectClass@@UAEXABVVector3@@@Z",
+  "symbol": "?Unknown_38@BinaryEffectClass@@UAEXABVVector3@@@Z",
   "evidence": "the binary end's vtable 0xB0009C slot +0x38 holds the thunk 0x410686, which jumps to 0x6E54A0; it writes TargetPosition +0xB4..+0xBC (eff_o.h), emitted in eff_line.cpp's run and credited there by the ledger; the EA copies' bytematch had named it SegmentedLineClass::Set_Color by a layout coincidence (K1, run 2026-11-24-night)",
   "replaces": "?Set_Color@SegmentedLineClass@@QAEXABVVector3@@@Z"
  },
  {
   "address": "0x7F9700",
-  "symbol": "?Get_String@OptionClass@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
+  "symbol": "?Get_String@OptionManagerClass@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
   "evidence": "inlines Find_String (the strings hash_map at this+0x60, as exact 0x7F95E0) and returns a copy of the found StringOptionStruct's Value +0x10 (option.h), else \"\"; between the exact Get_Vector3 0x7F96B0 and Get_Default_Bool 0x7F9880 in option.cpp's order; 5 callers; A14's execution check (run 2026-11-26-night) and B23 (run 2026-11-27)"
  },
  {
   "address": "0x7F9970",
-  "symbol": "?Get_Default_String@OptionClass@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
+  "symbol": "?Get_Default_String@OptionManagerClass@@QAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
   "evidence": "the same code as Get_String 0x7F9700 copying Default +0x20 instead of Value +0x10 (option.h); right after the exact Get_Default_Vector3 0x7F9920, last of option.cpp's accessors; A14's execution check (run 2026-11-26-night) and B23 (run 2026-11-27)"
  }
 ]

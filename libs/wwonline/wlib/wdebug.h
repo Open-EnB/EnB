@@ -326,7 +326,7 @@ class MsgManager
 //       time(0), gmtime, strftime(timebuf, 0x50, '%m/%d/%y %H:%M:%S' 0xBA1354), CritSec::lock 0x8B4330 on
 //       DebugLibSemaphore 0xBF5258, MsgManager::infoStream 0x8B5B90 twice, 'INF ' << timebuf << ' [' << __FILE__ << ' '
 //       << __LINE__ << '] ' << X << endl, CritSec::unlock 0x8B4350); matchbot's formats an Xtime less TimezoneOffset;
-//       the buffer stays char[40] (pumpClose's frame 0x60: the timebuf at +0x18, the CordMessageClass at +0x40, exact
+//       the buffer stays char[40] (pumpClose's frame 0x60: the timebuf at +0x18, the CordMessage at +0x40, exact
 //       only so)
 // EnB: class MsgManager (line 301 at the freeze): E&B's wdebug.cpp has no ReplaceAllStreams (setAllStreams 0x8B5560,
 //       then setDebugStream 0x8B57B0)

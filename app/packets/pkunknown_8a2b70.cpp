@@ -3,26 +3,26 @@
 #include <stdio.h>
 
 
-Packet_0045Class::Packet_0045Class()
+RequestVersionPacketClass::RequestVersionPacketClass()
 {
 }
 
-Packet_0045Class::Packet_0045Class(RawPacketClass *)
+RequestVersionPacketClass::RequestVersionPacketClass(RawPacketClass *)
 {
 }
 
-RawPacketClass *Packet_0045Class::Build()
+RawPacketClass *RequestVersionPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(69, Get_Data_Size());
 	return(raw);
 }
 
-int Packet_0045Class::Get_Data_Size()
+int RequestVersionPacketClass::Get_Data_Size()
 {
 	return(0);
 }
 
-int Packet_0045Class::Print(char *buffer, int)
+int RequestVersionPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Request_Version"));
 }

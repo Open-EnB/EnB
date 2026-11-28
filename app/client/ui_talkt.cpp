@@ -66,7 +66,7 @@ inline void Unknown_Append(std::string &text, const char *more) { text += more; 
 inline bool Is_Unknown2C_02_03(GadgetClass *gadget) { return((bool)(gadget->Is_Unknown2C_02() ? gadget->Unknown2C_03 : 0)); }	// (inline: 0x64E7A0's bit test, one word load)  // NAME 1: neutral (D10)
 
 // NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup)
-UITalkTreeClass::UITalkTreeClass(SClient *client, int mode) :
+TalkTreeInterface::TalkTreeInterface(SClient *client, int mode) :
 	Unknown5BB320Class(new UIMeshClass(Unknown_B8BBC4[mode], 1), client),
 	Mode(mode),
 	FontFile(NULL),
@@ -87,9 +87,9 @@ UITalkTreeClass::UITalkTreeClass(SClient *client, int mode) :
 }
 
 // 0x64B940
-UITalkTreeClass::~UITalkTreeClass()
+TalkTreeInterface::~TalkTreeInterface()
 {
-	UITalkTreeClass::Unknown_5C();
+	TalkTreeInterface::Unknown_5C();
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown_BE67BC->Unload(FontFile);
 	delete [] FontFile;
@@ -106,7 +106,7 @@ UITalkTreeClass::~UITalkTreeClass()
 }
 
 // 0x64BCA0
-void UITalkTreeClass::Unknown_54()
+void TalkTreeInterface::Unknown_54()
 {
 	char name[32];
 	sprintf(name, "fa_%s.ini", Unknown_B8BBC4[Mode]);
@@ -251,7 +251,7 @@ void UITalkTreeClass::Unknown_54()
 }
 
 // 0x64C7B0
-void UITalkTreeClass::Unknown_64C7B0(const std::string &name)
+void TalkTreeInterface::Unknown_64C7B0(const std::string &name)
 {
 
 
@@ -269,7 +269,7 @@ void UITalkTreeClass::Unknown_64C7B0(const std::string &name)
 }
 
 // 0x64C800
-void UITalkTreeClass::Unknown_58()
+void TalkTreeInterface::Unknown_58()
 {
 	if (!Active) {
 		InterfaceSortScopeClass sort(this);
@@ -285,7 +285,7 @@ void UITalkTreeClass::Unknown_58()
 }
 
 // 0x64C8D0; D272: the six dead SpeechFile.max_size() reads are not the client's: a budget device (a pool by count, their place is free), with them the temporary string's _Tidy / _Eos and 0x64E640's erase are called and 0x64D100's erase is inlined one level, as the client does (five inline 0x64E640's erase, seven call both)
-void UITalkTreeClass::Unknown_5C()
+void TalkTreeInterface::Unknown_5C()
 {
 	SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size(); SpeechFile.max_size();	// six dead reads (D272)
 	if (ActiveUI) {
@@ -344,7 +344,7 @@ void UITalkTreeClass::Unknown_5C()
 }
 
 // 0x64CC40
-void UITalkTreeClass::Unknown_7C(UIViewClass *view, bool arg)
+void TalkTreeInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
 		if (TradeUI) {
@@ -356,7 +356,7 @@ void UITalkTreeClass::Unknown_7C(UIViewClass *view, bool arg)
 
 static inline void Clear_Responses(std::vector<TalkTreeResponseStruct> &v) { v.erase(v.begin(), v.end()); }	// NAME 1: neutral (D10): the layer that gives 0x64CC90 the client's out-of-line operator= 0x64F0B0 and _Destroy 0x64F070
 // NOT EXACT: 0x64CC90 (Unknown_90: inline-budget: the client calls the SpeechFile erase's _Split and _Eos and inlines the assign's _Eos, ours the reverse; frame 8 vs the client's 4)
-void UITalkTreeClass::Unknown_90(TalkTreePacketClass *packet)
+void TalkTreeInterface::Unknown_90(TalkTreePacketClass *packet)
 {
 
 
@@ -405,7 +405,7 @@ void UITalkTreeClass::Unknown_90(TalkTreePacketClass *packet)
 }
 
 // 0x64CF90
-const char *UITalkTreeClass::Unknown_64CF90()
+const char *TalkTreeInterface::Unknown_64CF90()
 {
 	if (!NPCText.empty()) {
 		return(NPCText.c_str());
@@ -414,7 +414,7 @@ const char *UITalkTreeClass::Unknown_64CF90()
 }
 
 // 0x64CFC0
-const char *UITalkTreeClass::Unknown_64CFC0()
+const char *TalkTreeInterface::Unknown_64CFC0()
 {
 	if (!PlayerText.empty()) {
 		return(PlayerText.c_str());
@@ -423,13 +423,13 @@ const char *UITalkTreeClass::Unknown_64CFC0()
 }
 
 // 0x64CFF0
-void UITalkTreeClass::Unknown_64CFF0()
+void TalkTreeInterface::Unknown_64CFF0()
 {
 	NPCText.erase();
 }
 
 // 0x64D100
-void UITalkTreeClass::Unknown_64D100()
+void TalkTreeInterface::Unknown_64D100()
 {
 	PlayerText.erase();
 	for (int lp = 1; lp <= ANSWER_COUNT; lp++) {
@@ -444,7 +444,7 @@ void UITalkTreeClass::Unknown_64D100()
 }
 
 // 0x64D230
-void UITalkTreeClass::Unknown_64D230(int action)
+void TalkTreeInterface::Unknown_64D230(int action)
 {
 	switch (action) {
 		case 0:
@@ -502,7 +502,7 @@ void UITalkTreeClass::Unknown_64D230(int action)
 }
 
 // 0x64D360
-void UITalkTreeClass::Unknown_64D360(char *text)
+void TalkTreeInterface::Unknown_64D360(char *text)
 {
 	int out = 0;
 	bool keep = true;
@@ -527,13 +527,13 @@ void UITalkTreeClass::Unknown_64D360(char *text)
 }
 
 // 0x64D3E0
-bool UITalkTreeClass::Unknown_64D3E0()
+bool TalkTreeInterface::Unknown_64D3E0()
 {
 	return(Quit_Talk_Tree(Unknown158));
 }
 
 // 0x64D400; D130: the dead Responses.size() read after the second append is not the client's: it sends that append's _Grow out of line as in the client
-bool UITalkTreeClass::Unknown_68(int event_id)
+bool TalkTreeInterface::Unknown_68(int event_id)
 {
 	switch (event_id) {
 		case 6:
@@ -616,7 +616,7 @@ bool UITalkTreeClass::Unknown_68(int event_id)
 }
 
 // 0x64D770; D272: the two dead SpeechFile.max_size() reads before the erase are not the client's: a budget device, with them the erase's nested _Grow calls max_size out of line as the client does (one read changes nothing, four send more out)
-void UITalkTreeClass::Unknown_60()
+void TalkTreeInterface::Unknown_60()
 {
 	Unknown5BB320Class::Unknown_60();
 	if (Unknown150) {
@@ -638,7 +638,7 @@ void UITalkTreeClass::Unknown_60()
 }
 
 // 0x64DA40
-void UITalkTreeClass::Unknown_64()
+void TalkTreeInterface::Unknown_64()
 {
 	if (ActiveUI) {
 		if (Unknown158 != 0) {
@@ -659,7 +659,7 @@ void UITalkTreeClass::Unknown_64()
 }
 
 // 0x64DB20
-void UITalkTreeClass::Unknown_64DB20(bool restart)
+void TalkTreeInterface::Unknown_64DB20(bool restart)
 {
 	if (restart) {
 		NextLine = 0;
@@ -724,7 +724,7 @@ void UITalkTreeClass::Unknown_64DB20(bool restart)
 }
 
 // 0x64DD50
-bool UITalkTreeClass::Unknown_64DD50()
+bool TalkTreeInterface::Unknown_64DD50()
 {
 	bool shown = false;
 	for (int lp = 0; lp < NPC_LINE_COUNT; lp++) {
@@ -744,7 +744,7 @@ bool UITalkTreeClass::Unknown_64DD50()
 	return(shown);
 }
 
-bool UITalkTreeClass::Unknown_64DF80(bool clear)
+bool TalkTreeInterface::Unknown_64DF80(bool clear)
 {
 	int count = clear ? 0 : Responses.size();
 	Unknown_42EB20();
@@ -798,7 +798,7 @@ bool UITalkTreeClass::Unknown_64DF80(bool clear)
 }
 
 // 0x64E370
-void UITalkTreeClass::Unknown_64E370(const RefCountPtr<InterfaceClass> &ui, bool quit)
+void TalkTreeInterface::Unknown_64E370(const RefCountPtr<InterfaceClass> &ui, bool quit)
 {
 	if (!Active) {
 		Unknown_58();
@@ -817,7 +817,7 @@ void UITalkTreeClass::Unknown_64E370(const RefCountPtr<InterfaceClass> &ui, bool
 }
 
 // 0x64E430
-void UITalkTreeClass::Unknown_64E430(bool quit)
+void TalkTreeInterface::Unknown_64E430(bool quit)
 {
 	if (!TradeUI) {
 		TradeUI = Create_NEW(new UITradeClass(Client->As_Space_Client()));
@@ -827,7 +827,7 @@ void UITalkTreeClass::Unknown_64E430(bool quit)
 }
 
 // 0x64E640
-void UITalkTreeClass::Unknown_64E640()
+void TalkTreeInterface::Unknown_64E640()
 {
 	if (NPCSpeechHandle) {
 		NPCSpeechHandle->Stop(true);
@@ -837,7 +837,7 @@ void UITalkTreeClass::Unknown_64E640()
 }
 
 // 0x64E7A0
-void UITalkTreeClass::Unknown_64E7A0()
+void TalkTreeInterface::Unknown_64E7A0()
 {
 	RefCountPtr<RenderObjClass> bttn_obj;
 	int active = -1;
@@ -896,7 +896,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 			FAIL_IF(!font) continue;
 		}
 		font->Change_Text(split.Get(i), 0);
-		RefCountPtr<DynamicWindowElementClass> element = Create_NEW((DynamicWindowElementClass *)new Unknown51C800Class(font.Peek(), 0x10));
+		RefCountPtr<DynamicWindowElement> element = Create_NEW((DynamicWindowElement *)new Unknown51C800Class(font.Peek(), 0x10));
 		Unknown168->Add_Object(element.Peek(), i);
 		font = NULL;
 	}
@@ -908,7 +908,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 }
 
 // 0x64EDC0
-void UITalkTreeClass::Unknown_64EDC0(bool more_text)
+void TalkTreeInterface::Unknown_64EDC0(bool more_text)
 {
 
 
@@ -928,7 +928,7 @@ void UITalkTreeClass::Unknown_64EDC0(bool more_text)
 }
 
 // 0x64EEA0
-bool UITalkTreeClass::Unknown_64EEA0()
+bool TalkTreeInterface::Unknown_64EEA0()
 {
 	if (ActiveUI) {
 		return(ActiveUI.Peek() == (InterfaceClass *)TradeUI.Peek());
@@ -937,7 +937,7 @@ bool UITalkTreeClass::Unknown_64EEA0()
 }
 
 // 0x64EED0
-void UITalkTreeClass::Unknown_64EED0()
+void TalkTreeInterface::Unknown_64EED0()
 {
 	if (ActiveUI) {
 		ActiveUI->Unknown_5C();

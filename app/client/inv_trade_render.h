@@ -19,7 +19,7 @@
 class FontSys;
 class ManagedFontClass;
 
-class InvTradeRenderClass : public InvRenderClass	// NAME 3: class-from-file (D24) for app\Client\inv_trade_render.cpp
+class InvTradeRenderClass : public InventoryRenderClass	// NAME 3: class-from-file (D24) for app\Client\inv_trade_render.cpp
 {
 public:
 	InvTradeRenderClass();													// 0x68FB60 ('fa_ce02a.ini')

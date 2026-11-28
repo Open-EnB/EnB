@@ -10,12 +10,12 @@
 class GadgetClass;			// gadget.cpp's
 class CheckBoxGadgetClass;	// the check buttons (the tech level filters at +0x11C)
 class FontSys;		// fontmanager.h's text objects (+0x16C, +0x194)
-class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
+class StarbaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
 class GadgetSlider;	// gd_slider.cpp's slider (+0xB0)
-class DeltaCompoundClass;
+class DeltaContainer;
 class UIManuClass;
 class UIManuListClass;		// a formula list of the target item's aux data
-class NameClass;
+class AuxDataName;
 
 #include "ui_manu_util.h"	// UIManuUnknownC0Class: what +0xC0..+0xC8 point to (ui_manu_util.cpp's)
 
@@ -77,7 +77,7 @@ enum
 class UIManuClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_manu.cpp
 {
 public:
-	UIManuClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5AFA00 (0xBC8 bytes: 0x69F8F0's new)  // NAME 1 [view, layer]: what 0x69F8F0 passes
+	UIManuClass(StarbaseViewClass *view, const LayerClass &layer);	// 0x5AFA00 (0xBC8 bytes: 0x69F8F0's new)  // NAME 1 [view, layer]: what 0x69F8F0 passes
 	virtual ~UIManuClass();								// 0x5AFCD0 (slot 0x5AFCA0)
 	virtual void Unknown_54();							// 0x5AFFC0
 	virtual void Unknown_58();							// 0x5B0BB0
@@ -126,7 +126,7 @@ public:
 	void Unknown_5B6CA0();								// 0x5B6CA0: the rows enabled at level 3 when nothing is pending
 	void Unknown_5B6D30();								// 0x5B6D30: the filter request warning (FAIL_IFs '!Client' l.1834, '!Client->As_Space_Client()' l.1835)
 
-	SBaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
+	StarbaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
 	GadgetSlider *Unknown0B0;						// +0x0B0 (the list's slider: its +0xD4 the first row)
 	RefCountPtr<UIInvRobjStripClass> Unknown0B4;				// +0x0B4 'TSM01A.E%02d' (slots +0x58 / +0x5C / +0x7C passed on)
 	RefCountPtr<UIInvRobjStripClass> Unknown0B8;				// +0x0B8 'TSM01A.RESULT'
@@ -145,7 +145,7 @@ public:
 	int Unknown0B94;									// +0xB94 the entries in the list
 	int Unknown0B98;									// +0xB98 the current level (-1 for none; 3 the items)
 	int State;											// +0xB9C (UI_CLOSED when shut)  // NAME 3: the assert's
-	DeltaCompoundClass *Unknown0BA0;					// +0xBA0: the target item's aux data
+	DeltaContainer *Unknown0BA0;					// +0xBA0: the target item's aux data
 	int Unknown0BA4;									// +0xBA4 (1 while an item id is pending)
 	float Unknown0BA8;									// +0xBA8 (0x5B3A70: 1.0f)
 	bool Unknown0BAC;									// +0xBAC

@@ -1,7 +1,7 @@
 /*
 **	target_find.h: the cycling target finder (app\client\target_find.cpp).
 **
-**	The client has no name for the class. Its one known derived class is targeting.h's TargetingClass,
+**	The client has no name for the class. Its one known derived class is targeting.h's TargetSelectClass,
 **	the object at SClient +0x12A4 (constructor 0x7C6120, vtable 0xB07134), whose slot +0x04 receives
 **	every object found here.
 */

@@ -34,7 +34,7 @@ struct InvDataPeekItemStruct	// NAME 1: neutral (D10): as far as this file reads
 	char Unknown24[0x50 - 0x24]; int Unknown50;		// +0x50 (the stack count: 0x651510 enables the stack button over 1)  // NAME 1: neutral (D10)
 };
 // The money field's lookup through two inline layers (as ui_ptrade.cpp's): the client calls the Cast out of line
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)	// money.cpp's (out of line, ??9@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)	// money.cpp's (out of line, ??9@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral
 
 // The client at InterfaceClass +0x40, as this file calls it (as ui_manu.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -150,11 +150,11 @@ void UITradeClass::Unknown_54()
 
 	Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	((InterfaceUnknown58Class *)&Unknown4C[0x58 - 0x4C])->Unknown_686CC0(InterfaceMesh.Peek(), NULL);
-	SlotDataGadgetClass *first;
+	SlotDataGadget *first;
 	if (Unknown_C4(InterfaceMesh.Peek(), "ce02a.W%02d", 5) && (first = Buttons[0]) != NULL) { int id = first->Unknown0C;
 		int i;
 		for (i = 0; i < 5; i++) {
-			SlotDataGadgetClass *bttn = Buttons[i];
+			SlotDataGadget *bttn = Buttons[i];
 			FAIL_IF(!bttn) continue;
 
 			SlotDataRenderClass *sd_render = bttn->SlotRender;
@@ -222,7 +222,7 @@ void UITradeClass::Unknown_54()
 		if (tutorial) {
 			tutorial->Set_Hidden(true);
 		}
-		ButtonGadgetClass *sort = Unknown0D4[11]; if (sort) { bool by_name = OptionClass::Instance->Get_Bool("Trade_Sort_By_Name"); FontSys *text = sort->Unknown34; if (by_name) { text->Change_Text("Price sort", 0); GadgetClass::Set_Tooltip(sort, "UI_TRADE", "SORT_PRICE"); } else { text->Change_Text("Name sort", 0); GadgetClass::Set_Tooltip(sort, "UI_TRADE", "SORT_NAME"); } }	// the sort set-up of 0x653A80 in place: the client copy loads the font after Get_Bool and shares the Set_Tooltip tail, unlike 0x653A80 (F2, measured)
+		ButtonGadgetClass *sort = Unknown0D4[11]; if (sort) { bool by_name = OptionManagerClass::Instance->Get_Bool("Trade_Sort_By_Name"); FontSys *text = sort->Unknown34; if (by_name) { text->Change_Text("Price sort", 0); GadgetClass::Set_Tooltip(sort, "UI_TRADE", "SORT_PRICE"); } else { text->Change_Text("Name sort", 0); GadgetClass::Set_Tooltip(sort, "UI_TRADE", "SORT_NAME"); } }	// the sort set-up of 0x653A80 in place: the client copy loads the font after Get_Bool and shares the Set_Tooltip tail, unlike 0x653A80 (F2, measured)
 	} else {
 		InterfaceMesh.Clear();
 		InterfaceMesh = NULL;
@@ -689,7 +689,7 @@ void UITradeClass::Unknown_652360()
 // @0x652450
 void UITradeClass::Unknown_652450(bool force)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, "Money");
 	if (t) {
 		MoneyClass money = t->Value;
@@ -725,7 +725,7 @@ void UITradeClass::Unknown_652670()
 void UITradeClass::Unknown_652890()
 {
 	if ((unsigned int)Unknown170 < 5) {
-		SlotDataGadgetClass *bttn = Buttons[Unknown170];
+		SlotDataGadget *bttn = Buttons[Unknown170];
 		FAIL_IF(!bttn) return;
 
 		SlotDataRenderClass *sd_render = bttn->SlotRender;
@@ -907,7 +907,7 @@ void UITradeClass::Unknown_6531F0(bool arg)
 // @0x653450
 void UITradeClass::Unknown_653450()
 {
-	SlotDataGadgetClass *button = Buttons[0];
+	SlotDataGadget *button = Buttons[0];
 	FAIL_IF(!button) return;
 
 	SlotDataRenderClass *sd_render = button->SlotRender;
@@ -917,7 +917,7 @@ void UITradeClass::Unknown_653450()
 	FAIL_IF(!trade_render) return;
 	InvDataPeekClass *peek = trade_render->Peek_Inv_Data()->Unknown_688830();
 	Unknown17C.clear();
-	bool by_name = OptionClass::Instance->Get_Bool("Trade_Sort_By_Name");
+	bool by_name = OptionManagerClass::Instance->Get_Bool("Trade_Sort_By_Name");
 	for (int i = 0; i < SlotData->Unknown_6A7990(); i++) {
 		int slot = SlotData->Unknown_6A7A00(i);
 		MoneyClass price = peek->Get_Price(slot);
@@ -958,7 +958,7 @@ void UITradeClass::Unknown_B0()
 // @0x6539A0
 void UITradeClass::Unknown_6539A0()
 {
-	BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Trade_Sort_By_Name");
+	BoolOptionStruct *option = OptionManagerClass::Instance->Find_Bool("Trade_Sort_By_Name");
 	option->Value = !option->Value;
 	Unknown_653A80();
 	if (Unknown13C == -3) {
@@ -976,7 +976,7 @@ void UITradeClass::Unknown_653A80()
 {
 	ButtonGadgetClass *sort = Unknown0D4[11];
 	if (sort) {
-		if (OptionClass::Instance->Get_Bool("Trade_Sort_By_Name")) {
+		if (OptionManagerClass::Instance->Get_Bool("Trade_Sort_By_Name")) {
 			sort->Unknown34->Change_Text("Price sort", 0);
 			GadgetClass::Set_Tooltip(sort, "UI_TRADE", "SORT_PRICE");
 			return;

@@ -14,7 +14,7 @@ class LightClass;
 class TextureClass;
 class FontSys;
 class RenderObjClass;
-class ProxyRObj;
+class ProxyRenderObjClass;
 class UIMFDExtendedContextClass;
 
 // An item that shows a 3-D object in its own scene on the 'scanner_click' viewport (0x54 bytes before its subclass's
@@ -22,7 +22,7 @@ class UIMFDExtendedContextClass;
 class UIMFDPIPItemClass : public UIMFDItemClass	// NAME 1: neutral (D10)
 {
 public:
-	UIMFDPIPItemClass(UIMFDClass *owner);				// 0x5C2000
+	UIMFDPIPItemClass(MFDInterface *owner);				// 0x5C2000
 	virtual ~UIMFDPIPItemClass();						// 0x5C2470
 	virtual void Unknown_08();							// 0x5C25C0
 	virtual void Unknown_0C();							// 0x5C28D0
@@ -44,7 +44,7 @@ public:
 class Unknown5C2CD0Class : public UIMFDPIPItemClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown5C2CD0Class(UIMFDClass *owner);				// 0x5C2CD0
+	Unknown5C2CD0Class(MFDInterface *owner);				// 0x5C2CD0
 	virtual ~Unknown5C2CD0Class();						// 0x5C2DC0
 	virtual void Unknown_04(ClientObjectClass *object);	// 0x5C2E60
 	virtual void Unknown_08();							// 0x5C2ED0
@@ -52,14 +52,14 @@ public:
 	virtual int Unknown_1C() { return((int)this); }		// 0x5C2D70
 	virtual RenderObjClass *Get_RObj();					// 0x5C2E40
 
-	ProxyRObj *Carrier;						// +0x54  // NAME 2: what it holds
+	ProxyRenderObjClass *Carrier;						// +0x54  // NAME 2: what it holds
 };
 
 // 0x5BE570's item: the object rendered once into the viewport's texture (0xC bytes; constructor 0x5C3030, vtable 0xAF3B3C)
 class Unknown5C3030Class : public UIMFDItemClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown5C3030Class(UIMFDClass *owner);				// 0x5C3030
+	Unknown5C3030Class(MFDInterface *owner);				// 0x5C3030
 	virtual ~Unknown5C3030Class();						// 0x5C30B0
 	virtual void Unknown_08();							// 0x5C3150
 	virtual void Unknown_0C();							// 0x5C34C0
@@ -74,7 +74,7 @@ public:
 class Unknown5C3650Class : public UIMFDItemClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown5C3650Class(UIMFDClass *owner);				// 0x5C3650
+	Unknown5C3650Class(MFDInterface *owner);				// 0x5C3650
 	virtual ~Unknown5C3650Class();						// 0x5C36D0
 	virtual void Unknown_04(ClientObjectClass *object);	// 0x5C3790
 	virtual void Unknown_08();							// 0x5C38A0
@@ -90,7 +90,7 @@ public:
 class Unknown5C3920Class : public UIMFDItemClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown5C3920Class(UIMFDClass *owner);				// 0x5C3920
+	Unknown5C3920Class(MFDInterface *owner);				// 0x5C3920
 	virtual ~Unknown5C3920Class();						// 0x5C3AB0
 	virtual void Unknown_08();							// 0x5C3B80
 	virtual void Unknown_0C();							// 0x5C3C00

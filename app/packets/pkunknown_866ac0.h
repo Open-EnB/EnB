@@ -19,12 +19,12 @@
 #include <string>
 
 // opcode 119 (0x0077, ?): vtable 0xB04170, constructor 0x866C20, 0x20 bytes
-class Packet_0077Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0077 (Print: 'Global SetReferrer')
+class GlobalSetReferrerPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_0077Class(const char *name);	// 0x866AC0 (LoginTaskClass::Send_Referrer)
-	Packet_0077Class(RawPacketClass *raw);	// 0x866C20
-	virtual ~Packet_0077Class() {}	// +0x00 0x76B470 (inline: the client's copy is tsk_login.cpp's)
+	GlobalSetReferrerPacketClass(const char *name);	// 0x866AC0 (LoginTaskClass::Send_Referrer)
+	GlobalSetReferrerPacketClass(RawPacketClass *raw);	// 0x866C20
+	virtual ~GlobalSetReferrerPacketClass() {}	// +0x00 0x76B470 (inline: the client's copy is tsk_login.cpp's)
 	virtual RawPacketClass *Build();	// +0x04 0x866CC0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8695D0 (clientstub.cpp l.449)
 	virtual int Get_Data_Size();	// +0x0C 0x866D80
@@ -35,10 +35,10 @@ public:
 };
 
 // opcode 120 (0x0078, ?): vtable 0xB09628, constructor 0x866DF0, 0x10 bytes
-class Packet_0078Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0078
+class GlobalSetReferrerResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_0078Class(RawPacketClass *raw);	// 0x866DF0
+	GlobalSetReferrerResponsePacketClass(RawPacketClass *raw);	// 0x866DF0
 	virtual RawPacketClass *Build();	// +0x04 0x866ED0
 	virtual bool Process_Packet(void *client);	// +0x08 0x76BB70 (tsk_login.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x866F90

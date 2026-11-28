@@ -23,10 +23,10 @@ void Unknown_42E8A0(KernelEventClass *event);	// NAME 1 [Unknown_42E8A0]: hands 
 
 KernelClass *KernelClass::Instance = NULL;
 
-// ------------------------------------------------------------------------ TaskClass
+// ------------------------------------------------------------------------ KernelTaskClass
 
 // 0x443020
-bool TaskClass::Is_Focused()
+bool KernelTaskClass::Is_Focused()
 {
 	if (Kernel != NULL) {
 		return Kernel->Is_Focus(this) ? true : false;
@@ -35,24 +35,24 @@ bool TaskClass::Is_Focused()
 }
 
 // 0x443050
-TaskClass::TaskClass() :
+KernelTaskClass::KernelTaskClass() :
 	Last_Run(0)
 {
 }
 
 // 0x4430A0
-TaskClass::~TaskClass()
+KernelTaskClass::~KernelTaskClass()
 {
 }
 
 // 0x4430C0
-void TaskClass::Set_Kernel(KernelClass *kernel)
+void KernelTaskClass::Set_Kernel(KernelClass *kernel)
 {
 	Kernel = kernel;
 }
 
 // 0x4430E0
-void TaskClass::Describe(void *)
+void KernelTaskClass::Describe(void *)
 {
 }
 
@@ -126,8 +126,8 @@ bool KernelClass::Shutdown()
 		return false;
 	}
 	Current_Task = NULL;
-	for (std::list<TaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
-		TaskClass *task = *it;
+	for (std::list<KernelTaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
+		KernelTaskClass *task = *it;
 		task->Shutdown();
 		if (task->Delete_On_Remove()) {
 			delete task;
@@ -150,9 +150,9 @@ bool KernelClass::Shutdown()
 
 
 // 0x443380: the task joins the list; it gets the focus if nothing has it and it accepts it.
-bool KernelClass::Add_Task(TaskClass *task)
+bool KernelClass::Add_Task(KernelTaskClass *task)
 {
-	for (std::list<TaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
+	for (std::list<KernelTaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
 		if (*it == task) {
 			G_ASSERT(false);
 			return false;
@@ -167,9 +167,9 @@ bool KernelClass::Add_Task(TaskClass *task)
 }
 
 // 0x443450
-bool KernelClass::Contains_Task(TaskClass *task)
+bool KernelClass::Contains_Task(KernelTaskClass *task)
 {
-	for (std::list<TaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
+	for (std::list<KernelTaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
 		if (*it == task) {
 			return true;
 		}
@@ -190,7 +190,7 @@ bool KernelClass::Contains_Task(TaskClass *task)
 
 // 0x443490: unless it keeps the focus, the task leaves the list (its Shutdown and delete wait for
 // the end of its Run when it is the one running).
-bool KernelClass::Remove_Task(TaskClass *task)
+bool KernelClass::Remove_Task(KernelTaskClass *task)
 {
 	if (task == NULL || !Contains_Task(task)) {
 		G_ASSERT(false);
@@ -239,10 +239,10 @@ bool KernelClass::Remove_Task(TaskClass *task)
 }
 
 // 0x443640
-TaskClass *KernelClass::Get_Task(int index)
+KernelTaskClass *KernelClass::Get_Task(int index)
 {
 	int i = 0;
-	for (std::list<TaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
+	for (std::list<KernelTaskClass *>::iterator it = Tasks.begin(); it != Tasks.end(); ++it) {
 		if (i == index) {
 			return *it;
 		}
@@ -252,7 +252,7 @@ TaskClass *KernelClass::Get_Task(int index)
 }
 
 // 0x443680
-void KernelClass::Remove_Running(TaskClass *)
+void KernelClass::Remove_Running(KernelTaskClass *)
 {
 	Iterator = Tasks.erase(Iterator);
 }
@@ -304,7 +304,7 @@ bool KernelClass::Run_One_Cycle()
 		Running_Task = *Iterator;
 		unsigned int last = Running_Task->Last_Run;
 		if ((int)(Running_Task->Get_Interval() + last) <= (int)now) {
-			TaskClass *task = Running_Task;
+			KernelTaskClass *task = Running_Task;
 			task->Last_Run = now;
 			if (Running_Task == Current_Task) {
 				Running_Task->Pre_Run();
@@ -351,13 +351,13 @@ bool KernelClass::Is_Running()
 }
 
 // 0x443BC0
-int KernelClass::Is_Focus(TaskClass *task)
+int KernelClass::Is_Focus(KernelTaskClass *task)
 {
 	return task == Current_Task;
 }
 
 // 0x443BF0
-TaskClass *KernelClass::Get_Focus()
+KernelTaskClass *KernelClass::Get_Focus()
 {
 	return Current_Task;
 }
@@ -369,19 +369,19 @@ void KernelClass::Next_Focus()
 	if (Current_Task != NULL && !Current_Task->Yield_Focus()) {
 		return;
 	}
-	std::list<TaskClass *>::iterator it = Tasks.begin();
+	std::list<KernelTaskClass *>::iterator it = Tasks.begin();
 	while (it != Tasks.end() && *it != Current_Task) {
 		++it;
 	}
 	for (++it; it != Tasks.end(); ++it) {
-		TaskClass *task = *it;
+		KernelTaskClass *task = *it;
 		if (task->Accept_Focus()) {
 			Current_Task = task;
 			return;
 		}
 	}
 	for (it = Tasks.begin(); it != Tasks.end(); ++it) {
-		TaskClass *task = *it;
+		KernelTaskClass *task = *it;
 		if (task->Accept_Focus()) {
 			Current_Task = task;
 			return;
@@ -469,7 +469,7 @@ void KernelClass::Next_Focus()
 
 
 // 0x443CD0
-bool KernelClass::Set_Focus(TaskClass *task)
+bool KernelClass::Set_Focus(KernelTaskClass *task)
 {
 	G_ASSERT(Contains_Task(task));
 	if (Current_Task != NULL && !Current_Task->Yield_Focus()) {
@@ -506,7 +506,7 @@ bool KernelClass::Handle_Key(KernelEventClass *event)
 				}
 				break;
 			case 0x6A: {
-				TaskClass *task = Current_Task;
+				KernelTaskClass *task = Current_Task;
 				Next_Focus();
 				return task != Current_Task;
 			}
@@ -530,19 +530,19 @@ void KernelClass::Pump_Messages()
 	}
 }
 
-// ------------------------------------------------------------------------ TaskClass's defaults
+// ------------------------------------------------------------------------ KernelTaskClass's defaults
 
-int TaskClass::Unknown_08() { return 0; }		// 0x443FA0
-int TaskClass::Unknown_0C() { return 0; }		// 0x443FC0
-int TaskClass::Unknown_10() { return 0; }		// 0x443FE0
-int TaskClass::Unknown_14() { return 0; }		// 0x444000
-int TaskClass::Unknown_18() { return 0; }		// 0x444020
-int TaskClass::Unknown_1C() { return 0; }		// 0x444040
-int TaskClass::Unknown_20() { return 0; }		// 0x444060
-int TaskClass::Unknown_24() { return 0; }		// 0x444080
-bool TaskClass::Accept_Focus() { return false; }	// 0x4440A0
-bool TaskClass::Yield_Focus() { return true; }		// 0x4440C0
-void TaskClass::Run() {}						// 0x4440E0
-void TaskClass::Pre_Run() {}					// 0x444100
-void TaskClass::Render() {}						// 0x444120
-bool TaskClass::Shutdown() { return true; }		// 0x444140
+int KernelTaskClass::Unknown_08() { return 0; }		// 0x443FA0
+int KernelTaskClass::Unknown_0C() { return 0; }		// 0x443FC0
+int KernelTaskClass::Unknown_10() { return 0; }		// 0x443FE0
+int KernelTaskClass::Unknown_14() { return 0; }		// 0x444000
+int KernelTaskClass::Unknown_18() { return 0; }		// 0x444020
+int KernelTaskClass::Unknown_1C() { return 0; }		// 0x444040
+int KernelTaskClass::Unknown_20() { return 0; }		// 0x444060
+int KernelTaskClass::Unknown_24() { return 0; }		// 0x444080
+bool KernelTaskClass::Accept_Focus() { return false; }	// 0x4440A0
+bool KernelTaskClass::Yield_Focus() { return true; }		// 0x4440C0
+void KernelTaskClass::Run() {}						// 0x4440E0
+void KernelTaskClass::Pre_Run() {}					// 0x444100
+void KernelTaskClass::Render() {}						// 0x444120
+bool KernelTaskClass::Shutdown() { return true; }		// 0x444140

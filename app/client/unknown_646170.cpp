@@ -69,12 +69,12 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (c
 
 
 // The starbase avatar (unknown_78a910.cpp's Unknown78A910AvatarClass)
-class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neutral (D10)
+class Unknown78A910AvatarClass : public AvatarClass	// NAME 1: neutral (D10)
 {
 public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
 
-	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
+	Unknown78A910AvatarClass(int a, AvatarDescriptionClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
 	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraAnim%02d and ExtraName%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
 	void Unknown_78B010(const Matrix3D &tm); void Unknown_78B290(const Matrix3D &tm);	// 0x78B010 / 0x78B290 (0x642740: a Location%02d's OffsetBoneName / DestBoneName bone)  // NAME 1 [tm]: neutral
 	void Unknown_78B530(int a, int b, int c, int d);	// 0x78B530 (0x642740: MinWait, MaxWait, RelocateChance, ActionChance)  // NAME 1 [a, b, c, d]: neutral
@@ -166,11 +166,11 @@ struct UIAvatrPullClass	// NAME 1: neutral (D10)
 // 0xAF8610; no caller of the constructor in the client: a debug panel). Its texts are 'near_light02a',
 // 'far_light02a', 'Int_light02a', 'Fill_light02a' and 'GO_light02a' in the 'fa_light02a.ini' model (0x646360).
 // Declared as far as this file's functions use it (interim placement in this file, D137).
-class UIStarbaseLightsClass : public ChatPanelUIBase	// NAME 1: neutral, after its model's 'light02a' names
+class StarbaseLightInterface : public ChatPanelUIBase  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UIStarbaseLightsClass(SClient *client);				// 0x646170  // NAME 1 [client]: the base's
-	virtual ~UIStarbaseLightsClass();					// 0x646290 (deleting 0x646260)
+	StarbaseLightInterface(SClient *client);				// 0x646170  // NAME 1 [client]: the base's
+	virtual ~StarbaseLightInterface();					// 0x646290 (deleting 0x646260)
 	virtual void Unknown_54();							// +0x54 0x646360
 	virtual void Unknown_58();							// +0x58 0x6466F0 (activated: the starbase, its lights, light 0)
 	virtual void Unknown_5C();							// +0x5C 0x6467B0
@@ -193,7 +193,7 @@ public:
 	GadgetSlider *Slider[4];							// +0xB8 (near, far, intensity, fill: 0x646F70's texts)  // NAME 1: neutral
 	float SliderValue[4];								// +0xC8 (the values last seen: 0x646F70 compares them)  // NAME 1: neutral
 	UIAvatrPullClass *UnknownD8;		// +0xD8
-	UIStarbaseClass *Starbase;							// +0xDC (0x640E90 / 0x640EC0 / 0x640EF0 / 0x640F30, ui_starbase.cpp's)  // NAME 1: neutral
+	StarbaseInterface *Starbase;							// +0xDC (0x640E90 / 0x640EC0 / 0x640EF0 / 0x640F30, ui_starbase.cpp's)  // NAME 1: neutral
 	int UnknownE0;										// +0xE0 (0: a light; else the ambient light)
 	int UnknownE4;										// +0xE4
 	int UnknownE8;										// +0xE8
@@ -211,7 +211,7 @@ public:
 };
 
 // 0x646170
-UIStarbaseLightsClass::UIStarbaseLightsClass(SClient *client) :
+StarbaseLightInterface::StarbaseLightInterface(SClient *client) :
 	ChatPanelUIBase(client),
 	UnknownD8(NULL),
 	Starbase(NULL),
@@ -229,7 +229,7 @@ UIStarbaseLightsClass::UIStarbaseLightsClass(SClient *client) :
 }
 
 // 0x646290
-UIStarbaseLightsClass::~UIStarbaseLightsClass()
+StarbaseLightInterface::~StarbaseLightInterface()
 {
 	if (Active) {
 		InterfaceClass::Unknown_5C();
@@ -253,7 +253,7 @@ static const char *Unknown_B8B880[6] = { NULL, "save_light02a", "previous_light0
 
 
 // 0x646360
-void UIStarbaseLightsClass::Unknown_54()
+void StarbaseLightInterface::Unknown_54()
 {
 	if (Unknown_98("light02a", "fa_light02a.ini")) {
 		Unknown_646940();
@@ -291,12 +291,12 @@ void UIStarbaseLightsClass::Unknown_54()
 }
 
 // 0x6466F0
-void UIStarbaseLightsClass::Unknown_58()
+void StarbaseLightInterface::Unknown_58()
 {
 	if (!Active) {
 		ChatPanelUIBase::Unknown_58();
 		UnknownE0 = 0;
-		Starbase = (UIStarbaseClass *)((SBaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C)->Get_Starbase().Peek();
+		Starbase = (StarbaseInterface *)((StarbaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C)->Get_Starbase().Peek();
 		Starbase->Unknown_640D80(&UnknownE4, &UnknownE8, &UnknownEC);
 		Unknown_646A00();
 		Unknown_6474C0(0);
@@ -304,7 +304,7 @@ void UIStarbaseLightsClass::Unknown_58()
 }
 
 // 0x6467B0
-void UIStarbaseLightsClass::Unknown_5C()
+void StarbaseLightInterface::Unknown_5C()
 {
 	if (Active) {
 		InterfaceClass::Unknown_5C();
@@ -313,14 +313,14 @@ void UIStarbaseLightsClass::Unknown_5C()
 }
 
 // 0x6467E0
-void UIStarbaseLightsClass::Unknown_60()
+void StarbaseLightInterface::Unknown_60()
 {
 	Unknown_646F70(false);
 	Unknown_647B30();
 }
 
 // 0x646810
-bool UIStarbaseLightsClass::Unknown_68(int key)
+bool StarbaseLightInterface::Unknown_68(int key)
 {
 	((LineDisplayClientClass *)Client)->As_Space_Client();
 	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -357,7 +357,7 @@ bool UIStarbaseLightsClass::Unknown_68(int key)
 }
 
 // 0x646940
-void UIStarbaseLightsClass::Unknown_646940()
+void StarbaseLightInterface::Unknown_646940()
 {
 	for (int i = 0; i < 20; i++) {
 		Intensity[i] = 1.0f;
@@ -377,7 +377,7 @@ void UIStarbaseLightsClass::Unknown_646940()
 }
 
 // 0x646A00
-void UIStarbaseLightsClass::Unknown_646A00()
+void StarbaseLightInterface::Unknown_646A00()
 {
 	Unknown_BE82D0->Unknown_764530();
 	Lights.size();		// dead read: spends the inline budget so the temporary's _Destroy is called out of line (0x644410) as the client's
@@ -400,7 +400,7 @@ void UIStarbaseLightsClass::Unknown_646A00()
 }
 
 // 0x646E00
-void UIStarbaseLightsClass::Unknown_646E00()
+void StarbaseLightInterface::Unknown_646E00()
 {
 	int i = 0;
 	for (std::vector<LightClass *>::iterator it = Lights.begin(); it != Lights.end(); it++, i++) {
@@ -416,7 +416,7 @@ void UIStarbaseLightsClass::Unknown_646E00()
 }
 
 // 0x646F70
-void UIStarbaseLightsClass::Unknown_646F70(bool force)
+void StarbaseLightInterface::Unknown_646F70(bool force)
 {
 	bool changed = false;
 	int i;
@@ -464,7 +464,7 @@ void UIStarbaseLightsClass::Unknown_646F70(bool force)
 }
 
 // 0x6474C0
-void UIStarbaseLightsClass::Unknown_6474C0(int index)
+void StarbaseLightInterface::Unknown_6474C0(int index)
 {
 	Current = index;
 	Starbase->Unknown_640EF0(index);
@@ -513,7 +513,7 @@ void UIStarbaseLightsClass::Unknown_6474C0(int index)
 }
 
 // 0x647B30
-void UIStarbaseLightsClass::Unknown_647B30()
+void StarbaseLightInterface::Unknown_647B30()
 {
 	if (((Unknown_671300Class *)UnknownD8->Unknown00)->Unknown64) {
 		UnknownD8->Unknown08 = true;
@@ -541,12 +541,12 @@ void UIStarbaseLightsClass::Unknown_647B30()
 		point.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		point.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		if (UnknownE0 == 0) {
-			RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+			RenderObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
 			Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &Color[Current]);
 			Position[Current].Set(point.X, point.Y, 0.0f);
 			Lights[Current]->Set_Diffuse(Color[Current]);
 		} else {
-			RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+			RenderObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
 			Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &AmbientColor);
 			AmbientPosition.Set(point.X, point.Y, 0.0f);
 			Starbase->Unknown_640E90(AmbientColor);
@@ -558,7 +558,7 @@ void UIStarbaseLightsClass::Unknown_647B30()
 }
 
 // 0x647F30
-void UIStarbaseLightsClass::Unknown_647F30(Vector3 point)
+void StarbaseLightInterface::Unknown_647F30(Vector3 point)
 {
 	AABoxClass box;
 	UnknownD8->Unknown00->Unknown_64(box);
@@ -574,18 +574,18 @@ void UIStarbaseLightsClass::Unknown_647F30(Vector3 point)
 	tm[2][3] = 0.0f;
 	InterfaceMesh->Control_Bone(bone, tm, false);
 	if (UnknownE0 == 0) {
-		RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+		RenderObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
 		Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &Color[Current]);
 		Position[Current].Set(point.X, point.Y, 0.0f);
 	} else {
-		RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+		RenderObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
 		Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &AmbientColor);
 		AmbientPosition.Set(point.X, point.Y, 0.0f);
 	}
 }
 
 // 0x648190
-void UIStarbaseLightsClass::Unknown_648190()
+void StarbaseLightInterface::Unknown_648190()
 {
 	for (int i = 0; i < UnknownF4; i++) {
 		Position[i] = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, i);
@@ -594,7 +594,7 @@ void UIStarbaseLightsClass::Unknown_648190()
 }
 
 // 0x648270
-void UIStarbaseLightsClass::Unknown_648270()
+void StarbaseLightInterface::Unknown_648270()
 {
 	for (int i = 0; i < UnknownF4; i++) {
 		Unknown_BE82D0->Unknown_764C30(UnknownE4, UnknownE8, UnknownEC, i, Position[i]);
@@ -607,7 +607,7 @@ void UIStarbaseLightsClass::Unknown_648270()
 **	Notes
 **
 **	RECONSTRUCTED (S2, run 2026-11-18): client 0x646170-0x6483C0, an object of its own by the CRT initialiser table
-**	(SG): the starbase lights panel (UIStarbaseLightsClass 0x646170-0x648270, its vector<LightClass *> instances
+**	(SG): the starbase lights panel (StarbaseLightInterface 0x646170-0x648270, its vector<LightClass *> instances
 **	0x648310 / 0x648340), then <string>'s guarded initialiser 0x648380 (entry 419, the object's only one) and the
 **	class's vector deleting destructors 0x6483B0 / 0x6483C0; ui_string_list.cpp follows. The preamble is
 **	ui_starbase.cpp's without aux_group.h. No assert or string names the file: PROVISIONAL (D137).

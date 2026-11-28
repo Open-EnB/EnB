@@ -73,7 +73,7 @@ void UICommandsClass::Unknown_58()
 		Unknown_57C8B0(Commands.size());
 		Unknown_57CB20(true);
 		if (Buttons[0] != NULL) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }

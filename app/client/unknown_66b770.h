@@ -17,7 +17,7 @@
 
 #include "gd_robj.h"
 
-class Unknown_66B770Class : public RObjGadgetClass  // NAME 1: neutral (D10)
+class Unknown_66B770Class : public RenderObjGadgetClass  // NAME 1: neutral (D10)
 {
 public:
 	Unknown_66B770Class(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x66B770  // NAME 1 [robj, layer, mask, flags]: the base's and what it does

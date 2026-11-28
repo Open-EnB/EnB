@@ -32,9 +32,9 @@
 #include "wwstring.h"
 
 class ConnectionClass;
-class Packet_0078Class;
+class GlobalSetReferrerResponsePacketClass;
 class GlobalErrorPacketClass;
-class LinearBufferClass;
+class LinearBuffer;
 class LoginUnknown0CClass;
 class LoginTaskClass;
 
@@ -88,7 +88,7 @@ public:
 
 #include "..\smouse.h"	// LoginUnknown18Class, the software mouse
 
-class LoginTaskClass : public TaskClass
+class LoginTaskClass : public KernelTaskClass
 {
 public:
 	LoginTaskClass();									// 0x767240 (no caller: Step 14)
@@ -102,7 +102,7 @@ public:
 	virtual void Pre_Run();								// +0x38 0x767DA0
 	virtual void Render();								// +0x3C 0x767EE0
 	virtual bool Delete_On_Remove() { return true; }	// +0x44 0x767580
-	virtual void Unknown_48(AvatarDescClass *a, ShipCustDescClass *b, int galaxy, bool c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
+	virtual void Unknown_48(AvatarDescriptionClass *a, ShipCustDescClass *b, int galaxy, bool c);	// +0x48 0x7689E0 (the FAIL_IF 'Galaxies.empty()'): sends the character creation
 	virtual bool Unknown_4C();							// +0x4C 0x768B00: the ticket step
 	virtual void Unknown_50();							// +0x50 0x7683F0
 	virtual void Go_Next_Step();						// +0x54 0x769500 (S)
@@ -115,7 +115,7 @@ public:
 	virtual void Create_Character_View();				// +0x70 0x769D60  // NAME 1: what it does
 
 	int Get_Selected() { return(Selected); }			// 0x55D860 (out of line in ui_avsel.cpp's window, called by its 0x55D060)  // NAME 1: what it returns
-	AvatarDescClass *Get_Avatar_Descs() { return(Unknown0350); }	// 0x55D880 (likewise)  // NAME 1: what it returns
+	AvatarDescriptionClass *Get_Avatar_Descs() { return(Unknown0350); }	// 0x55D880 (likewise)  // NAME 1: what it returns
 	bool Is_Registered_Character() { LoginCharacterClass *c = &Characters[Selected]; return c->ID != 0 && c->Galaxy_ID >= 0; }	// (through the slot's address: 0x769500 / 0x7683F0 re-read the ID as the client) (the assert '!Is_Registered_Character()')  // NAME 1 [Galaxy_ID]: 0x769400 looks it up in the galaxies
 	void Unknown_7692A0();								// 0x7692A0 ('Avatar %d selected.  Ticket request sent.')
 	void Unknown_7693E0();								// 0x7693E0: Step 17
@@ -130,12 +130,12 @@ public:
 	void Unknown_76A370();								// 0x76A370 (step 18: the fast start, Unknown108C's states 1-3: 'LoginTask: Request Character List.')
 	void Save_Login_Name();								// 0x76AD30: login.ini's LOGIN_DATA Name  // NAME 1: what it does
 	void Load_Login();									// 0x76ADD0: login.ini, -LOGIN, -PASSWORD  // NAME 1: what it does
-	void Unknown_768CB0(LoginCharacterClass *characters, AvatarDescClass *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
+	void Unknown_768CB0(LoginCharacterClass *characters, AvatarDescriptionClass *unknown);	// 0x768CB0: the avatar list's five characters (0x90 bytes each) and five 0x10C entries
 	void Set_Galaxies(const std::list<LoginGalaxyClass> &galaxies);	// 0x769110 (inlined in the avatar list's handler)  // NAME 1: what it does
 	void Handle_Global_Error(GlobalErrorPacketClass *packet);	// 0x76B000 (GlobalErrorPacketClass's handler)  // NAME 1: what it does
 	void Handle_Global_Login(GlobalLoginPacketClass *packet);	// 0x76B170 (inlined in the packet's Process_Packet: 'GlobalLoginPacketClass recv')  // NAME 1: what it does
 	void Send_Referrer(const char *name);				// 0x76B330: opcode 119 (called by 0x55D060: 'Sorry, you cannot refer yourself.')  // NAME 1: what it does
-	void Handle_Referrer_Response(Packet_0078Class *packet);	// 0x76B2F0 (inlined in the packet's Process_Packet)  // NAME 1: what it does
+	void Handle_Referrer_Response(GlobalSetReferrerResponsePacketClass *packet);	// 0x76B2F0 (inlined in the packet's Process_Packet)  // NAME 1: what it does
 	void Kill_Kernel();									// 0x769E40 ('LoginTask: killing kernel and exiting the game')  // NAME 1: what it does
 
 	LoginUnknown0CClass *Unknown000C;					// +0x0C
@@ -152,7 +152,7 @@ public:
 	int Unknown0034;									// +0x34
 	TicketClass Ticket;									// +0x38 NAME 1: handed to ClientTaskClass::Init (step 16)
 	LoginCharacterClass Characters[5];					// +0x80 NAME 1: the character list's slots (Selected indexes them)
-	AvatarDescClass Unknown0350[5];				// +0x350
+	AvatarDescriptionClass Unknown0350[5];				// +0x350
 	ShipCustDescClass Unknown088C[5];				// +0x88C
 	std::list<LoginGalaxyClass> Galaxies;				// +0xF6C (the FAIL_IF 'Galaxies.empty()')
 	unsigned long Galaxy_Address;						// +0xF78 NAME 1: the selected character's galaxy's (0x769400)

@@ -25,11 +25,11 @@ public:
 
 // The camera manager's sixth controller (state 5; vtable 0xB04D4C, 0x18 bytes): the landing at the target SClient
 // +0x13B8, with effect 0x16A on the avatar; after four seconds request 9
-class CameraController05Class : public CameraControllerClass	// NAME 1: neutral (D10)
+class LandCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	CameraController05Class(SClient *client);			// 0x793920
-	virtual ~CameraController05Class();					// 0x793A10, deleting 0x7939E0
+	LandCameraControllerClass(SClient *client);			// 0x793920
+	virtual ~LandCameraControllerClass();					// 0x793A10, deleting 0x7939E0
 	virtual void Unknown_04();							// +0x04 0x793A90
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x793BC0
 	virtual void Unknown_0C();							// +0x0C 0x793C40

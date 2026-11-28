@@ -80,10 +80,10 @@ void UIOptionCheckClass::Unknown_54()
 			Checks[i] = Add_Check_Button(i + 5, name, NULL);
 			if (Unknown_B82D98[Page][i]) {
 				Checks[i]->Unknown_40(true);
-				((RObjGadgetClass *)Checks[i])->Unknown_8C(false);
+				((RenderObjGadgetClass *)Checks[i])->Unknown_8C(false);
 			} else {
 				Checks[i]->Unknown_40(false);
-				((RObjGadgetClass *)Checks[i])->Unknown_8C(true);
+				((RenderObjGadgetClass *)Checks[i])->Unknown_8C(true);
 			}
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
@@ -165,7 +165,7 @@ void UIOptionCheckClass::Unknown_5C9E40(bool on)
 // 0x5C9EB0
 void UIOptionCheckClass::Unknown_5C9EB0()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	for (int i = 0; i < 12; i++) {
 		if (Unknown_B82D98[Page][i]) {
 			BoolOptionStruct *option = options->Find_Bool(Unknown_B82D98[Page][i]);	// NAME 1: neutral (D10)
@@ -179,7 +179,7 @@ void UIOptionCheckClass::Unknown_5C9EB0()
 // 0x5C9F20
 void UIOptionCheckClass::Unknown_5C9F20()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	for (int i = 0; i < 12; i++) {
 		if (Unknown_B82D98[Page][i]) {
 			BoolOptionStruct *option = options->Find_Bool(Unknown_B82D98[Page][i]);	// NAME 1: neutral (D10)

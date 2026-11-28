@@ -75,7 +75,7 @@ void G_Assert_Report(const char *expr, const char *, int line)
 
 // ------------------------------------------------------------------------- the test tasks
 
-class TestTask : public TaskClass
+class TestTask : public KernelTaskClass
 {
 public:
 	TestTask(const char *name, int interval, bool focus, bool yield, bool owned) :
@@ -109,7 +109,7 @@ public:
 	bool Owned;
 	int Runs;
 	int Remove_At;
-	TaskClass *Remove_Other;
+	KernelTaskClass *Remove_Other;
 };
 
 int Tasks_Test(FILE *out, const char *bik);	// taskstest.cpp: the start-up tasks (kernel-map.md 6, step 7)

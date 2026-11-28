@@ -37,7 +37,7 @@ UIMountHullClass::UIMountHullClass(SClient *client, const LayerClass &layer, Ren
 	Model(model)
 {
 	Unknown402 = true;
-	Proxy = new ProxyRObj(false);
+	Proxy = new ProxyRenderObjClass(false);
 }
 
 // 0x58B9B0
@@ -73,8 +73,8 @@ void UIMountHullClass::Unknown_60()
 {
 	ClientObjectClass *ship = ((ClientClass *)Client)->Get_Ship();
 	if (ship) {
-		DeltaCompoundClass *auxdata = (DeltaCompoundClass *)ship->AuxData;
-		NameClass hull("Inventory.Hull");
+		DeltaContainer *auxdata = (DeltaContainer *)ship->AuxData;
+		AuxDataName hull("Inventory.Hull");
 		if (auxdata->Get_Lookup()->Unknown_Test_70_Above_1(hull)) {
 			bool shown = Shown;
 			Unknown_5C();
@@ -169,6 +169,6 @@ void UIMountHullClass::Toggle()
 **
 **	Forms that matter: the base gets layer.Camera read directly (no Peek_Camera call); 0x58B850 copies the bones'
 **	translations into Vector3 locals (only X, Y used: the frame is the client's 0x20); WWMATH_PI / 4.0 makes the
-**	client's double constant; 0x58BA70 loads the auxdata before the NameClass; 0x58BB10 holds the ship's render
+**	client's double constant; 0x58BA70 loads the auxdata before the AuxDataName; 0x58BB10 holds the ship's render
 **	object in a local.
 */

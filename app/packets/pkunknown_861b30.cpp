@@ -2,33 +2,33 @@
 #include "pkunknown_861b30.h"
 #include <stdio.h>
 
-Packet_7534Class::Packet_7534Class(int game_id) : GameID(game_id)
+GameEditorRemovePacketClass::GameEditorRemovePacketClass(int game_id) : GameID(game_id)
 {
 }
 
-Packet_7534Class::Packet_7534Class(RawPacketClass *raw)
+GameEditorRemovePacketClass::GameEditorRemovePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 }
 
-RawPacketClass *Packet_7534Class::Build()
+RawPacketClass *GameEditorRemovePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30004, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
 	return(raw);
 }
 
-int Packet_7534Class::Get_Data_Size()
+int GameEditorRemovePacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID));
 }
 
-int Packet_7534Class::Print(char *buffer, int)
+int GameEditorRemovePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d}", "GameEditorRemove", GameID));
 }
 
-bool Packet_7534Class::Process_Packet(void *)
+bool GameEditorRemovePacketClass::Process_Packet(void *)
 {
 	return(true);
 }

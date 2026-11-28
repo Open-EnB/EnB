@@ -25,7 +25,7 @@
 class GlobalAvatarListPacketClass : public PacketClass  // NAME 2: Net-7's opcode name GLOBAL_AVATAR_LIST (the Net-7 opcode table), the client's Print text 'Avatar List'
 {
 public:
-	GlobalAvatarListPacketClass(LoginCharacterClass *characters, AvatarDescClass *avatars, const std::list<LoginGalaxyClass> *galaxies);	// 0x8629A0  // NAME 1 [characters, avatars, galaxies]: what they hold
+	GlobalAvatarListPacketClass(LoginCharacterClass *characters, AvatarDescriptionClass *avatars, const std::list<LoginGalaxyClass> *galaxies);	// 0x8629A0  // NAME 1 [characters, avatars, galaxies]: what they hold
 	GlobalAvatarListPacketClass(RawPacketClass *raw);	// 0x862D90
 	virtual ~GlobalAvatarListPacketClass();	// +0x00 0x863050 / 0x862C60
 	virtual RawPacketClass *Build();	// +0x04 0x863170
@@ -34,7 +34,7 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x863330
 
 	LoginCharacterClass *Characters;	// +0x0C (five, new[]'d when not given)  // NAME 1: what it points to
-	AvatarDescClass *Avatars;	// +0x10 (five, new[]'d when not given)  // NAME 1: what it points to
+	AvatarDescriptionClass *Avatars;	// +0x10 (five, new[]'d when not given)  // NAME 1: what it points to
 	std::list<LoginGalaxyClass> Galaxies;	// +0x14  // NAME 1: copied to the login task's
 };
 

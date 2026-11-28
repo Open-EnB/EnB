@@ -50,9 +50,9 @@ void Unknown_673EE0Class::Unknown_674120(bool on) { if (on) { Unknown80 = 1; } e
 // @0x674160
 void Unknown_673EE0Class::Unknown_674160(bool on) { if (on) { Unknown80 = 2; } else { Unknown80 = 0; } }
 // @0x6741A0
-UIBackGadget::UIBackGadget(UIMeshClass *mesh, const char *name) : Unknown_675120Class(mesh, name, 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
+UIBackGadget::UIBackGadget(UIMeshClass *mesh, const char *name) : UIMeshGadgetClass(mesh, name, 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
 // @0x674260
-UIBackGadget::UIBackGadget(const RefCountPtr<RenderObjClass> &model) : Unknown_675120Class(model.Peek(), 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
+UIBackGadget::UIBackGadget(const RefCountPtr<RenderObjClass> &model) : UIMeshGadgetClass(model.Peek(), 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
 // @0x6742F0
 UIBackGadget::~UIBackGadget() {}
 class Unknown_AFB77CClass : public Unknown_AFB794Class { public:	// NAME 1: neutral (D10): the target over a model (table 0xAFB77C); NAME 3 [render_object]: 0x6744E0's FAIL_IF; NAME 1 [position, Object]: neutral

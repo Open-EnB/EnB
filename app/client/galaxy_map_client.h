@@ -19,23 +19,23 @@
 #include "..\common\galaxy_map.h"
 
 class SClient;
-class LinearBufferClass;
-class BitSetClass;
+class LinearBuffer;
+class BitSet;
 
 // vtable 0xB057E8 (the deleting destructor 0x7A4970, GalaxyMapClass::Clear), 0xCC bytes
-class GalaxyMapClientClass : public GalaxyMapClass	// NAME 3: class-from-file (D24) for app\client\galaxy_map_client.cpp
+class GalaxyMapClient : public GalaxyMapClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GalaxyMapClientClass();																// 0x7A4830
-	virtual ~GalaxyMapClientClass();													// 0x7A49A0
+	GalaxyMapClient();																// 0x7A4830
+	virtual ~GalaxyMapClient();													// 0x7A49A0
 
 	void Load_Ini();																	// 0x7A4B10  // NAME 2: reads galaxy_map_c.ini's [GalaxyMap]
-	void Unknown_7A4C50(SClient *sclient, LinearBufferClass &buffer);				// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
-	void Unknown_7A4FC0(LinearBufferClass &buffer);									// 0x7A4FC0 (type 5: a system)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A50A0(LinearBufferClass &buffer);									// 0x7A50A0 (types 6, 7, 8, 11: a sector)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A5180(LinearBufferClass &buffer);									// 0x7A5180 (type 9: a gate)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A5260(LinearBufferClass &buffer);									// 0x7A5260 (type 2: ids to remove)  // NAME 1 [buffer]: the packet's data
-	void Unknown_7A52F0(LinearBufferClass &buffer);									// 0x7A52F0 (type 3: the explored bits)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A4C50(SClient *sclient, LinearBuffer &buffer);				// 0x7A4C50 (type 4)  // NAME 1 [sclient, buffer]: what the handler passes
+	void Unknown_7A4FC0(LinearBuffer &buffer);									// 0x7A4FC0 (type 5: a system)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A50A0(LinearBuffer &buffer);									// 0x7A50A0 (types 6, 7, 8, 11: a sector)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5180(LinearBuffer &buffer);									// 0x7A5180 (type 9: a gate)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A5260(LinearBuffer &buffer);									// 0x7A5260 (type 2: ids to remove)  // NAME 1 [buffer]: the packet's data
+	void Unknown_7A52F0(LinearBuffer &buffer);									// 0x7A52F0 (type 3: the explored bits)  // NAME 1 [buffer]: the packet's data
 	bool Unknown_7A5400(const RefCountPtr<GalaxyMapSectorClass> &sector);			// 0x7A5400 (0x7A8B70)  // NAME 1 [sector]: the assert's '!sector'
 	Vector3 Unknown_7A5470(const Vector3 &position);								// 0x7A5470 (0x7AAB60: SystemPosScale, GalaxyShift)  // NAME 1 [position]: what it scales
 	Vector3 Unknown_7A54F0(const Vector3 &position);								// 0x7A54F0 (SectorPosScale)  // NAME 1 [position]: what it scales
@@ -43,7 +43,7 @@ public:
 
 	int Version;																		// +0x78
 	int Unknown7C;																		// +0x7C (0x7A4C50 counts its requests)
-	BitSetClass *Unknown80;																// +0x80 (0x7A52F0's bits; 0x7A5400 tests a sector's GalaxyMapID)
+	BitSet *Unknown80;																// +0x80 (0x7A52F0's bits; 0x7A5400 tests a sector's GalaxyMapID)
 	int Size;																			// +0x84 (100)  // NAME 2: the ini's 'Size'
 	float SystemPosScale;																// +0x88 (1.0f)  // NAME 2: the ini's
 	float SectorPosScale;																// +0x8C (1.0f)  // NAME 2: the ini's

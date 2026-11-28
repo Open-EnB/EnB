@@ -29,7 +29,7 @@ inline Vector3 Unknown_Rotate(const Matrix3D &tm, const Vector3 &v)	// NAME 1: n
 }
 
 // @0x792320
-CameraController06Class::CameraController06Class(SClient *client) :
+DockCameraControllerClass::DockCameraControllerClass(SClient *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),
@@ -40,7 +40,7 @@ CameraController06Class::CameraController06Class(SClient *client) :
 }
 
 // @0x7924E0
-CameraController06Class::~CameraController06Class()
+DockCameraControllerClass::~DockCameraControllerClass()
 {
 	if (Unknown0C) {
 		delete Unknown0C;
@@ -49,14 +49,14 @@ CameraController06Class::~CameraController06Class()
 }
 
 // @0x792560
-void CameraController06Class::Unknown_04()
+void DockCameraControllerClass::Unknown_04()
 {
 	Unknown_792750();
 	Unknown10 = Client->Unknown10BC;
 }
 
 // @0x792590
-void CameraController06Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
+void DockCameraControllerClass::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
 	bool done = true;
@@ -85,7 +85,7 @@ void CameraController06Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 }
 
 // @0x7926B0
-void CameraController06Class::Unknown_0C()
+void DockCameraControllerClass::Unknown_0C()
 {
 	Unknown0C->Unknown_0C();
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -120,7 +120,7 @@ void CameraController06Class::Unknown_0C()
 
 // @0x792750
 // NOT EXACT: registers only (566/566 rows, the client's stack slots; D5 2026-11-24: every call, member offset and constant audited against the client's bytes)
-void CameraController06Class::Unknown_792750()
+void DockCameraControllerClass::Unknown_792750()
 {
 	ClientObjectClass *target = Client->Find_Object(Client->Unknown13AC);
 	bool failed = false;

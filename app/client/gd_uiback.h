@@ -45,8 +45,8 @@ public:
 
 class RenderObjClass;
 
-// The base of the movable gadget and of 0x674C10's class (0x60 bytes, over Unknown_675120Class; ui_bio.cpp's bio tab, ui_cinfo.cpp's character info window and ui_cpit.cpp make it)
-class UIBackGadget : public Unknown_675120Class	// NAME 3: MovableUIBackGadget's base (RTTI); gd_uiback.cpp (D208)
+// The base of the movable gadget and of 0x674C10's class (0x60 bytes, over UIMeshGadgetClass; ui_bio.cpp's bio tab, ui_cinfo.cpp's character info window and ui_cpit.cpp make it)
+class UIBackGadget : public UIMeshGadgetClass	// NAME 3: MovableUIBackGadget's base (RTTI); gd_uiback.cpp (D208)
 {
 public:
 	UIBackGadget(UIMeshClass *mesh, const char *name);	// 0x6741A0 (nothing calls it)  // NAME 1 [mesh, name]: the base's

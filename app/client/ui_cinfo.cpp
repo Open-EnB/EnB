@@ -49,11 +49,11 @@ public:
 
 
 
-static const char *ButtonNames[UICinfoClass::MAX_BUTTONS] = { "not used", "TSI15A.BUTTON00", "TSI15A.BUTTON01", "TSI15A.BUTTON02", "TSI15A.EXIT" };	// 0xB7DA4C  // NAME 1: neutral (D10)
+static const char *ButtonNames[CharacterInfoInterface::MAX_BUTTONS] = { "not used", "TSI15A.BUTTON00", "TSI15A.BUTTON01", "TSI15A.BUTTON02", "TSI15A.EXIT" };	// 0xB7DA4C  // NAME 1: neutral (D10)
 static const char *MenuNames[] = { "ATTRIBUTES_MENU", "MISSIONS_MENU", "FACTION_MENU", NULL };	// 0xB7DA60 (the tooltips of buttons 1..3 and the menu fonts)  // NAME 1: neutral (D10)
 
 // 0x5734D0
-UICinfoClass::UICinfoClass(SClient *client) :
+CharacterInfoInterface::CharacterInfoInterface(SClient *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI15A", 2), client),
 	UnknownAC(0),
 	UnknownB0(1)
@@ -75,31 +75,31 @@ UICinfoClass::UICinfoClass(SClient *client) :
 }
 
 // 0x573770
-UICinfoClass::~UICinfoClass()
+CharacterInfoInterface::~CharacterInfoInterface()
 {
 	Unknown_BE67BC->Unload("fa_cinfo.ini");
 }
 
 // 0x5738B0
-void UICinfoClass::Unknown_54()
+void CharacterInfoInterface::Unknown_54()
 {
 	InterfaceClass::Unknown_54();
-	UnknownB4 = Create_NEW(new UIAttrbSkillsClass(Client->As_Space_Client()));
+	UnknownB4 = Create_NEW(new AttributeSkillsInterface(Client->As_Space_Client()));
 	UnknownB4->Unknown_5417D0(this);
 	UnknownB4->Unknown_54();
-	UnknownB8 = Create_NEW(new UIMissnClass(Client->As_Space_Client()));
+	UnknownB8 = Create_NEW(new MissionInterface(Client->As_Space_Client()));
 	UnknownB8->Unknown_5417D0(this);
 	UnknownB8->Unknown_54();
-	UnknownBC = Create_NEW(new UIFactionClass(Client->As_Space_Client()));
+	UnknownBC = Create_NEW(new FactionInterface(Client->As_Space_Client()));
 	UnknownBC->Unknown_5417D0(this);
 	UnknownBC->Unknown_54();
-	UnknownC0 = Create_NEW(new UIBioClass(Client->As_Space_Client()));
+	UnknownC0 = Create_NEW(new BioInterface(Client->As_Space_Client()));
 	UnknownC0->Unknown_5417D0(this);
 	UnknownC0->Unknown_54();
 }
 
 // 0x573C70
-void UICinfoClass::Unknown_7C(UIViewClass *view, bool arg)
+void CharacterInfoInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	Unknown5BB320Class::Unknown_7C(view, arg);
 	UnknownB4->Unknown_7C(view, false);
@@ -109,7 +109,7 @@ void UICinfoClass::Unknown_7C(UIViewClass *view, bool arg)
 }
 
 // 0x573CE0
-void UICinfoClass::Unknown_58()
+void CharacterInfoInterface::Unknown_58()
 {
 	if (!Active) {
 		Unknown5BB320Class::Unknown_58();
@@ -120,7 +120,7 @@ void UICinfoClass::Unknown_58()
 }
 
 // 0x573D50
-void UICinfoClass::Unknown_5C()
+void CharacterInfoInterface::Unknown_5C()
 {
 	if (Active) {
 		UnknownB0 = UnknownAC;
@@ -131,13 +131,13 @@ void UICinfoClass::Unknown_5C()
 }
 
 // 0x573DA0
-void UICinfoClass::Unknown_60()
+void CharacterInfoInterface::Unknown_60()
 {
 	Unknown5BB320Class::Unknown_60();
 }
 
 // 0x573DC0
-bool UICinfoClass::Unknown_68(int key)
+bool CharacterInfoInterface::Unknown_68(int key)
 {
 	switch (key) {
 	case 1:
@@ -222,7 +222,7 @@ bool UICinfoClass::Unknown_68(int key)
 
 // 0x573E80
 // NOT EXACT: register (the menu fonts' Get_Style arguments load in another register order; 0x5741A0's loop inlined three times)
-void UICinfoClass::Unknown_573E80(int tab)
+void CharacterInfoInterface::Unknown_573E80(int tab)
 {
 	if (tab == UnknownAC) {
 		return;
@@ -276,7 +276,7 @@ void UICinfoClass::Unknown_573E80(int tab)
 
 // 0x5741A0
 // NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried)
-void UICinfoClass::Unknown_5741A0()
+void CharacterInfoInterface::Unknown_5741A0()
 {
 	for (int i = 0; i < 4; i++) {
 		const char *name = MenuNames[i];
@@ -319,7 +319,7 @@ void UICinfoClass::Unknown_5741A0()
 
 
 // 0x574220
-bool UICinfoClass::Unknown_574220(int index)
+bool CharacterInfoInterface::Unknown_574220(int index)
 {
 	int tab;
 	switch (index) {
@@ -351,7 +351,7 @@ bool UICinfoClass::Unknown_574220(int index)
 
 
 // 0x5742B0
-void UICinfoClass::Unknown_5742B0(int index)
+void CharacterInfoInterface::Unknown_5742B0(int index)
 {
 	if (Unknown_574220(index)) {
 		return;

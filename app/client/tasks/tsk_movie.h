@@ -22,7 +22,7 @@
 #include <vector>
 #include "..\..\kernel\kernel.h"
 
-class MovieTaskClass : public TaskClass		// NAME 3: after tsk_movie.cpp and LoginTaskClass (D24)
+class MovieTaskClass : public KernelTaskClass		// NAME 3: after tsk_movie.cpp and LoginTaskClass (D24)
 {
 public:
 	MovieTaskClass();									// 0x76BF40

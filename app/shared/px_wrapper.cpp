@@ -7,10 +7,10 @@
 #include "wwmath.h"
 #include <algorithm>
 
-static void _Collision_Callback(DynObj *a, DynObj *b, int event);
+static void _Collision_Callback(DynamicObjectClass *a, DynamicObjectClass *b, int event);
 
 // 0x4560B0
-PxWrapper::PxWrapper(DynObj *owner) :
+PxWrapper::PxWrapper(DynamicObjectClass *owner) :
 	Owner(owner),
 	Object(NULL),
 	List(NULL),
@@ -26,7 +26,7 @@ PxWrapper::PxWrapper(DynObj *owner) :
 }
 
 // 0x456190
-PxWrapper::PxWrapper(DynObj *owner, const PxWrapper &src) :
+PxWrapper::PxWrapper(DynamicObjectClass *owner, const PxWrapper &src) :
 	Owner(owner),
 	Object(NULL),
 	List(NULL),
@@ -59,7 +59,7 @@ void PxWrapper::Create_Boxes()
 	LooseBox->Set_Self(5);
 	LooseBox->Set_Test(0x1D);
 	LooseBox->Set_Mask(0x15);
-	CallbackBox = new PxOwnerList(Object);
+	CallbackBox = new PxBoxOwnerList(Object);
 	CallbackBox->Set_Test(5);
 	CallbackBox->Set_Mask(5);
 }
@@ -200,7 +200,7 @@ void PxWrapper::Unknown_456890(bool value)
 }
 
 // 0x4568E0
-std::vector<DynObj *> &PxWrapper::Unknown_4568E0()
+std::vector<DynamicObjectClass *> &PxWrapper::Unknown_4568E0()
 {
 	return(CallbackBox->Owners);
 }
@@ -337,7 +337,7 @@ bool PxWrapper::Unknown_4575E0(void *callback)
 }
 
 // 0x457670
-static void _Collision_Callback(DynObj *a, DynObj *b, int event)
+static void _Collision_Callback(DynamicObjectClass *a, DynamicObjectClass *b, int event)
 {
 	WWPROFILE("_Collision_Callback");
 	if (a > b) return;

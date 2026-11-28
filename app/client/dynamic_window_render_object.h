@@ -9,7 +9,7 @@
 **	container interface may sit in a header of their own; dynamic_window_render_object.cpp is the base's
 **	file (0x51C930-0x51D240).
 **
-**	  DynamicWindowElementClass       a ref-counted piece of a window (22 slots; the tables 0xAED490,
+**	  DynamicWindowElement       a ref-counted piece of a window (22 slots; the tables 0xAED490,
 **	                                  0xAEDB84 have those, 0xAED8D0 / 0xAED374 / 0xAED40C two more)
 **	  DynamicWindowContainerClass     the interface a parent gives its children (3 slots, pure: 0xAED3E8)
 **	  DynamicWindowRenderObjectClass  an element shown by a render object (constructor 0x51C930, table
@@ -31,22 +31,22 @@
 
 class RenderObjClass;
 class SceneClass;
-class DynamicWindowElementClass;
+class DynamicWindowElement;
 
 // The parent side of an element (the background and the window: +0x4C; the rows and columns: +0x08)
 class DynamicWindowContainerClass  // NAME 1: from the asserts' 'child' / 'parent' (0x516CA0, 0x51CD50)
 {
 public:
-	virtual void Child_Changed(DynamicWindowElementClass &child) = 0;							// +0x00 (0x516CA0: 'Contents.Peek() == &child')  // NAME 1 [Child_Changed, child]: the assert's 'child'
+	virtual void Child_Changed(DynamicWindowElement &child) = 0;							// +0x00 (0x516CA0: 'Contents.Peek() == &child')  // NAME 1 [Child_Changed, child]: the assert's 'child'
 	virtual void Remove_All_Children(bool recursive) = 0;										// +0x04 (0x516CF0)  // NAME 1 [Remove_All_Children, recursive]: what 0x516CF0 does
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child) = 0;		// +0x08 (0x516D70: FAIL_IF '!child')  // NAME 1 [Remove_Child]: the FAIL_IF's 'child'
+	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElement> &child) = 0;		// +0x08 (0x516D70: FAIL_IF '!child')  // NAME 1 [Remove_Child]: the FAIL_IF's 'child'
 };
 
 // A piece of a window (abstract: 22 slots; the render-object elements add +0x58 / +0x5C)
-class DynamicWindowElementClass : public RefCountClass  // NAME 1: from the asserts' 'element' (0x517770, 0x5180E0)
+class DynamicWindowElement : public RefCountClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	virtual ~DynamicWindowElementClass() {}														// +0x04
+	virtual ~DynamicWindowElement() {}														// +0x04
 	virtual void Set_Min_Size(const Vector2 &min_size) = 0;									// +0x08  // NAME 1 [Set_Min_Size, min_size]: 0x5168F0's 'contents_min_size'
 	virtual void Set_Flags(unsigned int flags) = 0;												// +0x0C  // NAME 1 [Set_Flags, flags]: ORs into +0x3C
 	virtual void Clear_Flags(unsigned int flags) = 0;											// +0x10  // NAME 1 [Clear_Flags, flags]: clears bits of +0x3C
@@ -70,7 +70,7 @@ public:
 };
 
 // An element shown by a render object (0x4C bytes)
-class DynamicWindowRenderObjectClass : public DynamicWindowElementClass  // NAME 2 [DynamicWindowRenderObjectClass]: class from file (D24), dynamic_window_render_object.cpp
+class DynamicWindowRenderObjectClass : public DynamicWindowElement  // NAME 2 [DynamicWindowRenderObjectClass]: class from file (D24), dynamic_window_render_object.cpp
 {
 public:
 	DynamicWindowRenderObjectClass(unsigned int flags);											// 0x51C930  // NAME 1 [flags]: +0x3C

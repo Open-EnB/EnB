@@ -95,18 +95,18 @@ public:
 	bool Message_Ready();											// 0x8235E0 (inlined in Is_Dead): a whole message is in the ring  // NAME 2: what it does
 	void Fill();													// 0x823840 (inlined): the transport into the ring  // NAME 2: what it does
 
-	CircBuffClass Ring;		// +0x08 100,000 bytes  // NAME 2: what it is
+	CircularBufferClass Ring;		// +0x08 100,000 bytes  // NAME 2: what it is
 	char *ReadBuffer;		// +0x20 0x1000 bytes: Transport_Read's  // NAME 2: what it holds
 };
 
 // The peek connection (vtable 0xB0854C, 0x10 bytes; connect.cpp): the manager's wrapper round each
 // connection (Add_Connection 0x822CC0). +0x34 gives the next message without taking it (the
 // manager's Peek 0x8223D0 and Mark 0x8225C0 call it; Get_Packet 0x822490 then takes it with +0x0C)
-class PeekConnectionClass : public ForwardingConnectionClass	// NAME 1: describes what it is
+class BufferedConnectionClass : public ForwardingConnectionClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	PeekConnectionClass(ConnectionClass *connection);				// 0x821C30
-	virtual ~PeekConnectionClass();									// +0x00 0x821EF0 / 0x821F20
+	BufferedConnectionClass(ConnectionClass *connection);				// 0x821C30
+	virtual ~BufferedConnectionClass();									// +0x00 0x821EF0 / 0x821F20
 	virtual PacketClass *Receive();									// +0x0C 0x821FF0: Peek, then clear
 	virtual bool Is_Dead();											// +0x20 0x822040
 	virtual PacketClass *Peek();									// +0x34 0x821FB0  // NAME 2: what it does
@@ -125,10 +125,10 @@ public:
 };
 
 // The manager's listener (+0x24; the destructor 0x8220E0 stops it, 0x822200 asks its port)
-class ConnectionListenerClass	// NAME 1: describes what it is
+class ConnectionSourceClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	virtual ~ConnectionListenerClass() {}							// +0x00
+	virtual ~ConnectionSourceClass() {}							// +0x00
 	virtual bool Is_Listening() = 0;								// +0x04  // NAME 2: what it does
 	virtual unsigned short Get_Port() = 0;							// +0x08  // NAME 2: what it does
 	virtual bool Listen(unsigned short port) = 0;					// +0x0C (UDP 0x82E470)  // NAME 2: what it does
@@ -139,7 +139,7 @@ public:
 // The listener the manager factory 0x822F10 gives a manager (S: '%s is using composite manager'):
 // vtable 0xB0844C, constructor 0x820B30, 0x10 bytes: a TCP, a UDP and a memory listener on one port
 // (unknown_listener.cpp, PROVISIONAL file name).
-class CompositeListenerClass : public ConnectionListenerClass	// NAME 2: the client's log string
+class CompositeListenerClass : public ConnectionSourceClass	// NAME 2: the client's log string
 {
 public:
 	CompositeListenerClass();										// 0x820B30
@@ -150,18 +150,18 @@ public:
 	virtual bool Stop();											// +0x10 0x820E70
 	virtual ConnectionClass *Accept();								// +0x14 0x820EC0
 
-	ConnectionListenerClass *TCP;		// +0x04 a TCPListenerClass (tcpconn.h)  // NAME 2: what it holds
-	ConnectionListenerClass *UDP;		// +0x08 a UDPListenerClass (udpconn.h)  // NAME 2: what it holds
-	ConnectionListenerClass *Memory;	// +0x0C a MemoryListenerClass (memconn.h)  // NAME 2: what it holds
+	ConnectionSourceClass *TCP;		// +0x04 a TCPListenerClass (tcpconn.h)  // NAME 2: what it holds
+	ConnectionSourceClass *UDP;		// +0x08 a UDPListenerClass (udpconn.h)  // NAME 2: what it holds
+	ConnectionSourceClass *Memory;	// +0x0C a MemoryListenerClass (memconn.h)  // NAME 2: what it holds
 };
 
 // One managed connection (8 bytes): Mark sets the flag, Clear_Marks 0x822630 clears them all
 struct ConnectionEntryClass	// NAME 1: describes what it is
 {
-	PeekConnectionClass *Connection;	// +0x00  // NAME 2: what it holds
+	BufferedConnectionClass *Connection;	// +0x00  // NAME 2: what it holds
 	bool Marked;						// +0x04  // NAME 2: what it holds
 	bool Unknown05;						// +0x05 (Set_Unknown05 0x822660)
-	ConnectionEntryClass(PeekConnectionClass *connection) : Connection(connection), Marked(false), Unknown05(false) {}
+	ConnectionEntryClass(BufferedConnectionClass *connection) : Connection(connection), Marked(false), Unknown05(false) {}
 };
 
 // The connection manager (S: 'ConnectionManager: probing port %hd...'; vtable 0xB085D0, constructor
@@ -180,11 +180,11 @@ public:
 
 	unsigned short Get_Port();										// 0x822200: the listener's  // NAME 2: what it does
 	void Set_Name(const char *name);								// 0x822220  // NAME 2: what it does
-	void Set_Listener(ConnectionListenerClass *listener);			// 0x822290 (inlined in the destructor with 0)  // NAME 2: what it does
+	void Set_Listener(ConnectionSourceClass *listener);			// 0x822290 (inlined in the destructor with 0)  // NAME 2: what it does
 	void Accept_New(std::list<ConnectionClass *> *accepted);		// 0x822300: adds the listener's new connections  // NAME 2: what it does
 	bool Set_Unknown05(ConnectionClass *connection, bool on);		// 0x822660: returns the old value
 	bool Remove_Connection(ConnectionClass *connection);			// 0x8226D0  // NAME 2: what it does
-	bool Add_Unwrapped(PeekConnectionClass *connection);			// 0x822790: adds it as it is (no caller)  // NAME 2: what it does
+	bool Add_Unwrapped(BufferedConnectionClass *connection);			// 0x822790: adds it as it is (no caller)  // NAME 2: what it does
 	bool Destroy_Connection(ConnectionClass *connection);			// 0x822A00: removes, disconnects and deletes it  // NAME 2: what it does
 	bool Destroy_All();											// 0x822AD0 (inlined in the destructor)  // NAME 2: what it does
 	bool Remove_Dead(std::list<ConnectionClass *> *removed);		// 0x822B50: deletes the dead connections (not flagged +0x05)  // NAME 2: what it does
@@ -193,10 +193,10 @@ public:
 
 	std::vector<ConnectionEntryClass> Connections;	// +0x04  // NAME 2: what it holds
 	int RoundRobin;						// +0x14 the last connection read  // NAME 2: what it holds
-	PeekConnectionClass *Current;		// +0x18 the connection Get_Packet read  // NAME 2: what it holds
+	BufferedConnectionClass *Current;		// +0x18 the connection Get_Packet read  // NAME 2: what it holds
 	bool Unknown1C;						// +0x1C
 	char *Name;							// +0x20  // NAME 2: what it holds
-	ConnectionListenerClass *Listener;	// +0x24  // NAME 2: what it holds
+	ConnectionSourceClass *Listener;	// +0x24  // NAME 2: what it holds
 };
 
 // The factories (connect.cpp): by network.ini's server type 0x821000 (ClientTask's MODE_JOIN, LoginTask,

@@ -24,7 +24,7 @@
 #include <time.h>
 #include <windows.h>
 #include <string>	// the client object ends with <string>'s guard 0x856870 (CRT entry 791)
-// CordChannelClass and its pool (0x84DF30-0x84F640) are the client's object before this one:
+// CordChannel and its pool (0x84DF30-0x84F640) are the client's object before this one:
 // unknown_84df30.cpp (its notes give the evidence).
 
 
@@ -218,15 +218,15 @@ int CordCon::Unknown_84FA80()
 // (the client's dead store to its slot).
 void CordCon::Add_Channels(int count)
 {
-	CordChannelClass *c = NULL;
+	CordChannel *c = NULL;
 	for (int i = 0; i < count; i++) {
-		c = new CordChannelClass;
+		c = new CordChannel;
 		c->Index = (int)Channels_.size();
 		Channels_.push_back(c);
 	}
 }
 
-CordChannelClass *CordCon::Get_Channel(int channel)
+CordChannel *CordCon::Get_Channel(int channel)
 {
 	while ((int)Channels_.size() <= channel) {
 		Add_Channels(2);
@@ -236,7 +236,7 @@ CordChannelClass *CordCon::Get_Channel(int channel)
 
 #define CORD_MIN(a, b)	((a) < (b) ? (a) : (b))
 
-// 0x84FDE0: the counts UDPConnection reads (Receive, Get_Stats).
+// 0x84FDE0: the counts UDPConnectionClass reads (Receive, Get_Stats).
 void CordCon::getStats(int *messages_sent, int *packets_in, int *bytes_sent, int *bytes_read, int *resends,
 	int *dup_acks, unsigned int *window, unsigned int *in_flight, unsigned int *round_trip, unsigned int *quality, int *idle)
 {
@@ -260,7 +260,7 @@ int CordCon::Pending_Messages()
 	int total = 0;
 	int count = Active_.size();
 	for (int i = 0; i < count; i++) {
-		CordChannelClass *channel = Active_[i];
+		CordChannel *channel = Active_[i];
 		total += channel->Queue.size();
 		total += channel->Sent.size();
 	}
@@ -301,7 +301,7 @@ bool CordCon::openc(unsigned int *channel, int mode, int priority)
 	return true;
 }
 
-// 0x8501A0: marks a channel closed (UDPConnection::Send_Data after a close-channel send).
+// 0x8501A0: marks a channel closed (UDPConnectionClass::Send_Data after a close-channel send).
 bool CordCon::closec(int channel)
 {
 	Channels_[channel]->IsClosed = true;
@@ -388,7 +388,7 @@ bool CordCon::pumpClose()
 
 
 	INFMSG("All data sent, queueing close packet.");
-	CordMessageClass m;
+	CordMessage m;
 	m.Data = new unsigned char[strlen("CLOSE")];
 	memcpy(m.Data, "CLOSE", strlen("CLOSE"));
 	m.Length = strlen("CLOSE");
@@ -419,8 +419,8 @@ bool CordCon::close(bool now)
 	if (now) {
 		int count = Active_.size();
 		for (int i = 0; i < count; i++) {
-			CordChannelClass *c = Active_[i];
-			std::vector<CordMessageClass>::iterator qit = c->Queue.begin();
+			CordChannel *c = Active_[i];
+			std::vector<CordMessage>::iterator qit = c->Queue.begin();
 			while (c->Queue.size() != 0) {
 				(*qit).Free();
 				if (qit->SendCount == 0) {
@@ -428,7 +428,7 @@ bool CordCon::close(bool now)
 				}
 				c->Queue.erase(qit);
 			}
-			std::vector<CordMessageClass>::iterator sit = c->Sent.begin();
+			std::vector<CordMessage>::iterator sit = c->Sent.begin();
 			while (c->Sent.size() != 0) {
 				(*sit).Free();
 				if (sit->SendCount == 0) {
@@ -525,13 +525,13 @@ bool CordCon::write(int channel, unsigned int len, const void *data, int priorit
 	if (len > 0xC800) {
 		return false;
 	}
-	CordChannelClass *c = Channels_[channel];
+	CordChannel *c = Channels_[channel];
 	if (c->IsClosed) {
 		return false;
 	}
 	if (c->Mode == 4) {
 		// a sequenced channel drops what it hasn't sent yet
-		std::vector<CordMessageClass>::iterator it = c->Queue.begin();
+		std::vector<CordMessage>::iterator it = c->Queue.begin();
 		while (it != c->Queue.end()) {
 			if (it->SendCount == 0) {
 				(*it).Free();
@@ -542,7 +542,7 @@ bool CordCon::write(int channel, unsigned int len, const void *data, int priorit
 			}
 		}
 	}
-	CordMessageClass m;
+	CordMessage m;
 	int n = (len + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE;
 	const char *p = (const char *)data;
 	for (int i = 0; i < n; i++) {
@@ -632,12 +632,12 @@ bool CordCon::read(int *channel, int *len, void *buf, bool peek)
 	FAIL_IF(Udp_ == NULL) return false;
 	int count = (int)Ready_.size();
 	for (int r = 0; r < count; r++) {
-		CordChannelClass *c = Ready_[r];
+		CordChannel *c = Ready_[r];
 		bool removed = false;
 		int i = 0;
 		int n = (int)c->Incoming.Length();
 		for (int k = 0; k < n; k++) {
-			CordMessageClass &m = *c->Incoming.Get(i);
+			CordMessage &m = *c->Incoming.Get(i);
 			if (c->Mode == 3) {
 				if (m.Seq < c->Delivered) {
 					m.Free();
@@ -772,9 +772,9 @@ bool CordCon::examinePacket(unsigned char *data, int datalen)
 			return false;
 		}
 		while (channel >= Channels_.size()) {
-			CordChannelClass *c = NULL;
+			CordChannel *c = NULL;
 			for (int k = 0; k < 8; k++) {
-				c = new CordChannelClass;
+				c = new CordChannel;
 				c->Index = Channels_.size();
 				Channels_.push_back(c);
 			}
@@ -973,7 +973,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 {
 	WWPROFILE("CordCon::handlePacket");
 	Xtime current;
-	int acks = 0; CordMessageClass *msg = NULL;
+	int acks = 0; CordMessage *msg = NULL;
 	FAIL_IF(datalen < PACKET_ENCRYPTION_OFFSET) return false;
 	unsigned short counter = ntohs(*(unsigned short *)(data + 3));
 	Encrypt_Data(data + PACKET_ENCRYPTION_OFFSET, datalen - PACKET_ENCRYPTION_OFFSET, counter);
@@ -1067,10 +1067,10 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 
 				INFMSG("This is probably a bug! ACK for non-close message recvd");
 		}
-		CordChannelClass *c = Channels_[channel];
+		CordChannel *c = Channels_[channel];
 		if (kind == 0 || kind == 2) {
 			bool found = false;
-			std::vector<CordMessageClass>::iterator it = c->Sent.begin();
+			std::vector<CordMessage>::iterator it = c->Sent.begin();
 			while (it != c->Sent.end()) {
 				if (kind == 0 ? it->Seq == seq : it->Seq <= seq) {
 					found = true;
@@ -1142,11 +1142,11 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 				DupAcks_++;
 			}
 		} else if (kind == 1) {
-			for (std::vector<CordMessageClass>::iterator it = c->Sent.begin(); it != c->Sent.end(); ++it) {
+			for (std::vector<CordMessage>::iterator it = c->Sent.begin(); it != c->Sent.end(); ++it) {
 				if (it->Seq == seq) {
 					it->SentTime.setDay(0);
 					it->SentTime.setMsec(0);
-					CordMessageClass m = *it;
+					CordMessage m = *it;
 					c->Sent.erase(it);
 					c->Sent.insert(c->Sent.begin(), m);
 					CORD_HARNESS_COUNT(this, ResendRequests);
@@ -1157,7 +1157,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 	}
 
 	// The blocks.
-	CordMessageClass m;
+	CordMessage m;
 	for (;;) {
 		if (pos == datalen) {
 			return true;
@@ -1175,7 +1175,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 		if (channel >= Channels_.size()) {
 			Add_Channels((int)((channel - Channels_.size()) + 3) & ~1);
 		}
-		CordChannelClass *c = Channels_[channel];
+		CordChannel *c = Channels_[channel];
 		c->LastSeq = seq;
 		int mode = type & 0x0F;
 		int bflags = type >> 4;
@@ -1321,7 +1321,7 @@ bool CordCon::handlePacket(unsigned char *data, int datalen)
 			}
 			target = (int)c->Incoming.Length() - 1;
 		}
-		c->Incoming.getPointer(&msg, target); CordMessageClass &t = *msg;
+		c->Incoming.getPointer(&msg, target); CordMessage &t = *msg;
 		t.Fragments[frag] = 1;
 		memcpy(t.Data + frag * CORD_FRAGMENT_SIZE, data + pos, len);
 		if (seq == first) {
@@ -1383,7 +1383,7 @@ bool CordCon::pump(Xtime &now)
 		close(true);
 	}
 	for (size_t i = 1; i < Active_.size(); i++) {
-		CordChannelClass *c = Active_[i];
+		CordChannel *c = Active_[i];
 		if (!c->IsClosed || c->Queue.size() != 0 || c->Sent.size() != 0) {
 			continue;
 		}
@@ -1438,7 +1438,7 @@ bool CordCon::pumpInternal(Xtime &now)
 	int reliable = 0;
 	int resent = 0;
 	unsigned short counter = 0;
-	CordMessageClass *m;
+	CordMessage *m;
 	pumpClose();
 	expiry.setDay(0);
 	expiry.setMsec(Stats_->RoundTrip * 6);
@@ -1450,9 +1450,9 @@ bool CordCon::pumpInternal(Xtime &now)
 		ExpireCountdown_ = 8;
 		int count = Active_.size();
 		for (int i = 0; i < count; i++) {
-			CordChannelClass *c = Active_[i];
+			CordChannel *c = Active_[i];
 			if (c->Mode == 1 || c->Mode == 4) {
-				index = 0; std::vector<CordMessageClass>::iterator it = c->Sent.begin();
+				index = 0; std::vector<CordMessage>::iterator it = c->Sent.begin();
 				while (it != c->Sent.end()) {
 					if (it->SendCount != 0 && (current - it->SentTime) > expiry) {
 						Stats_->InFlight -= it->Length;
@@ -1834,7 +1834,7 @@ bool CordCon::pumpInternal(Xtime &now)
 				Channels_[channel]->Sent.push_back(*m);
 				Channels_[channel]->Queue.erase(Channels_[channel]->Queue.begin() + index);
 			} else if (m != &Channels_[channel]->Sent.back()) {
-				CordMessageClass copy = *m;
+				CordMessage copy = *m;
 				Channels_[channel]->Sent.erase(Channels_[channel]->Sent.begin() + index);
 				Channels_[channel]->Sent.push_back(copy);
 			}
@@ -1866,7 +1866,7 @@ bool CordCon::pumpInternal(Xtime &now)
 // record's + the channel's priority (unreliable mode-1 records are never resent). The highest
 // wins; when the window is full the first resend found does. Every channel looked at with
 // records gets LastWrite = now.
-bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessageClass **msg, Xtime &now)
+bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &threshold, CordMessage **msg, Xtime &now)
 {
 	WWPROFILE("CordCon::getHighestPriorityMessage");
 	int best = -999999;
@@ -1882,7 +1882,7 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &thresho
 		}
 		int n = Active_.size();
 		for (int i = 0; i < n; i++) {
-			CordChannelClass *c = Active_[i];
+			CordChannel *c = Active_[i];
 			int count;
 			if (pass == 0) {
 				count = c->Sent.size();
@@ -1896,7 +1896,7 @@ bool CordCon::getHighestPriorityMessage(int *channel, int *index, Xtime &thresho
 				if (c->Mode == 4 && k != count - 1) {
 					continue;
 				}
-				CordMessageClass *m;
+				CordMessage *m;
 				if (pass == 0) {
 					m = &c->Sent[k];
 				} else {
@@ -2073,7 +2073,7 @@ bool CordCon::buildMsgHeader(unsigned char *out, int *len, int size, int channel
 // 0x855100: an empty message on channel 0 (pump: to carry acks, the keep-alive).
 void CordCon::Queue_Empty_Message()
 {
-	CordMessageClass m;
+	CordMessage m;
 	m.Length = 0;
 	m.TotalLength = 0;
 	m.Data = NULL;
@@ -2109,7 +2109,7 @@ bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)
 		if (acks >= 8) {
 			break;
 		}
-		CordChannelClass *c = Active_[i];
+		CordChannel *c = Active_[i];
 		if (c->Mode == 3 && c->ToAck.length() != 0 && c->Expected >= 2) {
 			int any = 0;
 			int k = 0;

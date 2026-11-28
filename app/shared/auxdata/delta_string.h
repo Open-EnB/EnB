@@ -23,18 +23,18 @@
 #include "..\kv_pair_string.h"
 
 // vtable 0xAEB0E4, size 0x88
-class DeltaStringClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta_string.cpp
+class DeltaString : public DeltaClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	DeltaStringClass(const char *name, const char *string = "");			// 0x4A78F0 (the default: DeltaItemArrayClass<DeltaStringClass>, 0x701B60)
-	virtual ~DeltaStringClass();														// +0x04 0x4A79E0
+	DeltaString(const char *name, const char *string = "");			// 0x4A78F0 (the default: DeltaItemArrayClass<DeltaString>, 0x701B60)
+	virtual ~DeltaString();														// +0x04 0x4A79E0
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A7E60
-	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A7CA0
-	virtual bool Write(LinearBufferClass &buf);									// +0x30 0x4A7BB0
+	virtual bool Read(LinearBuffer &buf, const DurationClass &base);	// +0x2C 0x4A7CA0
+	virtual bool Write(LinearBuffer &buf);									// +0x30 0x4A7BB0
 
 	void Assign(const char *s);														// 0x4A7A10  // NAME 2: describes what it does
 	void Set(const char *s);															// 0x4A7AA0 (Assign if it differs)  // NAME 2: describes what it does
-	DeltaStringClass &operator=(const DeltaStringClass &that);				// 0x4A7DC0
+	DeltaString &operator=(const DeltaString &that);				// 0x4A7DC0
 	const char *Get() const { return String; }  // NAME 2: describes what it does
 
 	char *String;						// +0x84 (the asserts' name)

@@ -2,13 +2,13 @@
 #include "unknown_66b770.h"
 
 Unknown_66B770Class::Unknown_66B770Class(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags) :
-	RObjGadgetClass(robj, layer, mask),
+	RenderObjGadgetClass(robj, layer, mask),
 	Unknown60(flags)
 {
 }
 
 Unknown_66B770Class::Unknown_66B770Class(RenderObjClass *robj, unsigned int mask, unsigned int flags) :
-	RObjGadgetClass(robj, mask),
+	RenderObjGadgetClass(robj, mask),
 	Unknown60(flags)
 {
 }

@@ -58,7 +58,7 @@ void UIRadioMainClass::Unknown_58()
 		ChatPanelUIBase::Unknown_58();
 		Unknown_5EA260(true);
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 	}
 }
@@ -226,11 +226,11 @@ void UIRadioMainClass::Unknown_5EA260(bool on)
 		}
 	}
 	if (State == 1 || State == 3 || Channel == "") {
-		((RObjGadgetClass *)Buttons[2])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Buttons[2])->Unknown_8C(true);
 		Buttons[2]->Unknown_40(false);
 	}
 	if (State == 2) {
-		((RObjGadgetClass *)Buttons[3])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Buttons[3])->Unknown_8C(true);
 		Buttons[3]->Unknown_40(false);
 	}
 }

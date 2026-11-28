@@ -26,7 +26,7 @@ public:
 
 
 // @0x5DAE90
-UIPopupBrowserClass::UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url) :
+PopupBrowserInterface::PopupBrowserInterface(SClient *client, int browser_id, const char *title, const char *url) :
 	ChatPanelUIBase(client)
 {
 
@@ -46,7 +46,7 @@ UIPopupBrowserClass::UIPopupBrowserClass(SClient *client, int browser_id, const 
 }
 
 // @0x5DB170
-UIPopupBrowserClass::~UIPopupBrowserClass()
+PopupBrowserInterface::~PopupBrowserInterface()
 {
 	if (Active) {
 		Unknown_7CA2D0()->Unknown_7CB240(UnknownC8);
@@ -76,7 +76,7 @@ const char *Unknown_BE5D70[1];	// NAME 1: neutral (D10)
 
 
 // @0x5DB2D0
-void UIPopupBrowserClass::Unknown_54()
+void PopupBrowserInterface::Unknown_54()
 {
 	if (Unknown_98("JWEB01", "fc_jweb01.ini")) {
 		ExitButton = Add_Button(1, Unknown_B8463C[0], Unknown_BE5D70[0]);
@@ -93,7 +93,7 @@ void UIPopupBrowserClass::Unknown_54()
 }
 
 // @0x5DB4A0
-void UIPopupBrowserClass::Unknown_58()
+void PopupBrowserInterface::Unknown_58()
 {
 	if (!Active) {
 		ChatPanelUIBase::Unknown_58();
@@ -102,7 +102,7 @@ void UIPopupBrowserClass::Unknown_58()
 }
 
 // @0x5DB4E0
-void UIPopupBrowserClass::Unknown_5C()
+void PopupBrowserInterface::Unknown_5C()
 {
 	if (Active) {
 		Unknown_7CA2D0()->Unknown_7CB240(UnknownC8);
@@ -112,7 +112,7 @@ void UIPopupBrowserClass::Unknown_5C()
 }
 
 // @0x5DB530
-bool UIPopupBrowserClass::Unknown_68(int id)
+bool PopupBrowserInterface::Unknown_68(int id)
 {
 	((LineDisplayClientClass *)Client)->As_Space_Client();
 	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -126,7 +126,7 @@ bool UIPopupBrowserClass::Unknown_68(int id)
 }
 
 // @0x5DB580
-void UIPopupBrowserClass::Unknown_60()
+void PopupBrowserInterface::Unknown_60()
 {
 	if (UnknownA4 && --UnknownA4 == 0) {
 		RenderObjClass *browser = InterfaceMesh->Get_Sub_Object_By_Name("BROWSER");

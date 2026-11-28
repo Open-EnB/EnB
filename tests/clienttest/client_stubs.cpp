@@ -3,7 +3,7 @@
 // aren't rebuilt (or aren't compiled into the harness). Each appends one line to the trace and does
 // nothing else; where a caller branches on the result, the result is the harness's (clienttest.h).
 //
-// Not run, by design (D69): SOptionsClass's constructor 0x75A280 reads the registry, so soptions.cpp is
+// Not run, by design (D69): SpaceClientOptionsClass's constructor 0x75A280 reads the registry, so soptions.cpp is
 // not compiled in and every member SClient reaches is a stand-in below (app.lib's soptions.obj is then never
 // pulled: one member missing here and the linker brings it in, LNK2005 on the others).
 #include <windows.h>
@@ -27,18 +27,18 @@
 
 // ------------------------------------------------------------------------- soptions.cpp (registry: never run)
 
-SOptionsClass::SOptionsClass() { Trace("stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)"); }
-SOptionsClass::~SOptionsClass() { Trace("stub SOptionsClass::~SOptionsClass"); }
-unsigned SOptionsClass::Set_Camera_Mode(unsigned cameramode) { Trace("stub SOptionsClass::Set_Camera_Mode %u", cameramode); return(cameramode); }
-void SOptionsClass::Unknown_75A570() { Trace("stub SOptionsClass::Unknown_75A570"); }
-void SOptionsClass::Unknown_75A5A0() { Trace("stub SOptionsClass::Unknown_75A5A0"); }
-unsigned SOptionsClass::Unknown_75A5D0() { Trace("stub SOptionsClass::Unknown_75A5D0"); return(0); }
-void SOptionsClass::Load_Camera_Mode(INIClass &, const char *section) { Trace("stub SOptionsClass::Load_Camera_Mode %s", section); }
+SpaceClientOptionsClass::SpaceClientOptionsClass() { Trace("stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)"); }
+SpaceClientOptionsClass::~SpaceClientOptionsClass() { Trace("stub SOptionsClass::~SOptionsClass"); }
+unsigned SpaceClientOptionsClass::Set_Camera_Mode(unsigned cameramode) { Trace("stub SOptionsClass::Set_Camera_Mode %u", cameramode); return(cameramode); }
+void SpaceClientOptionsClass::Unknown_75A570() { Trace("stub SOptionsClass::Unknown_75A570"); }
+void SpaceClientOptionsClass::Unknown_75A5A0() { Trace("stub SOptionsClass::Unknown_75A5A0"); }
+unsigned SpaceClientOptionsClass::Unknown_75A5D0() { Trace("stub SOptionsClass::Unknown_75A5D0"); return(0); }
+void SpaceClientOptionsClass::Load_Camera_Mode(INIClass &, const char *section) { Trace("stub SOptionsClass::Load_Camera_Mode %s", section); }
 
 // ------------------------------------------------------------------------- the main view's radar (mainview.cpp's 0x512A00)
 
 // the radar's 0x7BCA70: written by hand for its trace (whether the scene is set); gen_stubs.py writes the +0x84 object's 0x7B6BD0
-void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *, StarmapPipClass *arg, const RefCountPtr<RefCountClass> &scene)
+void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *, StarmapPIPClass *arg, const RefCountPtr<RefCountClass> &scene)
 {
 	Trace("stub RadarSystemClass::Unknown_7BCA70 %s, scene %s", arg ? "an object" : "NULL", scene.Peek() ? "set" : "NULL");
 }
@@ -94,7 +94,7 @@ void ClientLegoRootClass::Unknown_732690() {}
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
 
-// eff_o.cpp (app.lib) defines EffectObjectClass's members and UnknownB0009CEffectClass's Unknown_28 / _30 / _38 since EF1; no stand-ins here
+// eff_o.cpp (app.lib) defines EffectObjectClass's members and BinaryEffectClass's Unknown_28 / _30 / _38 since EF1; no stand-ins here
 // influence.cpp (app.lib) defines Unknown86CRecordClass, the third list's records, since O5b (2026-11-13b): no stand-in here
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)
@@ -113,32 +113,32 @@ static struct Clienttest_Sound_Manager { Clienttest_Sound_Manager() { SoundManag
 // ui_line_display.h declares them (non-virtual: same mangling); clienttest.cpp points LineDisplay at a fake. The
 // constructor Init calls stands in here too: from app.lib it would pull ui_line_display.obj (LNK2005 on these)
 class LineDisplayClientClass;
-class UILineDisplayClass
+class LineDisplayInterface  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UILineDisplayClass(LineDisplayClientClass *client);
+	LineDisplayInterface(LineDisplayClientClass *client);
 	void Add_Line(const char *text, int display_time, const char *font, int priority);
 	void Add_Line_7(const char *text, int display_time, const char *font);
 	void Add_Line_3(const char *text, int display_time, const char *font);
 	void Show_Ephemeral(const char *type);
 	void Flush_Lines();
 };
-UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *) { Trace("stub UILineDisplayClass::UILineDisplayClass"); }
-void UILineDisplayClass::Add_Line(const char *text, int display_time, const char *font, int priority) { Trace("stub UILineDisplayClass::Add_Line '%s' %d '%s' %d", text ? text : "(null)", display_time, font ? font : "(null)", priority); }
-void UILineDisplayClass::Add_Line_7(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_7 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
-void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_3 '%s' %d '%s'", Chat_Trace_Text(text).c_str(), display_time, font ? font : "(null)"); }
-void UILineDisplayClass::Show_Ephemeral(const char *type) { Trace("stub UILineDisplayClass::Show_Ephemeral '%s'", type ? type : "(null)"); }
-void UILineDisplayClass::Flush_Lines() { Trace("stub UILineDisplayClass::Flush_Lines"); }
+LineDisplayInterface::LineDisplayInterface(LineDisplayClientClass *) { Trace("stub UILineDisplayClass::UILineDisplayClass"); }
+void LineDisplayInterface::Add_Line(const char *text, int display_time, const char *font, int priority) { Trace("stub UILineDisplayClass::Add_Line '%s' %d '%s' %d", text ? text : "(null)", display_time, font ? font : "(null)", priority); }
+void LineDisplayInterface::Add_Line_7(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_7 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
+void LineDisplayInterface::Add_Line_3(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_3 '%s' %d '%s'", Chat_Trace_Text(text).c_str(), display_time, font ? font : "(null)"); }
+void LineDisplayInterface::Show_Ephemeral(const char *type) { Trace("stub UILineDisplayClass::Show_Ephemeral '%s'", type ? type : "(null)"); }
+void LineDisplayInterface::Flush_Lines() { Trace("stub UILineDisplayClass::Flush_Lines"); }
 
 // shiputils.cpp is compiled into clienttest (clienttest.py's APP) with its real 0x80FF20 renamed: the real one builds a
-// Font32Class from ship_font.tga (SurfaceClass -> DX8Wrapper::_Create_DX8_Surface), which needs a device
+// Font32Bit from ship_font.tga (SurfaceClass -> DX8Wrapper::_Create_DX8_Surface), which needs a device
 void Unknown_80FF20(RenderObjClass *, const char *, float *)
 {
 	Trace("gen Unknown_80FF20");	// the line gen_stubs.py's stand-in wrote
 }
 
 // ui_talkt.cpp (compiled in, its 0x64EED0 renamed): the real one would close the fake object's ActiveUI
-void UITalkTreeClass::Unknown_64EED0() { Trace("gen UITalkTreeClass::Unknown_64EED0"); }
+void TalkTreeInterface::Unknown_64EED0() { Trace("gen UITalkTreeClass::Unknown_64EED0"); }
 
 // ------------------------------------------------------------------------- the asserts and the debug log
 

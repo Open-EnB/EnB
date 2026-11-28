@@ -19,7 +19,7 @@
 #include "unknown_6e1ab0.h"
 #include "..\shared\g_assert.h"
 
-class Line2DClass : public Unknown6E1AB0Class  // NAME 2 [Line2DClass]: the header's name, Westwood's Class suffix (as Rect3DClass)
+class Line2DClass : public Unknown6E1AB0Class  // NAME 2 [Line2DClass]: the header's name, Westwood's Class suffix (as Rectangle3DClass)
 {
 public:
 	Line2DClass(const Vector4 &color, const Vector2 &from, const Vector2 &to, float width);	// 0x6DF890  // NAME 1 [color, from, to, width]: what it does with them

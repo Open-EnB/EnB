@@ -98,10 +98,10 @@ public:
 	AvatarCreationInterface(UIViewClass *view, LayerClass *layer, bool keep);	// 0x553AF0 (ui_avatr.cpp)  // NAME 1 [view, layer, keep]: as ui_avatr.cpp's
 	char Unknown84[0x2F8 - 0x84];
 };
-class Unknown615A50InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 5
+class ShardInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x615A50  // NAME 1 [view, layer]: as LoginInterface's
+	ShardInterface(UIViewClass *view, LayerClass *layer);	// 0x615A50  // NAME 1 [view, layer]: as LoginInterface's
 	char Unknown84[0xEC - 0x84];
 };
 // mode 6: ShipCustomizeInterface (ui_shipcust.h; the lines it held kept blank, so the FAIL_IFs below keep the client's __LINE__)
@@ -272,7 +272,7 @@ void CharacterViewClass::Unknown_08()
 			Unknown1B4 = new AvatarCreationInterface(this, Unknown074, 0);
 			break;
 		case 5:
-			Unknown1B4 = new Unknown615A50InterfaceClass(this, Unknown074);
+			Unknown1B4 = new ShardInterface(this, Unknown074);
 			break;
 		case 6:
 			Unknown1B4 = new Unknown622180InterfaceClass(this, Unknown074, Unknown1B0 == 5, 0);
@@ -535,15 +535,15 @@ void CharacterViewClass::Unknown_67A3F0()
 
 // 0x67A440 (the environment maps read through Unknown_Inline_Env_Maps: this in esi, the copy in edi, as the
 // client has them; CV2)
-void CharacterViewClass::Unknown_67A440(AvatarDescClass *desc, bool copy)
+void CharacterViewClass::Unknown_67A440(AvatarDescriptionClass *desc, bool copy)
 {
 	if (AvatarRObj == NULL) {
 		if (copy) {
-			AvatarDescClass *fresh = new AvatarDescClass(desc->Race, desc->Profession, desc->Gender);
-			AvatarRObj = new CharacterViewAvatarClass(fresh, 1, 1, Unknown_Inline_Env_Maps(this));
+			AvatarDescriptionClass *fresh = new AvatarDescriptionClass(desc->Race, desc->Profession, desc->Gender);
+			AvatarRObj = new AvatarClass(fresh, 1, 1, Unknown_Inline_Env_Maps(this));
 			delete fresh;
 		} else {
-			AvatarRObj = new CharacterViewAvatarClass(desc, 1, 1, Unknown_Inline_Env_Maps(this));
+			AvatarRObj = new AvatarClass(desc, 1, 1, Unknown_Inline_Env_Maps(this));
 		}
 		G_ASSERT(AvatarRObj);
 		if (AvatarRObj) {
@@ -582,8 +582,8 @@ void CharacterViewClass::Unknown_67A670()
 void CharacterViewClass::Unknown_67A6C0()
 {
 	if (NarratorRObj == NULL && ViewRObjs[4] != NULL) {
-		AvatarDescClass *desc = new AvatarDescClass(1, (const char *)NULL);
-		NarratorRObj = new CharacterViewAvatarClass(desc, 1, 0, NULL);
+		AvatarDescriptionClass *desc = new AvatarDescriptionClass(1, (const char *)NULL);
+		NarratorRObj = new AvatarClass(desc, 1, 0, NULL);
 		delete desc;
 		G_ASSERT(NarratorRObj);
 		if (NarratorRObj) {
@@ -1244,16 +1244,16 @@ void CharacterViewClass::Unknown_67BF20()
 {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
-			AvatarDescClass *male = new AvatarDescClass(i, j, 0);
-			AvatarDescClass *female = new AvatarDescClass(i, j, 1);
+			AvatarDescriptionClass *male = new AvatarDescriptionClass(i, j, 0);
+			AvatarDescriptionClass *female = new AvatarDescriptionClass(i, j, 1);
 			male->Body_Weight[0] = 0.5f;
 			male->Body_Weight[4] = 0.25f;
 			male->Body_Weight[3] = 0.25f;
 			female->Body_Weight[0] = 0.5f;
 			male->Body_Weight[2] = 0.25f;
 			female->Body_Weight[1] = 0.25f;
-			Unknown3B8[i][j][0] = new CharacterViewAvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
-			Unknown3B8[i][j][1] = new CharacterViewAvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
+			Unknown3B8[i][j][0] = new AvatarClass(male, 1, 0, Unknown_Inline_Env_Maps(this));
+			Unknown3B8[i][j][1] = new AvatarClass(female, 1, 0, Unknown_Inline_Env_Maps(this));
 			delete male;
 			delete female;
 		}

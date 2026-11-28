@@ -371,7 +371,7 @@ public:
 	unsigned Get_Total_Allocated_Size();
 	unsigned Get_Total_Allocation_Count();
 	unsigned Get_Total_Actual_Memory_Usage() { return ActualMemoryUsage; }
-	void Unknown_Reset_Statistics();	unsigned Get_Fast_Allocated_Size(); unsigned Get_Fast_Allocation_Count(); friend class FrameInterfaceClass; friend class SBaseViewClass;	// E&B (0x9DADA0; the rest: frameint.cpp)
+	void Unknown_Reset_Statistics();	unsigned Get_Fast_Allocated_Size(); unsigned Get_Fast_Allocation_Count(); friend class FrameInterfaceClass; friend class StarbaseViewClass;	// E&B (0x9DADA0; the rest: frameint.cpp)
 
 	static FastAllocatorGeneral* Get_Allocator();
 
@@ -680,4 +680,4 @@ void main(){
 //       / 0x53F250 are defined in frameint.cpp, where the client has them): FrameInterfaceClass is a friend and reads the
 //       members itself; four inline getters here instead moved wwprofile.cpp's Log_Intermediate 0x9EBF20 frame
 //       (even as plain declarations; tryv2, G1 2026-11-12)
-//       SBaseViewClass is a friend too: the starbase view's 0x6A1180 has the same page, the two sums inlined
+//       StarbaseViewClass is a friend too: the starbase view's 0x6A1180 has the same page, the two sums inlined

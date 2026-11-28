@@ -12,18 +12,18 @@ enum
 };
 
 // One cursor: its texture and hot spot (smouse.cpp's software mouse reads them)
-struct MouseCursorStruct  // NAME 1: neutral (D10)
+struct MouseCursorEntry  // NAME 5: thunk order, binary.md 5.11
 {
-	MouseCursorStruct(int idx, const char *name, float hot_x, float hot_y);			// 0x722770  // NAME 1 [name, hot_x, hot_y]: what it does with them
-	MouseCursorStruct(int idx, RenderObjClass *robj, float hot_x, float hot_y);	// 0x7227F0  // NAME 1 [robj, hot_x, hot_y]: as above
-	~MouseCursorStruct();														// 0x722890
+	MouseCursorEntry(int idx, const char *name, float hot_x, float hot_y);			// 0x722770  // NAME 1 [name, hot_x, hot_y]: what it does with them
+	MouseCursorEntry(int idx, RenderObjClass *robj, float hot_x, float hot_y);	// 0x7227F0  // NAME 1 [robj, hot_x, hot_y]: as above
+	~MouseCursorEntry();														// 0x722890
 
 	TextureClass *Texture;		// +0x00
 	int HotX;					// +0x04: the hot spot, pixels  // NAME 1: neutral (D10)
 	int HotY;					// +0x08  // NAME 1: neutral (D10)
 };
 
-extern MouseCursorStruct *Unknown_BE7C70[MCURSOR_MAX];	// 0xBE7C70: the table, by cursor number  // NAME 1 [Unknown_BE7C70]: neutral (D10)
+extern MouseCursorEntry *Unknown_BE7C70[MCURSOR_MAX];	// 0xBE7C70: the table, by cursor number  // NAME 1 [Unknown_BE7C70]: neutral (D10)
 
 void Unknown_7228C0();		// 0x7228C0: load the table (reference counted)  // NAME 1 [Unknown_7228C0]: neutral (D10)
 void Unknown_723150();		// 0x723150: unload it  // NAME 1 [Unknown_723150]: neutral (D10)

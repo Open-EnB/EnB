@@ -70,7 +70,7 @@ void Unknown6AF220Class::Unknown_54()
 				}
 			}
 		}
-		((RObjGadgetClass *)Buttons[3])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Buttons[3])->Unknown_8C(true);
 		for (i = 0; i < 7; i++) {
 			_snprintf(name, 0x20, "name%02d", i);
 			Rows[i] = Add_Button(i + 6, name, NULL);
@@ -99,7 +99,7 @@ void Unknown6AF220Class::Unknown_58()
 		Unknown_6B02C0(0);
 		Unknown_6B0940(true);
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 		ChatPanelUIBase::Unknown_58();
 	}
@@ -286,7 +286,7 @@ void Unknown6AF220Class::Unknown_6B0C80()
 {
 	int index = Selected;
 	if (index != -1) {
-		GMDestroyItemPacketClass packet(Unknown104, Items[index].c_str(), false);
+		GMDestroyItemRequestPacketClass packet(Unknown104, Items[index].c_str(), false);
 		((ClientClass *)Client)->Send_Packet(&packet);
 		Items.erase(Items.begin() + index);
 		Unknown_6B0F30(0);
@@ -296,7 +296,7 @@ void Unknown6AF220Class::Unknown_6B0C80()
 // 0x6B0E90
 void Unknown6AF220Class::Unknown_6B0E90()
 {
-	GMDestroyItemPacketClass packet(Unknown104, NULL, true);
+	GMDestroyItemRequestPacketClass packet(Unknown104, NULL, true);
 	((ClientClass *)Client)->Send_Packet(&packet);
 	Unknown_5C();
 	Closed = 1;

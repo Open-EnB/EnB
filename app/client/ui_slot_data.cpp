@@ -57,13 +57,13 @@ public:
 UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data);	// 0x630280 (ui_slot_info.cpp: an item's examination or a skill's information)  // NAME 1 [client, slot_data]: what 0x62DF90 passes
 
 // ui_slot_scut.cpp's shortcut gadgets of a slot interface (0x60 bytes), as this file calls it (ui_slot_scut.h declares it whole)
-class SlotDataShortcutInterface : public UIScutGadgetsClass	// NAME 5: the client's RTTI
+class SlotDataShortcutInterface : public ShortcutGadgetsInterface	// NAME 5: the client's RTTI
 {
 public:
 	SlotDataShortcutInterface(SlotDataInterface *slot_iface, const std::string &name, SClient *sclient);	// 0x630490  // NAME 3 [slot_iface]: the FAIL_IF's; NAME 2 [name, sclient]: the base's
-	virtual RObjGadgetClass *Unknown_0C(int slot);		// +0x0C 0x631000  // NAME 2 [slot]: as ui_slot_scut.h's
-	virtual bool Unknown_10(RObjGadgetClass *gadget, std::string &key);	// +0x10 0x631540  // NAME 2 [gadget, key]: as ui_slot_scut.h's
-	virtual RObjGadgetClass *Unknown_14(const char *key);	// +0x14 0x631270  // NAME 3 [key]: as ui_slot_scut.h's
+	virtual RenderObjGadgetClass *Unknown_0C(int slot);		// +0x0C 0x631000  // NAME 2 [slot]: as ui_slot_scut.h's
+	virtual bool Unknown_10(RenderObjGadgetClass *gadget, std::string &key);	// +0x10 0x631540  // NAME 2 [gadget, key]: as ui_slot_scut.h's
+	virtual RenderObjGadgetClass *Unknown_14(const char *key);	// +0x14 0x631270  // NAME 3 [key]: as ui_slot_scut.h's
 	virtual int Unknown_18();							// +0x18 0x6315C0
 	char Unknown48[0x60 - 0x48];
 };
@@ -260,7 +260,7 @@ void SlotDataInterface::Unknown_7C(UIViewClass *view, bool arg)
 		if (ShortcutUI) {
 			if (!view) return;
 			if (view == main_view) {
-				ShortcutUI->Set_UI(Create_Peek((UIScutClass *)main_view->Unknown_514400()));
+				ShortcutUI->Set_UI(Create_Peek((ShortcutInterface *)main_view->Unknown_514400()));
 			}
 		}
 		if (view) {
@@ -309,7 +309,7 @@ void SlotDataInterface::Unknown_64()
 }
 
 // 0x62E8B0
-bool SlotDataInterface::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask)
+bool SlotDataInterface::Unknown_98(SlotDataGadget *gadget, KernelEventClass *event, unsigned int mask)
 {
 	bool right = (mask & 0xF0) != 0;
 	if (right) {
@@ -561,7 +561,7 @@ bool SlotDataInterface::Unknown_62EAA0(unsigned int notches, unsigned int notch_
 // 0x62EB90
 void SlotDataInterface::Unknown_B4(int slot, int index)
 {
-	SlotDataGadgetClass *gadget = Buttons[index];
+	SlotDataGadget *gadget = Buttons[index];
 	FAIL_IF(!gadget) return;
 	if (index < VisibleButtons && slot != -1) {
 		gadget->Unknown_40(true);
@@ -651,7 +651,7 @@ void SlotDataInterface::Unknown_B8(bool arg)
 {
 	int count = Buttons.size();
 	for (int i = 0; i < count; i++) {
-		SlotDataGadgetClass *gadget = Buttons[i];
+		SlotDataGadget *gadget = Buttons[i];
 		FAIL_IF(!gadget) continue;
 		gadget->Unknown_A8(arg);
 	}
@@ -696,14 +696,14 @@ void SlotDataInterface::Unknown_BC()
 
 
 // 0x62EF80
-SlotDataGadgetClass *SlotDataInterface::Unknown_AC(RenderObjClass *robj, const int *slot)
+SlotDataGadget *SlotDataInterface::Unknown_AC(RenderObjClass *robj, const int *slot)
 {
 	FAIL_IF(!robj) return(NULL);
 	SlotDataRenderClass *slot_render = Unknown_6A90A0(0, (Unknown6A90A0Interface *)this, robj);
 
 	FAIL_IF(!slot_render) return(NULL);
 	int index = Buttons.size();
-	SlotDataGadgetClass *bttn = new SlotDataGadgetClass((SlotDataIFaceClass *)this, slot_render);
+	SlotDataGadget *bttn = new SlotDataGadget((SlotDataIFaceClass *)this, slot_render);
 	slot_render->Release_Ref();
 
 
@@ -775,7 +775,7 @@ bool SlotDataInterface::Unknown_C0(RefCountPtr<RenderObjClass> &robj, const char
 
 
 // 0x62F290
-SlotDataGadgetClass *SlotDataInterface::Unknown_62F290(unsigned int idx)
+SlotDataGadget *SlotDataInterface::Unknown_62F290(unsigned int idx)
 {
 	FAIL_IF(idx >= Buttons.size()) return(NULL);
 	return(Buttons[idx]);
@@ -827,7 +827,7 @@ void SlotDataInterface::Unknown_62F4D0(RefCountPtr<RenderObjClass> &frame, int i
 void SlotDataInterface::Unknown_62F5B0(bool on)
 {
 	UnknownB8_2 = on;
-	for (std::vector<SlotDataGadgetClass *>::iterator it = Buttons.begin(); it != Buttons.end(); it++) {
+	for (std::vector<SlotDataGadget *>::iterator it = Buttons.begin(); it != Buttons.end(); it++) {
 		if (*it) {
 			(*it)->Unknown_670C90(on);
 		}
@@ -840,7 +840,7 @@ void SlotDataInterface::Unknown_62F620(const char *name)
 	if (!name) return;
 	int count = Buttons.size();
 	for (int i = 0; i < count; i++) {
-		SlotDataGadgetClass *gadget = Buttons[i];
+		SlotDataGadget *gadget = Buttons[i];
 		if (gadget && gadget->SlotRender) {
 			SlotDataRenderUnknown18Struct *data = (SlotDataRenderUnknown18Struct *)gadget->SlotRender->Unknown_18();
 			if (data) {

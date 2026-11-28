@@ -62,7 +62,7 @@ void UIRadioJoinClass::Unknown_58()
 		InterfaceSortScopeClass sort(this);	// NAME 1: neutral (D10)
 		ChatPanelUIBase::Unknown_58();
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 		Entry->Unknown_74(true);
 		Entry->Set_Text("", 0);

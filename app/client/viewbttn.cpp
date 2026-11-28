@@ -14,7 +14,7 @@
 #include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
 bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a key down: input.cpp's)  // NAME 1 [button, arg]: neutral
-inline bool Unknown_Cpit_Moving(MainViewClass *view) { UICpitClass *cpit = view->Cpit; if (cpit != NULL) return(cpit->Unknown144 != 0); return(false); }	// (inline: the bool the client tests with setne)  // NAME 1: neutral (D10)
+inline bool Unknown_Cpit_Moving(MainViewClass *view) { CockpitInterface *cpit = view->Cpit; if (cpit != NULL) return(cpit->Unknown144 != 0); return(false); }	// (inline: the bool the client tests with setne)  // NAME 1: neutral (D10)
 // NOT EXACT: the client keeps an EH state around the new UnknownAFE0B8Class (a byte state store before Get_Bool, attempts.csv); ours has none
 ViewButtonClass::ViewButtonClass(int x, int y, int width, int height, MainViewClass *view) :
 	RectangleGadgetClass(x, y, width, height, 0xFF),
@@ -28,13 +28,13 @@ ViewButtonClass::ViewButtonClass(int x, int y, int width, int height, MainViewCl
 	Unknown58(1.0f)
 {
 	Unknown4C = new UnknownAFE0B8Class;
-	ThrottleRightMouse = OptionClass::Instance->Get_Bool("Cpit_ThrottleRightMouse");
+	ThrottleRightMouse = OptionManagerClass::Instance->Get_Bool("Cpit_ThrottleRightMouse");
 }
 ViewButtonClass::~ViewButtonClass()
 {
-	BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Cpit_ThrottleRightMouse");
+	BoolOptionStruct *option = OptionManagerClass::Instance->Find_Bool("Cpit_ThrottleRightMouse");
 	if (option) option->Set_Value(ThrottleRightMouse);
-	OptionClass::Instance->Save();
+	OptionManagerClass::Instance->Save();
 	delete Unknown4C;
 }
 #include "..\shared\auth_product.h"
@@ -193,12 +193,12 @@ bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 				Unknown49 = false;
 			} else if (x > 0.25f && x < 0.75 && y > 0.2f && y < 0.8) {
 				if (!Unknown49) {
-					sclient->Send_Packet(&MovePacketClass(sclient->Get_Avatar_ID(), 0));
+					sclient->Send_Packet(&MovementPacketClass(sclient->Get_Avatar_ID(), 0));
 					sclient->Unknown_745E40(1, false);
 					Unknown49 = true;
 				}
 			} else if (Unknown49) {
-				sclient->Send_Packet(&MovePacketClass(sclient->Get_Avatar_ID(), 4));
+				sclient->Send_Packet(&MovementPacketClass(sclient->Get_Avatar_ID(), 4));
 				sclient->Unknown_745E40(0, false);
 				Unknown49 = false;
 			}
@@ -223,7 +223,7 @@ bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 		Unknown4A = false;
 		if (Unknown49) {
 			if (ThrottleRightMouse && !Unknown_Cpit_Moving(View) && !lock_speed) {
-				sclient->Send_Packet(&MovePacketClass(sclient->Get_Avatar_ID(), 4));
+				sclient->Send_Packet(&MovementPacketClass(sclient->Get_Avatar_ID(), 4));
 				sclient->Unknown_745E40(0, false);
 			}
 			Unknown49 = false;
@@ -233,7 +233,7 @@ bool ViewButtonClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 		if (hover->GameID != sclient->AvatarID) {
 			mouse->Unknown_515120(2);
 			if (mask & 1) {
-				TargetingClass *targeting = sclient->Targeting;
+				TargetSelectClass *targeting = sclient->Targeting;
 				FAIL_IF(!targeting) return(true);
 				targeting->Select_And_Set_Filter(hover);
 				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
@@ -261,7 +261,7 @@ bool ViewButtonClass::Unknown_34(KernelEventClass *event, float x, float y, unsi
 bool ViewButtonClass::Unknown_6B5E90()
 {
 	if (ThrottleRightMouse) {
-		UICpitClass *cpit = View->Cpit;
+		CockpitInterface *cpit = View->Cpit;
 		if (cpit != NULL) return(cpit->Unknown144 != 0);
 		return(false);
 	}

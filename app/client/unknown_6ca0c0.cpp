@@ -58,9 +58,9 @@ char Random_Letter()	// NAME 2: random ASCII alphanumeric for FONT_EFFECT_RANDLE
 
 // The client writes the font's XSpacing (+0xD28) from MinSpacing (+0xD2C) directly; font32bit.h has both protected
 // (an inline of the client's header, or public members: to settle). Reached through a derived class meanwhile.
-struct Font32SpacingAccess : public Font32Class
+struct Font32SpacingAccess : public Font32Bit
 {
-	static void Reset_XSpacing(Font32Class *font) { Font32SpacingAccess *f = (Font32SpacingAccess *)font; f->XSpacing = f->MinSpacing; }
+	static void Reset_XSpacing(Font32Bit *font) { Font32SpacingAccess *f = (Font32SpacingAccess *)font; f->XSpacing = f->MinSpacing; }
 };
 
 // The text as drawn after a change (the effects that rebuild the string: RANDLETTER, STAY, STRETCH share the tail).

@@ -73,7 +73,7 @@
 
 // 0x541DE0
 ShipEquipPipClass::ShipEquipPipClass(SClient *client) :
-	PipSceneClass(client),
+	PIPSceneClass(client),
 	LastMouse(0, 0),
 	Distance(0),
 	Unknown48(0),
@@ -81,7 +81,7 @@ ShipEquipPipClass::ShipEquipPipClass(SClient *client) :
 	Unknown50(true),
 	Unknown80(true)
 {
-	Proxy = Create_NEW(new ProxyRObj(false));
+	Proxy = Create_NEW(new ProxyRenderObjClass(false));
 	Proxy->Add(Scene.Peek());
 	Light = Create_NEW(new LightClass(LightClass::POINT));
 	Light->Set_Intensity(4.0f);
@@ -352,7 +352,7 @@ void ShipEquipPipClass::Unknown_543270(const Matrix3D &tm)
 **	The object: the previous object ends with its guarded <string> static 0x541D30; this one holds the deleting
 **	destructors of two MemberCallback copies (0x541D60, 0x541D90) and the this-adjusting thunks 0x541DC0 / 0x541DD0
 **	(InterfaceClass's deleting destructor), then the class from the constructor 0x541DE0 to Unknown_543270 0x543270,
-**	RefCountPtr<ProxyRObj>'s Create_NEW 0x543520 and its Clear 0x543550 (also in the unwinds of 0xAD34A0); the next
+**	RefCountPtr<ProxyRenderObjClass>'s Create_NEW 0x543520 and its Clear 0x543550 (also in the unwinds of 0xAD34A0); the next
 **	object opens with permstr.h's PermStringInitClass static 0x543580. No <string> static: this file includes none.
 **	Unknown_542EE0 is out of line in its three callers (0x542250 here, gd_ship_equip_pip.cpp's two): auto_inline(off)
 **	at its definition keeps 0x542250 from inlining it. Unknown_543270 has no callers: 0x542250 (twice), 0x542A10 and

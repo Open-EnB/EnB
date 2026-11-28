@@ -88,7 +88,7 @@ struct UIVerbButtonMatchStruct	// NAME 1: neutral (D10)
 
 
 
-UIVerbClass::UIVerbClass(UIViewClass *view, const LayerClass &layer, UIMeshClass *mesh, int arg) :
+VerbInterface::VerbInterface(UIViewClass *view, const LayerClass &layer, UIMeshClass *mesh, int arg) :
 	InterfaceClass(view, (int)layer.Scene),
 	InterfaceMesh(mesh),
 	UnknownA0(arg),
@@ -108,13 +108,13 @@ UIVerbClass::UIVerbClass(UIViewClass *view, const LayerClass &layer, UIMeshClass
 }
 
 
-UIVerbClass::~UIVerbClass() { Unknown_88(NULL); }
+VerbInterface::~VerbInterface() { Unknown_88(NULL); }
 
 
-void UIVerbClass::Unknown_54() { Unknown_10(); }
+void VerbInterface::Unknown_54() { Unknown_10(); }
 
 
-void UIVerbClass::Unknown_58()
+void VerbInterface::Unknown_58()
 {
 	if (!Is_Active()) {
 		InterfaceClass::Unknown_58();
@@ -122,7 +122,7 @@ void UIVerbClass::Unknown_58()
 }
 
 
-void UIVerbClass::Unknown_5C()
+void VerbInterface::Unknown_5C()
 {
 	if (Is_Active()) {
 		InterfaceClass::Unknown_5C();
@@ -130,10 +130,10 @@ void UIVerbClass::Unknown_5C()
 }
 
 
-void UIVerbClass::Unknown_60() {}
+void VerbInterface::Unknown_60() {}
 
 
-bool UIVerbClass::Unknown_68(int event)
+bool VerbInterface::Unknown_68(int event)
 {
 	SClient *client = (SClient *)((Unknown65B810ViewClass *)View->Unknown_20())->Get_Client()->As_Space_Client();
 	MainViewClass *main_view = (MainViewClass *)View->As_Main_View();
@@ -221,7 +221,7 @@ bool UIVerbClass::Unknown_68(int event)
 				if (Get_Target() != NULL && Get_Target()->Get_Game_ID() == client->Get_Avatar_ID()) {
 					client->Unknown_74D990(0x11, "Cannot autofollow self.", 0);
 				} else {
-					client->Send_Packet(&MovePacketClass(client->Get_Avatar_ID(), 0xC));
+					client->Send_Packet(&MovementPacketClass(client->Get_Avatar_ID(), 0xC));
 					SoundLibraryClass::Play_2D_Sound("SR_scifielectronic40.wav", 2);
 				}
 				break;
@@ -260,7 +260,7 @@ bool UIVerbClass::Unknown_68(int event)
 }
 
 // NOT EXACT: inline budget (the first Clear_Buttons copy: the client calls size(), inlines erase); the second copy matches
-void UIVerbClass::Unknown_88(ClientObjectClass *object)
+void VerbInterface::Unknown_88(ClientObjectClass *object)
 {
 	ClientObjectClass *old = Object; Buttons.size();	// (dead: VC6's inline budget)
 	if (object != old) {
@@ -298,7 +298,7 @@ void UIVerbClass::Unknown_88(ClientObjectClass *object)
 }
 
 
-void UIVerbClass::Unknown_658F40(const std::set<VerbEnum> *verbs)
+void VerbInterface::Unknown_658F40(const std::set<VerbEnum> *verbs)
 {
 	bool is_active = Is_Active();
 
@@ -320,7 +320,7 @@ void UIVerbClass::Unknown_658F40(const std::set<VerbEnum> *verbs)
 }
 
 
-void UIVerbClass::Unknown_659010(const std::set<VerbEnum> *adds, const std::set<VerbEnum> *drops)
+void VerbInterface::Unknown_659010(const std::set<VerbEnum> *adds, const std::set<VerbEnum> *drops)
 {
 	bool is_active = Is_Active();
 	if (is_active) {
@@ -342,7 +342,7 @@ void UIVerbClass::Unknown_659010(const std::set<VerbEnum> *adds, const std::set<
 }
 
 
-UIVerbButtonClass *UIVerbClass::Find_Button(VerbEnum verb)
+UIVerbButtonClass *VerbInterface::Find_Button(VerbEnum verb)
 {
 	std::vector<UIVerbButtonClass *>::iterator it = std::find_if(Buttons.begin(), Buttons.end(), UIVerbButtonMatchStruct(Verb_Type(verb)));
 	if (it == Buttons.end()) {
@@ -352,7 +352,7 @@ UIVerbButtonClass *UIVerbClass::Find_Button(VerbEnum verb)
 }
 
 
-void UIVerbClass::Add_Verb(VerbEnum verb)
+void VerbInterface::Add_Verb(VerbEnum verb)
 {
 
 
@@ -414,7 +414,7 @@ void UIVerbClass::Add_Verb(VerbEnum verb)
 }
 
 
-void UIVerbClass::Update_Verb(VerbEnum verb)
+void VerbInterface::Update_Verb(VerbEnum verb)
 {
 	UIVerbButtonClass *vb = Find_Button(verb);
 
@@ -438,7 +438,7 @@ void UIVerbClass::Update_Verb(VerbEnum verb)
 }
 
 
-void UIVerbClass::Clear_Buttons()
+void VerbInterface::Clear_Buttons()
 {
 	if (Buttons.size() != 0) {
 		for (std::vector<UIVerbButtonClass *>::iterator it = Buttons.begin(); it != Buttons.end(); it++) {

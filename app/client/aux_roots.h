@@ -154,12 +154,12 @@
 
 // vtable 0xB00CD8 (e.g. Ship.Shake)
 // NAME 4: Net-7 AuxShake confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# ShipShake
-class DeltaShakeClass : public DeltaCompoundClass
+class DeltaShakeClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP) || defined(AUX_CTORS_SHAKE)
 	DeltaShakeClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		Unknown9C(0),
 		ForceX("ForceX"),
 		ForceY("ForceY"),
@@ -358,13 +358,13 @@ public:
 
 // vtable 0xB01F74 (e.g. Ship.BuffArray.N.Elements.N)
 // NAME 4: Net-7 AuxElement confirmed by structure (Net-7 Construct 5 = ours; the element of AuxElements (Net-7 sizes that 4, the client 5); C# fields = ours (same names, same order)); C# BuffElement
-class DeltaElementClass : public DeltaCompoundClass
+class DeltaElementClass : public DeltaContainer
 {
 public:
 	DeltaElementClass(const char *name);	// 0x707430
 
-	DeltaStringClass SourceEntity;	// +0x9C
-	DeltaStringClass SourceObject;	// +0x124
+	DeltaString SourceEntity;	// +0x9C
+	DeltaString SourceObject;	// +0x124
 	DeltaTemplateClass<int> Magnitude;	// +0x1AC
 	DeltaTemplateClass<bool> IsActive;	// +0x234
 	DeltaTemplateClass<DurationClass> ExpirationTime;	// +0x2C0
@@ -389,12 +389,12 @@ typedef DeltaDerivedItemArrayClass<DeltaElementClass> DeltaElementsClass;
 
 // vtable 0xB01E60 (e.g. Ship.BuffArray.N)
 // NAME 4: Net-7 AuxBuff confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 5 children = ours); C# Buff
-class DeltaBuffClass : public DeltaCompoundClass
+class DeltaBuffClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_BUFF)
 	DeltaBuffClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		BuffType("BuffType", ""),
 		ScrubTypeName("ScrubTypeName", ""),
 		IsPermanent("IsPermanent"),
@@ -411,8 +411,8 @@ public:
 	DeltaBuffClass(const char *name);
 #endif
 
-	DeltaStringClass BuffType;	// +0x9C
-	DeltaStringClass ScrubTypeName;	// +0x124
+	DeltaString BuffType;	// +0x9C
+	DeltaString ScrubTypeName;	// +0x124
 	DeltaTemplateClass<bool> IsPermanent;	// +0x1AC
 	DeltaTemplateClass<DurationClass> BuffRemovalTime;	// +0x238
 	DeltaElementsClass Elements;	// +0x2C8
@@ -438,12 +438,12 @@ typedef DeltaDerivedItemArrayClass<DeltaBuffClass> DeltaBuffsClass;
 
 // vtable 0xB00AB0 (e.g. Ship.BaseStats)
 // NAME 4: Net-7 AuxStats confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 15 children = ours); C# ShipStats
-class DeltaStatsClass : public DeltaCompoundClass
+class DeltaStatsClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SHIP)
 	DeltaStatsClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		Defense("Defense"),
 		MissileDefense("MissileDefense"),
 		Speed("Speed"),
@@ -503,16 +503,16 @@ class DeltaShipClass : public UnknownRootClass
 {
 public:
 	DeltaShipClass(int unknown);
-	void Add(DeltaClass *child) { DeltaCompoundClass::Add(child); }
+	void Add(DeltaClass *child) { DeltaContainer::Add(child); }
 	void Add(int narrow, DeltaClass *child);	// 0x6F8C70: narrow sets the mask to 0xCF
 
-	DeltaStringClass Name;	// +0xA0
-	DeltaStringClass Owner;	// +0x128
-	DeltaStringClass Title;	// +0x1B0
-	DeltaStringClass Rank;	// +0x238
-	DeltaInterpolatorClass EnergyPercent;	// +0x2C0
+	DeltaString Name;	// +0xA0
+	DeltaString Owner;	// +0x128
+	DeltaString Title;	// +0x1B0
+	DeltaString Rank;	// +0x238
+	DeltaInterpolator EnergyPercent;	// +0x2C0
 	DeltaTemplateClass<float> MaxEnergyPower;	// +0x510
-	DeltaInterpolatorClass ShieldPercent;	// +0x598
+	DeltaInterpolator ShieldPercent;	// +0x598
 	DeltaTemplateClass<float> MaxShieldPower;	// +0x7E8
 	DeltaTemplateClass<float> HullPoints;	// +0x870
 	DeltaTemplateClass<float> MaxHullPoints;	// +0x8F8
@@ -534,8 +534,8 @@ public:
 	DeltaTemplateClass<bool> IsRescueBeaconActive;	// +0x1178
 	DeltaTemplateClass<int> CombatLevel;	// +0x1200
 	DeltaTemplateClass<int> TargetGameID;	// +0x1288
-	DeltaStringClass TargetThreat;	// +0x1310
-	DeltaStringClass TargetThreatSound;	// +0x1398
+	DeltaString TargetThreat;	// +0x1310
+	DeltaString TargetThreatSound;	// +0x1398
 	DeltaTemplateClass<int> TargetThreatLevel;	// +0x1420
 	DeltaTemplateClass<int> PrivateWarpState;	// +0x14A8
 	DeltaTemplateClass<int> GlobalWarpState;	// +0x1530
@@ -557,16 +557,16 @@ public:
 	DeltaStatsClass CurrentStats;	// +0x2E8C
 	DeltaTemplateClass<int> EngineThrustState;	// +0x3720
 	DeltaTemplateClass<int> EngineTrailType;	// +0x37A8
-	DeltaStringClass GuildName;	// +0x3830
+	DeltaString GuildName;	// +0x3830
 	DeltaTemplateClass<GuildRankType> GuildRank;	// +0x38B8
-	DeltaStringClass GuildRankName;	// +0x3940
+	DeltaString GuildRankName;	// +0x3940
 	DeltaTemplateClass<Vector3> SameGuildTagColor;	// +0x39C8
 	DeltaTemplateClass<Vector3> OtherGuildTagColor;	// +0x3A58
-	DeltaStringClass InterruptibleAbilityName;	// +0x3AE8
+	DeltaString InterruptibleAbilityName;	// +0x3AE8
 	DeltaTemplateClass<InterruptStateType> InterruptState;	// +0x3B70
 	DeltaTemplateClass<DurationClass> InterruptibleActivationTime;	// +0x3BF8
 	DeltaTemplateClass<float> InterruptProgress;	// +0x3C88
-	DeltaStringClass FactionIdentifier;	// +0x3D10
+	DeltaString FactionIdentifier;	// +0x3D10
 };
 
 // vtable 0xB01610, constructor 0x6FBDA0
@@ -576,7 +576,7 @@ class DeltaComponentClass : public UnknownRootClass
 public:
 	DeltaComponentClass(int unknown);
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 };
 
 // vtable 0xB00FB0, constructor 0x6F9870
@@ -586,7 +586,7 @@ class DeltaLightClass : public UnknownRootClass
 public:
 	DeltaLightClass(int unknown);
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 	DeltaTemplateClass<float> Intensity;	// +0x128
 	DeltaTemplateClass<Vector3> DiffuseRGB;	// +0x1B0
 	DeltaTemplateClass<Vector3> SpecularRGB;	// +0x240
@@ -603,7 +603,7 @@ class DeltaDecorationClass : public UnknownRootClass
 public:
 	DeltaDecorationClass(int unknown);
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 	DeltaTemplateClass<bool> AppearsInRadar;	// +0x128
 	DeltaTemplateClass<float> RadarRange;	// +0x1B0
 };
@@ -616,7 +616,7 @@ public:
 	DeltaHarvestableClass(int unknown);
 	~DeltaHarvestableClass() {}	// 0x6FA5E0: user-declared (it stores the vtable first)
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 	DeltaItemArrayClass<DeltaItemClass> HarvestableResources;	// +0x128
 	DeltaTemplateClass<float> PercentFull;	// +0x1C4
 	DeltaTemplateClass<int> TechLevel;	// +0x24C
@@ -969,14 +969,14 @@ public:
 		Add(&Cargo);
 		Equipped.Unknown80 = 0xCF;
 		Cargo.Unknown80 = 0xCF;
-		DeltaCompoundClass::Unknown_48();
+		DeltaContainer::Unknown_48();
 	}
 #else
 	DeltaHulkClass(int unknown);
 #endif
 
-	DeltaStringClass Name;	// +0xA0
-	DeltaStringClass Owner;	// +0x128
+	DeltaString Name;	// +0xA0
+	DeltaString Owner;	// +0x128
 	DeltaArrayClass<float> VisibleQuadrantDamagePercent;	// +0x1B0
 	DeltaArrayClass<ProjectedDecalClass> DamageSpot;	// +0x24C
 	DeltaArrayClass<ProjectedDecalClass> DamageLine;	// +0x2E8
@@ -999,13 +999,13 @@ public:
 		Name("Name", "")
 	{
 		Add(&Name);
-		DeltaCompoundClass::Unknown_48();
+		DeltaContainer::Unknown_48();
 	}
 #else
 	DeltaPlanetClass(int unknown);
 #endif
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 };
 
 // vtable 0xB00838
@@ -1019,13 +1019,13 @@ public:
 		Name("Name", "")
 	{
 		Add(&Name);
-		DeltaCompoundClass::Unknown_48();
+		DeltaContainer::Unknown_48();
 	}
 #else
 	DeltaStarbaseClass(int unknown);
 #endif
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 };
 
 // vtable 0xB007DC
@@ -1039,13 +1039,13 @@ public:
 		Name("Name", "")
 	{
 		Add(&Name);
-		DeltaCompoundClass::Unknown_48();
+		DeltaContainer::Unknown_48();
 	}
 #else
 	DeltaStargateClass(int unknown);
 #endif
 
-	DeltaStringClass Name;	// +0xA0
+	DeltaString Name;	// +0xA0
 };
 
 // ------------------------------------------------------------------------- the factory
@@ -1177,7 +1177,7 @@ inline DeltaShipClass::DeltaShipClass(int unknown) :
 	Add(1, &InterruptibleActivationTime);
 	Add(1, &InterruptProgress);
 	Add(1, &FactionIdentifier);
-	DeltaCompoundClass::Unknown_48();
+	DeltaContainer::Unknown_48();
 }
 #endif
 
@@ -1200,7 +1200,7 @@ inline DeltaLightClass::DeltaLightClass(int unknown) :
 	Add(&AmbientRGB);
 	Add(&Attenuation);
 	Add(&AttenuationFactors);
-	DeltaCompoundClass::Unknown_48();
+	DeltaContainer::Unknown_48();
 }
 #endif
 
@@ -1215,7 +1215,7 @@ inline DeltaDecorationClass::DeltaDecorationClass(int unknown) :
 	Add(&Name);
 	Add(&AppearsInRadar);
 	Add(&RadarRange);
-	DeltaCompoundClass::Unknown_48();
+	DeltaContainer::Unknown_48();
 }
 #endif
 
@@ -1232,7 +1232,7 @@ inline DeltaHarvestableClass::DeltaHarvestableClass(int unknown) :
 	Add(&HarvestableResources);
 	Add(&PercentFull);
 	Add(&TechLevel);
-	DeltaCompoundClass::Unknown_48();
+	DeltaContainer::Unknown_48();
 }
 #endif
 
@@ -1283,7 +1283,7 @@ inline DeltaManufacturingLabClass::DeltaManufacturingLabClass(int unknown) :
 	Add(&MaximumQuality);
 	Add(&AdditionalIterations);
 	Add(&TechLevelFilterBitfield);
-	DeltaCompoundClass::Unknown_48();
+	DeltaContainer::Unknown_48();
 }
 #endif
 
@@ -1294,7 +1294,7 @@ inline DeltaComponentClass::DeltaComponentClass(int unknown) :
 	Name("Name", "")
 {
 	Add(&Name);
-	DeltaCompoundClass::Unknown_48();
+	DeltaContainer::Unknown_48();
 }
 #endif
 

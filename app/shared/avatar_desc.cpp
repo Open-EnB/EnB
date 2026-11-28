@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	Original location: e:\build\beta\G\app\shared\avatar_desc.cpp (client 0x4BEB50-0x4C45B0)
-**	AvatarDescClass (avatar_desc.h), partly rebuilt: the constructors, the wire and key/value slots,
+**	AvatarDescriptionClass (avatar_desc.h), partly rebuilt: the constructors, the wire and key/value slots,
 **	Clear. The asserted loader 0x4C05D0 and the rest of the window are not yet (notes at the end).
 */
 
@@ -15,16 +15,16 @@
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
 #include "kv_acc_array.h"
-INIClass AvatarDescClass::AvatarDefinitions;	// 0xBE55D8  // NAME 2: avatardef.ini (initialiser 0x4BE970, before the constructors; atexit 0x4BE9A0 guarded: a static member)
+INIClass AvatarDescriptionClass::AvatarDefinitions;	// 0xBE55D8  // NAME 2: avatardef.ini (initialiser 0x4BE970, before the constructors; atexit 0x4BE9A0 guarded: a static member)
 // 0x4BEB50
-AvatarDescClass::AvatarDescClass()
+AvatarDescriptionClass::AvatarDescriptionClass()
 {
 	Clear(0);
 	Load_Defaults(0, 0);
 }
 
 // 0x4BEBF0
-AvatarDescClass::AvatarDescClass(int type, int unknown, int unknown2)
+AvatarDescriptionClass::AvatarDescriptionClass(int type, int unknown, int unknown2)
 {
 	Clear(0);
 	Race = type;
@@ -35,7 +35,7 @@ AvatarDescClass::AvatarDescClass(int type, int unknown, int unknown2)
 }
 
 // 0x4BECC0
-AvatarDescClass::AvatarDescClass(int type, const char *name)
+AvatarDescriptionClass::AvatarDescriptionClass(int type, const char *name)
 {
 	Clear(type);
 	Avatar_Version = 2;
@@ -43,7 +43,7 @@ AvatarDescClass::AvatarDescClass(int type, const char *name)
 }
 
 // 0x4BED80
-AvatarDescClass::AvatarDescClass(const AvatarDescClass &that)
+AvatarDescriptionClass::AvatarDescriptionClass(const AvatarDescriptionClass &that)
 {
 	memcpy(First_Name, that.First_Name, sizeof(First_Name));
 	memcpy(Last_Name, that.Last_Name, sizeof(Last_Name));
@@ -87,7 +87,7 @@ AvatarDescClass::AvatarDescClass(const AvatarDescClass &that)
 }
 
 // 0x4BF260
-bool AvatarDescClass::Write(LinearBufferClass *buffer)
+bool AvatarDescriptionClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(First_Name, sizeof(First_Name));
 	buffer->Write(Last_Name, sizeof(Last_Name));
@@ -138,7 +138,7 @@ bool AvatarDescClass::Write(LinearBufferClass *buffer)
 
 
 // 0x4BF550
-bool AvatarDescClass::Read(LinearBufferClass *buffer) {
+bool AvatarDescriptionClass::Read(LinearBuffer *buffer) {
 	buffer->Read(First_Name, sizeof(First_Name));
 	buffer->Read(Last_Name, sizeof(Last_Name));
 	buffer->Read(&Avatar_Type, 4);
@@ -190,13 +190,13 @@ bool AvatarDescClass::Read(LinearBufferClass *buffer) {
 }
 
 // 0x4BF910
-int AvatarDescClass::Get_Size()
+int AvatarDescriptionClass::Get_Size()
 {
 	return(Skeleton.length() + 0xF1);
 }
 
 // 0x4BF930
-bool AvatarDescClass::Write_Short(LinearBufferClass *buffer)
+bool AvatarDescriptionClass::Write_Short(LinearBuffer *buffer)
 {
 	buffer->Write(First_Name, sizeof(First_Name));
 	buffer->Write(Last_Name, sizeof(Last_Name));
@@ -244,7 +244,7 @@ bool AvatarDescClass::Write_Short(LinearBufferClass *buffer)
 }
 
 // 0x4BFBF0
-bool AvatarDescClass::Read_Short(LinearBufferClass *buffer)
+bool AvatarDescriptionClass::Read_Short(LinearBuffer *buffer)
 {
 	buffer->Read(First_Name, sizeof(First_Name));
 	buffer->Read(Last_Name, sizeof(Last_Name));
@@ -292,13 +292,13 @@ bool AvatarDescClass::Read_Short(LinearBufferClass *buffer)
 }
 
 // 0x4BFEB0
-int AvatarDescClass::Get_Short_Size()
+int AvatarDescriptionClass::Get_Short_Size()
 {
 	return(0xEF);
 }
 
 // 0x4BFED0
-void AvatarDescClass::Unknown_00(KVEncoderClass *object)
+void AvatarDescriptionClass::Unknown_00(KVEncoderClass *object)
 {
 	KVEncoderClass *visitor = object;
 
@@ -342,7 +342,7 @@ void AvatarDescClass::Unknown_00(KVEncoderClass *object)
 }
 
 // 0x4C0310
-void AvatarDescClass::Clear(int type)
+void AvatarDescriptionClass::Clear(int type)
 {
 	Avatar_Type = type;
 	Unknown0C = 0;
@@ -395,13 +395,13 @@ void AvatarDescClass::Clear(int type)
 
 
 // 0x4C0580
-bool AvatarDescClass::Is_Valid()
+bool AvatarDescriptionClass::Is_Valid()
 {
 	return(Avatar_Type != 0);
 }
 
 // 0x4C05A0
-void AvatarDescClass::Reset()
+void AvatarDescriptionClass::Reset()
 {
 	Avatar_Type = 0;
 	Load_Defaults(0, 0);
@@ -409,7 +409,7 @@ void AvatarDescClass::Reset()
 
 void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 
-// (AvatarDefinitions 0xBE55D8: defined at the top, AvatarDescClass's static member)
+// (AvatarDefinitions 0xBE55D8: defined at the top, AvatarDescriptionClass's static member)
 static const char *AvatarGenderNames[] = { "male_", "female_" };	// 0xB73CC8  // NAME 2: what it holds
 static const char *AvatarRaceNames[] = { "terran_", "jenquai_", "progen_" };	// 0xB73CD0  // NAME 2: what it holds
 static const char *AvatarProfessionNames[] = { "warrior", "tradesman", "explorer", "default" };	// 0xB73CDC  // NAME 2: what it holds
@@ -611,7 +611,7 @@ static const char *AvatarOtherNames[] = { "narrator", "npc" };	// 0xB73CEC  // N
 
 
 // 0x4C05D0
-void AvatarDescClass::Load_Defaults(int type, const char *name)
+void AvatarDescriptionClass::Load_Defaults(int type, const char *name)
 {
 	char section[64];
 
@@ -750,7 +750,7 @@ void AvatarDescClass::Load_Defaults(int type, const char *name)
 #include "unknown_4a1590.h"
 
 // 0x4C1020
-std::string AvatarDescClass::Get_Full_Name()
+std::string AvatarDescriptionClass::Get_Full_Name()
 {
 	std::string name;
 	Get_Full_Name(name);
@@ -758,7 +758,7 @@ std::string AvatarDescClass::Get_Full_Name()
 }
 
 // 0x4C1200
-std::string &AvatarDescClass::Get_Full_Name(std::string &name)
+std::string &AvatarDescriptionClass::Get_Full_Name(std::string &name)
 {
 	name = First_Name;
 	if (Last_Name[0] != 0) {
@@ -769,7 +769,7 @@ std::string &AvatarDescClass::Get_Full_Name(std::string &name)
 }
 
 // 0x4C1460
-void AvatarDescClass::Unknown_4C1460(const char *name, bool convert)
+void AvatarDescriptionClass::Unknown_4C1460(const char *name, bool convert)
 {
 	std::string text;
 	if (convert) {
@@ -781,7 +781,7 @@ void AvatarDescClass::Unknown_4C1460(const char *name, bool convert)
 }
 
 // 0x4C15F0
-void AvatarDescClass::Unknown_4C15F0(const char *name, bool convert)
+void AvatarDescriptionClass::Unknown_4C15F0(const char *name, bool convert)
 {
 	std::string text;
 	if (convert) {
@@ -793,7 +793,7 @@ void AvatarDescClass::Unknown_4C15F0(const char *name, bool convert)
 }
 
 // 0x4C1780
-Vector3 AvatarDescClass::Get_Body_Morph(int morph)
+Vector3 AvatarDescriptionClass::Get_Body_Morph(int morph)
 {
 	const char *names[5] = { "normal", "short_skinny", "short_fat", "tall_fat", "tall_skinny" };
 	Vector3 result(1.0F, 1.0F, 1.0F);
@@ -817,7 +817,7 @@ Vector3 AvatarDescClass::Get_Body_Morph(int morph)
 }
 
 // 0x4C1930
-Vector3 AvatarDescClass::Get_Head_Morph(int morph)
+Vector3 AvatarDescriptionClass::Get_Head_Morph(int morph)
 {
 	const char *names[5] = { "normal", "short_narrow", "short_wide", "long_wide", "long_narrow" };
 	Vector3 result(1.0F, 1.0F, 1.0F);
@@ -840,7 +840,7 @@ Vector3 AvatarDescClass::Get_Head_Morph(int morph)
 }
 
 // 0x4C1AC0
-void AvatarDescClass::Get_Facial_Feature(bool &movable, int &scale)
+void AvatarDescriptionClass::Get_Facial_Feature(bool &movable, int &scale)
 {
 	char section[64];
 
@@ -856,7 +856,7 @@ void AvatarDescClass::Get_Facial_Feature(bool &movable, int &scale)
 }
 
 // 0x4C1B80
-Vector2 AvatarDescClass::Get_Hair_Offset()
+Vector2 AvatarDescriptionClass::Get_Hair_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -874,7 +874,7 @@ Vector2 AvatarDescClass::Get_Hair_Offset()
 }
 
 // 0x4C1CA0
-Vector2 AvatarDescClass::Get_Skin_Offset()
+Vector2 AvatarDescriptionClass::Get_Skin_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -892,7 +892,7 @@ Vector2 AvatarDescClass::Get_Skin_Offset()
 }
 
 // 0x4C1DC0
-Vector2 AvatarDescClass::Get_Eye_Offset()
+Vector2 AvatarDescriptionClass::Get_Eye_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -910,7 +910,7 @@ Vector2 AvatarDescClass::Get_Eye_Offset()
 }
 
 // 0x4C1EE0
-Vector2 AvatarDescClass::Get_Shirt_Primary_Offset()
+Vector2 AvatarDescriptionClass::Get_Shirt_Primary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -928,7 +928,7 @@ Vector2 AvatarDescClass::Get_Shirt_Primary_Offset()
 }
 
 // 0x4C2000
-Vector2 AvatarDescClass::Get_Shirt_Secondary_Offset()
+Vector2 AvatarDescriptionClass::Get_Shirt_Secondary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -946,7 +946,7 @@ Vector2 AvatarDescClass::Get_Shirt_Secondary_Offset()
 }
 
 // 0x4C2120
-Vector2 AvatarDescClass::Get_Pants_Primary_Offset()
+Vector2 AvatarDescriptionClass::Get_Pants_Primary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -964,7 +964,7 @@ Vector2 AvatarDescClass::Get_Pants_Primary_Offset()
 }
 
 // 0x4C2240
-Vector2 AvatarDescClass::Get_Pants_Secondary_Offset()
+Vector2 AvatarDescriptionClass::Get_Pants_Secondary_Offset()
 {
 	Vector2 result(0.5F, 0.5F);
 	char section[64];
@@ -982,7 +982,7 @@ Vector2 AvatarDescClass::Get_Pants_Secondary_Offset()
 }
 
 // 0x4C2360
-void AvatarDescClass::Save_Defaults(const Vector2 *offsets)
+void AvatarDescriptionClass::Save_Defaults(const Vector2 *offsets)
 {
 	char section[64];
 	TPoint3D<float> color;
@@ -1074,7 +1074,7 @@ void AvatarDescClass::Save_Defaults(const Vector2 *offsets)
 }
 
 // 0x4C2BB0
-void AvatarDescClass::Upgrade()
+void AvatarDescriptionClass::Upgrade()
 {
 	if (Avatar_Version != 2 && Avatar_Type == 0) {
 		Head_Type = 0;
@@ -1087,7 +1087,7 @@ void AvatarDescClass::Upgrade()
 		value = Hair_Num;
 		Head_Texture_Num = value < 2 ? value : 2;
 		Hair_Num = value < 5 ? value : 5;
-		AvatarDescClass *defaults = new AvatarDescClass(Race, Profession, Gender);
+		AvatarDescriptionClass *defaults = new AvatarDescriptionClass(Race, Profession, Gender);
 		Shirt_Primary_Color = defaults->Shirt_Primary_Color;
 		Shirt_Secondary_Color = defaults->Shirt_Secondary_Color;
 		Pants_Primary_Color = defaults->Pants_Primary_Color;
@@ -1099,7 +1099,7 @@ void AvatarDescClass::Upgrade()
 }
 
 // 0x4C2DC0
-void AvatarDescClass::Convert_Names()
+void AvatarDescriptionClass::Convert_Names()
 {
 	_snprintf(First_Name, sizeof(First_Name), "%s", Unknown_4BE9D0(First_Name).c_str());
 	_snprintf(Last_Name, sizeof(Last_Name), "%s", Unknown_4BE9D0(Last_Name).c_str());

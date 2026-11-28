@@ -30,14 +30,14 @@ int GameEditorRequestPlanetUnitTypesPacketClass::Print(char *buffer, int)
 	return(strlen(buffer));
 }
 
-Packet_7548Class::Packet_7548Class(char *data, int size) :
+GameEditorPlanetUnitTypesPacketClass::GameEditorPlanetUnitTypesPacketClass(char *data, int size) :
 	Data(data),
 	Size(size),
 	Owned(false)
 {
 }
 
-Packet_7548Class::Packet_7548Class(RawPacketClass *raw) :
+GameEditorPlanetUnitTypesPacketClass::GameEditorPlanetUnitTypesPacketClass(RawPacketClass *raw) :
 	Data(NULL),
 	Size(0),
 	Owned(false)
@@ -72,14 +72,14 @@ Packet_7548Class::Packet_7548Class(RawPacketClass *raw) :
 	}
 }
 
-Packet_7548Class::~Packet_7548Class()
+GameEditorPlanetUnitTypesPacketClass::~GameEditorPlanetUnitTypesPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
 	}
 }
 
-RawPacketClass *Packet_7548Class::Build()
+RawPacketClass *GameEditorPlanetUnitTypesPacketClass::Build()
 {
 	RawPacketClass *packet = new RawPacketClass(30024, Get_Data_Size());
 	G_ASSERT(packet);
@@ -88,56 +88,56 @@ RawPacketClass *Packet_7548Class::Build()
 	return(packet);
 }
 
-int Packet_7548Class::Get_Data_Size()
+int GameEditorPlanetUnitTypesPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_7548Class::Print(char *buffer, int)
+int GameEditorPlanetUnitTypesPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Types=%s}", "GameEditorPlanetUnitTypes", Data));
 }
 
-bool Packet_7548Class::Process_Packet(void *)
+bool GameEditorPlanetUnitTypesPacketClass::Process_Packet(void *)
 {
 	return(true);
 }
 
 
-Packet_7549Class::Packet_7549Class(int unit_type) : UnitType(unit_type)
+GameEditorRequestPlanetUnitDetailsPacketClass::GameEditorRequestPlanetUnitDetailsPacketClass(int unit_type) : UnitType(unit_type)
 {
 }
 
-Packet_7549Class::Packet_7549Class(RawPacketClass *raw)
+GameEditorRequestPlanetUnitDetailsPacketClass::GameEditorRequestPlanetUnitDetailsPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&UnitType, sizeof(UnitType));
 }
 
-RawPacketClass *Packet_7549Class::Build()
+RawPacketClass *GameEditorRequestPlanetUnitDetailsPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30025, Get_Data_Size());
 	raw->Add(&UnitType, sizeof(UnitType));
 	return(raw);
 }
 
-int Packet_7549Class::Get_Data_Size()
+int GameEditorRequestPlanetUnitDetailsPacketClass::Get_Data_Size()
 {
 	return(sizeof(UnitType));
 }
 
-int Packet_7549Class::Print(char *buffer, int)
+int GameEditorRequestPlanetUnitDetailsPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {UnitType=%d}", "GameEditorRequestPlanetUnitDetails", UnitType));
 }
 
-Packet_754AClass::Packet_754AClass(char *data, int size) :
+GameEditorPlanetUnitDetailsPacketClass::GameEditorPlanetUnitDetailsPacketClass(char *data, int size) :
 	Data(data),
 	Size(size),
 	Owned(false)
 {
 }
 
-Packet_754AClass::Packet_754AClass(RawPacketClass *raw) :
+GameEditorPlanetUnitDetailsPacketClass::GameEditorPlanetUnitDetailsPacketClass(RawPacketClass *raw) :
 	Data(NULL),
 	Size(0),
 	Owned(false)
@@ -185,14 +185,14 @@ Packet_754AClass::Packet_754AClass(RawPacketClass *raw) :
 	}
 }
 
-Packet_754AClass::~Packet_754AClass()
+GameEditorPlanetUnitDetailsPacketClass::~GameEditorPlanetUnitDetailsPacketClass()
 {
 	if (Owned) {
 		delete [] Data;
 	}
 }
 
-RawPacketClass *Packet_754AClass::Build()
+RawPacketClass *GameEditorPlanetUnitDetailsPacketClass::Build()
 {
 	RawPacketClass *packet = new RawPacketClass(30026, Get_Data_Size());
 	G_ASSERT(packet);
@@ -201,17 +201,17 @@ RawPacketClass *Packet_754AClass::Build()
 	return(packet);
 }
 
-int Packet_754AClass::Get_Data_Size()
+int GameEditorPlanetUnitDetailsPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_754AClass::Print(char *buffer, int)
+int GameEditorPlanetUnitDetailsPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Details=%s}", "GameEditorPlanetUnitDetails", Data));
 }
 
-bool Packet_754AClass::Process_Packet(void *)
+bool GameEditorPlanetUnitDetailsPacketClass::Process_Packet(void *)
 {
 	return(true);
 }

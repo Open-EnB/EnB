@@ -26,7 +26,7 @@ public:
 	virtual ~SkillDataClass();										// +0x00 0x6A4710
 	virtual SkillDataClass *Unknown_14() { return(this); }	// +0x14 0x6A46C0
 	virtual bool Unknown_18();										// +0x18 0x6A4F00
-	virtual DeltaCompoundClass *Unknown_1C();					// +0x1C 0x6A4EE0
+	virtual DeltaContainer *Unknown_1C();					// +0x1C 0x6A4EE0
 	virtual bool Unknown_20();										// +0x20 0x6A4F40
 	virtual void Unknown_24();										// +0x24 0x6A4EA0
 

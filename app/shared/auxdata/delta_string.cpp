@@ -15,8 +15,8 @@
 
 
 
-int DeltaStringClass::UnknownGlobal = DeltaUnknownCounter++;
-DeltaStringClass::DeltaStringClass(const char *name, const char *string) :
+int DeltaString::UnknownGlobal = DeltaUnknownCounter++;
+DeltaString::DeltaString(const char *name, const char *string) :
 	DeltaClass(name),
 	String(0)
 {
@@ -28,7 +28,7 @@ DeltaStringClass::DeltaStringClass(const char *name, const char *string) :
 	G_ASSERT(String);
 }
 
-DeltaStringClass::~DeltaStringClass()
+DeltaString::~DeltaString()
 {
 	free(String);
 }
@@ -36,7 +36,7 @@ DeltaStringClass::~DeltaStringClass()
 
 
 
-void DeltaStringClass::Assign(const char *s)
+void DeltaString::Assign(const char *s)
 {
 	if (s == 0) {
 		G_ASSERT(s);
@@ -59,7 +59,7 @@ void DeltaStringClass::Assign(const char *s)
 
 
 
-void DeltaStringClass::Set(const char *s)
+void DeltaString::Set(const char *s)
 {
 	if (s == 0) {
 		G_ASSERT(s);
@@ -79,7 +79,7 @@ void DeltaStringClass::Set(const char *s)
 
 
 
-bool DeltaStringClass::Write(LinearBufferClass &buf)
+bool DeltaString::Write(LinearBuffer &buf)
 {
 	G_ASSERT(String);
 	const char *s = String;
@@ -111,7 +111,7 @@ bool DeltaStringClass::Write(LinearBufferClass &buf)
 
 
 
-bool DeltaStringClass::Read(LinearBufferClass &buf, const DurationClass &)
+bool DeltaString::Read(LinearBuffer &buf, const DurationClass &)
 {
 	unsigned short length;
 	if (buf.Read(&length, sizeof(length)) != sizeof(length)) {
@@ -139,7 +139,7 @@ bool DeltaStringClass::Read(LinearBufferClass &buf, const DurationClass &)
 	return true;
 }
 
-DeltaStringClass &DeltaStringClass::operator=(const DeltaStringClass &that)
+DeltaString &DeltaString::operator=(const DeltaString &that)
 {
 	Assign(that.String);
 	return *this;
@@ -149,15 +149,15 @@ DeltaStringClass &DeltaStringClass::operator=(const DeltaStringClass &that)
 class DeltaStringValueClass : public StringValueClass  // NAME 2: describes what it does
 {
 public:
-	DeltaStringValueClass(DeltaStringClass *owner) : Owner(owner) {}
+	DeltaStringValueClass(DeltaString *owner) : Owner(owner) {}
 	virtual const char *Get() const;
 	virtual void Set(const char *value);
 	virtual StringValueClass *Clone() const;
 
-	DeltaStringClass *Owner;		// +0x04  // NAME 2: describes what it does
+	DeltaString *Owner;		// +0x04  // NAME 2: describes what it does
 };
 
-void DeltaStringClass::Unknown_00(KVEncoderClass *visitor)
+void DeltaString::Unknown_00(KVEncoderClass *visitor)
 {
 	visitor->Add_String(Unknown80, Name.Get_String(), new DeltaStringValueClass(this));
 }
@@ -180,13 +180,13 @@ StringValueClass *DeltaStringValueClass::Clone() const
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4A78F0-0x4A80A0: DeltaStringClass (D24; the asserts name String), vtable 0xAEB0E4,
+**	client.exe 0x4A78F0-0x4A80A0: DeltaString (D24; the asserts name String), vtable 0xAEB0E4,
 **	size 0x88, its per-class global 0xBE3A9C. Rebuilt: the constructor 0x4A78F0 (line 28), the
 **	destructor 0x4A79E0, Assign 0x4A7A10 (lines 42 and 51), Set 0x4A7AA0 (line 65, Assign inlined),
 **	Write 0x4A7BB0 (lines 84, 94, 100: a 2-byte length, then the characters), Read 0x4A7CA0 (lines
 **	118, 124, 130), operator= 0x4A7DC0 (Assign inlined), Unknown_00 0x4A7E60 (kv_encoder_base.cpp's
 **	0x4B48A0 with a DeltaStringValueClass), and DeltaStringValueClass (vtable 0xAEB13C): Get
-**	0x4A7F30, Set 0x4A7F50 (DeltaStringClass::Set inlined), Clone 0x4A8060 (`new ...(Owner)`: the implicit
+**	0x4A7F30, Set 0x4A7F50 (DeltaString::Set inlined), Clone 0x4A8060 (`new ...(Owner)`: the implicit
 **	copy constructor would store the base's vtable too); StringValueClass's
 **	scalar deleting destructor 0x4A7F00 and DeltaStringValueClass's 0x4A7EB0/0x4A7EE0 are the
 **	compiler's. The failure paths are `if (!copy) { G_ASSERT(copy); return; }` (one test, the

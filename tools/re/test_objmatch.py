@@ -20,7 +20,7 @@ CONTRIB_TIES (D246 / CR8): a tied COMDAT whose one survivor lies in its holder's
 function to the next object's, at most RANGE_GAP past its last): px.obj's PxBox * helpers right after its code
 (_Construct 0x44D6A0, _Lower_bound 0x44D6D0), against byte-identical copies in other files' code (`contrib`).
 Its short COMDATs (USE_CONTRIB_SHORTS): vector<PxBox *>::_Destroy 0x44D5D0 (`ret 8`) there, at the first holder's
-verified start holding its bytes. (px_process.obj's vector<PxProcessClass *> helpers were the cases until other rules
+verified start holding its bytes. (px_process.obj's vector<PxProcessList *> helpers were the cases until other rules
 came to credit them first: fresh objects of 2026-11-18.)
 GAP_EDGE (D246 / EX): camera_manager.obj's short getter 0x79B4D0, right after the exact setter 0x79B4B0 in a gap that
 also holds the not-exact 0x79B4F0 (short_order's count test fails), takes the next verified start after the setter's
@@ -81,7 +81,7 @@ class FuncletEvidence(unittest.TestCase):
 
 TIES = [
     # object, symbol, client address (the tie's copies)
-    ('dynamic_window_class.obj', '??1?$RefCountPtr@VDynamicWindowElementClass@@@@QAE@XZ', '0x517030'),
+    ('dynamic_window_class.obj', '??1?$RefCountPtr@VDynamicWindowElement@@@@QAE@XZ', '0x517030'),
 ]
 
 
@@ -206,7 +206,7 @@ class CallTies(unittest.TestCase):
 BEYOND = [
     # two template destructors with one body, linker-folded at 0x53CF80: both credited by the funclet round
     # (client_lego_impl.obj's pair at 0x700BC0 was the case until ca123b2eb gave Create's lego one type)
-    (['ui_ptrade.obj', 'ui_group.obj'], '??1?$RefCountPtr@VCharacterViewAvatarClass@@@@QAE@XZ', '0x53CF80',
+    (['ui_ptrade.obj', 'ui_group.obj'], '??1?$RefCountPtr@VAvatarClass@@@@QAE@XZ', '0x53CF80',
      'funclet_tie', 'USE_FUNCLET_FOLDED'),
     # a parent not exact: its FuncInfo located by its whole unwind map (or its named address)
     (['lookup_table.obj'], '??1LookupTableClass@@UAE@XZ', '0x4EC6F0', 'short_known', 'USE_FUNCLET_NOTEXACT'),
@@ -297,7 +297,7 @@ CONTRIB_SHORTS = [
 ]
 GAP_EDGE = [
     ('camera_manager.obj', '?Unknown_79B4D0@CameraManagerClass@@QAE_NXZ', '0x79B4D0'),
-    ('delta_interpolator.obj', '?Get_Change@DeltaInterpolatorClass@@QBEMXZ', '0x4A6360'),
+    ('delta_interpolator.obj', '?Get_Change@DeltaInterpolator@@QBEMXZ', '0x4A6360'),
     ('boolpars.obj', '??1BoolParserClass@@UAE@XZ', '0x49A3F0'),
     ('boolpars.obj', '?Set_Callbacks@BoolParserClass@@QAEXPAV?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAVBoolEvaluatorClass@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAVBoolEvaluatorClass@@@2@@std@@@Z', '0x49A410'),
 ]
@@ -706,14 +706,14 @@ class ObXcuOnePerEntry(unittest.TestCase):
 
 
 class Cr6NamedCallers(unittest.TestCase):
-    """D246 (CR6): sclient.obj's Create_NEW<ChatPanelInterface> and Create_NEW<UITalkTreeSpaceClass> (21 bytes,
+    """D246 (CR6): sclient.obj's Create_NEW<ChatPanelInterface> and Create_NEW<SpaceTalkTreeInterface> (21 bytes,
     byte-identical with 157 client copies) are called by SClient::Init, not exact, which symbols.json names at 0x741180
     from its vtable slot; its calls into the two symbols' copies, in order, are the client function's calls to 0x755AF0
     and 0x755B60 (`cr6_named`)."""
     def test_cases(self):
         _check(self, [('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VChatPanelInterface@@@@PAVChatPanelInterface@@@Z',
                        '0x755AF0'),
-                      ('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VUITalkTreeSpaceClass@@@@PAVUITalkTreeSpaceClass@@@Z',
+                      ('sclient.obj', '?Create_NEW@@YA?AV?$RefCountPtr@VSpaceTalkTreeInterface@@@@PAVSpaceTalkTreeInterface@@@Z',
                        '0x755B60')],
                'USE_CR6_NAMED_CALLERS', 'cr6_named', APP_REGION)
 

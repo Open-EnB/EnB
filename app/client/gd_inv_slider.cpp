@@ -12,7 +12,7 @@ class InvDataClass : public SlotDataClass	// NAME 3: Peek_Inv_Data, inv_data's _
 public:
 	InvDataClass(int inv_type, SClient *client);		// 0x688410 (0x18C bytes)  // NAME 1 [inv_type, client]: what 0x59FA00 passes
 	virtual bool Unknown_18();
-	virtual DeltaCompoundClass *Unknown_1C();
+	virtual DeltaContainer *Unknown_1C();
 	virtual bool Unknown_20();
 };
 

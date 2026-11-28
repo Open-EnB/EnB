@@ -33,7 +33,7 @@ class InvDataPeekClass  // NAME 3: by convention (D24) from the client's file in
 public:
 	InvDataPeekClass(ClientClass *client, const char *name, bool mounts);	// 0x689A80  // NAME 2 [client, name, mounts]: what it does with them
 	~InvDataPeekClass();														// 0x689AD0
-	void Attach(DeltaCompoundClass *root);								// 0x689AF0  // NAME 2: describes what it does
+	void Attach(DeltaContainer *root);								// 0x689AF0  // NAME 2: describes what it does
 
 	bool Changed();															// 0x689C30  // NAME 2: what it returns
 	bool Slot_Changed(int slot);											// 0x689C60  // NAME 2: what it returns
@@ -63,7 +63,7 @@ public:
 	int Get_Mount_I04(int slot);											// 0x68AE50  // NAME 1: neutral (D10), as InvSlotStruct's member
 
 protected:
-	DeltaCompoundClass *Get_Slot(int slot);								// 0x68AF20  // NAME 2: describes what it does
+	DeltaContainer *Get_Slot(int slot);								// 0x68AF20  // NAME 2: describes what it does
 	DeltaClass *Get_Field(int slot, int field);						// 0x68AFF0  // NAME 2: describes what it does
 	void Update_Fields();													// 0x68B0C0  // NAME 2: describes what it does
 
@@ -214,8 +214,8 @@ protected:
 
 public:	// ui_mfd_extended_context_harvestable.cpp reads Count
 	ClientClass *Owner;									// +0x00 the constructor's argument  // NAME 2: describes what it does
-	NameClass Name;										// +0x04 the list's name  // NAME 2: describes what it does
-	DeltaCompoundClass *List;							// +0x38 what Name finds under Attach's root  // NAME 2: describes what it does
+	AuxDataName Name;										// +0x04 the list's name  // NAME 2: describes what it does
+	DeltaContainer *List;							// +0x38 what Name finds under Attach's root  // NAME 2: describes what it does
 	bool HasMounts;										// +0x3C Attach looks up Inventory.Mounts  // NAME 2: describes what it does
 	DeltaArrayClass<InvSlotStruct> *Mounts;	// +0x40 'Inventory.Mounts'  // NAME 2: the field's name
 	unsigned int Count;									// +0x44 List's children  // NAME 2: describes what it does

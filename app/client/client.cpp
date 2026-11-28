@@ -60,10 +60,10 @@ ClientClass::ClientClass() :
 {
 	srand(timeGetTime());
 	Unknown1138 = rand();
-	Connection = new PeekConnectionClass(new NullConnectionClass);
+	Connection = new BufferedConnectionClass(new NullConnectionClass);
 	RSLRegistry = new RSLRegistryClass;
 	Px = new PxList;
-	PxProcess = new PxProcessClass;
+	PxProcess = new PxProcessList;
 	Splines = new SplineDatabaseClass(NULL);
 	Splines->Load("splines.wsd");
 	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", "", ""), -1), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(), Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records(); Unknown831340List.Num_Records();
@@ -291,7 +291,7 @@ Unknown86CRecordClass *ClientClass::Remove_Unknown86C(unsigned id)
 // 0x727E10
 void ClientClass::Open_Connection()
 {
-	ConnectionClass *connection = new PeekConnectionClass(new RateConnectionClass(Create_Connection("SectorServer", true)));
+	ConnectionClass *connection = new BufferedConnectionClass(new RateConnectionClass(Create_Connection("SectorServer", true)));
 	delete Connection;
 	Connection = connection;
 }
@@ -299,7 +299,7 @@ void ClientClass::Open_Connection()
 // 0x727F00
 void ClientClass::Open_Connection(unsigned long ip, unsigned short port)
 {
-	ConnectionClass *connection = new PeekConnectionClass(new RateConnectionClass(Create_Connection(ip, port, true, true)));
+	ConnectionClass *connection = new BufferedConnectionClass(new RateConnectionClass(Create_Connection(ip, port, true, true)));
 	delete Connection;
 	Connection = connection;
 }

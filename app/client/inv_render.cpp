@@ -68,7 +68,7 @@ public:
 };
 
 // 0x68BF10
-InvRenderClass::InvRenderClass(bool arg) :
+InventoryRenderClass::InventoryRenderClass(bool arg) :
 	LevelText(0),
 	CountText(0),
 	Unknown38(0),
@@ -79,7 +79,7 @@ InvRenderClass::InvRenderClass(bool arg) :
 }
 
 // 0x68C190
-InvRenderClass::~InvRenderClass()
+InventoryRenderClass::~InventoryRenderClass()
 {
 	if (CountText) {
 		CountText->Remove();
@@ -113,7 +113,7 @@ InvRenderClass::~InvRenderClass()
 
 
 // 0x68C2D0
-bool InvRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
+bool InventoryRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 {
 	CannotUseIndicator = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("item_noskill"));
 	G_ASSERT(CannotUseIndicator);
@@ -139,8 +139,8 @@ void Unknown68C5A0Class::Clear()
 {
 	Usable = true;
 }
-static inline void Unknown_Cannot_Use(InvRenderClass *render, bool usable) { render->Unknown_68EAE0(!usable, render->CannotUseIndicator); }	// 0x68C6B0's inline layer (D246: the client calls 0x68EAE0 there, inlines it in 0x68E360)  // NAME 1: neutral (D10)
-static inline void Unknown_Refresh(InvRenderClass *render, int level, int count, bool usable, Unknown688830Item *item) { render->Unknown_68D700(level); render->Unknown_50(count); Unknown_Cannot_Use(render, usable); render->Unknown_68EB10(item); }	// 0x68C6B0's inline layer  // NAME 1: neutral (D10)
+static inline void Unknown_Cannot_Use(InventoryRenderClass *render, bool usable) { render->Unknown_68EAE0(!usable, render->CannotUseIndicator); }	// 0x68C6B0's inline layer (D246: the client calls 0x68EAE0 there, inlines it in 0x68E360)  // NAME 1: neutral (D10)
+static inline void Unknown_Refresh(InventoryRenderClass *render, int level, int count, bool usable, Unknown688830Item *item) { render->Unknown_68D700(level); render->Unknown_50(count); Unknown_Cannot_Use(render, usable); render->Unknown_68EB10(item); }	// 0x68C6B0's inline layer  // NAME 1: neutral (D10)
 
 
 
@@ -177,7 +177,7 @@ void Unknown68C5A0Class::Unknown_04(ClientItemPropertySpecialClass *property)
 
 // NOT EXACT: 0x68C6B0, masked residue 8 (was 27): Get_Roman_Numeral and 0x68EAE0 out of line as the client's through the two layers and one dead read (D272); left: the client releases inv_data through lea ecx,[eax+0x18] and loads level after the release
 // 0x68C6B0
-void InvRenderClass::Unknown_2C(bool force)
+void InventoryRenderClass::Unknown_2C(bool force)
 {
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
 	SClient *space_client = (SClient *)Peek_Inv_Data()->Get_Client()->As_Space_Client();	// NAME 2 [space_client]: its slot
@@ -230,7 +230,7 @@ done:
 }
 
 // 0x68CBA0
-TextureClass *InvRenderClass::Unknown_34()
+TextureClass *InventoryRenderClass::Unknown_34()
 {
 	int slot = Unknown20;
 	if (slot != -1) {
@@ -257,7 +257,7 @@ TextureClass *InvRenderClass::Unknown_34()
 static inline bool Unknown_Has_Value(float value) { return(value != -1.0f); }	// 0x68CCC0's inline for its two structure tests (D272: no bytes of its own; with both tests through it VC6 computes _N + _Len and stores _Eos at [ebx+eax] in the nine inlined appends as the client, with one or none it keeps the source order)  // NAME 1: neutral (D10)
 // (0x68CCC0: exact with Unknown_Has_Value; the cases in the client's order 0, -1, 4, 0x40, 0x80: its tables 0x68D3B0 / 0x68D398; the Quality line tests structure as the client does)
 // 0x68CCC0
-const char *InvRenderClass::Unknown_28(std::string *string)
+const char *InventoryRenderClass::Unknown_28(std::string *string)
 {
 	FAIL_IF(!string) return(0);
 	SlotDataRenderClass::Unknown_28(string);
@@ -342,7 +342,7 @@ const char *InvRenderClass::Unknown_28(std::string *string)
 
 
 // 0x68D620
-InvDataClass *InvRenderClass::Peek_Inv_Data()
+InvDataClass *InventoryRenderClass::Peek_Inv_Data()
 {
 	SlotDataClass *sd = SlotData;
 	FAIL_IF(!sd) return(0);
@@ -353,7 +353,7 @@ InvDataClass *InvRenderClass::Peek_Inv_Data()
 }
 
 // 0x68D690
-int InvRenderClass::Unknown_30(int level)
+int InventoryRenderClass::Unknown_30(int level)
 {
 	int result = SlotDataRenderClass::Unknown_30(level);
 	if (result) {
@@ -366,7 +366,7 @@ int InvRenderClass::Unknown_30(int level)
 }
 
 // 0x68D700
-void InvRenderClass::Unknown_68D700(int value)
+void InventoryRenderClass::Unknown_68D700(int value)
 {
 	if (LevelText) {
 		if (value > 0) {
@@ -379,7 +379,7 @@ void InvRenderClass::Unknown_68D700(int value)
 }
 
 // 0x68D790
-void InvRenderClass::Unknown_50(int count)
+void InventoryRenderClass::Unknown_50(int count)
 {
 	if (count > 1) {
 		CountText->Unknown_6CE420(0, "%d", count);
@@ -390,7 +390,7 @@ void InvRenderClass::Unknown_50(int count)
 }
 
 // 0x68D7E0
-int InvRenderClass::Unknown_68D7E0(int slot)
+int InventoryRenderClass::Unknown_68D7E0(int slot)
 {
 	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
 	Unknown688830Item *item = (Unknown688830Item *)data->Get_Item(slot, false);
@@ -401,20 +401,20 @@ int InvRenderClass::Unknown_68D7E0(int slot)
 }
 
 // 0x68D870
-Unknown68D870Class::Unknown68D870Class() :
-	InvRenderClass(true),
+InvItemRenderClass::InvItemRenderClass() :
+	InventoryRenderClass(true),
 	Unknown58(0),
 	Unknown5C(-1)
 {
 }
 
 // 0x68D8E0
-Unknown68D870Class::~Unknown68D870Class()
+InvItemRenderClass::~InvItemRenderClass()
 {
 }
 
 // 0x68D900
-void Unknown68D870Class::Unknown_50(int count)
+void InvItemRenderClass::Unknown_50(int count)
 {
 	if (Unknown58 > 1) {
 		CountText->Unknown_6CE420(0, "%d", Unknown58);
@@ -425,25 +425,25 @@ void Unknown68D870Class::Unknown_50(int count)
 }
 
 // 0x68D950
-void Unknown68D870Class::Unknown_40(int slot)
+void InvItemRenderClass::Unknown_40(int slot)
 {
 	Unknown5C = Peek_Inv_Data()->Unknown_688830()->Get_Item_Template_ID(slot);
 	SlotDataRenderClass::Unknown_40(slot);
 }
 
 // 0x68D9E0
-void Unknown68D870Class::Unknown_2C(bool force)
+void InvItemRenderClass::Unknown_2C(bool force)
 {
 	if (Unknown5C != -1) {
 		if (Unknown_68DA20(force)) {
 			force = true;
 		}
-		InvRenderClass::Unknown_2C(force);
+		InventoryRenderClass::Unknown_2C(force);
 	}
 }
 
 // 0x68DA20
-bool Unknown68D870Class::Unknown_68DA20(bool force)
+bool InvItemRenderClass::Unknown_68DA20(bool force)
 {
 	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
 	if (force || data->Changed()) {
@@ -469,7 +469,7 @@ bool Unknown68D870Class::Unknown_68DA20(bool force)
 
 // 0x68DC20
 Unknown68DC20Class::Unknown68DC20Class() :
-	InvRenderClass(false),
+	InventoryRenderClass(false),
 	Unknown6C(0),
 	Unknown70(0),
 	Unknown74(-1.0f), Unknown78(0), Unknown80(0),
@@ -481,7 +481,7 @@ Unknown68DC20Class::Unknown68DC20Class() :
 // 0x68DCC0
 bool Unknown68DC20Class::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 {
-	if (!InvRenderClass::Unknown_08(sd, robj)) {
+	if (!InventoryRenderClass::Unknown_08(sd, robj)) {
 		return(false);
 	}
 
@@ -640,7 +640,7 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
 	SClient *sclient = (SClient *)Peek_Inv_Data()->Get_Client()->As_Space_Client();
 	FAIL_IF(!sclient) return;
-	InvRenderClass::Unknown_2C(force);
+	InventoryRenderClass::Unknown_2C(force);
 	int slot = Unknown20;
 	if (slot == -1) {
 		if (force) {
@@ -797,7 +797,7 @@ have:
 }
 
 // 0x68EAE0
-void InvRenderClass::Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &robj)
+void InventoryRenderClass::Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &robj)
 {
 	if (on) {
 		Unknown_6A8F00(robj.Peek());
@@ -807,7 +807,7 @@ void InvRenderClass::Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &
 }
 
 // 0x68EB10
-void InvRenderClass::Unknown_68EB10(Unknown688830Item *item)
+void InventoryRenderClass::Unknown_68EB10(Unknown688830Item *item)
 {
 	int type = -1;	// NAME 1 [type, texture, group, kind, sub_kind, name]: neutral
 	if (item) {
@@ -1017,7 +1017,7 @@ const char *Unknown68DC20Class::Unknown_28(std::string *string)
 {
 	static Unknown68E360Class _Zero;	// 0xBE65B8  // NAME 1: neutral (D10)
 	FAIL_IF(!string) return(0);
-	InvRenderClass::Unknown_28(string);
+	InventoryRenderClass::Unknown_28(string);
 	char buffer[256];	// NAME 1 [buffer, seconds, whole, ms, hours, rest, minutes, s, m, h]: neutral
 	if (Unknown74 > 0.0f) {
 		sprintf(buffer, "Range: %.2fk / %.2fk\n", Unknown74 * 0.001f, Unknown70 * 0.001f);

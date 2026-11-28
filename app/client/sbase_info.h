@@ -72,7 +72,7 @@ public:
 		BOOTH_BLACKMKT,			// NAME 2: the VB_ model's name (a booth with no avatar)
 	};
 
-	StarbaseNPCClass(int slot, int unknown04, int booth, int unknown1c, const AvatarDescClass &desc, const char *name);	// 0x6974F0  // NAME 1 [unknown04, unknown1c]: neutral
+	StarbaseNPCClass(int slot, int unknown04, int booth, int unknown1c, const AvatarDescriptionClass &desc, const char *name);	// 0x6974F0  // NAME 1 [unknown04, unknown1c]: neutral
 	int Get_Booth_Index();	// 0x6976C0: Booth - 2 for a booth with a VB_ model (2..9), else -1  // NAME 2: what it returns
 	std::string Get_Name() { return(Name); }	// 0x636520 (ui_starbase.cpp's out-of-line copy)  // NAME 2: what it returns
 
@@ -81,7 +81,7 @@ public:
 	std::string Name;			// +0x08  // NAME 2: what it holds (0x634140 gives it to the slot's avatar)
 	int Booth;					// +0x18 (the enum above)  // NAME 2: the VB_ models it picks
 	int Unknown1C;				// +0x1C LOUNGE_NPC's 1..3, else 0 (set: 0x642740's avatar, the slot's bone not needed)
-	AvatarDescClass Desc;	// +0x20  // NAME 2: what it holds
+	AvatarDescriptionClass Desc;	// +0x20  // NAME 2: what it holds
 };
 
 // A room: 0x54 bytes

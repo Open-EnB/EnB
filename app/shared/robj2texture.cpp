@@ -92,7 +92,7 @@ TextureClass *RObj2Texture::Render_TextureMap(RenderObjClass *robj, const Sphere
 	}
 
 	SimpleSceneClass *scene = new SimpleSceneClass;
-	ProxyRObj *proxy = new ProxyRObj(false);
+	ProxyRenderObjClass *proxy = new ProxyRenderObjClass(false);
 	proxy->Set_Transform(robj->Get_Transform());
 	proxy->Unknown_47FF70(robj);
 	scene->Add_Render_Object(proxy);
@@ -200,7 +200,7 @@ TextureClass *Create_Projector_Render_Target(int width, int height)
 **   0x497630) and the 10.0f after it (0xAEA8A8) is the file's own literal.
 ** - The class: the constructor sets the camera (0.2 to 500, 90 degrees both ways) with its viewport inset by the
 **   two border pairs, and a point light (as avatar_pip.cpp's, ambient 0.3). Render_TextureMap renders the object
-**   (lowest LOD, unhidden) through a ProxyRObj in a SimpleSceneClass, with the camera at the bounding sphere's
+**   (lowest LOD, unhidden) through a ProxyRenderObjClass in a SimpleSceneClass, with the camera at the bounding sphere's
 **   top (orthographic over the radius when Orthographic), copies the back buffer, makes black pixels transparent
 **   and returns a clamped texture without mipmaps (converted when Format is not A8R8G8B8). The viewport it
 **   "restores" is read through the reference it scaled, so the restore writes the scaled one back (the client's

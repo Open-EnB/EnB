@@ -9,11 +9,11 @@
 
 // The camera manager's tenth controller (state 9; vtable 0xB05100, 0x60 bytes): the take-off, with effect 0x170 on the
 // avatar for five seconds; +0x14 says yes after two
-class CameraController09Class : public CameraControllerClass	// NAME 1: neutral (D10)
+class TakeoffCameraControllerClass : public CameraControllerClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	CameraController09Class(SClient *client);			// 0x7961B0
-	virtual ~CameraController09Class();					// 0x796280, deleting 0x796250
+	TakeoffCameraControllerClass(SClient *client);			// 0x7961B0
+	virtual ~TakeoffCameraControllerClass();					// 0x796280, deleting 0x796250
 	virtual void Unknown_04();							// +0x04 0x796300
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x796440
 	virtual void Unknown_0C();							// +0x0C 0x796850

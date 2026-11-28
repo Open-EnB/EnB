@@ -1,4 +1,4 @@
-// Earth & Beyond client (reconstruction): app\client\ui_proc.cpp, the mesh's processes (UIProcClass and the animation
+// Earth & Beyond client (reconstruction): app\client\ui_proc.cpp, the mesh's processes (UIProcessClass and the animation
 // process, 0x5DCCE0-0x5DD960; the asserts sit on the client's lines). Notes at the end of the file (UP1, 2026-11-07).
 #include <stdio.h>
 #include <math.h>
@@ -14,7 +14,7 @@ bool Unknown_42EC60(int button, int arg);				// 0x42EC60 (a key down: input.cpp'
 static bool FastAnim;									// 0xBE5D80: '-FASTANIM' on the command line  // NAME 1: after the switch
 
 // @0x5DCCE0
-void UIProcClass::Unknown_5DCCE0(int event, int arg)
+void UIProcessClass::Unknown_5DCCE0(int event, int arg)
 {
 	UIProcEventStruct info;
 	info.Proc = this;
@@ -24,8 +24,8 @@ void UIProcClass::Unknown_5DCCE0(int event, int arg)
 }
 
 // @0x5DCD20
-UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
-	UIProcClass(uimesh),
+UIAnimProcessClass::UIAnimProcessClass(UIMeshClass *uimesh, const char *anim_name, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
+	UIProcessClass(uimesh),
 	Cycle(cycle),
 	DeleteSelf(delete_self),
 	Unknown26(reverse),
@@ -54,8 +54,8 @@ UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name,
 }
 
 // @0x5DCF00
-UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
-	UIProcClass(uimesh),
+UIAnimProcessClass::UIAnimProcessClass(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
+	UIProcessClass(uimesh),
 	Cycle(cycle),
 	DeleteSelf(delete_self),
 	Unknown26(reverse),
@@ -72,7 +72,7 @@ UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim
 
 
 // @0x5DD030
-void UIProc5DCD20Class::Unknown_5DD030(HAnimClass *anim)
+void UIAnimProcessClass::Unknown_5DD030(HAnimClass *anim)
 {
 	static bool first = true;
 	if (first) {
@@ -115,7 +115,7 @@ void UIProc5DCD20Class::Unknown_5DD030(HAnimClass *anim)
 }
 
 // @0x5DD2E0
-UIProc5DCD20Class::~UIProc5DCD20Class()
+UIAnimProcessClass::~UIAnimProcessClass()
 {
 	if (AnimComboData) {
 		delete AnimComboData;
@@ -125,7 +125,7 @@ UIProc5DCD20Class::~UIProc5DCD20Class()
 
 
 // @0x5DD3C0
-bool UIProc5DCD20Class::Unknown_08(float time)
+bool UIAnimProcessClass::Unknown_08(float time)
 {
 	FAIL_IF(!AnimComboData) return(false);
 	HAnimClass *anim = AnimComboData->Peek_HAnim();
@@ -197,7 +197,7 @@ bool UIProc5DCD20Class::Unknown_08(float time)
 }
 
 // @0x5DD720
-void UIProc5DCD20Class::Unknown_0C()
+void UIAnimProcessClass::Unknown_0C()
 {
 	UIMesh->Unknown2C->Remove_Anim_Combo_Data(AnimComboData);
 	Unknown_5DCCE0(2, -1);

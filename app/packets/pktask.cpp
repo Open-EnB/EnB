@@ -79,81 +79,81 @@ Unknown1389Struct &Unknown1389Struct::operator=(const Unknown1389Struct &that)
 	return(*this);
 }
 
-Packet_1388Class::Packet_1388Class(const Unknown1388Struct &data) :
+TaskHelloPacketClass::TaskHelloPacketClass(const Unknown1388Struct &data) :
 	Data(data)
 {
 }
 
-Packet_1388Class::Packet_1388Class(RawPacketClass *raw)
+TaskHelloPacketClass::TaskHelloPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Data, sizeof(Data));
 }
 
-RawPacketClass *Packet_1388Class::Build()
+RawPacketClass *TaskHelloPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Data, sizeof(Data));
 	return(raw);
 }
 
-int Packet_1388Class::Get_Type()
+int TaskHelloPacketClass::Get_Type()
 {
 	return(5000);
 }
 
-int Packet_1388Class::Get_Data_Size()
+int TaskHelloPacketClass::Get_Data_Size()
 {
 	return(sizeof(Data));
 }
 
-int Packet_1388Class::Print(char *buffer, int)
+int TaskHelloPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Task Hello"));
 }
 
-Packet_1389Class::Packet_1389Class(const Unknown1389Struct &data) :
+SectorHelloPacketClass::SectorHelloPacketClass(const Unknown1389Struct &data) :
 	Data(data)
 {
 }
 
-Packet_1389Class::Packet_1389Class(RawPacketClass *raw)
+SectorHelloPacketClass::SectorHelloPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Data, sizeof(Data));
 }
 
-RawPacketClass *Packet_1389Class::Build()
+RawPacketClass *SectorHelloPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Data, sizeof(Data));
 	return(raw);
 }
 
-int Packet_1389Class::Get_Type()
+int SectorHelloPacketClass::Get_Type()
 {
 	return(5001);
 }
 
-int Packet_1389Class::Get_Data_Size()
+int SectorHelloPacketClass::Get_Data_Size()
 {
 	return(sizeof(Data));
 }
 
-int Packet_1389Class::Print(char *buffer, int)
+int SectorHelloPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Sector Hello"));
 }
 
-Packet_138AClass::Packet_138AClass(int type, int num) : Type(type), Num(num)
+TaskStartPacketClass::TaskStartPacketClass(int type, int num) : Type(type), Num(num)
 {
 }
 
-Packet_138AClass::Packet_138AClass(RawPacketClass *raw)
+TaskStartPacketClass::TaskStartPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(&Num, sizeof(Num));
 }
 
-RawPacketClass *Packet_138AClass::Build()
+RawPacketClass *TaskStartPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -161,32 +161,32 @@ RawPacketClass *Packet_138AClass::Build()
 	return(raw);
 }
 
-int Packet_138AClass::Get_Type()
+int TaskStartPacketClass::Get_Type()
 {
 	return(5002);
 }
 
-int Packet_138AClass::Get_Data_Size()
+int TaskStartPacketClass::Get_Data_Size()
 {
 	return(sizeof(Type) + sizeof(Num));
 }
 
-int Packet_138AClass::Print(char *buffer, int)
+int TaskStartPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Type=%d Num=%d}", "Task Start", Type, Num));
 }
 
-Packet_138BClass::Packet_138BClass(int type, int num) : Type(type), Num(num)
+TaskStopPacketClass::TaskStopPacketClass(int type, int num) : Type(type), Num(num)
 {
 }
 
-Packet_138BClass::Packet_138BClass(RawPacketClass *raw)
+TaskStopPacketClass::TaskStopPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Type, sizeof(Type));
 	raw->Get(&Num, sizeof(Num));
 }
 
-RawPacketClass *Packet_138BClass::Build()
+RawPacketClass *TaskStopPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Type, sizeof(Type));
@@ -194,44 +194,44 @@ RawPacketClass *Packet_138BClass::Build()
 	return(raw);
 }
 
-int Packet_138BClass::Get_Type()
+int TaskStopPacketClass::Get_Type()
 {
 	return(5003);
 }
 
-int Packet_138BClass::Get_Data_Size()
+int TaskStopPacketClass::Get_Data_Size()
 {
 	return(sizeof(Type) + sizeof(Num));
 }
 
-int Packet_138BClass::Print(char *buffer, int)
+int TaskStopPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Type=%d Num=%d}", "Task Stop", Type, Num));
 }
 
-Packet_138CClass::Packet_138CClass(int type, int num) :
-	Packet_138AClass(type, num)
+TaskRequestPacketClass::TaskRequestPacketClass(int type, int num) :
+	TaskStartPacketClass(type, num)
 {
 	Unknown14 = 0;
 }
 
-Packet_138CClass::Packet_138CClass(RawPacketClass *raw) :
-	Packet_138AClass(raw)
+TaskRequestPacketClass::TaskRequestPacketClass(RawPacketClass *raw) :
+	TaskStartPacketClass(raw)
 {
 	Unknown14 = 0;
 }
 
-int Packet_138CClass::Get_Type()
+int TaskRequestPacketClass::Get_Type()
 {
 	return(5004);
 }
 
-int Packet_138CClass::Print(char *buffer, int)
+int TaskRequestPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Type=%d Num=%d}", "Task Request", Type, Num));
 }
 
-Packet_138DClass::Packet_138DClass(int ip, unsigned short port, char *string) :
+TaskPingPacketClass::TaskPingPacketClass(int ip, unsigned short port, char *string) :
 	Ip(ip),
 	Port(port)
 {
@@ -239,7 +239,7 @@ Packet_138DClass::Packet_138DClass(int ip, unsigned short port, char *string) :
 	String = nstrdup(string);
 }
 
-Packet_138DClass::Packet_138DClass(RawPacketClass *raw)
+TaskPingPacketClass::TaskPingPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Ip, sizeof(Ip));
 	raw->Get(&Port, sizeof(Port));
@@ -248,13 +248,13 @@ Packet_138DClass::Packet_138DClass(RawPacketClass *raw)
 	raw->Get(String, Size);
 }
 
-Packet_138DClass::~Packet_138DClass()
+TaskPingPacketClass::~TaskPingPacketClass()
 {
 	delete [] String;
 	String = NULL;
 }
 
-RawPacketClass *Packet_138DClass::Build()
+RawPacketClass *TaskPingPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(&Ip, sizeof(Ip));
@@ -264,37 +264,37 @@ RawPacketClass *Packet_138DClass::Build()
 	return(raw);
 }
 
-int Packet_138DClass::Get_Type()
+int TaskPingPacketClass::Get_Type()
 {
 	return(5005);
 }
 
-int Packet_138DClass::Get_Data_Size()
+int TaskPingPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Ip) + sizeof(Port) + sizeof(Size));
 }
 
-int Packet_138DClass::Print(char *buffer, int)
+int TaskPingPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Ip=%x Port=%hx}", "Task Ping", Ip, Port));
 }
 
-Packet_138EClass::Packet_138EClass(int ip, unsigned short port) :
-	Packet_138DClass(ip, port, "")
+TaskPongPacketClass::TaskPongPacketClass(int ip, unsigned short port) :
+	TaskPingPacketClass(ip, port, "")
 {
 }
 
-Packet_138EClass::Packet_138EClass(RawPacketClass *raw) :
-	Packet_138DClass(raw)
+TaskPongPacketClass::TaskPongPacketClass(RawPacketClass *raw) :
+	TaskPingPacketClass(raw)
 {
 }
 
-int Packet_138EClass::Get_Type()
+int TaskPongPacketClass::Get_Type()
 {
 	return(5006);
 }
 
-int Packet_138EClass::Print(char *buffer, int)
+int TaskPongPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {Ip=%x Port=%hx}", "Task Pong", Ip, Port));
 }
@@ -408,7 +408,7 @@ int Packet_138EClass::Print(char *buffer, int)
 
 
 
-Packet_1391Class::Packet_1391Class(char *name, __int64 character_object_id, char *account, __int64 account_id, int ip, unsigned short port, int sector, int status, __int64 unknown38) :
+PlayerStatusPacketClass::PlayerStatusPacketClass(char *name, __int64 character_object_id, char *account, __int64 account_id, int ip, unsigned short port, int sector, int status, __int64 unknown38) :
 	Name(NULL),
 	CharacterObjectID(character_object_id),
 	Account(NULL),
@@ -425,7 +425,7 @@ Packet_1391Class::Packet_1391Class(char *name, __int64 character_object_id, char
 	G_ASSERT(Name && Account);
 }
 
-Packet_1391Class::Packet_1391Class(RawPacketClass *raw)
+PlayerStatusPacketClass::PlayerStatusPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Name);
 	raw->Get(&CharacterObjectID, sizeof(CharacterObjectID));
@@ -439,7 +439,7 @@ Packet_1391Class::Packet_1391Class(RawPacketClass *raw)
 }
 
 
-Packet_1391Class::~Packet_1391Class()
+PlayerStatusPacketClass::~PlayerStatusPacketClass()
 {
 	G_ASSERT(Name && Account);
 	delete [] Name;
@@ -448,7 +448,7 @@ Packet_1391Class::~Packet_1391Class()
 	Name = NULL;
 }
 
-RawPacketClass *Packet_1391Class::Build()
+RawPacketClass *PlayerStatusPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Name);
@@ -463,17 +463,17 @@ RawPacketClass *Packet_1391Class::Build()
 	return(raw);
 }
 
-int Packet_1391Class::Get_Type()
+int PlayerStatusPacketClass::Get_Type()
 {
 	return(5009);
 }
 
-int Packet_1391Class::Get_Data_Size()
+int PlayerStatusPacketClass::Get_Data_Size()
 {
 	return(strlen(Account) + strlen(Name) + 2 * (sizeof(int) + 1) + sizeof(CharacterObjectID) + sizeof(AccountID) + sizeof(Ip) + sizeof(Port) + sizeof(Sector) + sizeof(Status) + sizeof(Unknown38));
 }
 
-int Packet_1391Class::Print(char *buffer, int)
+int PlayerStatusPacketClass::Print(char *buffer, int)
 {
 	char object_id[32];
 	char account_id[32];
@@ -482,12 +482,12 @@ int Packet_1391Class::Print(char *buffer, int)
 	return(sprintf(buffer, "%s { Name=%s CharacterObjectID=%s Account=%s AccountID=%s Ip=%x Port=%hx Sector=%d Status=%d }", "PlayerStatus", Name, object_id, Account, account_id, Ip, Port, Sector, Status));
 }
 
-Packet_1392Class::Packet_1392Class(const std::list<Unknown1389Struct> &list) :
+SectorListPacketClass::SectorListPacketClass(const std::list<Unknown1389Struct> &list) :
 	List(list)
 {
 }
 
-Packet_1392Class::Packet_1392Class(RawPacketClass *raw)
+SectorListPacketClass::SectorListPacketClass(RawPacketClass *raw)
 {
 	List.clear();
 	int count = 0;
@@ -499,7 +499,7 @@ Packet_1392Class::Packet_1392Class(RawPacketClass *raw)
 	}
 }
 
-RawPacketClass *Packet_1392Class::Build()
+RawPacketClass *SectorListPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	int count = List.size();
@@ -510,46 +510,46 @@ RawPacketClass *Packet_1392Class::Build()
 	return(raw);
 }
 
-int Packet_1392Class::Get_Type()
+int SectorListPacketClass::Get_Type()
 {
 	return(5010);
 }
 
-int Packet_1392Class::Get_Data_Size()
+int SectorListPacketClass::Get_Data_Size()
 {
 	return(List.size() * sizeof(Unknown1389Struct) + sizeof(int));
 }
 
-int Packet_1392Class::Print(char *buffer, int)
+int SectorListPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "SectorList"));
 }
 
-Packet_1393Class::Packet_1393Class()
+RequestSectorListPacket::RequestSectorListPacket()
 {
 }
 
-Packet_1393Class::Packet_1393Class(RawPacketClass *)
+RequestSectorListPacket::RequestSectorListPacket(RawPacketClass *)
 {
 }
 
-RawPacketClass *Packet_1393Class::Build()
+RawPacketClass *RequestSectorListPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	return(raw);
 }
 
-int Packet_1393Class::Get_Type()
+int RequestSectorListPacket::Get_Type()
 {
 	return(5011);
 }
 
-int Packet_1393Class::Get_Data_Size()
+int RequestSectorListPacket::Get_Data_Size()
 {
 	return(0);
 }
 
-int Packet_1393Class::Print(char *buffer, int)
+int RequestSectorListPacket::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Request Sector List"));
 }
@@ -562,7 +562,7 @@ int Packet_1393Class::Print(char *buffer, int)
 **	  0xC416FC, atexit 0x42B320). Drafted from the client by the packet decoder (tools/re/pkdecode.py,
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
-**	* Opcodes 5004 (Packet_138AClass's derived class), 5005, 5006 (its derived class) and 5009 written by hand (builder P4, 2026-10-27);
+**	* Opcodes 5004 (TaskStartPacketClass's derived class), 5005, 5006 (its derived class) and 5009 written by hand (builder P4, 2026-10-27);
 **	  5009's asserts sit on the client's lines 422, 425 and 444 (blank lines above them).
 **	* Opcodes 5000, 5001 and 5010 with their two structs written by hand (builder P5, 2026-10-27): the
 **	  structs' members are out of line at the top of the object (0x8A8610-0x8A8970), each the client's

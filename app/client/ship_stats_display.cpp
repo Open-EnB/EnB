@@ -20,7 +20,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\shared\auth_product.h"
 // The field named string under root when it holds a value (its Unknown70 set), else NULL (the name a local of its own:
 // the two finds of each pair share the caller's two name slots)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *string) { NameClass name(string); C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Valid, string]: neutral (D10), as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const char *string) { AuxDataName name(string); C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1 [Unknown_Find_Valid, string]: neutral (D10), as co.cpp's
 
 // The fields on the display: each one's name (the font style on the mesh, after 'BaseStats.' / 'CurrentStats.' the
 // ship's field) and whether a higher value is the better one (0xBE65E0 / 0xBE661C; its constructor is the static
@@ -154,7 +154,7 @@ void ShipStatsDisplayClass::Unknown_6A34E0(bool on)
 	ClientObjectClass *ship = Client->Get_Ship();
 	FAIL_IF(!ship) return;
 	if (UnknownC8) on = true;
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)ship->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)ship->AuxData;
 	{
 		DeltaTemplateClass<float> *hull = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "HullPoints");
 		DeltaTemplateClass<float> *max_hull = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "MaxHullPoints");

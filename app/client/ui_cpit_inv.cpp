@@ -21,7 +21,7 @@ public:
 };
 
 // @0x5850E0
-UICpitInvClass::UICpitInvClass(UICpitClass *cpit, SClient *sclient, int kind) :
+UICpitInvClass::UICpitInvClass(CockpitInterface *cpit, SClient *sclient, int kind) :
 	UIInvClass(sclient, kind),
 	Cpit(cpit),
 	UIMesh(NULL),

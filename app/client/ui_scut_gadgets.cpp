@@ -20,7 +20,7 @@
 
 static const char *ShortcutIni = "shortcut.ini";	// 0xB88EA0  // NAME 2: what it holds
 // @0x6136D0
-UIScutGadgetsClass::UIScutGadgetsClass(const std::string &name, SClient *sclient) : ShortcutBeenCreated(false)
+ShortcutGadgetsInterface::ShortcutGadgetsInterface(const std::string &name, SClient *sclient) : ShortcutBeenCreated(false)
 {
 
 
@@ -71,12 +71,12 @@ UIScutGadgetsClass::UIScutGadgetsClass(const std::string &name, SClient *sclient
 }
 
 // @0x613A20
-UIScutGadgetsClass::~UIScutGadgetsClass()
+ShortcutGadgetsInterface::~ShortcutGadgetsInterface()
 {
 }
 
 // @0x613BA0
-void UIScutGadgetsClass::Set_UI(const RefCountPtr<UIScutClass> &ui)
+void ShortcutGadgetsInterface::Set_UI(const RefCountPtr<ShortcutInterface> &ui)
 {
 	if (ShortcutUI) {
 		Delete_All();
@@ -88,7 +88,7 @@ void UIScutGadgetsClass::Set_UI(const RefCountPtr<UIScutClass> &ui)
 }
 
 // @0x613D70
-void UIScutGadgetsClass::Clear_UI()
+void ShortcutGadgetsInterface::Clear_UI()
 {
 	if (ShortcutUI) {
 		Init_Name((ClientClass *)ShortcutUI->Client);
@@ -98,7 +98,7 @@ void UIScutGadgetsClass::Clear_UI()
 }
 
 // @0x613F50
-int UIScutGadgetsClass::Get_State()
+int ShortcutGadgetsInterface::Get_State()
 {
 	if (ShortcutUI && ShortcutUI->Is_Active()) {
 		return (Saved.size() != 0) ? STATE_NOT_RESTORED : STATE_RESTORED;
@@ -107,7 +107,7 @@ int UIScutGadgetsClass::Get_State()
 }
 
 // @0x613F80
-bool UIScutGadgetsClass::Restore()
+bool ShortcutGadgetsInterface::Restore()
 {
 
 
@@ -139,11 +139,11 @@ bool UIScutGadgetsClass::Restore()
 }
 
 // @0x614040
-bool UIScutGadgetsClass::Restore(const std::list<ShortcutDataStruct> &list)
+bool ShortcutGadgetsInterface::Restore(const std::list<ShortcutDataStruct> &list)
 {
 	bool restored = false;
 	for (std::list<ShortcutDataStruct>::const_iterator it = list.begin(); it != list.end(); ++it) {
-		RObjGadgetClass *gadget = Unknown_14((*it).Key.c_str());
+		RenderObjGadgetClass *gadget = Unknown_14((*it).Key.c_str());
 		if (gadget) {
 			bool added = ShortcutUI->Unknown_610D00(gadget, (*it).Bar, (*it).Group, (*it).Button);
 			if (added) {
@@ -170,7 +170,7 @@ bool UIScutGadgetsClass::Restore(const std::list<ShortcutDataStruct> &list)
 }
 
 // @0x614360
-RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int slot, UIScutProxyGadgetClass *button)
+RenderObjGadgetClass *ShortcutGadgetsInterface::Create_Shortcut(int slot, UIScutProxyGadgetClass *button)
 {
 
 
@@ -185,7 +185,7 @@ RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int slot, UIScutProxyGadget
 
 
 	FAIL_IF(!ShortcutUI) return(NULL);
-	RObjGadgetClass *gadget = Unknown_0C(slot);
+	RenderObjGadgetClass *gadget = Unknown_0C(slot);
 	if (!gadget) return(NULL);
 	if (button) {
 		button->Set_Shortcut(gadget);
@@ -204,7 +204,7 @@ RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int slot, UIScutProxyGadget
 }
 
 // @0x614660
-bool UIScutGadgetsClass::Delete_Shortcut(int scut)
+bool ShortcutGadgetsInterface::Delete_Shortcut(int scut)
 {
 
 
@@ -233,7 +233,7 @@ bool UIScutGadgetsClass::Delete_Shortcut(int scut)
 
 
 	FAIL_IF((unsigned)scut >= ShortcutGadgets.size()) return(false);
-	RObjGadgetClass *scut_gadg = ShortcutGadgets[scut];
+	RenderObjGadgetClass *scut_gadg = ShortcutGadgets[scut];
 
 	FAIL_IF(!scut_gadg) return(false);
 	ShortcutGadgets.erase(ShortcutGadgets.begin() + scut);
@@ -241,7 +241,7 @@ bool UIScutGadgetsClass::Delete_Shortcut(int scut)
 	return(true);
 }
 
-inline void UIScutGadgetsClass::Delete_Gadgets()
+inline void ShortcutGadgetsInterface::Delete_Gadgets()
 {
 	int lp = ShortcutGadgets.size();
 	while (lp--) {
@@ -250,7 +250,7 @@ inline void UIScutGadgetsClass::Delete_Gadgets()
 }
 
 // @0x614730
-void UIScutGadgetsClass::Delete_All()
+void ShortcutGadgetsInterface::Delete_All()
 {
 	Build(Saved);
 	Save(Saved);
@@ -258,11 +258,11 @@ void UIScutGadgetsClass::Delete_All()
 }
 
 // @0x614840
-void UIScutGadgetsClass::Clean()
+void ShortcutGadgetsInterface::Clean()
 {
 	int size = ShortcutGadgets.size();
 	for (int lp = 0; lp < size; lp++) {
-		RObjGadgetClass *scut_gadg = ShortcutGadgets[lp];
+		RenderObjGadgetClass *scut_gadg = ShortcutGadgets[lp];
 
 
 
@@ -312,7 +312,7 @@ void UIScutGadgetsClass::Clean()
 }
 
 // @0x614980
-void UIScutGadgetsClass::Load(std::list<ShortcutDataStruct> &list)
+void ShortcutGadgetsInterface::Load(std::list<ShortcutDataStruct> &list)
 {
 	INIClass ini(ShortcutIni);
 	const char *section = Section.c_str();
@@ -348,7 +348,7 @@ void UIScutGadgetsClass::Load(std::list<ShortcutDataStruct> &list)
 }
 
 // @0x614D90
-void UIScutGadgetsClass::Save(const std::list<ShortcutDataStruct> &list)
+void ShortcutGadgetsInterface::Save(const std::list<ShortcutDataStruct> &list)
 {
 	INIClass ini(ShortcutIni);
 	const char *section = Section.c_str();
@@ -375,15 +375,15 @@ void UIScutGadgetsClass::Save(const std::list<ShortcutDataStruct> &list)
 }
 
 // @0x614FB0
-void UIScutGadgetsClass::Build(std::list<ShortcutDataStruct> &list)
+void ShortcutGadgetsInterface::Build(std::list<ShortcutDataStruct> &list)
 {
 	Clean();
 	list.clear();
 	int button = 0;
 	int group = 0;
 	int bar = 0;
-	for (std::vector<RObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
-		RObjGadgetClass *gadget = *it;
+	for (std::vector<RenderObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
+		RenderObjGadgetClass *gadget = *it;
 
 
 
@@ -417,7 +417,7 @@ void UIScutGadgetsClass::Build(std::list<ShortcutDataStruct> &list)
 }
 
 // @0x6152C0
-void UIScutGadgetsClass::Save_Current()
+void ShortcutGadgetsInterface::Save_Current()
 {
 	std::list<ShortcutDataStruct> list;
 	Build(list);
@@ -425,7 +425,7 @@ void UIScutGadgetsClass::Save_Current()
 }
 
 // @0x6153B0
-void UIScutGadgetsClass::Init_Name(ClientClass *client)
+void ShortcutGadgetsInterface::Init_Name(ClientClass *client)
 {
 	if (Name.length() == 0) {
 

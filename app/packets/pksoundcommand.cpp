@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-ClientSoundPacketClass::ClientSoundPacketClass(const char *sound_name, int channel, bool queue) : SoundName(0), Channel(channel), Queue(queue)
+SoundPacketClass::SoundPacketClass(const char *sound_name, int channel, bool queue) : SoundName(0), Channel(channel), Queue(queue)
 {
 	Length = strlen(sound_name) + 1;
 	if (Length != 0) {
@@ -13,14 +13,14 @@ ClientSoundPacketClass::ClientSoundPacketClass(const char *sound_name, int chann
 	}
 }
 
-ClientSoundPacketClass::~ClientSoundPacketClass()
+SoundPacketClass::~SoundPacketClass()
 {
 	if (SoundName != 0) {
 		delete [] SoundName;
 	}
 }
 
-ClientSoundPacketClass::ClientSoundPacketClass(RawPacketClass *raw)
+SoundPacketClass::SoundPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Length, sizeof(Length));
 	if (Length != 0) {
@@ -31,7 +31,7 @@ ClientSoundPacketClass::ClientSoundPacketClass(RawPacketClass *raw)
 	raw->Get(&Queue, sizeof(Queue));
 }
 
-RawPacketClass *ClientSoundPacketClass::Build()
+RawPacketClass *SoundPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(106, Get_Data_Size());
 	raw->Add(&Length, sizeof(Length));
@@ -43,12 +43,12 @@ RawPacketClass *ClientSoundPacketClass::Build()
 	return(raw);
 }
 
-int ClientSoundPacketClass::Get_Data_Size()
+int SoundPacketClass::Get_Data_Size()
 {
 	return(sizeof(Length) + Length + sizeof(Channel) + sizeof(Queue));
 }
 
-int ClientSoundPacketClass::Print(char *buffer, int)
+int SoundPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "Client Sound Packet {SoundName=%s Channel=%d Queue=%d}", SoundName, Channel, Queue));
 }

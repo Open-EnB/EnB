@@ -35,11 +35,11 @@ public:
 };
 
 // opcode 24 (0x0018, REQUEST_TARGETS_TARGET): vtable 0xB0BD20, constructor 0x8A81B0, 0x14 bytes
-class RequestTargetsTargetPacketClass : public PacketClass  // NAME 2: Net-7's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check)
+class RequestTargetTargetPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	RequestTargetsTargetPacketClass(int game_id, int target_id);	// 0x8A8110
-	RequestTargetsTargetPacketClass(RawPacketClass *raw);	// 0x8A81B0
+	RequestTargetTargetPacketClass(int game_id, int target_id);	// 0x8A8110
+	RequestTargetTargetPacketClass(RawPacketClass *raw);	// 0x8A81B0
 	virtual RawPacketClass *Build();	// +0x04 0x8A8250
 	virtual bool Process_Packet(void *client);	// +0x08 0x8689D0 (clientstub.cpp l.257)
 	virtual int Get_Data_Size();	// +0x0C 0x8A8320

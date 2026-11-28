@@ -22,21 +22,21 @@ VerbManagerClass::~VerbManagerClass()
 }
 
 // 0x81F560
-void VerbManagerClass::Unknown_81F560(int game_id, UIVerbClass *window)
+void VerbManagerClass::Unknown_81F560(int game_id, VerbInterface *window)
 {
 	Unknown_81F890(game_id, window);
 	Client->Send_Packet(&VerbRequestPacketClass(Client->Get_Avatar_ID(), game_id, 0));
 }
 
 // 0x81F610
-void VerbManagerClass::Unknown_81F610(int game_id, UIVerbClass *window)
+void VerbManagerClass::Unknown_81F610(int game_id, VerbInterface *window)
 {
 	Unknown_81F890(game_id, window);
 	Client->Send_Packet(&VerbRequestPacketClass(Client->Get_Avatar_ID(), game_id, 1));
 }
 
 // 0x81F6A0
-void VerbManagerClass::Unknown_81F6A0(int game_id, UIVerbClass *window)
+void VerbManagerClass::Unknown_81F6A0(int game_id, VerbInterface *window)
 {
 	Unknown_81FA40(game_id, window);
 	Client->Send_Packet(&VerbRequestPacketClass(Client->Get_Avatar_ID(), game_id, 2));
@@ -125,7 +125,7 @@ void VerbManagerClass::Unknown_81F810(int game_id, const std::set<VerbEnum> *add
 
 
 // 0x81F890
-bool VerbManagerClass::Unknown_81F890(int game_id, UIVerbClass *window)
+bool VerbManagerClass::Unknown_81F890(int game_id, VerbInterface *window)
 {
 	WindowMapType::iterator found;
 	WindowListType *windows;
@@ -145,7 +145,7 @@ bool VerbManagerClass::Unknown_81F890(int game_id, UIVerbClass *window)
 }
 
 // 0x81FA40
-bool VerbManagerClass::Unknown_81FA40(int game_id, UIVerbClass *window)
+bool VerbManagerClass::Unknown_81FA40(int game_id, VerbInterface *window)
 {
 	WindowMapType::iterator found = Windows.find(game_id);
 	if (found != Windows.end()) {

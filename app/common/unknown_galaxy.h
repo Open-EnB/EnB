@@ -23,8 +23,8 @@ class LoginGalaxyClass : public Unknown_PacketDataClass	// NAME 1: what it holds
 public:
 	LoginGalaxyClass() : ID(0), Address(0), Unknown50(0), Unknown54(0), Unknown58(0), Unknown5C(1) { Name[0] = 0; }	// (inline: GlobalAvatarListPacketClass's raw constructor)
 	~LoginGalaxyClass() {}								// 0x76BBF0 (stores the vtable: explicit)
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x83C730
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x83C7C0
+	virtual bool Write(LinearBuffer *buffer);		// +0x00 0x83C730
+	virtual bool Read(LinearBuffer *buffer);		// +0x04 0x83C7C0
 	virtual int Get_Size();								// +0x08 0x83C850
 
 	char Name[0x41];									// +0x04 NAME 1: 0x40 bytes on the wire

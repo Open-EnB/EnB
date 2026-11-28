@@ -19,7 +19,7 @@
 // Player.RPGInfo (0x752E60)
 inline
 DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
-	DeltaCompoundClass(name),
+	DeltaContainer(name),
 	Race("Race"),
 	Profession("Profession"),
 	Skills("Skills", 64),
@@ -59,8 +59,8 @@ DeltaRPGInfoClass::DeltaRPGInfoClass(const char *name) :
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo.Skills.N (0x753520)
 inline
-DeltaSkillClass::DeltaSkillClass(const char *name) :
-	DeltaCompoundClass(name),
+DeltaSkill::DeltaSkill(const char *name) :
+	DeltaContainer(name),
 	Level("Level"),
 	RecycleTime("RecycleTime"),
 	LastActivation("LastActivation", 0),
@@ -82,8 +82,8 @@ DeltaSkillClass::DeltaSkillClass(const char *name) :
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_SKILL)
 // Player.RPGInfo.SkillAbilities.N (0x7538B0)
 inline
-DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
-	DeltaCompoundClass(name),
+DeltaSkillAbility::DeltaSkillAbility(const char *name) :
+	DeltaContainer(name),
 	HasAbility("HasAbility"),
 	Usage("Usage"),
 	Targets("Targets"),
@@ -105,8 +105,8 @@ DeltaSkillAbilityClass::DeltaSkillAbilityClass(const char *name) :
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MISSION)
 // Player.Missions.N (0x753DF0)
 inline
-DeltaMissionClass::DeltaMissionClass(const char *name) :
-	DeltaCompoundClass(name),
+DeltaMission::DeltaMission(const char *name) :
+	DeltaContainer(name),
 	ID("ID", -1),
 	Name("Name", ""),
 	Summary("Summary", ""),

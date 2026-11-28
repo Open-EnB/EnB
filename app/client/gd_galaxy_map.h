@@ -19,12 +19,12 @@
 
 #include "gd_pip_scene.h"
 
-class GalaxyMapPipClass;	// galaxy_map_pip.h's: the galaxy map's PIP
+class GalaxyMapPIPClass;	// galaxy_map_pip.h's: the galaxy map's PIP
 
 class GadgetGalaxyMapClass : public GadgetPipSceneClass  // NAME 2: class-from-file (D24) for app\client\gd_galaxy_map.cpp, as gd_pip_scene.cpp's GadgetPipSceneClass
 {
 public:
-	GadgetGalaxyMapClass(GalaxyMapPipClass *pip);		// 0x668E30 (G_ASSERT 'GalaxyMap' l.61)  // NAME 1 [pip]: the base's
+	GadgetGalaxyMapClass(GalaxyMapPIPClass *pip);		// 0x668E30 (G_ASSERT 'GalaxyMap' l.61)  // NAME 1 [pip]: the base's
 	virtual ~GadgetGalaxyMapClass();					// +0x00 0x668EF0 (deleting 0x668EC0)
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x668F20 (FAIL_IF '!GalaxyMap' l.76: buttons 1 / 5 hold the gadget; a click goes to the map, a drag pans or zooms)  // NAME 1 [event, x, y, mask]: GadgetClass's
 	virtual bool Unknown_30(float x, float y);			// +0x30 0x6692B0 (the base's only)  // NAME 1 [x, y]: GadgetClass's
@@ -33,7 +33,7 @@ public:
 	void Unknown_6693A0();								// 0x6693A0 (FAIL_IF '!GalaxyMap' l.178: the first button's drag, 0x53FD10)
 	void Unknown_669460();								// 0x669460 (FAIL_IF '!GalaxyMap' l.198: the second button's drag, the zoom by its vertical move)
 
-	GalaxyMapPipClass *GalaxyMap;						// +0x4C (G_ASSERT 'GalaxyMap')  // NAME 3: the asserts'
+	GalaxyMapPIPClass *GalaxyMap;						// +0x4C (G_ASSERT 'GalaxyMap')  // NAME 3: the asserts'
 };
 
 #endif

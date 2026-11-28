@@ -18,11 +18,11 @@
 #include "pk.h"
 
 // opcode 20 (0x0014, MOVE): vtable 0xB0B344, constructor 0x89D110, 0x14 bytes
-class MovePacketClass : public PacketClass  // NAME 2: Net-7's opcode name MOVE (the Net-7 opcode table; no structure check)
+class MovementPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	MovePacketClass(int game_id, char move_type);	// 0x89D070
-	MovePacketClass(RawPacketClass *raw);	// 0x89D110
+	MovementPacketClass(int game_id, char move_type);	// 0x89D070
+	MovementPacketClass(RawPacketClass *raw);	// 0x89D110
 	virtual RawPacketClass *Build();	// +0x04 0x89D1B0
 	virtual bool Process_Packet(void *client);	// +0x08 0x867C20 (clientstub.cpp l.38)
 	virtual int Get_Data_Size();	// +0x0C 0x89D280

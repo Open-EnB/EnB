@@ -17,7 +17,7 @@
 
 // 0x6F0200
 RenderStateEffectClass::RenderStateEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, int render_state, int action, unsigned action_time) :
-	UnknownB00060EffectClass(client, id, start_time, duration, cycle_time),
+	UnaryEffectClass(client, id, start_time, duration, cycle_time),
 	RenderStateID(render_state),
 	ActionType(action),
 	ActionTime(action_time)
@@ -33,7 +33,7 @@ Vector3 RenderStateEffectClass::Unknown_08(const Vector3 &)
 // 0x6F03C0
 void RenderStateEffectClass::Unknown_18()
 {
-	UnknownB00060EffectClass::Unknown_18();
+	UnaryEffectClass::Unknown_18();
 	if (SourceObject && RenderStateID >= 0) {
 		RenderObjClass *robj = SourceObject->Unknown_6F3BC0();
 		if (robj) {

@@ -2,7 +2,7 @@
 #include "pkunknown_877640.h"
 #include <stdio.h>
 
-AvatarDescPacketClass::AvatarDescPacketClass(int game_id, const AvatarDescClass *desc) :
+AvatarDescPacketClass::AvatarDescPacketClass(int game_id, const AvatarDescriptionClass *desc) :
 	GameID(game_id)
 {
 	Channel = Unknown_14(GameID, -1);

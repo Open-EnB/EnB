@@ -34,7 +34,7 @@ extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 static const char *Unknown_B84594[] = { "exit", "button01", "button02", "button03" };	// NAME 1: neutral (D10)
 
 // 0x5D8C40
-UIPlayerOptClass::UIPlayerOptClass(SClient *client) :
+PlayerOptionsInterface::PlayerOptionsInterface(SClient *client) :
 	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
@@ -50,7 +50,7 @@ UIPlayerOptClass::UIPlayerOptClass(SClient *client) :
 }
 
 // 0x5D8E90
-UIPlayerOptClass::~UIPlayerOptClass()
+PlayerOptionsInterface::~PlayerOptionsInterface()
 {
 	Unknown0AC->Unknown_5C();
 	Unknown0AC = NULL;
@@ -61,7 +61,7 @@ UIPlayerOptClass::~UIPlayerOptClass()
 }
 
 // 0x5D9100
-void UIPlayerOptClass::Unknown_54()
+void PlayerOptionsInterface::Unknown_54()
 {
 	if (Unknown_98("tsi27a", "fa_tsi27a.ini")) {
 		int i;
@@ -88,7 +88,7 @@ void UIPlayerOptClass::Unknown_54()
 }
 
 // 0x5D9410
-void UIPlayerOptClass::Unknown_58()
+void PlayerOptionsInterface::Unknown_58()
 {
 	if (!Is_Active()) {
 		InterfaceSortScopeClass sort(this);
@@ -100,13 +100,13 @@ void UIPlayerOptClass::Unknown_58()
 		Unknown_5DA570();
 		Unknown_5DA2B0(true);
 		if (Unknown0CC[0]) {
-			((RObjGadgetClass *)Unknown0CC[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Unknown0CC[0])->Unknown_66C360();
 		}
 	}
 }
 
 // 0x5D9610
-void UIPlayerOptClass::Unknown_5C()
+void PlayerOptionsInterface::Unknown_5C()
 {
 	if (Active) {
 		Unknown_5DA2B0(false);
@@ -117,7 +117,7 @@ void UIPlayerOptClass::Unknown_5C()
 }
 
 // 0x5D9730
-void UIPlayerOptClass::Unknown_60()
+void PlayerOptionsInterface::Unknown_60()
 {
 	Unknown_5D9AC0();
 	Unknown_5D9FD0();
@@ -126,7 +126,7 @@ void UIPlayerOptClass::Unknown_60()
 }
 
 // 0x5D9870
-bool UIPlayerOptClass::Unknown_68(int key)
+bool PlayerOptionsInterface::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
@@ -162,7 +162,7 @@ bool UIPlayerOptClass::Unknown_68(int key)
 }
 
 // 0x5D99F0
-void UIPlayerOptClass::Unknown_7C(UIViewClass *view, bool arg)
+void PlayerOptionsInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
 		if (Unknown0AC) {
@@ -173,14 +173,14 @@ void UIPlayerOptClass::Unknown_7C(UIViewClass *view, bool arg)
 }
 
 // 0x5D9A40
-void UIPlayerOptClass::Unknown_5D9A40(int count)
+void PlayerOptionsInterface::Unknown_5D9A40(int count)
 {
 	Slider->Unknown_66FA90((float)count, 7.0f, true);
 	Unknown_5D9AC0();
 }
 
 // 0x5D9AC0
-void UIPlayerOptClass::Unknown_5D9AC0()
+void PlayerOptionsInterface::Unknown_5D9AC0()
 {
 	int top = (int)Slider->Value;
 	if (Top != top) {
@@ -191,7 +191,7 @@ void UIPlayerOptClass::Unknown_5D9AC0()
 }
 
 // 0x5D9B10
-void UIPlayerOptClass::Unknown_5D9B10()
+void PlayerOptionsInterface::Unknown_5D9B10()
 {
 	for (int i = 0; i < 7; i++) {
 		unsigned int index = Top + i;
@@ -206,20 +206,20 @@ void UIPlayerOptClass::Unknown_5D9B10()
 }
 
 // 0x5D9BB0
-void UIPlayerOptClass::Unknown_5D9BB0()
+void PlayerOptionsInterface::Unknown_5D9BB0()
 {
 	Unknown0B0.clear();
 }
 
 // 0x5D9C70
-void UIPlayerOptClass::Unknown_5D9C70()
+void PlayerOptionsInterface::Unknown_5D9C70()
 {
 	Unknown0C0.clear();
 }
 
 // the client's loop form: ++ on the list iterator, the wcscoll result in a named int (as ui_radio_list 0x5E8240)
 // 0x5D9D10
-void UIPlayerOptClass::Unknown_5D9D10()
+void PlayerOptionsInterface::Unknown_5D9D10()
 {
 	Unknown_5D9BB0();
 	for (std::list<std::string>::iterator node = Unknown0C0.begin(); node != Unknown0C0.end(); ++node) {
@@ -241,7 +241,7 @@ void UIPlayerOptClass::Unknown_5D9D10()
 }
 
 // 0x5D9FD0
-void UIPlayerOptClass::Unknown_5D9FD0()
+void PlayerOptionsInterface::Unknown_5D9FD0()
 {
 	float x;
 	float y;
@@ -256,7 +256,7 @@ void UIPlayerOptClass::Unknown_5D9FD0()
 }
 
 // 0x5DA060
-void UIPlayerOptClass::Unknown_5DA060(int index)
+void PlayerOptionsInterface::Unknown_5DA060(int index)
 {
 	int size = Unknown0B0.size();
 	int selection = Top + index;
@@ -267,7 +267,7 @@ void UIPlayerOptClass::Unknown_5DA060(int index)
 }
 
 // 0x5DA0D0
-void UIPlayerOptClass::Unknown_5DA0D0()
+void PlayerOptionsInterface::Unknown_5DA0D0()
 {
 	if (Unknown0AC.Peek() != NULL && Unknown0AC->Is_Active()) {
 		int state = Unknown0AC->Unknown_64A220();
@@ -285,7 +285,7 @@ void UIPlayerOptClass::Unknown_5DA0D0()
 }
 
 // 0x5DA2B0
-void UIPlayerOptClass::Unknown_5DA2B0(bool on)
+void PlayerOptionsInterface::Unknown_5DA2B0(bool on)
 {
 	int i;
 	for (i = 0; i < 4; i++) {
@@ -389,7 +389,7 @@ void UIPlayerOptClass::Unknown_5DA2B0(bool on)
 
 
 // 0x5DA340
-void UIPlayerOptClass::Unknown_5DA340()
+void PlayerOptionsInterface::Unknown_5DA340()
 {
 	int list_size = Unknown0B0.size();
 	FAIL_IF(Selection < 0 || Selection >= list_size) return;
@@ -401,7 +401,7 @@ void UIPlayerOptClass::Unknown_5DA340()
 }
 
 // 0x5DA570
-void UIPlayerOptClass::Unknown_5DA570()
+void PlayerOptionsInterface::Unknown_5DA570()
 {
 	int id = ((ClientClass *)Client)->Unknown1138;
 	ClientChatRequestPacketClass packet(0x17, id);
@@ -409,7 +409,7 @@ void UIPlayerOptClass::Unknown_5DA570()
 }
 
 // 0x5DA600
-void UIPlayerOptClass::Unknown_5DA600(std::vector<std::string> names)
+void PlayerOptionsInterface::Unknown_5DA600(std::vector<std::string> names)
 {
 	Unknown_5D9C70();
 	for (std::vector<std::string>::iterator it = names.begin(); it != names.end(); it++) {
@@ -421,7 +421,7 @@ void UIPlayerOptClass::Unknown_5DA600(std::vector<std::string> names)
 }
 
 // 0x5DA780
-void UIPlayerOptClass::Unknown_5DA780(std::string name)
+void PlayerOptionsInterface::Unknown_5DA780(std::string name)
 {
 	Unknown0C0.push_back(name);
 	Unknown_5D9D10();
@@ -429,7 +429,7 @@ void UIPlayerOptClass::Unknown_5DA780(std::string name)
 }
 
 // 0x5DA8C0
-void UIPlayerOptClass::Unknown_5DA8C0(std::string name)
+void PlayerOptionsInterface::Unknown_5DA8C0(std::string name)
 {
 	for (std::list<std::string>::iterator it = Unknown0C0.begin(); it != Unknown0C0.end(); it++) {
 		std::string other = *it;
@@ -443,7 +443,7 @@ void UIPlayerOptClass::Unknown_5DA8C0(std::string name)
 }
 
 // 0x5DAAD0
-void UIPlayerOptClass::Unknown_5DAAD0()
+void PlayerOptionsInterface::Unknown_5DAAD0()
 {
 	SClient *sclient = Client->As_Space_Client();
 	ClientObjectClass *target;
@@ -455,7 +455,7 @@ void UIPlayerOptClass::Unknown_5DAAD0()
 }
 
 // 0x5DAB50
-void UIPlayerOptClass::Unknown_5DAB50()
+void PlayerOptionsInterface::Unknown_5DAB50()
 {
 	ClientObjectClass *target = Unknown_5DAD50();
 	if (target) {
@@ -469,7 +469,7 @@ void UIPlayerOptClass::Unknown_5DAB50()
 }
 
 // 0x5DAD50
-ClientObjectClass *UIPlayerOptClass::Unknown_5DAD50()
+ClientObjectClass *PlayerOptionsInterface::Unknown_5DAD50()
 {
 	SClient *sclient = Client->As_Space_Client();
 	if (sclient->Unknown_744B60()) {

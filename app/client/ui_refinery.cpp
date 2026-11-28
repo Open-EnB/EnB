@@ -57,7 +57,7 @@ static const char *Unknown_B85C48[] = { "Credits_TSM03a", "Go_TSM03a", "Stack_TS
 static const char *Unknown_B85C60[] = { "Refining Resource", "Attempt Succeeded" };	// NAME 1: neutral (D10)
 
 // @0x5EB810
-UIRefineryClass::UIRefineryClass(SBaseViewClass *view, const LayerClass &layer) :
+UIRefineryClass::UIRefineryClass(StarbaseViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(new UIMeshClass("TSM03A", true), (UIViewClass *)view, layer),
 	Unknown0AC(view),
 	Unknown0B0(NULL),
@@ -152,7 +152,7 @@ static inline int Refinery_Player_Id(SClient *sclient) { return sclient->Unknown
 // @0x5EC270
 void UIRefineryClass::Unknown_58()
 {
-	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (it calls 0x5ED310 out of line here; 2 are not enough)
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (it calls 0x5ED310 out of line here; 2 are not enough)
 	SClient *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Refinery_Player_Id(sclient), 4));
 	if (State == UI_CLOSED) {
@@ -175,7 +175,7 @@ void UIRefineryClass::Unknown_58()
 		Unknown_5EDCC0();
 		ClientObjectClass *target = Client->As_Space_Client()->Unknown_74BF80();
 		if (target) {
-			Unknown0AEC = (DeltaCompoundClass *)target->AuxData;
+			Unknown0AEC = (DeltaContainer *)target->AuxData;
 		}
 		Unknown_5ED440();
 		Unknown_5ECEF0();
@@ -204,7 +204,7 @@ void UIRefineryClass::Unknown_5C()
 }
 
 #include "aux_manu.h"				// (after auxdata.h, as ui_manu.cpp): 'Validity' is DeltaTemplateClass<UnknownB01394Enum>
-class UIManuEntryClass : public DeltaCompoundClass	// NAME 1: neutral (D10): as ui_manu.cpp's
+class UIManuEntryClass : public DeltaContainer	// NAME 1: neutral (D10): as ui_manu.cpp's
 {
 public:
 	char Unknown09C[0x120 - 0x9C];						// +0x09C
@@ -230,14 +230,14 @@ public:
 };
 // (ui_manu.cpp's aux data classes, as this file reads them: each per-class global is its aux data type's)
 bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufacturing_defs.h keeps it from aux_roots.cpp's declaration count)
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_manu.cpp's
-template<class C> inline C *Unknown_Manu_Raw_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_manu.cpp's
-template<class C> C *Unknown_Find_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): 0x5EEBA0 (out of line after 0x5EDFD0)
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_manu.cpp's
+template<class C> inline C *Unknown_Manu_Raw_Field(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaContainer *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_manu.cpp's
+template<class C> C *Unknown_Find_Changed(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): 0x5EEBA0 (out of line after 0x5EDFD0)
 
 // @0x5EC6D0
 void UIRefineryClass::Unknown_60()
 {
-	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (both Casts out of line, 0x5B7210 / 0x5468D0; 4 are not enough)
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (both Casts out of line, 0x5B7210 / 0x5468D0; 4 are not enough)
 	Unknown_5EDFD0();
 	if (Unknown0AF4 != 0.0f) {
 		Unknown0AF4 -= (float)(__int64)(WW3D::Get_Frame_Time()) * 0.001f;
@@ -248,7 +248,7 @@ void UIRefineryClass::Unknown_60()
 		Unknown_5ECBB0(4, true, Unknown_B85C48[5]);
 	} else if (Unknown0AF0 != 0) {
 		if (Unknown0AF0 == 1) {
-			NameClass name("ManufactureComponents");
+			AuxDataName name("ManufactureComponents");
 			UIManuComponentsClass *components = Unknown_Find_Field<UIManuComponentsClass>(Unknown0AEC, name);
 			if (components && components->Unknown70 > 1) {
 				Unknown0AF0 = 0;
@@ -260,7 +260,7 @@ void UIRefineryClass::Unknown_60()
 			}
 		}
 		if (Unknown0AF0 == 3) {
-			NameClass name("Validity");
+			AuxDataName name("Validity");
 			DeltaTemplateClass<UnknownB01394Enum> *found = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, name); DeltaTemplateClass<UnknownB01394Enum> *validity = (found && found->Unknown70) ? found : NULL;
 			int value = validity->Value;
 			if (Is_Validity_Attempt((UnknownB01394Enum)value)) {
@@ -285,7 +285,7 @@ slider:
 // @0x5EC990
 bool UIRefineryClass::Unknown_68(int key)
 {
-	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (its inlined 0x5ECCE0 calls the Cast out of line; 3 are not enough)
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (its inlined 0x5ECCE0 calls the Cast out of line; 3 are not enough)
 	if (Unknown0AF4 != 0.0f) {
 		return(true);
 	}
@@ -529,7 +529,7 @@ void UIRefineryClass::Unknown_5ED470()
 {
 	int pick = Unknown0AF8;
 	if (pick >= 0) {
-		NameClass name("KnownFormula");
+		AuxDataName name("KnownFormula");
 		UIManuListClass *list = Unknown_Find_Field<UIManuListClass>(Unknown0AEC, name);
 		if (list && list->Unknown70) {
 			Unknown_5ED530(((UIManuEntryClass *)list->Children[pick])->Unknown1A8);
@@ -541,7 +541,7 @@ void UIRefineryClass::Unknown_5ED470()
 void UIRefineryClass::Unknown_5ED530(int item_id)
 {
 	if (item_id != -1) {
-		((ClientClass *)Client)->Send_Packet(&RefineryItemIdPacketClass(Refinery_Player_Id(Client->As_Space_Client()), item_id));
+		((ClientClass *)Client)->Send_Packet(&RefinerySetItemIDPacketClass(Refinery_Player_Id(Client->As_Space_Client()), item_id));
 		Unknown0AF0 = 1;
 		Unknown0B00 = item_id;
 	}
@@ -618,7 +618,7 @@ void UIRefineryClass::Unknown_5EDA10(UIManuListClass *list)
 void UIRefineryClass::Unknown_5EDCC0()
 {
 	MoneyClass credits;
-	DeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, "Money");
+	DeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaContainer *)Client->As_Space_Client()->AuxData, "Money");
 	if (money && money->Unknown70) {
 		credits = money->Value;
 	}
@@ -632,7 +632,7 @@ void UIRefineryClass::Unknown_5EDCC0()
 }
 
 static std::string Unknown_5EE7F0(int validity);
-static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClientClass *client);
+static std::string Unknown_5EE460(DeltaContainer *auxdata, LineDisplayClientClass *client);
 
 
 void UIRefineryClass::Unknown_5EDFD0()
@@ -652,7 +652,7 @@ void UIRefineryClass::Unknown_5EDFD0()
 	}
 
 	MoneyClass credits;
-	DeltaCompoundClass *root = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData; DeltaTemplateClass<MoneyClass> *money = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(root, "Money");
+	DeltaContainer *root = (DeltaContainer *)Client->As_Space_Client()->AuxData; DeltaTemplateClass<MoneyClass> *money = Unknown_Find_Changed<DeltaTemplateClass<MoneyClass> >(root, "Money");
 	if (money) {
 		credits = money->Value;
 		Unknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());
@@ -685,12 +685,12 @@ Unknown831340Class *Unknown_8318B0(int item_template_id, ClientClass *client);	/
 
 
 // 0x5EE460
-static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
+static std::string Unknown_5EE460(DeltaContainer *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
 {
 	static std::string unknown_item("Unknown Item");
 	FAIL_IF(!auxdata) return(unknown_item);
 	FAIL_IF(!client) return(unknown_item);
-	NameClass name("ManufactureTarget");
+	AuxDataName name("ManufactureTarget");
 	UIManuComponentsClass *target_item_auxdata_set = Unknown_Find_Valid<UIManuComponentsClass>(auxdata, name);
 	FAIL_IF(!target_item_auxdata_set) return(unknown_item);
 	target_item_auxdata_set->Children.begin();	// not the client's: a dead read (D130 / D272) spends the inline budget the client spent (the find out of line, 0x5B7050; begin() costs one expansion, Get_Size two: with Get_Size the '!item_template' copy's _Tidy stays a call)
@@ -730,7 +730,7 @@ static std::string Unknown_5EE7F0(int validity)	// NAME 1: neutral (D10)  // NAM
 		default:
 			return("Unexpected error.");
 	}
-	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (as ui_manu.cpp's 0x5B6060, D130) spends the inline budget the client spent
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(AuxDataName *)&validity);	// not the client's: a dead find (as ui_manu.cpp's 0x5B6060, D130) spends the inline budget the client spent
 }
 
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0xBE5D89, initialised by 0x5EB7C0)

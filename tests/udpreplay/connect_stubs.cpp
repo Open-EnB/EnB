@@ -12,8 +12,8 @@ static void Not_In_Replay(const char *what)
 	exit(3);
 }
 
-class TCPConnection { public: TCPConnection(const char *host, unsigned short port, bool encrypt); };
-TCPConnection::TCPConnection(const char *, unsigned short, bool) { Not_In_Replay("TCPConnection"); }
+class TCPConnectionClass { public: TCPConnectionClass(const char *host, unsigned short port, bool encrypt); };  // NAME 5: thunk order, binary.md 5.11
+TCPConnectionClass::TCPConnectionClass(const char *, unsigned short, bool) { Not_In_Replay("TCPConnection"); }
 
 class CompositeListenerClass { public: CompositeListenerClass(); };
 CompositeListenerClass::CompositeListenerClass() { Not_In_Replay("CompositeListenerClass"); }

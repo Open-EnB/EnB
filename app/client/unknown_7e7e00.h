@@ -5,7 +5,7 @@
 **	strings are 'if_check_on.tga' / 'if_check_off.tga')
 **
 **	The check box: a button gadget (unknown_675120.h's ButtonGadgetClass, mask 0x11) that shows one of two textures.
-**	Table 0xB075E4 (41 slots: RObjGadgetClass's, +0x2C its own), constructors 0x7E7E70 (with a layer) / 0x7E7F20,
+**	Table 0xB075E4 (41 slots: RenderObjGadgetClass's, +0x2C its own), constructors 0x7E7E70 (with a layer) / 0x7E7F20,
 **	destructor 0x7E7FA0, 0x68 bytes; code in unknown_7e7e00.cpp. The windows that tick boxes (ui_friends.cpp,
 **	ui_option_channel.cpp, ui_option_check.cpp) and ui_manu.cpp's tech level filters (since run 2026-11-14, S1)
 **	take the class from here.

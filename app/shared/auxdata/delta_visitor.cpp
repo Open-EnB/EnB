@@ -6,13 +6,13 @@
 class DeltaQueueVisitorClass : public DeltaVisitorClass	// NAME 1: neutral, what it does (D10)
 {
 public:
-	void Visit_Breadth_First(DeltaCompoundClass *delta);	// 0x4B0680  // NAME 2: what it does
+	void Visit_Breadth_First(DeltaContainer *delta);	// 0x4B0680  // NAME 2: what it does
 
 	std::queue<DeltaClass *> Queue;							// +0x04  // NAME 2: what it holds
 };
 
 // @0x4B0680
-void DeltaQueueVisitorClass::Visit_Breadth_First(DeltaCompoundClass *delta)
+void DeltaQueueVisitorClass::Visit_Breadth_First(DeltaContainer *delta)
 {
 	int count = delta->Children.size();
 	for (int i = 0; i < count; i++) {

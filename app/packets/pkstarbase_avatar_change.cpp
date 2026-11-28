@@ -82,18 +82,18 @@ int StarbaseAvatarUpdatePacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "Starbase_Avatar_Change {AvatarID=%d Orient=%f Position=(%f,%f,%f) ActionFlag=%d Room=%d}", AvatarID, Orient, Unknown14, Unknown18, Unknown1C, ActionFlag, Room));
 }
 
-Starbase_Room_ChangePacketClass::Starbase_Room_ChangePacketClass(int avatar_id, int new_room, int old_room) : AvatarID(avatar_id), NewRoom(new_room), OldRoom(old_room)
+StarbaseAvatarRoomChangePacketClass::StarbaseAvatarRoomChangePacketClass(int avatar_id, int new_room, int old_room) : AvatarID(avatar_id), NewRoom(new_room), OldRoom(old_room)
 {
 }
 
-Starbase_Room_ChangePacketClass::Starbase_Room_ChangePacketClass(RawPacketClass *raw)
+StarbaseAvatarRoomChangePacketClass::StarbaseAvatarRoomChangePacketClass(RawPacketClass *raw)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&NewRoom, sizeof(NewRoom));
 	raw->Get(&OldRoom, sizeof(OldRoom));
 }
 
-RawPacketClass *Starbase_Room_ChangePacketClass::Build()
+RawPacketClass *StarbaseAvatarRoomChangePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(159, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
@@ -102,12 +102,12 @@ RawPacketClass *Starbase_Room_ChangePacketClass::Build()
 	return(raw);
 }
 
-int Starbase_Room_ChangePacketClass::Get_Data_Size()
+int StarbaseAvatarRoomChangePacketClass::Get_Data_Size()
 {
 	return(sizeof(AvatarID) + sizeof(NewRoom) + sizeof(OldRoom));
 }
 
-int Starbase_Room_ChangePacketClass::Print(char *buffer, int len)
+int StarbaseAvatarRoomChangePacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "Starbase_Room_Change {AvatarID=%d NewRoom=%d OldRoom=%d}", AvatarID, NewRoom, OldRoom));
 }

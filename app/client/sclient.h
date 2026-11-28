@@ -5,7 +5,7 @@
 **
 **	SClient, the game's client object (0x14F8 bytes, constructor 0x7405E0, destructor 0x740BB0, vtable
 **	0xB03240: the base's 23 slots and three): the client base ClientClass (client.h, client.cpp) at +0x00,
-**	the client's options SOptionsClass (soptions.h, vtable 0xB0323C) at +0x1150. The layout is the
+**	the client's options SpaceClientOptionsClass (soptions.h, vtable 0xB0323C) at +0x1150. The layout is the
 **	constructor's, the destructor's and Init's (docs/kernel-map-step9.md 2.2, D90 9d); the members'
 **	classes are named after the file of their constructor where it is known (D24), declared as far as
 **	sclient.cpp uses them. cpacket.cpp's handlers are the packets' Process_Packet(SClient *) (PacketClass
@@ -45,7 +45,7 @@ class Font3DInstanceClass;
 class FileClass;
 class RefCountClass;
 class LayerClass;
-class StarmapPipClass;	// starmap_pip.h: what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0)
+class StarmapPIPClass;	// starmap_pip.h: what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0)
 #include "..\shared\referral.h"	// the referral rewards SClient 0x751460 sums (Unknown49F200Class, BuddyRewardStruct)
 
 
@@ -87,14 +87,14 @@ class Render2DTextClass;
 class MusicManagerClass;		// audio\musicmanager.h (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
 class ChatPanelInterface;			// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408); ui_chat_panel.cpp's (constructor 0x561DD0, 0x268 bytes)
-class UIGroupClass;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)
-class UILineDisplayClass;		// NAME 3: class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes)
+class GroupInterface;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)
+class LineDisplayInterface;		// NAME 3: class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes)
 class PDAInterfaceClass;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
 class BridgeInterface;			// NAME 5: the client's RTTI (bridge_int.h; constructor 0x53B040, 0xC4 bytes)
 class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes)
-class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
-class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
-class TargetingClass;			// NAME 2: the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp); constructor 0x7C6120, 0x14 bytes
+class SpaceTalkTreeInterface;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
+class GalaxyMapClient;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
+class TargetSelectClass;			// NAME 2: the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp); constructor 0x7C6120, 0x14 bytes
 class DeltaPlayerClass;
 class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient +0x12C4
 class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
@@ -103,12 +103,12 @@ class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC po
 class FontSys;					// fontmanager.h: the text objects (CLIENT_DAMAGE 100 makes them, cpacket.cpp; constructor 0x6D47C0)
 class SectorSoundClass;		// audio\sectorsound.h: what SClient +0x1330 points to (0x58 bytes, destructor 0x43C560)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
-class CharacterViewAvatarClass;	// avatar.h: the values of SClient +0x1394 (0x77B870's 0x384 bytes)
+class AvatarClass;	// avatar.h: the values of SClient +0x1394 (0x77B870's 0x384 bytes)
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC (P-H12-3: its callers include fontdatabase.h)
 class FontStringFilesClass;
 extern FontStringFilesClass *Unknown_BE67BC;		// NAME 1: neutral (D10); fontdatabase.h declares it too
-class AvatarDescClass;				// avatar_desc.h
+class AvatarDescriptionClass;				// avatar_desc.h
 struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
 
 // verbmanager.h's verb manager (0x14 bytes): SClient::Init creates it, the verb packets update it
@@ -128,7 +128,7 @@ class UIViewClass;
 
 // ui_talkt.cpp's talk tree: ui_talkt.h, included below after its base Unknown5BB320Class
 
-class UITalkTreeClass;
+class TalkTreeInterface;
 
 
 
@@ -147,7 +147,7 @@ class UITalkTreeClass;
 // sections by type: Header%d lines, Option%d buttons with Key%d keys; the "HTML" type opens the settings store's browser 7).
 // Its functions: unknown_msgbox.cpp (interim placement, D137)
 class DynamicWindowClass;
-class DynamicWindowElementClass;
+class DynamicWindowElement;
 class GadgetClass;
 class INIClass;
 #include "..\kernel\kernel.h"
@@ -196,9 +196,9 @@ public:
 	DynamicWindowClass *Window;							// +0xB4 'DIALOG_BOX_WINDOW'  // NAME 1: the section's
 	DynamicWindowClass *Info;							// +0xB8 'DIALOG_BOX_INFO'  // NAME 1: the section's
 	GadgetClass *Gadget;								// +0xBC (0x6689C0 over the window)  // NAME 1: neutral
-	DynamicWindowElementClass *Headers[16];				// +0xC0 (0x51C800 elements of FontSys texts)  // NAME 1: dialogbox.ini's 'Header%d'
+	DynamicWindowElement *Headers[16];				// +0xC0 (0x51C800 elements of FontSys texts)  // NAME 1: dialogbox.ini's 'Header%d'
 	DynamicWindowClass *Options[5];						// +0x100 'DIALOG_BOX_OPTION'  // NAME 1: dialogbox.ini's 'Option%d'
-	DynamicWindowElementClass *OptionTexts[5];			// +0x114 ('OPTION_INFO_%d')  // NAME 1: neutral
+	DynamicWindowElement *OptionTexts[5];			// +0x114 ('OPTION_INFO_%d')  // NAME 1: neutral
 	GadgetClass *OptionGadgets[5];						// +0x128 (0x6689C0 over the option; its id the option's number)  // NAME 1: neutral
 	KernelEventClass Keys[5];							// +0x13C dialogbox.ini's 'Key%d'  // NAME 1: the entries'
 	char Type[0x20];									// +0x18C the dialog's type, the section (0x74F5C0 compares it; 0x1AC the queue)  // NAME 2: what 0x74F5C0 compares
@@ -227,7 +227,7 @@ public:
 	virtual UIViewClass *Unknown_20() { return(NULL); }	// +0x20 0x514D10 (Unknown65B810ViewClass's 0x50B7E0 returns the view)
 	virtual UIViewClass *As_Main_View() { return(NULL); }	// +0x24 0x514D30 (the main view's 0x50B800 returns the view)  // NAME 3: ui_cpit.cpp's G_ASSERT 'View->As_Main_View()'
 	virtual int Unknown_28() { return(0); }				// +0x28 0x50B680
-	virtual UIViewClass *Unknown_2C() { return(NULL); }	// +0x2C 0x50B6A0 (Unknown514CC0ViewClass's 0x514D90 returns the view)
+	virtual UIViewClass *Unknown_2C() { return(NULL); }	// +0x2C 0x50B6A0 (MenuViewClass's 0x514D90 returns the view)
 	virtual int Unknown_30() { return(0); }				// +0x30 0x50B6C0
 	virtual int Unknown_34() { return(0); }				// +0x34 0x50B6E0
 	virtual int Unknown_38() { return(0); }				// +0x38 0x50B700
@@ -317,11 +317,11 @@ public:
 
 // The 0x50-byte view at SClient +0x1358 (SClient::Init; constructor 0x514CC0, table 0xAED114): its functions follow
 // mainview.cpp's, with no static initializer of their own before them, so they are kept at mainview.cpp's end
-class Unknown514CC0ViewClass : public UIViewClass	// NAME 1: neutral (D10)
+class MenuViewClass : public UIViewClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown514CC0ViewClass(ClientTaskClass *task);		// 0x514CC0 (the base with 1)  // NAME 1 [task]: what SClient::Init passes
-	virtual ~Unknown514CC0ViewClass();					// +0x00 0x514DE0 (deleting 0x514DB0)
+	MenuViewClass(ClientTaskClass *task);		// 0x514CC0 (the base with 1)  // NAME 1 [task]: what SClient::Init passes
+	virtual ~MenuViewClass();					// +0x00 0x514DE0 (deleting 0x514DB0)
 	virtual void Unknown_08();							// +0x08 0x514E70 (its interface object, on through +0x54, to 0x6B4940)
 	virtual UIViewClass *Unknown_2C() { return(this); }	// +0x2C 0x514D90
 
@@ -339,7 +339,7 @@ public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(ClientObjectClass *target);	// 0x7BD6E0 (the main view's 0x513630 / 0x512400: the target)  // NAME 1 [target]: what 0x512400 passes
 	void Unknown_7BCA40(bool arg); bool Unknown_7BD980(); const class NavigationListClass &Unknown_7BD960();	// 0x7BCA40 (the main view's slot +0x18); 0x7BD980: the warp path is built, 0x7BD960 the path (ui_cpit.cpp's warp button 0x583250)  // NAME 1 [arg]: neutral
-	void Unknown_7BCA70(GutterRadarClass *object, StarmapPipClass *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
+	void Unknown_7BCA70(GutterRadarClass *object, StarmapPIPClass *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
 	char Unknown00[0x4D]; bool Unknown4D; char Unknown4E[0x50 - 0x4E];	// +0x4D: names of the objects under the mouse ('/art name', 0x74ABC0)
 };
@@ -349,7 +349,7 @@ public:
 class PDAInterfaceUnknownA8Class	// NAME 1: neutral (D10)
 {
 public:
-	StarmapPipClass *Unknown_7C8DB0(bool on);	// 0x7C8DB0 (its +0xA0, or NULL when its +0x7C is set and +0xA0's 0x693040 says no)  // NAME 1 [on]: what 0x512A00 passes
+	StarmapPIPClass *Unknown_7C8DB0(bool on);	// 0x7C8DB0 (its +0xA0, or NULL when its +0x7C is set and +0xA0's 0x693040 says no)  // NAME 1 [on]: what 0x512A00 passes
 };
 
 #ifndef PDAINT_H	// pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes), as far as SClient and the main view's 0x512A00 use it (pdaint.h's class where it comes first)
@@ -393,7 +393,7 @@ class UIMeshClass;
 
 
 #include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)
-class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
+class CockpitInterface;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
 #include "ui_talkt.h"		// ui_talkt.cpp's talk tree (needs Unknown5BB320Class)
 
 
@@ -402,10 +402,10 @@ class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient
 class MainViewUnknown13CClass	// NAME 1: neutral (D10)
 {
 public:
-	HeightFieldClass *Get_Unknown90() { return(Unknown90); }		// (inline: SERVER_PARAMETERS 66 reads it through eax)  // NAME 1: neutral (D10): the member it returns
+	HeightMapClass *Get_Unknown90() { return(Unknown90); }		// (inline: SERVER_PARAMETERS 66 reads it through eax)  // NAME 1: neutral (D10): the member it returns
 
 	char Unknown00[0x90];								// +0x00
-	HeightFieldClass *Unknown90;						// +0x90: LandClass::Field
+	HeightMapClass *Unknown90;						// +0x90: LandClass::Field
 };
 
 class MainViewClass;
@@ -464,7 +464,7 @@ public:
 
 // what the main view's +0x1D4 points to (0x50C690 makes it with a layer of the base's +0x1C scene and +0x20 camera):
 // ui_buff.cpp's buff display (ui_buff.h; 0xEC bytes, constructor 0x5608D0)
-class UIBuffClass;
+class BuffInterface;
 
 
 
@@ -480,11 +480,11 @@ class AvatarPipClass;		// avatar_pip.cpp's (+0xCC, +0xD0: 0x3C bytes each)
 // The credits entry the trade window holds at +0xB4: ui_stringentry.cpp's text entry (0xD0 bytes, constructor 0x649890, 'TRADE01A')
 #include "ui_stringentry.h"
 
-class UIPTradeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp
+class PlayerTradeInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UIPTradeClass(SClient *client);			// 0x5E1BE0 (0xE8 bytes; the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
-	virtual ~UIPTradeClass();							// 0x5E1D80 (slot 0x5E1D50; G_ASSERT 'State == UI_CLOSED', line 82)
+	PlayerTradeInterface(SClient *client);			// 0x5E1BE0 (0xE8 bytes; the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
+	virtual ~PlayerTradeInterface();							// 0x5E1D80 (slot 0x5E1D50; G_ASSERT 'State == UI_CLOSED', line 82)
 	void Unknown_5E2F70(bool on); void Unknown_5E3050(bool on); void Unknown_5E3130();	// 0x5E2F70 (TRADE 31 types 3 / 4), 0x5E3050 (types 5 / 6), 0x5E3130 (type 2)  // NAME 1 [on]: what the handler passes
 	virtual void Unknown_54();							// +0x54 0x5E1FA0 (the set-up: the buttons, the inventories, the credits entry, the pips)
 	virtual void Unknown_58();							// +0x58 0x5E26F0 (activated)
@@ -692,17 +692,17 @@ public:
 	Vector3 Wind;										// +0x1BC 0x513B90: gas%04d.ini [GENERAL] WINDX / Y / Z (0) times 3600  // NAME 2: its ini keys
 	unsigned Unknown1C8;								// +0x1C8 (0x513700 keeps its sector here; 0x50C2D0 returns it)
 	bool Unknown1CC;									// +0x1CC
-	UICpitClass *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
-	UIBuffClass *Unknown1D4;							// +0x1D4 (slots +0x58 / +0x5C with the cockpit's; 0x50C690 makes it)
-	UIGroupClass *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
+	CockpitInterface *Cpit;									// +0x1D0 (cpacket.cpp: LOOT_HULK_PERMISSION 140, OPEN_INTERFACE 102)  // NAME 3: its file's (ui_cpit.cpp)
+	BuffInterface *Unknown1D4;							// +0x1D4 (slots +0x58 / +0x5C with the cockpit's; 0x50C690 makes it)
+	GroupInterface *Group;								// +0x1D8 (cpacket.cpp: CLIENT_CHAT_EVENT 165's group messages)  // NAME 3: its file's (ui_group.cpp)
 	BackInterfaceClass *Unknown1DC;						// +0x1DC: the backdrop (0x513540 its model, 0x513600 the override)
 	MainViewUnknown1E0Class *Unknown1E0;				// +0x1E0 (Shutdown 0x50C2F0 releases it first)
-	UIPTradeClass *Unknown1E4;				// +0x1E4 (0x514220 calls its +0x5C; 0x50C690 makes it)
+	PlayerTradeInterface *Unknown1E4;				// +0x1E4 (0x514220 calls its +0x5C; 0x50C690 makes it)
 	WWProfileIterator *ProfileIterator;					// +0x1E8 (0x50BA60: WWProfileManager::Get_Iterator)  // NAME 2: what it holds
 };
 
 // loadingview.cpp's view (constructor 0x691570, 0x6C bytes)
-class GalaxyMapLineRObjClass;	// the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; galaxy_map_robj.h)
+class GalaxyMapLineRObj;	// the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; galaxy_map_robj.h)
 class LoadingViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for loadingview.cpp
 {
 public:
@@ -721,7 +721,7 @@ public:
 	RefCountPtr<RenderObjClass> Unknown58;				// +0x58 (0x691830: the asset manager's 'map_load00'; START 0x692330 removes it and its fonts, FontManagerClass::Unknown_6D2310)
 	RefCountPtr<RenderObjClass> Unknown5C;				// +0x5C (0x691830: 'map_select')
 	RefCountPtr<RenderObjClass> Unknown60;				// +0x60 (0x691830: 'map_from')
-	RefCountPtr<GalaxyMapLineRObjClass> Unknown64;		// +0x64 (0x691830 news it, 0xFC bytes; START removes it when set)
+	RefCountPtr<GalaxyMapLineRObj> Unknown64;		// +0x64 (0x691830 news it, 0xFC bytes; START removes it when set)
 	bool Unknown68;										// +0x68 ClientTaskClass::Render renders when it is set
 	bool Unknown69;										// +0x69
 };
@@ -897,7 +897,7 @@ public:
 
 #pragma pack(push, 4)		// as ClientClass (client.h)
 class CameraModuleClass; class CameraModuleSignal;	// the client's RTTI (the camera manager's callback, 0xB9AC18)
-class SClient : public ClientClass, public SOptionsClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
+class SClient : public ClientClass, public SpaceClientOptionsClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
 {
 public:
 	SClient(ClientTaskClass *task);						// 0x7405E0  // NAME 1 [task]: ClientTaskClass::Init passes this
@@ -953,7 +953,7 @@ public:
 	bool Unknown_74B5E0();								// 0x74B5E0 (0x639630, 0x63A100): the task's Is_Focused
 	void Unknown_74B600();								// 0x74B600 (cpacket.cpp: mode change 76, mode 0)
 	void Unknown_74B640();								// 0x74B640 (cpacket.cpp: mode change 76, mode 1)
-	void Unknown_74C3B0(int game_id, AvatarDescClass &desc);	// 0x74C3B0 (cpacket.cpp: AVATAR_DESCRIPTION 97 passes its GameID and Desc)  // NAME 1 [game_id, desc]: the packet's fields
+	void Unknown_74C3B0(int game_id, AvatarDescriptionClass &desc);	// 0x74C3B0 (cpacket.cpp: AVATAR_DESCRIPTION 97 passes its GameID and Desc)  // NAME 1 [game_id, desc]: the packet's fields
 	void Unknown_745750();								// 0x745750 (cpacket.cpp: SERVER_HANDOFF 58)
 	void Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool fixed_speed);	// 0x745AA0 (no caller): postate's 0x717430 on the avatar's type-4 state  // NAME 2 [turn, tilt, move_direction, fixed_speed]: 0x717430's
 	void Unknown_745B20(bool level, bool auto_level);	// 0x745B20: postate's 0x7179A0  // NAME 2 [level, auto_level]: 0x7179A0's
@@ -977,11 +977,11 @@ public:
 	void Unknown_74BD90(int arg);						// 0x74BD90: the scripted movie view made, view mode 6 (G_ASSERT '!ScriptedMovieView', l.4117)  // NAME 1 [arg]: neutral
 	void Unknown_74BF00(int mode);						// 0x74BF00: the scripted movie view ended into view mode 'mode' (l.4127)  // NAME 1 [mode]: what it is
 	void Unknown_744E70(bool arg);						// 0x744E70: the main view's target (FAIL_IF '!target', l.2110) as an ACTION 44 packet, else the chat panel's +0x138  // NAME 1 [arg]: neutral
-	CharacterViewAvatarClass *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given EnvironmentMapManager  // NAME 1 [id]: the table's key
-	CharacterViewAvatarClass *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
-	CharacterViewAvatarClass *Unknown_74C8D0(const char *name);	// 0x74C8D0: as 0x74C840 for the named object's GameID  // NAME 1 [name]: Find_Object's
+	AvatarClass *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given EnvironmentMapManager  // NAME 1 [id]: the table's key
+	AvatarClass *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
+	AvatarClass *Unknown_74C8D0(const char *name);	// 0x74C8D0: as 0x74C840 for the named object's GameID  // NAME 1 [name]: Find_Object's
 	int *Unknown_74C960(unsigned id);					// 0x74C960: Unknown1394's value's +0xF8  // NAME 1 [id]: the table's key
-	void Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
+	void Unknown_74C9D0(const RefCountPtr<TalkTreeInterface> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
 	void Unknown_74B680(bool request, int starbase_id);	// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1; true sends STARBASE_REQUEST action 0, false enters the starbase view)  // NAME 1 [request, starbase_id]: what the flag does; what the handler passes
 	void Unknown_74BA30(bool request, int starbase_id, int mode);	// 0x74BA30 (cpacket.cpp: STARBASE_SET 79 passes 0, StarbaseID and 0 / 1 / 5 by its exit mode; sbaseview.cpp passes true: STARBASE_REQUEST action 1)  // NAME 1 [request, starbase_id, mode]: what the flag does; what the handler passes
@@ -1018,16 +1018,16 @@ public:
 	LoginUnknown18Class *Mouse;					// +0x1274 Init: the software mouse (0x514FE0)
 	int Unknown1278;									// +0x1278
 	RefCountPtr<ChatPanelInterface> ChatPanel;			// +0x127C Init (the reference count at +0x3C)  // NAME 3: its file's
-	UILineDisplayClass *LineDisplay;					// +0x1280 Init  // NAME 3: its file's
+	LineDisplayInterface *LineDisplay;					// +0x1280 Init  // NAME 3: its file's
 	PDAInterfaceClass *PDAInterface;					// +0x1284 Init  // NAME 3: its file's
 	int Unknown1288;									// +0x1288
 	BridgeInterface *Bridge;							// +0x128C Init  // NAME 1: what it is
 	UIHotKeysClass *HotKeys;							// +0x1290 Init  // NAME 3: its file's
 	VerbManagerClass *VerbManager;						// +0x1294 Init  // NAME 3: its file's
-	RefCountPtr<UITalkTreeClass> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)
-	RefCountPtr<UITalkTreeSpaceClass> Unknown129C;		// +0x129C Init
-	GalaxyMapClientClass *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
-	ClientObjectClass *Get_Target();	TargetingClass *Targeting;	// 0x744FE0: the main view's slot +0x5C (targeting.cpp)  // NAME 2: what it returns; +0x12A4 Init  // NAME 2: the asserts'
+	RefCountPtr<TalkTreeInterface> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)
+	RefCountPtr<SpaceTalkTreeInterface> Unknown129C;		// +0x129C Init
+	GalaxyMapClient *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
+	ClientObjectClass *Get_Target();	TargetSelectClass *Targeting;	// 0x744FE0: the main view's slot +0x5C (targeting.cpp)  // NAME 2: what it returns; +0x12A4 Init  // NAME 2: the asserts'
 	CameraManagerClass *CameraManager;					// +0x12A8 Init  // NAME 3: its file's
 	int Unknown12AC;									// +0x12AC (the constructor leaves it)
 	DurationClass Unknown12B0;							// +0x12B0 Init: the base's Unknown10BC, zero-extended: every client write stores the pair (the clock, then 0: 0x741771, 0x744D8A, 0x50AC98; the constructor's 0x7406D7 two zeros), nothing reads it
@@ -1065,7 +1065,7 @@ public:
 	bool Unknown1388;									// +0x1388
 	int Unknown138C;									// +0x138C (1 after '/camp')
 	float Unknown1390;									// +0x1390 (the main view's Update adds it to the hours in debug mode)
-	std::hash_map<unsigned, CharacterViewAvatarClass *> Unknown1394;	// +0x1394 keyed by game id (0x756820: the debug object's)
+	std::hash_map<unsigned, AvatarClass *> Unknown1394;	// +0x1394 keyed by game id (0x756820: the debug object's)
 	int Unknown13AC;									// +0x13AC
 	int Unknown13B0;									// +0x13B0
 	int Unknown13B4;									// +0x13B4

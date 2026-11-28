@@ -20,7 +20,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 // 0x5603E0
-UIBioClass::UIBioClass(SClient *client) :
+BioInterface::BioInterface(SClient *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI10A", 2), client),
 	UnknownAC(NULL)
 {
@@ -33,7 +33,7 @@ UIBioClass::UIBioClass(SClient *client) :
 }
 
 // 0x560660
-UIBioClass::~UIBioClass()
+BioInterface::~BioInterface()
 {
 	Unknown_BE67BC->Unload("fa_bio.ini");
 	if (UnknownAC) {
@@ -42,13 +42,13 @@ UIBioClass::~UIBioClass()
 }
 
 // 0x560740
-void UIBioClass::Unknown_54()
+void BioInterface::Unknown_54()
 {
 	Unknown_10();
 }
 
 // 0x560760
-void UIBioClass::Unknown_58()
+void BioInterface::Unknown_58()
 {
 	if (!Active) {
 		Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
@@ -57,7 +57,7 @@ void UIBioClass::Unknown_58()
 }
 
 // 0x5607A0
-void UIBioClass::Unknown_5C()
+void BioInterface::Unknown_5C()
 {
 	if (Active) {
 		Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
@@ -66,13 +66,13 @@ void UIBioClass::Unknown_5C()
 }
 
 // 0x5607E0
-void UIBioClass::Unknown_60()
+void BioInterface::Unknown_60()
 {
 	Unknown5BB320Class::Unknown_60();
 }
 
 // 0x560800
-bool UIBioClass::Unknown_68(int key)
+bool BioInterface::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:

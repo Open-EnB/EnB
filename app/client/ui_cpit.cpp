@@ -135,13 +135,13 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 	ClientObjectClass *avatar = sclient->Get_Avatar();
 	if (avatar && avatar->AuxData) {
 		{
-			NameClass name("LockSpeed");
-			DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
-			if (t) *lock_speed = t->Value; ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size(); ((DeltaCompoundClass *)avatar->AuxData)->Children.size();
+			AuxDataName name("LockSpeed");
+			DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >((DeltaContainer *)avatar->AuxData, name);
+			if (t) *lock_speed = t->Value; ((DeltaContainer *)avatar->AuxData)->Children.size(); ((DeltaContainer *)avatar->AuxData)->Children.size(); ((DeltaContainer *)avatar->AuxData)->Children.size(); ((DeltaContainer *)avatar->AuxData)->Children.size(); ((DeltaContainer *)avatar->AuxData)->Children.size();
 		}
 		{
-			NameClass name("LockOrient");
-			DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
+			AuxDataName name("LockOrient");
+			DeltaTemplateClass<bool> *t = Unknown_Find_Set_Field<DeltaTemplateClass<bool> >((DeltaContainer *)avatar->AuxData, name);
 			if (t) *lock_orient = t->Value;
 		}
 	}
@@ -208,7 +208,7 @@ class CtrnGadgetClass : public GadgetClass { public: CtrnGadgetClass(int x, int 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
 
 // 0x57D830
-UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
+CockpitInterface::CockpitInterface(MainViewClass *view, const LayerClass &layer) :
 	Unknown5BB320Class(new UIMeshClass("TSI01A", true), view, layer),
 	Unknown0AC(NULL),
 	Unknown0B4(NULL),
@@ -264,10 +264,10 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 
 // 0x57DD20: the cockpit's gutter opacity, gadgets, windows and lights
 // (the dead Unknown0B0.Peek() after the gutter loop spends the inline budget so the name's _Tidy(true) is called out of line, as the client's; D272)
-void UICpitClass::Unknown_54()
+void CockpitInterface::Unknown_54()
 {
-	Unknown13C = OptionClass::Instance->Get_Bool("Cpit_ThrottleClickLocks");
-	float opacity = OptionClass::Instance->Get_Float("Radar_Gutter_Opacity");
+	Unknown13C = OptionManagerClass::Instance->Get_Bool("Cpit_ThrottleClickLocks");
+	float opacity = OptionManagerClass::Instance->Get_Float("Radar_Gutter_Opacity");
 	char sides[4] = { 'l', 'r', 't', 'b' };
 	for (int i = 0; i < 4; i++) {
 		std::string name("tsi01_gutter.gutter_");
@@ -308,7 +308,7 @@ void UICpitClass::Unknown_54()
 	Scan->Unknown_54();
 	View->Unknown_6B4940(Scan);
 	Unknown0D0 = new UIPowerClass(InterfaceMesh->Peek_Object(), &Layer, this, -1);
-	UnknownDC = new UIScutClass(view, &Layer);
+	UnknownDC = new ShortcutInterface(view, &Layer);
 	UnknownDC->Unknown_5417D0(this);
 	UnknownDC->Unknown_54();
 	View->Unknown_6B4940(UnknownDC);
@@ -398,7 +398,7 @@ static std::string Unknown_BE5BD0("critical_hit_1.wav");	// 0xBE5BD0: the sound 
 
 
 // 0x57EB80
-UICpitClass::~UICpitClass()
+CockpitInterface::~CockpitInterface()
 {
 	REF_PTR_RELEASE(HulkUI);
 	REF_PTR_RELEASE(Unknown0CC);
@@ -418,16 +418,16 @@ UICpitClass::~UICpitClass()
 	Unknown0D0 = NULL;
 	GadgetClass::Destroy(Unknown0AC);
 	Unknown0AC = NULL;
-	BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Cpit_ThrottleClickLocks");
+	BoolOptionStruct *option = OptionManagerClass::Instance->Find_Bool("Cpit_ThrottleClickLocks");
 	if (option) option->Set_Value(Unknown13C);
-	OptionClass::Instance->Save();
+	OptionManagerClass::Instance->Save();
 	Unknown16C = NULL;
 	Unknown170 = NULL;
 	Unknown174 = NULL;
 }
 
 // 0x57F010
-void UICpitClass::Unknown_7C(UIViewClass *view, bool arg)
+void CockpitInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	Unknown5BB320Class::Unknown_7C(view, arg);
 	HulkUI->Unknown_7C(view, 0);
@@ -437,7 +437,7 @@ void UICpitClass::Unknown_7C(UIViewClass *view, bool arg)
 }
 
 // 0x57F080
-void UICpitClass::Unknown_58()
+void CockpitInterface::Unknown_58()
 {
 	if (Unknown148 == 0) {
 		InterfaceSortScopeClass sort(this);
@@ -448,13 +448,13 @@ void UICpitClass::Unknown_58()
 		Scan->Unknown_58();
 		Unknown_584110();
 		Unknown5BB320Class::Unknown_58();
-		InterfaceSortClass view_sort(View, 0);
+		LocalInterfaceSort view_sort(View, 0);
 		Unknown0B0->Add(Layer.Peek_Scene());
 	}
 }
 
 // 0x57F1B0
-void UICpitClass::Unknown_5C()
+void CockpitInterface::Unknown_5C()
 {
 	if (Unknown148 == 1) {
 		Unknown0B0->Remove();
@@ -470,7 +470,7 @@ void UICpitClass::Unknown_5C()
 }
 
 // 0x57F240
-void UICpitClass::Unknown_70(ControlKeysManager *manager)
+void CockpitInterface::Unknown_70(ControlKeysManager *manager)
 {
 
 
@@ -641,7 +641,7 @@ void UICpitClass::Unknown_70(ControlKeysManager *manager)
 	manager->Add_Keys((ControlKeyListClass *)Unknown4C, std::string("Warp"), (void *)3, 0x1000);
 }
 // 0x57FCC0
-void UICpitClass::Unknown_74(ControlKeysManager *manager)
+void CockpitInterface::Unknown_74(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
@@ -695,11 +695,11 @@ void UICpitClass::Unknown_74(ControlKeysManager *manager)
 
 
 
-template<class C> inline C *Unknown_Cpit_Find_Set_Field2(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Cpit_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Cpit_Find_Set_Field2<C>(root, name)); }	// NAME 1: neutral (D10), ui_cpit.cpp's if/return form through one more layer (auxdata.h's ternary Unknown_Find_Set_Field in 0x584000: 0x5806E0's copies inline the find); 0x584000: its expansions call the find (0x5806E0) or the set-field layer (0x5821C0) out of line
+template<class C> inline C *Unknown_Cpit_Find_Set_Field2(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Cpit_Find_Set_Field(DeltaContainer *root, const AuxDataName &name) { return(Unknown_Cpit_Find_Set_Field2<C>(root, name)); }	// NAME 1: neutral (D10), ui_cpit.cpp's if/return form through one more layer (auxdata.h's ternary Unknown_Find_Set_Field in 0x584000: 0x5806E0's copies inline the find); 0x584000: its expansions call the find (0x5806E0) or the set-field layer (0x5821C0) out of line
 
 // 0x5806E0: the steering keys (the client's key ids 2 .. 21; 0x48, 0x4B .. 0x4E taken, others not)
 // (the cases break to one return(true), the client's single 0x58123F; the inner switches list case 3 first, the client's EH state order; the dead Peeks after the case 10 / 11 and case 12 engine tests spend the inline budget so their 0x584000 copies call the find out of line, 0x546710, as the client's: D272)
-bool UICpitClass::Unknown_68(int key)
+bool CockpitInterface::Unknown_68(int key)
 {
 	SClient *sclient = (SClient *)Client;
 	bool lock_speed;
@@ -721,7 +721,7 @@ bool UICpitClass::Unknown_68(int key)
 		case 8:
 			if (lock_speed) break;
 			if (!Unknown_584000(true)) break;
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 0));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 0));
 			sclient->Unknown_745E40(1, false);
 			Unknown144 = 1;
 			Unknown0B8->Unknown_674160(0);
@@ -732,7 +732,7 @@ bool UICpitClass::Unknown_68(int key)
 		case 9:
 			if (lock_speed) break;
 			if (!Unknown_584000(true)) break;
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 1));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 1));
 			sclient->Unknown_745E40(-1, false);
 			Unknown144 = 2;
 			Unknown0B8->Unknown_674160(0);
@@ -742,7 +742,7 @@ bool UICpitClass::Unknown_68(int key)
 			break;
 		case 13:
 			if (lock_speed) break;
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 4));
 			sclient->Unknown_745E40(0, false);
 			Unknown144 = 0;
 			Unknown0B8->Unknown_674160(0);
@@ -758,7 +758,7 @@ bool UICpitClass::Unknown_68(int key)
 				case 3:
 					if (key == 11) break;
 				case 4:
-					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+					((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 4));
 					sclient->Unknown_745E40(0, false);
 					Unknown0B8->Unknown_674160(0);
 					Unknown0B8->Unknown_671740(false, 0);
@@ -767,7 +767,7 @@ bool UICpitClass::Unknown_68(int key)
 					Unknown144 = 0;
 					break;
 				default:
-					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 2));
+					((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 2));
 					sclient->Unknown_745E40(1, false);
 					Unknown0B8->Unknown_674160(1);
 					Unknown0B8->Unknown_A4(2.0f);
@@ -788,7 +788,7 @@ bool UICpitClass::Unknown_68(int key)
 			if (!Unknown_584000(true)) break; Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek(); Unknown16C.Peek();
 			switch (Unknown144) {
 				case 3:
-					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+					((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 4));
 					sclient->Unknown_745E40(0, false);
 					Unknown0B8->Unknown_674160(0);
 					Unknown0B8->Unknown_671740(false, 0);
@@ -797,7 +797,7 @@ bool UICpitClass::Unknown_68(int key)
 					Unknown144 = 0;
 					break;
 				default:
-					((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 3));
+					((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 3));
 					sclient->Unknown_745E40(-1, false);
 					Unknown0BC->Unknown_674160(1);
 					Unknown0BC->Unknown_A4(2.0f);
@@ -818,14 +818,14 @@ bool UICpitClass::Unknown_68(int key)
 		case 14:
 			if (!((ClientClass *)Client)->DebugMode) break;
 			if (lock_speed) break;
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 5));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 5));
 			sclient->Unknown_745E40(1, true);
 			Unknown144 = 5;
 			break;
 		case 15:
 			if (!((ClientClass *)Client)->DebugMode) break;
 			if (lock_speed) break;
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 6));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 6));
 			sclient->Unknown_745E40(-1, true);
 			Unknown144 = 6;
 			break;
@@ -1048,7 +1048,7 @@ bool UICpitClass::Unknown_68(int key)
 
 
 // 0x581670: every frame (the base's slot +0x60 last)
-void UICpitClass::Unknown_60()
+void CockpitInterface::Unknown_60()
 {
 	if (HulkWatch && HulkWatch != Scan->Object) Unknown_582070();
 	ClientObjectClass *current_harvestable = CurrentHarvestable;
@@ -1070,7 +1070,7 @@ void UICpitClass::Unknown_60()
 		if (!Unknown13D) {
 			LoadingViewClass *loading = ((SClient *)((ClientClass *)Client)->As_Space_Client())->LoadingView;
 			if (loading && loading->Unknown68) loading->Unknown_692330();
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 4));
 			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_745E40(0, false);
 			Unknown144 = 0;
 			Unknown0B8->Unknown_671740(false, 0);
@@ -1110,7 +1110,7 @@ void UICpitClass::Unknown_60()
 					break;
 				case 1:
 					Unknown140 = !Unknown140;
-					((ClientClass *)Client)->Send_Packet(&IncapacitanceDistressBeaconPacketClass(Unknown_Avatar_ID(Client), Unknown140));
+					((ClientClass *)Client)->Send_Packet(&IncapacitanceDistressBeaconPacket(Unknown_Avatar_ID(Client), Unknown140));
 					if (Unknown140) {
 						((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0, "Distress beacon activated.", 0);
 					} else {
@@ -1156,7 +1156,7 @@ void UICpitClass::Unknown_60()
 
 
 // 0x581CE0: a window of the cockpit's closed
-void UICpitClass::Unknown_581CE0(InterfaceClass *ui)
+void CockpitInterface::Unknown_581CE0(InterfaceClass *ui)
 {
 	if (ui == HulkUI) {
 		Unknown_582070();
@@ -1179,7 +1179,7 @@ void UICpitClass::Unknown_581CE0(InterfaceClass *ui)
 }
 
 // 0x581E60
-void UICpitClass::Unknown_581E60()
+void CockpitInterface::Unknown_581E60()
 {
 	if (HulkWatch) { Unknown_582070(); return; }
 	ClientObjectClass *current_target = Scan->Object;
@@ -1189,7 +1189,7 @@ void UICpitClass::Unknown_581E60()
 	((ClientClass *)Client)->Send_Packet(&SkillStringRqPacketClass(((ClientClass *)Client)->Unknown1138, 0));
 }
 // 0x581F90
-void UICpitClass::Unknown_581F90(ClientObjectClass *hulk)
+void CockpitInterface::Unknown_581F90(ClientObjectClass *hulk)
 {
 	FAIL_IF(!hulk) return;
 	ClientObjectClass *current_target = Scan->Object;
@@ -1211,7 +1211,7 @@ void UICpitClass::Unknown_581F90(ClientObjectClass *hulk)
 }
 
 // 0x582070
-void UICpitClass::Unknown_582070()
+void CockpitInterface::Unknown_582070()
 {
 	if (HulkWatch) {
 		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(12);
@@ -1221,7 +1221,7 @@ void UICpitClass::Unknown_582070()
 }
 
 // 0x5820C0
-void UICpitClass::Unknown_5820C0(bool on)
+void CockpitInterface::Unknown_5820C0(bool on)
 {
 	if (on) {
 		G_ASSERT(CurrentHarvestable == 0);
@@ -1235,7 +1235,7 @@ void UICpitClass::Unknown_5820C0(bool on)
 }
 
 // 0x582190
-void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
+void CockpitInterface::Unknown_582190(ClientObjectClass *object, int arg)
 {
 	if (Unknown0D0->Object != object) *Unknown0D0 = object;
 }
@@ -1248,37 +1248,37 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 
 
 // 0x5821C0's inline copy of 0x584000 with one dead Unknown16C.Peek() after the set-field find so 0x546710 stays out of line (+0x70 test inline) and 0x5806E0 keeps Unknown_584000
-inline bool Unknown_Cpit_Engine(UICpitClass *cpit) { SClient *sclient = (SClient *)cpit->Client; ClientObjectClass *avatar = sclient->Get_Avatar(); if (!avatar) return(false); if (!avatar->AuxData) return(false); NameClass name("MaxSpeed"); DeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name); cpit->Unknown16C.Peek(); bool ok = (t && t->Value != 0.0f); if (!ok) { sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0); return(false); } return(true); }	// NAME 1: neutral (D10)
-// auxdata.h's find through two inline layers, the NameClass built in the inner one: set (+0x70), or changed since (+0x70
+inline bool Unknown_Cpit_Engine(CockpitInterface *cpit) { SClient *sclient = (SClient *)cpit->Client; ClientObjectClass *avatar = sclient->Get_Avatar(); if (!avatar) return(false); if (!avatar->AuxData) return(false); AuxDataName name("MaxSpeed"); DeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaContainer *)avatar->AuxData, name); cpit->Unknown16C.Peek(); bool ok = (t && t->Value != 0.0f); if (!ok) { sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0); return(false); } return(true); }	// NAME 1: neutral (D10)
+// auxdata.h's find through two inline layers, the AuxDataName built in the inner one: set (+0x70), or changed since (+0x70
 // above 1), else NULL. 0x5821C0's copies call the Casts out of line as the client's (0x546970, 0x584FF0, 0x531590, 0x585040)
-template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Valid_Field(DeltaContainer *root, const char *name)	// NAME 1: neutral (D10)
 {
-	NameClass n(name);
+	AuxDataName n(name);
 	C *t = Unknown_Find_Field<C>(root, n);
 	return((t && t->Unknown70) ? t : NULL);
 
 }
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
 {
 	return(Unknown_Find_Valid_Field<C>(root, name));
 }
-template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaContainer *root, const char *name)	// NAME 1: neutral (D10)
 {
-	NameClass n(name);
+	AuxDataName n(name);
 	C *t = Unknown_Find_Field<C>(root, n);
 	return((t && t->Unknown70 > 1) ? t : NULL);
 
 }
-template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
+template<class C> inline C *Unknown_Find_Changed(DeltaContainer *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
 {
 	return(Unknown_Find_Changed_Field<C>(root, name));
 }
 
 // 0x5821C0: the warp button's state from the avatar's aux data, the throttle lights and the speed display (slot +0x60)
-// (cases 3 / 1 pass "WarpTriggerTime" implicitly to Unknown_Cpit_Find_Set_Field's const NameClass & so VC6 allocates temporary slots -0xB8 / -0x84 with lea ecx; the dead Unknown16C.Peek() in Unknown_Cpit_Engine and dead Children.size() reads keep 0x546710 and every Cast but the last two out of line: D272)
-void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
+// (cases 3 / 1 pass "WarpTriggerTime" implicitly to Unknown_Cpit_Find_Set_Field's const AuxDataName & so VC6 allocates temporary slots -0xB8 / -0x84 with lea ecx; the dead Unknown16C.Peek() in Unknown_Cpit_Engine and dead Children.size() reads keep 0x546710 and every Cast but the last two out of line: D272)
+void CockpitInterface::Unknown_5821C0(ClientObjectClass *avatar)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)avatar->AuxData;
 	{
 		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed_Field<DeltaTemplateClass<float> >(aux, "MaxSpeed");	// one layer: 0x585090 numbers T<float> before T<int> (Cast<float> instantiated a layer above int's)
 		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockSpeed");
@@ -1598,7 +1598,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 
 
 // 0x583250: the warp button (+0xB4)
-void UICpitClass::Unknown_583250()
+void CockpitInterface::Unknown_583250()
 {
 	if (Unknown0B4->Is_Enabled()) {
 		if (!Client) return;
@@ -1607,7 +1607,7 @@ void UICpitClass::Unknown_583250()
 			SClient *sclient = (SClient *)Client;
 			if (Unknown13D) {
 				if (!Unknown13F && !Unknown0E4) {
-					((ClientClass *)Client)->Send_Packet(&IncapacitanceRequestPacketClass(Unknown_Avatar_ID(Client)));
+					((ClientClass *)Client)->Send_Packet(&IncapacitanceDetailsRequestPacket(Unknown_Avatar_ID(Client)));
 				}
 			} else if (sclient->ViewMode == 0) {
 				RadarSystemClass *radar = sclient->MainView->Radar;
@@ -1698,7 +1698,7 @@ void UICpitClass::Unknown_583250()
 
 
 // 0x583510: the turn buttons (LEFT +0xC0, RIGHT +0xC4)
-void UICpitClass::Unknown_583510()
+void CockpitInterface::Unknown_583510()
 {
 	if (!Unknown0C0->Is_Enabled() && !Unknown0C4->Is_Enabled()) return;
 	SClient *sclient = (SClient *)Client;
@@ -1728,11 +1728,11 @@ void UICpitClass::Unknown_583510()
 	Unknown0C0->Unknown_671630();
 	Unknown0C4->Unknown_671630();
 }
-template<class C> inline C *Unknown_Find_Changed_Field(char *const &root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>((DeltaCompoundClass *)root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10); the root by reference: 0x583790 reads it after the NameClass
+template<class C> inline C *Unknown_Find_Changed_Field(char *const &root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>((DeltaContainer *)root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10); the root by reference: 0x583790 reads it after the AuxDataName
 template<class C> inline C *Unknown_Find_Changed(char *const &root, const char *name) { return(Unknown_Find_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10)
 // 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons
 // The IsAutoFollowing find through two inline layers, the root by reference: its Cast out of line as the client's (0x584FF0)
-void UICpitClass::Unknown_583790()
+void CockpitInterface::Unknown_583790()
 {
 	if (!Unknown0B8->Is_Enabled() && !Unknown0BC->Is_Enabled()) return;
 	SClient *sclient = (SClient *)Client;
@@ -1753,7 +1753,7 @@ void UICpitClass::Unknown_583790()
 		|| (Unknown0B8->Unknown64 && (Unknown0B8->Unknown80 == 2 || Unknown0BC->Unknown80 == 2))
 		|| (Unknown0BC->Unknown64 && (Unknown0B8->Unknown80 == 2 || Unknown0BC->Unknown80 == 2))) {
 		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
-		((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
+		((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 4));
 		sclient->Unknown_745E40(0, false);
 		Unknown144 = 0;
 		Unknown0B8->Unknown_671740(false, 0);
@@ -1763,14 +1763,14 @@ void UICpitClass::Unknown_583790()
 	} else if (Unknown0B8->Unknown64) {
 		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
 		if (Unknown13C) {
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 2));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 2));
 			sclient->Unknown_745E40(1, false);
 			Unknown144 = 3;
 			Unknown0B8->Unknown_671740(true, 2.0f);
 			Unknown0B8->Unknown_674160(1);
 			Unknown0BC->Unknown_674160(0);
 		} else {
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 0));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 0));
 			sclient->Unknown_745E40(1, false);
 			Unknown144 = 1;
 			Unknown0B8->Unknown_671740(true, 1.0f);
@@ -1778,14 +1778,14 @@ void UICpitClass::Unknown_583790()
 	} else if (Unknown0BC->Unknown64) {
 		SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
 		if (Unknown13C) {
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 3));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 3));
 			sclient->Unknown_745E40(-1, false);
 			Unknown144 = 4;
 			Unknown0BC->Unknown_671740(true, 2.0f);
 			Unknown0BC->Unknown_674160(1);
 			Unknown0B8->Unknown_674160(0);
 		} else {
-			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 1));
+			((ClientClass *)Client)->Send_Packet(&MovementPacketClass(Unknown_Avatar_ID(Client), 1));
 			sclient->Unknown_745E40(-1, false);
 			Unknown144 = 2;
 			Unknown0BC->Unknown_671740(true, 1.0f);
@@ -1858,13 +1858,13 @@ void UICpitClass::Unknown_583790()
 
 
 // 0x583DA0
-void UICpitClass::Unknown_583DA0(int arg)
+void CockpitInterface::Unknown_583DA0(int arg)
 {
 }
 
 // 0x583DC0: the player's damage texts onto the cockpit (CLIENT_DAMAGE 100), kept in Unknown158 until they finish
 // (the dead size() after the header's push_back spends its nested budget: the client calls the list's _Construct 0x584F90 out of line at both pushes)
-void UICpitClass::Unknown_583DC0(FontSys *text, FontSys *header, int inflicted, bool emp)
+void CockpitInterface::Unknown_583DC0(FontSys *text, FontSys *header, int inflicted, bool emp)
 {
 	if (text) {
 		if (emp) {
@@ -1898,7 +1898,7 @@ void UICpitClass::Unknown_583DC0(FontSys *text, FontSys *header, int inflicted, 
 
 
 // 0x583F70: the effects that have finished, removed
-void UICpitClass::Unknown_583F70()
+void CockpitInterface::Unknown_583F70()
 {
 	std::list<RenderObjClass *>::iterator it = Unknown158.begin();
 	while (it != Unknown158.end()) {
@@ -1915,14 +1915,14 @@ void UICpitClass::Unknown_583F70()
 
 // 0x584000: whether the avatar's engine runs (its MaxSpeed is set), else the message when report is set
 // 0x584000
-bool UICpitClass::Unknown_584000(bool report)
+bool CockpitInterface::Unknown_584000(bool report)
 {
 	SClient *sclient = (SClient *)Client;
 	ClientObjectClass *avatar = sclient->Get_Avatar();
 	if (!avatar) return(false);
 	if (!avatar->AuxData) return(false);
-	NameClass name("MaxSpeed");
-	DeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
+	AuxDataName name("MaxSpeed");
+	DeltaTemplateClass<float> *t = Unknown_Cpit_Find_Set_Field<DeltaTemplateClass<float> >((DeltaContainer *)avatar->AuxData, name);
 	bool ok = (t && t->Value != 0.0f);
 	if (!ok) {
 		if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);
@@ -1932,7 +1932,7 @@ bool UICpitClass::Unknown_584000(bool report)
 }
 
 // 0x584110: the WARP_CPIT / DISTRESS_CPIT / SPACE_CPIT texts shown by the state
-void UICpitClass::Unknown_584110()
+void CockpitInterface::Unknown_584110()
 {
 	RefCountPtr<FontSys> warpfont = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", InterfaceMesh->Peek_Object()));
 	RefCountPtr<FontSys> distressfont = Create_Peek(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", InterfaceMesh->Peek_Object()));
@@ -2002,7 +2002,7 @@ void UICpitClass::Unknown_584110()
 }
 
 // 0x5845A0: the WARP_CPIT text dimmed while the warp button is off
-void UICpitClass::Unknown_5845A0()
+void CockpitInterface::Unknown_5845A0()
 {
 	RefCountPtr<FontSys> style = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", InterfaceMesh->Peek_Object()));
 	if (style) {
@@ -2019,7 +2019,7 @@ void UICpitClass::Unknown_5845A0()
 // 0x584690: the incapacitance details (INCAPACITANCE_DETAILS 144) onto the +0xE0 question, shown
 // clear() and push_back: the client's erase 0x4FC7C0 and insert(it, x) sit one layer down, out of line (the last
 // two push_backs' insert inlined to insert(it, 1, x))
-void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
+void CockpitInterface::Unknown_584690(IncapacitanceDetailsPacket *packet)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 	if (sclient && sclient->Bridge) sclient->Bridge->Lose_Control();
@@ -2054,7 +2054,7 @@ void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
 
 
 // 0x584A20
-void UICpitClass::Unknown_584A20()
+void CockpitInterface::Unknown_584A20()
 {
 	if (Unknown0E0 && Unknown0E0->Is_Active()) {
 		Unknown0E0->Unknown_5C();
@@ -2063,13 +2063,13 @@ void UICpitClass::Unknown_584A20()
 }
 
 // 0x584A60
-void UICpitClass::Unknown_584A60()
+void CockpitInterface::Unknown_584A60()
 {
 	Unknown144 = 0;
 }
 
 // 0x584A80
-UICpitHulkWatchClass::UICpitHulkWatchClass(UICpitClass *owner) : Owner(owner)
+UICpitHulkWatchClass::UICpitHulkWatchClass(CockpitInterface *owner) : Owner(owner)
 {
 }
 
@@ -2084,7 +2084,7 @@ void UICpitHulkWatchClass::Unknown_Watch_0C()
 }
 
 // 0x584B70
-UICpitHarvestWatchClass::UICpitHarvestWatchClass(UICpitClass *owner) : Owner(owner)
+UICpitHarvestWatchClass::UICpitHarvestWatchClass(CockpitInterface *owner) : Owner(owner)
 {
 }
 
@@ -2112,7 +2112,7 @@ void UICpitHarvestWatchClass::Unknown_Watch_0C()
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\ui_cpit.cpp (its __FILE__)
 **
-**	The cockpit interface (ui_cpit.h's UICpitClass, the main view's +0x1D0; 0x178 bytes over Unknown5BB320Class,
+**	The cockpit interface (ui_cpit.h's CockpitInterface, the main view's +0x1D0; 0x178 bytes over Unknown5BB320Class,
 **	the TSI01A mesh and fc_cpit.ini's texts): the warp, throttle, reverse and turn buttons, the hulk and harvest
 **	windows (+0xC8 / +0xCC), the scanner (+0xD4), ui_scut.cpp's window (+0xDC), the incapacitance question
 **	(+0xE0), two watchers of the looted hulk and the harvested object (+0xF4 / +0x110), the damage texts

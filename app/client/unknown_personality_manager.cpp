@@ -70,7 +70,7 @@ Unknown_790260Class *Unknown_790560Class::Unknown_790D00(int index)
 }
 
 // 0x790D40
-Unknown_78F700Class *Unknown_790560Class::Unknown_790D40(int index)
+PersonalityClass *Unknown_790560Class::Unknown_790D40(int index)
 {
 	Unknown_790260Class *personality = Unknown_790D00(index);
 	if (personality == NULL) {

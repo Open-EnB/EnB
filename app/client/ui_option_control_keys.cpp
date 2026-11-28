@@ -297,7 +297,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 	if (keys_it != CurrentKeys.end()) {
 		EditKey = *keys_it;
 		if (EditKey) {
-			FontSys *font = ((RObjGadgetClass *)bttn)->Unknown34;	KeyPress->Set_Text(Create_Peek(font));	// NAME 1 [font]: what it holds
+			FontSys *font = ((RenderObjGadgetClass *)bttn)->Unknown34;	KeyPress->Set_Text(Create_Peek(font));	// NAME 1 [font]: what it holds
 			KeyPress->Unknown_40(true);
 			return(true);
 		}
@@ -605,7 +605,7 @@ void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string
 {
 	FAIL_IF(!bttn) return;
 
-	FontSys *font = ((RObjGadgetClass *)bttn)->Unknown34;
+	FontSys *font = ((RenderObjGadgetClass *)bttn)->Unknown34;
 	FAIL_IF(!font) return;
 
 
@@ -613,7 +613,7 @@ void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string
 
 	if (Unknown_BE5D1C < 1.0f) {
 		Unknown_BE5D1C = 320;
-		FontStringStruct *sinfo = &font->Info;
+		StringInfo *sinfo = &font->Info;
 		if (!sinfo) {
 			G_ASSERT(sinfo);
 		} else {
@@ -630,7 +630,7 @@ void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string
 	str.c_str();  // (dead, D130: spends the copy's nested budget, so its _Tidy is called as the client's)
 	str.c_str();  // (dead, D130)
 	str.c_str();  // (dead, D130)
-	Font32Class *f32 = font->Font.Peek();
+	Font32Bit *f32 = font->Font.Peek();
 	G_ASSERT(f32);
 	font->Change_Text(str.c_str(), 0);
 }

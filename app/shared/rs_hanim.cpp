@@ -31,7 +31,7 @@
 
 
 
-Unknown4596A0Class::Unknown4596A0Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *hAnimName, const char *suffix, int next_id, HAnimComboDataClass *combo) :
+RenderStateHAnimClass::RenderStateHAnimClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *hAnimName, const char *suffix, int next_id, HAnimComboDataClass *combo) :
 	RenderStateClass(list, id, link_id, flags),
 	Combo(true),
 	NextID(next_id),
@@ -46,7 +46,7 @@ Unknown4596A0Class::Unknown4596A0Class(RenderStateListClass *list, int id, int l
 	Combo.Copy(combo);
 }
 
-Unknown4596A0Class::Unknown4596A0Class(RenderStateListClass *list, const Unknown4596A0Class &source) :
+RenderStateHAnimClass::RenderStateHAnimClass(RenderStateListClass *list, const RenderStateHAnimClass &source) :
 	RenderStateClass(list, source),
 	Combo(true),
 	NextID(source.NextID),
@@ -60,12 +60,12 @@ Unknown4596A0Class::Unknown4596A0Class(RenderStateListClass *list, const Unknown
 	Combo.Copy(&source.Combo);
 }
 
-RenderStateClass *Unknown4596A0Class::Unknown_04(RenderStateListClass *list)
+RenderStateClass *RenderStateHAnimClass::Unknown_04(RenderStateListClass *list)
 {
-	return(new Unknown4596A0Class(list, *this));
+	return(new RenderStateHAnimClass(list, *this));
 }
 
-Unknown4596A0Class::~Unknown4596A0Class()
+RenderStateHAnimClass::~RenderStateHAnimClass()
 {
 	if (HAnimName != NULL) {
 		delete [] HAnimName;
@@ -75,7 +75,7 @@ Unknown4596A0Class::~Unknown4596A0Class()
 	}
 }
 
-RenderStateClass *Unknown4596A0Class::Get_Next_Render_State()
+RenderStateClass *RenderStateHAnimClass::Get_Next_Render_State()
 {
 	if (NextID == -1) {
 		return(NULL);
@@ -87,7 +87,7 @@ RenderStateClass *Unknown4596A0Class::Get_Next_Render_State()
 	return(NextRenderState);
 }
 
-void Unknown4596A0Class::Unknown_44(float seconds)
+void RenderStateHAnimClass::Unknown_44(float seconds)
 {
 	if (Unknown58 < 0.0f || Unknown58 > 1.0f) {
 		Unknown58 = 1.0f;
@@ -98,7 +98,7 @@ void Unknown4596A0Class::Unknown_44(float seconds)
 	}
 }
 
-void Unknown4596A0Class::Unknown_48(float seconds)
+void RenderStateHAnimClass::Unknown_48(float seconds)
 {
 	if (Unknown58 < 0.0f || Unknown58 > 1.0f) {
 		Unknown58 = 0.0f;
@@ -109,7 +109,7 @@ void Unknown4596A0Class::Unknown_48(float seconds)
 	}
 }
 
-void Unknown4596A0Class::Unknown_30(RsTrackClass *owner, float seconds)
+void RenderStateHAnimClass::Unknown_30(RsTrackClass *owner, float seconds)
 {
 	HAnimClass *anim = Combo.Peek_HAnim();
 	if (anim == NULL) {
@@ -147,7 +147,7 @@ void Unknown4596A0Class::Unknown_30(RsTrackClass *owner, float seconds)
 	}
 }
 
-void Unknown4596A0Class::Unknown_34(float seconds)
+void RenderStateHAnimClass::Unknown_34(float seconds)
 {
 	if (Combo.Peek_HAnim() != NULL) {
 		Combo.Set_Frame(Combo.Peek_HAnim()->Get_Frame_Rate() * seconds);
@@ -190,7 +190,7 @@ void Unknown4596A0Class::Unknown_34(float seconds)
 
 
 
-void Unknown4596A0Class::Unknown_14(RsTrackClass *owner)
+void RenderStateHAnimClass::Unknown_14(RsTrackClass *owner)
 {
 	Unknown_457E10();
 	Unknown58 = -1.0f;
@@ -231,7 +231,7 @@ void Unknown4596A0Class::Unknown_14(RsTrackClass *owner)
 	owner->Unknown8C &= ~2;
 }
 
-void Unknown4596A0Class::Unknown_18(RsTrackClass *owner)
+void RenderStateHAnimClass::Unknown_18(RsTrackClass *owner)
 {
 	Unknown_457E90();
 	Unknown58 = -1.0f;
@@ -239,14 +239,14 @@ void Unknown4596A0Class::Unknown_18(RsTrackClass *owner)
 	owner->Unknown8C &= ~2;
 }
 
-void Unknown4596A0Class::Unknown_38(RsTrackClass *owner)
+void RenderStateHAnimClass::Unknown_38(RsTrackClass *owner)
 {
 	if (Combo.Peek_HAnim() != NULL) {
 		owner->Unknown_462180(&Combo);
 	}
 }
 
-void Unknown4596A0Class::Unknown_3C()
+void RenderStateHAnimClass::Unknown_3C()
 {
 	if (Flags & 1) {
 		RenderStateClass *next = Get_Next_Render_State();

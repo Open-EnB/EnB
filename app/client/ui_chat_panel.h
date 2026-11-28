@@ -14,7 +14,7 @@ class ButtonGadgetClass;	// unknown_675120.h's (the panel's buttons, +0xA4: Add_
 class GadgetSlider;			// gd_slider.h's
 
 class AvatarPipClass;		// avatar_pip.h's (the panel's +0x110)
-class UIPlayerOptClass;		// ui_playeropt.h's (the panel's +0xD8)
+class PlayerOptionsInterface;		// ui_playeropt.h's (the panel's +0xD8)
 class UIFriendsClass;		// ui_friends.h's (+0xDC)
 class UIGuildClass;			// ui_guild.cpp's (+0xE0)
 class UIRadioListClass;		// ui_radio_list.h's (+0xE4)
@@ -104,7 +104,7 @@ public:
 	ButtonGadgetClass *UnknownA4[7];						// +0xA4 (the constructor clears all seven)
 	RefCountPtr<UIComboBoxClass> Combo[NUM_COMBO];				// +0xC0 (NUM_COMBO, the assert's)  // NAME 2: the assert's NUM_COMBO
 	RefCountPtr<UIComboBoxClass> UnknownD4;				// +0xD4: the combo shown (0x5698F0)
-	UIPlayerOptClass *UnknownD8;									// +0xD8 (the +0xF8 window's parts: 0x5685C0 clears +0xD8..+0xEC)
+	PlayerOptionsInterface *UnknownD8;									// +0xD8 (the +0xF8 window's parts: 0x5685C0 clears +0xD8..+0xEC)
 	UIFriendsClass *UnknownDC;									// +0xDC
 	UIGuildClass *UnknownE0;									// +0xE0
 	UIRadioListClass *UnknownE4;									// +0xE4

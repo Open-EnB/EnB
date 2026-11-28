@@ -42,7 +42,7 @@ struct PacketHeaderClass	// NAME 1: describes what it is
 };
 
 // A message built from a packet (PacketClass::Build) or handed to the factory: 0x22C bytes (the
-// factory 0x8696C0 makes one on its stack). The payload is a LinearBufferClass over the bytes after
+// factory 0x8696C0 makes one on its stack). The payload is a LinearBuffer over the bytes after
 // the header; +0x20..+0x29 are the UDP connection's send parameters (Send_Message 0x82D980).
 class RawPacketClass	// NAME 1: describes what it is (the asserts call it `packet`)
 {
@@ -62,7 +62,7 @@ public:
 	}
 
 	PacketHeaderClass Header;		// +0x00 NAME 5: 'packet->Header.Size'
-	LinearBufferClass Data;			// +0x04 the payload  // NAME 2: what it holds
+	LinearBuffer Data;			// +0x04 the payload  // NAME 2: what it holds
 	int Channel;					// +0x20 NAME 2: UDP: 0 the default, < 0 a fixed one, > 0 a hashed one
 	int Priority;					// +0x24 NAME 2: CordCon::write's priority
 	bool Reliable;					// +0x28 NAME 2: a hashed channel's mode (3 reliable, 4 sequenced)
@@ -77,7 +77,7 @@ public:
 	void Add(const short &value);				// 0x86E960
 	void Add(const bool &value);				// 0x86E9A0
 	void Add(const float &value);				// 0x86E9E0 (its bits, as a long)
-	void Add_String(const char *string);		// 0x86EA20 (LinearBufferClass::Write_String)  // NAME 2: what it does
+	void Add_String(const char *string);		// 0x86EA20 (LinearBuffer::Write_String)  // NAME 2: what it does
 	void Add(const char *str);					// 0x86EA40: a 4-byte length (with the 0), then the bytes
 	void Add(const std::string &s);				// 0x86EAC0: a 2-byte length, then the bytes
 	void Get(std::string *s);					// 0x86EB50  // NAME 2: what it does (and the overloads below)
@@ -90,7 +90,7 @@ public:
 	void Get(short &value);						// 0x86EE20
 	void Get(bool &value);						// 0x86EE50
 	void Get(float &value);						// 0x86EE90
-	char *Get_String();							// 0x86EED0 (LinearBufferClass::Read_String)  // NAME 2: what it does
+	char *Get_String();							// 0x86EED0 (LinearBuffer::Read_String)  // NAME 2: what it does
 	void Get(char **str);						// 0x86EEF0: new[]'d
 	static int Get_Size(const char *str);		// 0x86EFE0: what Add(str) writes after the length
 };

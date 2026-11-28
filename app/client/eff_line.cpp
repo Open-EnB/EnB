@@ -33,7 +33,7 @@
 
 
 LineEffectClass::LineEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, SegmentedLineClass *line, float start_offset, float end_offset, int grow_time, int shrink_time, float grow_accel, float shrink_accel, float tiling_min_length) :
-	UnknownB0009CEffectClass(client, id, start_time, duration, cycle_time),
+	BinaryEffectClass(client, id, start_time, duration, cycle_time),
 	StartOffset(start_offset),
 	EndOffset(end_offset),
 	GrowTime((grow_time == 0) ? -1 : grow_time),
@@ -83,7 +83,7 @@ Vector3 LineEffectClass::Unknown_08(const Vector3 &position)
 
 void LineEffectClass::Set_Source_Object_ID(int game_id)
 {
-	UnknownB0009CEffectClass::Set_Source_Object_ID(game_id);
+	BinaryEffectClass::Set_Source_Object_ID(game_id);
 	unsigned avatar = Client->AvatarID;
 	bool source = (avatar == game_id);
 	Set_Flag(0x10000, source);
@@ -93,7 +93,7 @@ void LineEffectClass::Set_Source_Object_ID(int game_id)
 
 void LineEffectClass::Set_Target_Object_ID(int game_id)
 {
-	UnknownB0009CEffectClass::Set_Target_Object_ID(game_id);
+	BinaryEffectClass::Set_Target_Object_ID(game_id);
 	unsigned avatar = Client->AvatarID;
 	bool target = (avatar == game_id);
 	Set_Flag(0x20000, target);
@@ -136,7 +136,7 @@ void LineEffectClass::Set_Target_Object_ID(int game_id)
 void LineEffectClass::Unknown_18()
 {
 	FAIL_IF(!SegLineRObj) return;
-	UnknownB0009CEffectClass::Unknown_18();
+	BinaryEffectClass::Unknown_18();
 	SegLineRObj->Add(Scene);
 }
 
@@ -144,7 +144,7 @@ void LineEffectClass::Unknown_18()
 void LineEffectClass::Unknown_1C()
 {
 	FAIL_IF(!SegLineRObj) return;
-	UnknownB0009CEffectClass::Unknown_1C();
+	BinaryEffectClass::Unknown_1C();
 	Vector3 start = SourcePosition;
 	Vector3 end = TargetPosition;
 	Unknown_6E5BB0(&start, &end);
@@ -337,7 +337,7 @@ void LineEffectClass::Unknown_6E6030(Vector3 *start, Vector3 *end)
 **	(0xB92F4C) is this class: eff_o.cpp's helper 0x6EAC50 makes it for a segmented line model.
 **
 **	Emitted here as well: the base's inline virtuals EffectObjectClass::Unknown_10 0x6E5420,
-**	UnknownB0009CEffectClass::Unknown_14 0x6E5440, Unknown_30 0x6E5460 and Unknown_38 0x6E54A0, the
+**	BinaryEffectClass::Unknown_14 0x6E5440, Unknown_30 0x6E5460 and Unknown_38 0x6E54A0, the
 **	scalar deleting destructor 0x6E54E0 and the binary end's implicit destructor 0x6E5510 (inlined by
 **	0x6E5600).
 **

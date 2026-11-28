@@ -41,11 +41,11 @@ class StarmapPipSupportClass;
 
 
 
-class MapPipClass : public PipSceneClass  // NAME 3: class-from-file (D24) for app\Client\map_pip.cpp
+class MapPIPClass : public PIPSceneClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	MapPipClass(SClient *client, bool arg);				// 0x6927C0 (arg: the two 0x118-byte objects at +0x48 / +0x4C)  // NAME 1 [client, arg]: neutral
-	virtual ~MapPipClass();								// +0x00 0x692A60 (deleting 0x692A30)
+	MapPIPClass(SClient *client, bool arg);				// 0x6927C0 (arg: the two 0x118-byte objects at +0x48 / +0x4C)  // NAME 1 [client, arg]: neutral
+	virtual ~MapPIPClass();								// +0x00 0x692A60 (deleting 0x692A30)
 	virtual bool Unknown_04(const RefCountPtr<InterfaceClass> &iface, const RefCountPtr<RenderObjClass> &vp, int arg);	// +0x04 0x692B30 (FAIL_IF 'Interface', '!iface_ptr', '!vp', '!view', '!ViewportGadget'; arg: the gadget's id in the interface)  // NAME 2 [iface, vp]: the FAIL_IFs' iface_ptr is its Peek  // NAME 1 [arg]: neutral
 	virtual bool Unknown_08();							// +0x08 0x692D40 (FAIL_IF 'ViewportGadget')
 	virtual bool Unknown_0C(bool on);					// +0x0C 0x692E00 (FAIL_IF '!Interface')  // NAME 1 [on]: neutral

@@ -42,7 +42,7 @@
 #include <stdio.h>
 #include <string.h>
 
-extern LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
+extern DisplacementMapLandClass *Unknown_BDC0D8;	// NAME 1: unknown
 	// NAME 1: unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only
 
 

@@ -21,20 +21,20 @@ bool Unknown_5FAE70();								// NAME 1 [Unknown_5FAE70]: ui_registration.cpp
 bool Unknown_5FAD50();								// NAME 1 [Unknown_5FAD50]: ui_registration.cpp
 
 // 0x76BC50
-MenuTaskClass::MenuTaskClass() :
+MainMenuTaskClass::MainMenuTaskClass() :
 	Done(false)
 {
 }
 
 // 0x76BD10
-bool MenuTaskClass::Accept_Focus()
+bool MainMenuTaskClass::Accept_Focus()
 {
 	Unknown_Debug_Print("MenuTask: accepting focus.");
 	return true;
 }
 
 // 0x76BD30
-bool MenuTaskClass::Yield_Focus()
+bool MainMenuTaskClass::Yield_Focus()
 {
 	if (Done) {
 		Unknown_Debug_Print("MenuTask: yielding focus.");
@@ -45,7 +45,7 @@ bool MenuTaskClass::Yield_Focus()
 }
 
 // 0x76BD70
-void MenuTaskClass::Pre_Run()
+void MainMenuTaskClass::Pre_Run()
 {
 	KernelEventClass event;
 	event.Key = 0x43;
@@ -53,7 +53,7 @@ void MenuTaskClass::Pre_Run()
 }
 
 // 0x76BDB0
-void MenuTaskClass::Handle_Input(KernelEventClass *event)
+void MainMenuTaskClass::Handle_Input(KernelEventClass *event)
 {
 	if ((event->Flags & 0x1000) != 0) {
 		return;

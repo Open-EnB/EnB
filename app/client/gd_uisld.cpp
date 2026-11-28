@@ -10,7 +10,7 @@
 #include "..\shared\g_assert.h"
 
 UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const char *bar, const LayerClass *layer, bool horizontal, float extra) :
-	Unknown_675120Class(screen->Get_Sub_Object_By_Name(bar), *layer, 0x77),
+	UIMeshGadgetClass(screen->Get_Sub_Object_By_Name(bar), *layer, 0x77),
 	Pull(NULL),
 	Screen(screen),
 	IsHorizontal(horizontal),
@@ -48,7 +48,7 @@ UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const c
 
 
 UISliderGadget::UISliderGadget(RenderObjClass *screen, const char *pull, const char *bar, bool horizontal, float extra) :
-	Unknown_675120Class(screen->Get_Sub_Object_By_Name(bar), 0x77),
+	UIMeshGadgetClass(screen->Get_Sub_Object_By_Name(bar), 0x77),
 	Pull(NULL),
 	Screen(screen),
 	IsHorizontal(horizontal),
@@ -208,7 +208,7 @@ bool UISliderGadget::Unknown_30(float x, float y)
 		Unknown0C0.X = 0;
 		Unknown0C0.Y = 0;
 	}
-	return(RObjGadgetClass::Unknown_30(x, y));
+	return(RenderObjGadgetClass::Unknown_30(x, y));
 }
 
 
@@ -297,7 +297,7 @@ RenderObjClass *UISliderGadget::Unknown_24(Vector3 *position, float *frame, bool
 
 void UISliderGadget::Unknown_8C(bool on)
 {
-	RObjGadgetClass::Unknown_8C(on);
+	RenderObjGadgetClass::Unknown_8C(on);
 	if (Pull != NULL) {
 		Pull->Set_Hidden(on);
 	}

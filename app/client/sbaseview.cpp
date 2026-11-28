@@ -48,7 +48,7 @@ float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAM
 #include "texture.h"	// the texture totals (0x6A1180)
 // 0x94B910 (the textures' 'Frame: %d') is texture.h's TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
-class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_talkt_space.cpp
+class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	char Unknown84[0x184 - 0x84];
@@ -69,7 +69,7 @@ SBaseViewChannelStruct::~SBaseViewChannelStruct()
 }
 
 // 0x69AD30
-SBaseViewClass::SBaseViewClass(ClientTaskClass *task, int arg) :
+StarbaseViewClass::StarbaseViewClass(ClientTaskClass *task, int arg) :
 	Unknown65B810ViewClass(task, 4),
 	Unknown50(-1),
 	Unknown54(-1),
@@ -104,13 +104,13 @@ SBaseViewClass::SBaseViewClass(ClientTaskClass *task, int arg) :
 }
 
 // 0x69B070
-SimpleSceneClass *SBaseViewClass::Unknown_5C()
+SimpleSceneClass *StarbaseViewClass::Unknown_5C()
 {
 	return(Unknown70.Peek());
 }
 
 // 0x69B0C0
-SBaseViewClass::~SBaseViewClass()
+StarbaseViewClass::~StarbaseViewClass()
 {
 	if (Info) {
 		delete Info;
@@ -125,10 +125,10 @@ SBaseViewClass::~SBaseViewClass()
 // and chat interfaces and the two lights
 // (exact: trade / group get Get_Client(), whose inline layer gives the client's push-before-lea order and store
 // before the temporary's release; one black Vector3 for both lights puts the second light's temporary in the first slot)
-void SBaseViewClass::Unknown_04()
+void StarbaseViewClass::Unknown_04()
 {
 	UIViewClass::Unknown_04();
-	InterfaceSortClass sort(this, true);
+	LocalInterfaceSort sort(this, true);
 	Unknown68 = new ScriptedMovieViewerSettingsStruct;
 	Unknown70 = Create_NEW(new Unknown761C80Class);
 	Unknown70->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
@@ -146,14 +146,14 @@ void SBaseViewClass::Unknown_04()
 	Unknown80 = new LayerClass(Unknown70.Peek(), Unknown6C.Peek());
 	Unknown1B8 = Create_NEW(new FontSys("MouseText_SBASE", 0, ""));
 	Unknown1B8->Add(Unknown1C);
-	PTrade = Create_NEW(new UIPTradeClass(Get_Client()));
+	PTrade = Create_NEW(new PlayerTradeInterface(Get_Client()));
 	PTrade->Unknown_54();
 	PTrade->Unknown_7C(this, 0);
-	Unknown1A8 = Create_NEW(new UIGroupClass(Get_Client()));
+	Unknown1A8 = Create_NEW(new GroupInterface(Get_Client()));
 	Unknown1A8->Unknown0F1 = true;
 	Unknown1A8->Unknown_54();
 	Unknown1A8->Unknown_7C(this, 0);
-	Unknown1AC = Create_NEW(new UIBuffClass(this, LayerClass(Unknown1C, Unknown20.Peek())));
+	Unknown1AC = Create_NEW(new BuffInterface(this, LayerClass(Unknown1C, Unknown20.Peek())));
 	Unknown1AC->Unknown_54();
 	Unknown_6B4940(Unknown1AC.Peek());
 	Vector3 black(0.0f, 0.0f, 0.0f);
@@ -175,7 +175,7 @@ void SBaseViewClass::Unknown_04()
 
 // 0x69C0D0: the interfaces, the render objects, the channels and the scenes released (UIViewClass's 0x65B4A0
 // first, not the base's 0x65B8B0)
-void SBaseViewClass::Unknown_10()
+void StarbaseViewClass::Unknown_10()
 {
 	UIViewClass::Unknown_10();
 	Starbase = NULL;
@@ -241,7 +241,7 @@ void SBaseViewClass::Unknown_10()
 }
 
 // 0x69C5A0
-void SBaseViewClass::Unknown_18(bool arg)
+void StarbaseViewClass::Unknown_18(bool arg)
 {
 	if (arg) {
 		Unknown54 = 0;
@@ -252,7 +252,7 @@ void SBaseViewClass::Unknown_18(bool arg)
 }
 
 // 0x69C5E0: the render (the text object follows the pointer, 0.02 up a frame with cursor 5, else 0.01 down)
-int SBaseViewClass::Unknown_0C(bool on)
+int StarbaseViewClass::Unknown_0C(bool on)
 {
 	if (Unknown1C4 > 0) {
 		Unknown1C4--;
@@ -268,10 +268,10 @@ int SBaseViewClass::Unknown_0C(bool on)
 	Unknown1C->Visibility_Check(Unknown20.Peek());
 	Unknown24->Visibility_Check(Unknown28);
 	int budget;
-	if (OptionClass::Instance->Get_Bool("Graphics_Default")) {
+	if (OptionManagerClass::Instance->Get_Bool("Graphics_Default")) {
 		budget = Client->PolyBudget;
 	} else {
-		budget = (int)(8000.0f + (OptionClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
+		budget = (int)(8000.0f + (OptionManagerClass::Instance->Get_Float("Graphics_Space_Poly") * 0.01f) * (40000.0f - 8000.0f));
 	}
 	PredictiveLODOptimizerClass::Optimize_LODs(budget * 0.67f);
 	if (ViewRObjs[2]) {
@@ -293,7 +293,7 @@ inline int Unknown_84(Unknown5BB320Class *starbase) { return((int)starbase->Inte
 
 // 0x69C8F0: the base's frame, then the talk interface's choice, the pending view change, the sounds, the trade
 // and the group window
-void SBaseViewClass::Unknown_14()
+void StarbaseViewClass::Unknown_14()
 {
 	UIViewClass::Unknown_14();
 	if (Unknown5C == 11) {
@@ -350,7 +350,7 @@ void SBaseViewClass::Unknown_14()
 }
 
 // 0x69CBE0
-bool SBaseViewClass::Unknown_69CBE0()
+bool StarbaseViewClass::Unknown_69CBE0()
 {
 	if (Unknown1B0) return(false);
 	if (!Unknown64) return(false);
@@ -358,7 +358,7 @@ bool SBaseViewClass::Unknown_69CBE0()
 }
 
 // 0x69CC10: as 0x69CCD0 without PTrade and +0x190
-bool SBaseViewClass::Unknown_69CC10()
+bool StarbaseViewClass::Unknown_69CC10()
 {
 	if (Unknown184 && Unknown184->Is_Active()) return(true);
 	if (Unknown188 && Unknown188->Is_Active()) return(true);
@@ -371,7 +371,7 @@ bool SBaseViewClass::Unknown_69CC10()
 }
 
 // 0x69CCD0: any of the view's interfaces active
-bool SBaseViewClass::Unknown_69CCD0()
+bool StarbaseViewClass::Unknown_69CCD0()
 {
 	if (PTrade != NULL && PTrade->Is_Active()) return(true);
 	if (Unknown184 && Unknown184->Is_Active()) return(true);
@@ -386,7 +386,7 @@ bool SBaseViewClass::Unknown_69CCD0()
 }
 
 // 0x69CDE0: the interfaces released (AvatarUI and ShipUI too: RefCountPtrs, released and cleared as the others are)
-void SBaseViewClass::Unknown_69CDE0()
+void StarbaseViewClass::Unknown_69CDE0()
 {
 	Unknown1B0 = false;
 	if (Unknown64) {
@@ -401,7 +401,7 @@ void SBaseViewClass::Unknown_69CDE0()
 		Unknown198 = NULL;
 		AvatarUI = NULL;
 		ShipUI = NULL;
-		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74C9D0(RefCountPtr<UITalkTreeClass>());
+		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74C9D0(RefCountPtr<TalkTreeInterface>());
 		if (Starbase) {
 			Starbase->Unknown_8C();
 			SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
@@ -413,7 +413,7 @@ void SBaseViewClass::Unknown_69CDE0()
 // 0x69D030: starbase interface index made (once, with 0x6A2120's name) and activated as Starbase, the listener
 // turned to the +0x6C camera; -1 (allowed without +0x1B4) leaves none. The cases in the client's order (3 before 2)
 // Rotate_Z's first row multiplies c * x before s * y, as the client's
-void SBaseViewClass::Unknown_69D030(int index)
+void StarbaseViewClass::Unknown_69D030(int index)
 {
 	if (!Info && index != -1) return;
 	if (index == Unknown50) return;
@@ -425,7 +425,7 @@ void SBaseViewClass::Unknown_69D030(int index)
 		case 0:
 			if (!Unknown174) {
 				std::string name = Unknown_6A2120(0);
-				Unknown174 = Create_Get(new UIStarbaseClass(this, Unknown80, 0, name.c_str()));
+				Unknown174 = Create_Get(new StarbaseInterface(this, Unknown80, 0, name.c_str()));
 				Unknown174->Unknown_54();
 				Unknown_6B4940(Unknown174.Peek());
 				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
@@ -436,7 +436,7 @@ void SBaseViewClass::Unknown_69D030(int index)
 		case 1:
 			if (!Unknown178) {
 				std::string name = Unknown_6A2120(1);
-				Unknown178 = Create_Get(new UIStarbaseClass(this, Unknown80, 1, name.c_str()));
+				Unknown178 = Create_Get(new StarbaseInterface(this, Unknown80, 1, name.c_str()));
 				Unknown178->Unknown_54();
 				Unknown_6B4940(Unknown178.Peek());
 				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
@@ -447,7 +447,7 @@ void SBaseViewClass::Unknown_69D030(int index)
 		case 3:
 			if (!Unknown17C) {
 				std::string name = Unknown_6A2120(3);
-				Unknown17C = Create_Get(new UIStarbaseClass(this, Unknown80, 3, name.c_str()));
+				Unknown17C = Create_Get(new StarbaseInterface(this, Unknown80, 3, name.c_str()));
 				Unknown17C->Unknown_54();
 				Unknown_6B4940(Unknown17C.Peek());
 				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
@@ -458,7 +458,7 @@ void SBaseViewClass::Unknown_69D030(int index)
 		case 2:
 			if (!Unknown180) {
 				std::string name = Unknown_6A2120(2);
-				Unknown180 = Create_Get(new UIStarbaseClass(this, Unknown80, 2, name.c_str()));
+				Unknown180 = Create_Get(new StarbaseInterface(this, Unknown80, 2, name.c_str()));
 				Unknown180->Unknown_54();
 				Unknown_6B4940(Unknown180.Peek());
 				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
@@ -484,7 +484,7 @@ done:
 // 0x69D930: ViewRObjs[type] out of its scene (0 the view's +0x1C, 1 +0x70, 2 +0x78), then released (the client
 // calls it from 0x69D9D0 and 0x69DC60, never inlined: auto-inlining off for it)
 #pragma auto_inline(off)
-void SBaseViewClass::Unknown_69D930(int type)
+void StarbaseViewClass::Unknown_69D930(int type)
 {
 	if (ViewRObjs[type]) {
 		switch (type) {
@@ -730,7 +730,7 @@ void SBaseViewClass::Unknown_69D930(int type)
 
 
 // 0x69D9D0: the asset manager's name as ViewRObjs[type], into its scene
-void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
+void StarbaseViewClass::Unknown_69D9D0(int type, const char *name)
 {
 	Unknown_69D930(type);
 	if (!ViewRObjs[type]) {
@@ -754,7 +754,7 @@ void SBaseViewClass::Unknown_69D9D0(int type, const char *name)
 }
 
 // 0x69DB50: ViewRObjs[type] released
-void SBaseViewClass::Unknown_69DB50(int type)
+void StarbaseViewClass::Unknown_69DB50(int type)
 {
 	if (ViewRObjs[type]) {
 		ViewRObjs[type] = NULL;
@@ -762,7 +762,7 @@ void SBaseViewClass::Unknown_69DB50(int type)
 }
 
 // 0x69DBA0: obj as ViewRObjs[type]
-void SBaseViewClass::Unknown_69DBA0(int type, const RefCountPtr<RenderObjClass> &obj)
+void StarbaseViewClass::Unknown_69DBA0(int type, const RefCountPtr<RenderObjClass> &obj)
 {
 	Unknown_69DB50(type);
 	if (!ViewRObjs[type]) {
@@ -771,18 +771,18 @@ void SBaseViewClass::Unknown_69DBA0(int type, const RefCountPtr<RenderObjClass> 
 }
 
 // 0x69DC40
-void SBaseViewClass::Unknown_69DC40()
+void StarbaseViewClass::Unknown_69DC40()
 {
 	Unknown_69D9D0(2, "FE_COMP1");
 }
 
 // 0x69DC60
-void SBaseViewClass::Unknown_69DC60()
+void StarbaseViewClass::Unknown_69DC60()
 {
 	Unknown_69D930(2);
 }
 // 0x69DC80: the avatar at ViewRObjs[1]'s bone (offset: only at its position plus +0x1E0), kept in its +0x330
-void SBaseViewClass::Unknown_69DC80(RefCountPtr<CharacterViewAvatarClass> avatar, const char *bone, bool offset)
+void StarbaseViewClass::Unknown_69DC80(RefCountPtr<AvatarClass> avatar, const char *bone, bool offset)
 {
 	if (ViewRObjs[1] && avatar) {
 		Matrix3D tm = ViewRObjs[1]->Get_Bone_Transform(bone);
@@ -800,7 +800,7 @@ void SBaseViewClass::Unknown_69DC80(RefCountPtr<CharacterViewAvatarClass> avatar
 }
 
 // 0x69DFC0: the avatar at tm (offset: only at tm's position plus +0x1E0), kept in its +0x330
-void SBaseViewClass::Unknown_69DFC0(RefCountPtr<CharacterViewAvatarClass> avatar, const Matrix3D &tm, bool offset)
+void StarbaseViewClass::Unknown_69DFC0(RefCountPtr<AvatarClass> avatar, const Matrix3D &tm, bool offset)
 {
 	if (avatar) {
 		if (offset) {
@@ -817,7 +817,7 @@ void SBaseViewClass::Unknown_69DFC0(RefCountPtr<CharacterViewAvatarClass> avatar
 }
 
 // 0x69E260: the +0x6C camera at ViewRObjs[1]'s bone, turned -90 degrees about y and z (+0x84 keeps it)
-void SBaseViewClass::Unknown_69E260(const char *bone)
+void StarbaseViewClass::Unknown_69E260(const char *bone)
 {
 	if (ViewRObjs[1]) {
 		Matrix3D tm = ViewRObjs[1]->Get_Bone_Transform(bone);
@@ -830,7 +830,7 @@ void SBaseViewClass::Unknown_69E260(const char *bone)
 }
 
 // 0x69E510: the +0x6C camera at tm turned -90 degrees about y and z (with ViewRObjs[1] only)
-void SBaseViewClass::Unknown_69E510(Matrix3D tm)
+void StarbaseViewClass::Unknown_69E510(Matrix3D tm)
 {
 	if (ViewRObjs[1]) {
 		Unknown84 = tm;
@@ -844,7 +844,7 @@ void SBaseViewClass::Unknown_69E510(Matrix3D tm)
 
 // 0x69E6E0: the camera move's target +0xB4 at ViewRObjs[1]'s bone, turned as 0x69E260 (keep: +0x84's turn at the
 // bone's position), lift added to its z; the move starts now over seconds
-void SBaseViewClass::Unknown_69E6E0(const char *bone, int seconds, bool keep, float lift)
+void StarbaseViewClass::Unknown_69E6E0(const char *bone, int seconds, bool keep, float lift)
 {
 	if (ViewRObjs[1]) {
 		Matrix3D tm = ViewRObjs[1]->Get_Bone_Transform(bone);
@@ -868,7 +868,7 @@ void SBaseViewClass::Unknown_69E6E0(const char *bone, int seconds, bool keep, fl
 }
 
 // 0x69EB20: the camera move's target +0xB4 (tm turned as 0x69E510) over seconds; restart starts it now
-void SBaseViewClass::Unknown_69EB20(Matrix3D tm, int seconds, bool restart)
+void StarbaseViewClass::Unknown_69EB20(Matrix3D tm, int seconds, bool restart)
 {
 	if (ViewRObjs[1]) {
 		UnknownB4 = tm;
@@ -885,7 +885,7 @@ void SBaseViewClass::Unknown_69EB20(Matrix3D tm, int seconds, bool restart)
 
 #pragma auto_inline(off)
 // 0x69ED80: the +0x6C camera between +0x84 and +0xB4 (0x77B7D0 eases the fraction); at the end it is +0xB4
-void SBaseViewClass::Unknown_69ED80()
+void StarbaseViewClass::Unknown_69ED80()
 {
 	if (UnknownE4 != 0.0f) {
 		UnknownE8 += WW3D::Get_Frame_Time() * 0.001f;
@@ -903,7 +903,7 @@ void SBaseViewClass::Unknown_69ED80()
 #pragma auto_inline(on)
 // 0x69EF00: the +0x6C camera turned by the frame time (mode 0 / 1 about y, 2 / 3 its pitch +0x1BC up / down to
 // 0.25), kept as +0x84 (the time's product in the client's order: parenthesised)
-void SBaseViewClass::Unknown_69EF00(int mode, float speed)
+void StarbaseViewClass::Unknown_69EF00(int mode, float speed)
 {
 	float angle = (((float)WW3D::Get_Frame_Time() * 0.001f) * speed) * 3.0f;
 	Matrix3D tm = Unknown6C->Get_Transform();
@@ -934,20 +934,20 @@ void SBaseViewClass::Unknown_69EF00(int mode, float speed)
 }
 
 // 0x69F440
-void SBaseViewClass::Unknown_69F440()
+void StarbaseViewClass::Unknown_69F440()
 {
 	Unknown1B0 = true;
 }
 
 // 0x69F460
-void SBaseViewClass::Unknown_69F460(int arg)
+void StarbaseViewClass::Unknown_69F460(int arg)
 {
 	Unknown54 = arg;
 	Unknown58 = Unknown50;
 }
 #pragma auto_inline(off)
 // 0x69F480: channel index stopped and released (never inlined: 0x69C0D0 and 0x69F540 call it)
-void SBaseViewClass::Unknown_69F480(int index)
+void StarbaseViewClass::Unknown_69F480(int index)
 {
 	if (Channels[index].Model && Channels[index].Anim) {
 		Channels[index].Model->Set_Animation(Channels[index].Anim.Peek(), 0.0f, 0);
@@ -960,7 +960,7 @@ void SBaseViewClass::Unknown_69F480(int index)
 #pragma auto_inline(on)
 // 0x69F540: channel index started (stopped first): name's animation on model, mode 1 when once else 2; backward
 // it starts at the last frame
-void SBaseViewClass::Unknown_69F540(const RefCountPtr<RenderObjClass> &model, const char *name, int index, bool once, bool backward)
+void StarbaseViewClass::Unknown_69F540(const RefCountPtr<RenderObjClass> &model, const char *name, int index, bool once, bool backward)
 {
 	if (model) {
 		Unknown_69F480(index);
@@ -984,7 +984,7 @@ void SBaseViewClass::Unknown_69F540(const RefCountPtr<RenderObjClass> &model, co
 // 0x69F710: every channel one frame on (a new one starts at its first or last frame)
 // (exact: Channels[i] written out in each access, no reference local; through a reference VC6 scheduled the
 // Frame stores after the Mode store / push)
-void SBaseViewClass::Unknown_69F710()
+void StarbaseViewClass::Unknown_69F710()
 {
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	for (int i = 0; i < 6; i++) {
@@ -1011,7 +1011,7 @@ void SBaseViewClass::Unknown_69F710()
 }
 
 // 0x69F850: channel index at its end (no animation counts as ended)
-bool SBaseViewClass::Unknown_69F850(int index)
+bool StarbaseViewClass::Unknown_69F850(int index)
 {
 	HAnimClass *anim = Channels[index].Anim.Peek();
 	if (!anim) {
@@ -1033,7 +1033,7 @@ bool SBaseViewClass::Unknown_69F850(int index)
 // +0x190, 8 Jobs, 9 +0x198, 14 AvatarUI, 13 ShipUI; the cases in the client's order) and shown as +0x64; 11 also
 // hands the talk tree to the client and sends STARBASE_REQUEST action 4 with arg
 // (exact: case 11 reads Unknown1138 into a local before the packet's construction, which also settles case 8's registers)
-void SBaseViewClass::Unknown_69F8F0(int type, int arg)
+void StarbaseViewClass::Unknown_69F8F0(int type, int arg)
 {
 	Unknown_69CDE0();
 	switch (type) {
@@ -1074,7 +1074,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 		{
 			SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
 			if (!Unknown190) {
-				Unknown190 = Create_Get(new UITalkTreeClass(client, 1));
+				Unknown190 = Create_Get(new TalkTreeInterface(client, 1));
 				Unknown190->Unknown_54();
 				Unknown190->Unknown_7C(this, false);
 				((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74CA70();
@@ -1083,7 +1083,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 			Unknown64 = Unknown190;
 			Unknown5C = type;
 			int id = client->Unknown1138;
-			client->Send_Packet(&StarbaseRequestPacketClass(id, 4, arg));
+			client->Send_Packet(&StarbaseReqPacketClass(id, 4, arg));
 			break;
 		}
 		case 8:
@@ -1168,7 +1168,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 }
 
 // 0x6A0540: the render objects out of their scenes
-void SBaseViewClass::Unknown_6A0540()
+void StarbaseViewClass::Unknown_6A0540()
 {
 	if (Unknown68) {
 		Unknown68->Unknown00->Remove();
@@ -1240,7 +1240,7 @@ void SBaseViewClass::Unknown_6A0540()
 // 0x6A0590: the lights loader: +0x68's scene light and the two lights back into the +0x70 scene, the ambient light
 // and the RKEY / RCAMERA lights from the INI name ('LIGHTS'); RKey turned to the scene light's position plus its offset
 // (the offset through a Matrix3D of dir, right, up with a zero position, mainview.cpp 0x50F1B0's form: operator * computes Z, Y, X and VC6 folds the + 0)
-void SBaseViewClass::Unknown_6A0590(const char *name)
+void StarbaseViewClass::Unknown_6A0590(const char *name)
 {
 	if (Unknown68) {
 		Unknown68->Unknown00->Remove();
@@ -1311,7 +1311,7 @@ void SBaseViewClass::Unknown_6A0590(const char *name)
 }
 
 // 0x6A0E00: the text object away
-void SBaseViewClass::Unknown_6A0E00()
+void StarbaseViewClass::Unknown_6A0E00()
 {
 	if (Unknown1B8) {
 		Unknown1B8->Remove();
@@ -1320,7 +1320,7 @@ void SBaseViewClass::Unknown_6A0E00()
 }
 
 // 0x6A0E50: the text object hidden
-void SBaseViewClass::Unknown_6A0E50()
+void StarbaseViewClass::Unknown_6A0E50()
 {
 	if (Unknown1B8) {
 		Unknown1B8->Set_Hidden(1);
@@ -1328,7 +1328,7 @@ void SBaseViewClass::Unknown_6A0E50()
 }
 
 // 0x6A0E80: the text object's text, shown
-void SBaseViewClass::Unknown_6A0E80(const char *text)
+void StarbaseViewClass::Unknown_6A0E80(const char *text)
 {
 	if (Unknown1B8) {
 		Unknown1B8->Change_Text(text, 0);
@@ -1337,7 +1337,7 @@ void SBaseViewClass::Unknown_6A0E80(const char *text)
 }
 
 // 0x6A0EC0: the text object follows the pointer (0.02 up a frame with cursor 5, else 0.01 down; 0x69C5E0 inlines it)
-void SBaseViewClass::Unknown_6A0EC0()
+void StarbaseViewClass::Unknown_6A0EC0()
 {
 	if (Unknown1B8) {
 		float x;
@@ -1353,13 +1353,13 @@ void SBaseViewClass::Unknown_6A0EC0()
 }
 
 // 0x6A0FD0: LOUNGE_NPC 82
-void SBaseViewClass::Unknown_6A0FD0(LoungeNPCPacketClass *packet)
+void StarbaseViewClass::Unknown_6A0FD0(LoungeNPCPacketClass *packet)
 {
 	Info = StarbaseInfoClass::Create(packet);
 }
 
 // 0x6A1000: the 2-D sound name as +0x1C0, looped
-void SBaseViewClass::Unknown_6A1000(const char *name)
+void StarbaseViewClass::Unknown_6A1000(const char *name)
 {
 	if (Unknown1C0) {
 		Unknown1C0->Stop();
@@ -1372,7 +1372,7 @@ void SBaseViewClass::Unknown_6A1000(const char *name)
 }
 
 // 0x6A1130: the sound stopped
-void SBaseViewClass::Unknown_6A1130()
+void StarbaseViewClass::Unknown_6A1130()
 {
 	if (Unknown1C0) {
 		Unknown1C0->Stop();
@@ -1381,13 +1381,13 @@ void SBaseViewClass::Unknown_6A1130()
 }
 
 // 0x6A1180's two bucket sums, inlined there (frameint.cpp has them out of line, 0x53F200 / 0x53F250)
-inline unsigned SBaseViewClass::Fast_Allocated_Size(FastAllocatorGeneral *allocator) { int size=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); size+=allocator->allocators[i].Get_Allocated_Size(); } return size; }
-inline unsigned SBaseViewClass::Fast_Allocation_Count(FastAllocatorGeneral *allocator) { int count=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); count+=allocator->allocators[i].Get_Allocation_Count(); } return count; }
+inline unsigned StarbaseViewClass::Fast_Allocated_Size(FastAllocatorGeneral *allocator) { int size=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); size+=allocator->allocators[i].Get_Allocated_Size(); } return size; }
+inline unsigned StarbaseViewClass::Fast_Allocation_Count(FastAllocatorGeneral *allocator) { int count=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); count+=allocator->allocators[i].Get_Allocation_Count(); } return count; }
 
 // The include order (fastallocator.h first, sbaseview.h, then texture.h last) sets the call order of 0x6A1180's three differences
 // 0x6A1180: the frame rate kept; the client's debug pages (Unknown14EC 4: memory, as frameint.cpp's; 1: the frame
 // rate), its audio page, and its text rendered and reset (0x69C5E0 calls it before End_Render)
-void SBaseViewClass::Unknown_6A1180()
+void StarbaseViewClass::Unknown_6A1180()
 {
 	float fps = 1.0f / ((float)WW3D::Get_Frame_Time() * 0.001f);
 	FrameRate = FrameRate * 0.9f + fps * 0.1f;
@@ -1462,7 +1462,7 @@ void SBaseViewClass::Unknown_6A1180()
 }
 
 // 0x6A1880: a text object of kind (0 name, 1 / 2 NPC, 3 guild) into text, added to the +0x1C scene
-void SBaseViewClass::Unknown_6A1880(RefCountPtr<FontSys> &text, int kind)
+void StarbaseViewClass::Unknown_6A1880(RefCountPtr<FontSys> &text, int kind)
 {
 	switch (kind) {
 		case 0:
@@ -1480,7 +1480,7 @@ void SBaseViewClass::Unknown_6A1880(RefCountPtr<FontSys> &text, int kind)
 }
 
 // 0x6A1B80: the GROUP_INVITE box's answer (1 accept, 2 decline) sent, the box closed
-void SBaseViewClass::Unknown_6A1B80()
+void StarbaseViewClass::Unknown_6A1B80()
 {
 	if (!Get_Unknown34()->Is_Active()) return;
 	int button = Get_Unknown34()->Unknown_5890B0("GROUP_INVITE");
@@ -1495,7 +1495,7 @@ void SBaseViewClass::Unknown_6A1B80()
 }
 
 // 0x6A1C90: RCamera turned along the +0x6C camera's view plus the offset +0x1D4 (the lights loader's RKey math)
-void SBaseViewClass::Unknown_6A1C90()
+void StarbaseViewClass::Unknown_6A1C90()
 {
 	Vector3 dir = -Unknown6C->Get_Transform().Get_Z_Vector();
 	Vector3 right;
@@ -1516,7 +1516,7 @@ void SBaseViewClass::Unknown_6A1C90()
 }
 
 // 0x6A20C0: the +0x70 scene's fog on
-void SBaseViewClass::Unknown_6A20C0(const Vector3 &color, float start, float end)
+void StarbaseViewClass::Unknown_6A20C0(const Vector3 &color, float start, float end)
 {
 	Unknown70->Set_Fog_Enable(true);
 	Unknown70->Set_Fog_Color(color);
@@ -1524,7 +1524,7 @@ void SBaseViewClass::Unknown_6A20C0(const Vector3 &color, float start, float end
 }
 
 // 0x6A2100: the +0x70 scene's fog off
-void SBaseViewClass::Unknown_6A2100()
+void StarbaseViewClass::Unknown_6A2100()
 {
 	Unknown70->Set_Fog_Enable(false);
 }
@@ -1541,7 +1541,7 @@ static const char *Unknown_B90F4C[4][10] = {	// NAME 1: neutral (D10)
 // 0x6A2120: the starbase interface's model name: the index's name in +0x1B4's column, '3' or '2' added by the
 // entry 0x698730 finds; the plain name when no such model exists (the dead size() reads after each return: the
 // client's inline budget, _Tidy out of line and _Eos inline in the last string constructor)
-std::string SBaseViewClass::Unknown_6A2120(int index)
+std::string StarbaseViewClass::Unknown_6A2120(int index)
 {
 	std::string name;
 	StarbaseInfoClass *info_list = Info;
@@ -1561,7 +1561,7 @@ std::string SBaseViewClass::Unknown_6A2120(int index)
 }
 
 // 0x6A23E0
-void SBaseViewClass::Unknown_6A23E0(bool a, bool b, bool c, bool d, bool e)
+void StarbaseViewClass::Unknown_6A23E0(bool a, bool b, bool c, bool d, bool e)
 {
 	Unknown1EC = a;
 	Unknown1ED = b;
@@ -1571,7 +1571,7 @@ void SBaseViewClass::Unknown_6A23E0(bool a, bool b, bool c, bool d, bool e)
 }
 
 // 0x6A2430
-void SBaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
+void StarbaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
 {
 	*a = Unknown1EC;
 	*b = Unknown1ED;
@@ -1662,21 +1662,21 @@ void SBaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
 
 
 // 0x6A2480
-void SBaseViewClass::Unknown_6A2480()
+void StarbaseViewClass::Unknown_6A2480()
 {
 	FAIL_IF(Client == NULL) {return;}
 	StarbaseSound.Reset(Unknown50);
 }
 
 // 0x6A24C0: the room's 2-D sounds of section name, then its sounds at model's bones
-void SBaseViewClass::Unknown_6A24C0(int room, RenderObjClass *model, const char *name)
+void StarbaseViewClass::Unknown_6A24C0(int room, RenderObjClass *model, const char *name)
 {
 	StarbaseSound.Load_Section(room, name);
 	StarbaseSound.Load_Section(room, model, name);
 }
 
 // 0x6A2500: the room's sounds at robj's bones
-void SBaseViewClass::Unknown_6A2500(int room, RenderObjClass *robj, const char *name)
+void StarbaseViewClass::Unknown_6A2500(int room, RenderObjClass *robj, const char *name)
 {
 	StarbaseSound.Load_Section(room, robj, name);
 }
@@ -1684,14 +1684,14 @@ void SBaseViewClass::Unknown_6A2500(int room, RenderObjClass *robj, const char *
 /*
 **	Notes (UI1, 2026-10-29)
 **
-**	sbaseview.cpp is the starbase view (SBaseViewClass, sbaseview.h; SClient +0x135C; over uiview.cpp's second view,
+**	sbaseview.cpp is the starbase view (StarbaseViewClass, sbaseview.h; SClient +0x135C; over uiview.cpp's second view,
 **	its Client at +0x4C), client 0x69CDE0-0x6A2530 (appfile.py show app\client\sbaseview.cpp; __FILE__
 **	e:\build\beta\G\app\Client\sbaseview.cpp). The asserts sit on the client's lines (D25): 738 ('ViewRObjs[type]',
 **	0x69D9D0) and 1667 ('Client == NULL', 0x6A2480); 1261 / 1262 ('!RKey.Peek()', '!RCamera.Peek()', the lights
 **	loader 0x6A0590, not written) are left free. Not rebuilt
 **	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1880-0x6A1C90.
 **
-**	The object starts before the window (TG3, 2026-10-31): SBaseViewClass's constructor 0x69AD30 and destructor
+**	The object starts before the window (TG3, 2026-10-31): StarbaseViewClass's constructor 0x69AD30 and destructor
 **	0x69B0C0 store its table 0xAFD2FC (slots 0x69B090, 0x69B5E0, UIViewClass's 0x08, 0x69C5E0, 0x69C0D0, 0x69C8F0,
 **	0x69C5A0, ...), and 0x69C8F0 calls 0x69CDE0 / 0x69D030: the view's code runs from 0x69AD30 at the latest
 **	(sbase_info.cpp's last assert function is 0x6987A0). 0x69CBE0-0x69CDE0 are written above 0x69D930, in the

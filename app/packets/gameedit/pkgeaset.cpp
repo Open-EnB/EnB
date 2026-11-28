@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-Packet_7544Class::Packet_7544Class(const char *mappings)
+GameEditorAssetMappingPacketClass::GameEditorAssetMappingPacketClass(const char *mappings)
 {
 	Data = nstrdup(mappings);
 
@@ -16,7 +16,7 @@ Packet_7544Class::Packet_7544Class(const char *mappings)
 	Size = strlen(Data) + 1;
 }
 
-Packet_7544Class::Packet_7544Class(RawPacketClass *raw)
+GameEditorAssetMappingPacketClass::GameEditorAssetMappingPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	Data = new char[Size];
@@ -25,7 +25,7 @@ Packet_7544Class::Packet_7544Class(RawPacketClass *raw)
 	raw->Get(Data, Size);
 }
 
-Packet_7544Class::~Packet_7544Class()
+GameEditorAssetMappingPacketClass::~GameEditorAssetMappingPacketClass()
 {
 	if (Data != NULL) {
 		delete [] Data;
@@ -33,7 +33,7 @@ Packet_7544Class::~Packet_7544Class()
 	}
 }
 
-RawPacketClass *Packet_7544Class::Build()
+RawPacketClass *GameEditorAssetMappingPacketClass::Build()
 {
 	RawPacketClass *packet = new RawPacketClass(30020, Get_Data_Size());
 
@@ -45,17 +45,17 @@ RawPacketClass *Packet_7544Class::Build()
 	return(packet);
 }
 
-int Packet_7544Class::Get_Data_Size()
+int GameEditorAssetMappingPacketClass::Get_Data_Size()
 {
 	return(Size + sizeof(Size));
 }
 
-int Packet_7544Class::Print(char *buffer, int)
+int GameEditorAssetMappingPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {mappings...}", "GameEditorAssetMapping"));
 }
 
-bool Packet_7544Class::Process_Packet(void *)
+bool GameEditorAssetMappingPacketClass::Process_Packet(void *)
 {
 	return(true);
 }

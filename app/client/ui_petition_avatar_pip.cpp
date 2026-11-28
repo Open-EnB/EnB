@@ -71,8 +71,8 @@ void UIPetitionAvatarPipClass::Unknown_54()
 	FAIL_IF(!Interface_Mesh()) return;
 	RefCountPtr<RenderObjClass> avatar_vp = Create_Get(Interface_Mesh()->Get_Sub_Object_By_Name("Avatar"));
 	if (avatar_vp) {
-		AvatarDescClass desc(2, "Megan");
-		Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, 1, 0, NULL));
+		AvatarDescriptionClass desc(2, "Megan");
+		Avatar = Create_NEW(new AvatarClass(&desc, 1, 0, NULL));
 		Pip = new AvatarPipClass;
 		Pip->Unknown_7E36B0((SClient *)((ClientClass *)Client)->As_Space_Client(), avatar_vp, false);
 	} else {

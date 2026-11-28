@@ -468,10 +468,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	WW3D::Set_Screen_UV_Bias(true);
 	ProgramInstance = hInstance;
 
-	MsgServer *message_server = NULL;				// NAME 1 [message_server]: its step text
+	MessageServerClass *message_server = NULL;				// NAME 1 [message_server]: its step text
 	if (argv.Find("-ENABLE_MESSAGES")) {
 		Unknown_Debug_Begin_Step("starting message server");
-		message_server = new MsgServer;
+		message_server = new MessageServerClass;
 		message_server->Unknown_8B2230();
 		message_server->Run();
 		Unknown_Debug_End_Step("ok");
@@ -516,7 +516,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Sleep(4000);
 
 		Unknown_Debug_Begin_Step("initializing options manager");
-		OptionClass::Set_Instance(new OptionClass);
+		OptionManagerClass::Set_Instance(new OptionManagerClass);
 		Unknown_Debug_End_Step("ok");
 		Unknown_6832C0();
 
@@ -584,7 +584,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		if (!purchase) {
 			Unknown_Debug_Begin_Step("starting menu task");
-			kernel->Add_Task(new MenuTaskClass);
+			kernel->Add_Task(new MainMenuTaskClass);
 			Unknown_Debug_End_Step("ok");
 		} else {
 			LoginTaskClass *login = new LoginTaskClass(7);	// NAME 1 [login]: its class
@@ -637,7 +637,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		Unknown_683940();
 
 		Unknown_Debug_Begin_Step("shutting down options manager");
-		delete OptionClass::Instance;
+		delete OptionManagerClass::Instance;
 		Unknown_Debug_End_Step("ok");
 	}
 
@@ -673,7 +673,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Unknown_509EB0();
 	Unregister_Thread_ID(GetCurrentThreadId(), "Main Thread");
 	ArgvClass::Free();
-	CordMgrTaskClass::Shutdown_Task();
+	CordMgrTask::Shutdown_Task();
 	CoUninitialize();
 	return 0;
 }

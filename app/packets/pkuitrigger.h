@@ -19,11 +19,11 @@
 #include "pk.h"
 
 // opcode 101 (0x0065, UI_TRIGGER): vtable 0xB0C078, constructor 0x8AB880, 0x14 bytes
-class UiTriggerPacketClass : public PacketClass  // NAME 2: Net-7's opcode name UI_TRIGGER (the Net-7 opcode table; no structure check)
+class UITriggerPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UiTriggerPacketClass(int id, int action);	// 0x8AB800
-	UiTriggerPacketClass(RawPacketClass *raw);	// 0x8AB880
+	UITriggerPacketClass(int id, int action);	// 0x8AB800
+	UITriggerPacketClass(RawPacketClass *raw);	// 0x8AB880
 	virtual RawPacketClass *Build();	// +0x04 0x8AB920
 	virtual bool Process_Packet(void *client);	// +0x08 0x868820 (clientstub.cpp l.230)
 	virtual int Get_Data_Size();	// +0x0C 0x8AB9F0

@@ -3,22 +3,22 @@
 #include <stdio.h>
 
 
-CTA_Request_PacketClass::CTA_Request_PacketClass(int avatar_id, int target_id, int request_type) : AvatarID(avatar_id), TargetID(target_id), RequestType(request_type)
+CTARequestPacketClass::CTARequestPacketClass(int avatar_id, int target_id, int request_type) : AvatarID(avatar_id), TargetID(target_id), RequestType(request_type)
 {
 }
 
-CTA_Request_PacketClass::CTA_Request_PacketClass(RawPacketClass *raw) : AvatarID(-1), TargetID(-1), RequestType(-1)
+CTARequestPacketClass::CTARequestPacketClass(RawPacketClass *raw) : AvatarID(-1), TargetID(-1), RequestType(-1)
 {
 	raw->Get(&AvatarID, sizeof(AvatarID));
 	raw->Get(&TargetID, sizeof(TargetID));
 	raw->Get(&RequestType, sizeof(RequestType));
 }
 
-CTA_Request_PacketClass::~CTA_Request_PacketClass()
+CTARequestPacketClass::~CTARequestPacketClass()
 {
 }
 
-RawPacketClass *CTA_Request_PacketClass::Build()
+RawPacketClass *CTARequestPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(188, Get_Data_Size());
 	raw->Add(&AvatarID, sizeof(AvatarID));
@@ -27,12 +27,12 @@ RawPacketClass *CTA_Request_PacketClass::Build()
 	return(raw);
 }
 
-int CTA_Request_PacketClass::Get_Data_Size()
+int CTARequestPacketClass::Get_Data_Size()
 {
 	return(sizeof(AvatarID) + sizeof(TargetID) + sizeof(RequestType));
 }
 
-int CTA_Request_PacketClass::Print(char *buffer, int len)
+int CTARequestPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "CTA_Request_Packet {AvatarID=%d TargetID=%d RequestType=%d}", AvatarID, TargetID, RequestType));
 }

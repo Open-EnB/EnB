@@ -58,7 +58,7 @@ static char Unknown_BDA908[1];						// 0xBDA908 (.bss: an empty row's text)  // 
 static inline CameraClass *Camera_Of(CharacterViewClass *view) { return(view->Unknown068); }	// NAME 1: neutral (D10)
 
 // @0x615A50
-Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer) :
+ShardInterface::ShardInterface(UIViewClass *view, LayerClass *layer) :
 	InterfaceClass(view, (int)layer->Peek_Scene()),
 	CharacterView(NULL),
 	LoginTask(NULL),
@@ -138,7 +138,7 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 
 
 // @0x616090
-Unknown615A50InterfaceClass::~Unknown615A50InterfaceClass()
+ShardInterface::~ShardInterface()
 {
 	Unknown_5C();
 	int i;
@@ -166,7 +166,7 @@ Unknown615A50InterfaceClass::~Unknown615A50InterfaceClass()
 
 // NOT EXACT: functional (D64)
 // @0x616220
-void Unknown615A50InterfaceClass::Unknown_60()
+void ShardInterface::Unknown_60()
 {
 	if (!UnknownD0 && !UnknownD1 && !UnknownD2 && !UnknownD3 && !UnknownD4 && !UnknownD5 && !UnknownE8) {
 		if (Buttons[8]->Is_Enabled()) {
@@ -195,7 +195,7 @@ void Unknown615A50InterfaceClass::Unknown_60()
 
 
 // @0x6164E0
-bool Unknown615A50InterfaceClass::Unknown_68(int key)
+bool ShardInterface::Unknown_68(int key)
 {
 	if (UnknownD0 || UnknownD1 || UnknownD2 || UnknownD3 || UnknownD4 || UnknownD5 || UnknownE8) {
 		return false;
@@ -268,7 +268,7 @@ bool Unknown615A50InterfaceClass::Unknown_68(int key)
 static inline void Clear_Result(LoginTaskClass *task) { task->Unknown0020 = 0; task->Error = 0; }	// NAME 1: neutral (D10): the client loads the task once for both stores
 
 // @0x616A10
-void Unknown615A50InterfaceClass::Unknown_616A10()
+void ShardInterface::Unknown_616A10()
 {
 	if (UnknownD2 && CharacterView->Unknown_67AEA0(0)) {
 		UnknownD2 = false;
@@ -334,7 +334,7 @@ void Unknown615A50InterfaceClass::Unknown_616A10()
 
 
 // @0x616DA0
-void Unknown615A50InterfaceClass::Unknown_616DA0()
+void ShardInterface::Unknown_616DA0()
 {
 	RenderObjClass *model = CharacterView->ViewRObjs[0];
 	char name[32];
@@ -393,27 +393,27 @@ void Unknown615A50InterfaceClass::Unknown_616DA0()
 
 
 // @0x617190
-void Unknown615A50InterfaceClass::Unknown_617190()
+void ShardInterface::Unknown_617190()
 {
 	if (Unknown8C == 0) {
 		Arrows[0]->Unknown_40(false);
-		((RObjGadgetClass *)Arrows[0])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Arrows[0])->Unknown_8C(true);
 	} else {
 		Arrows[0]->Unknown_40(true);
-		((RObjGadgetClass *)Arrows[0])->Unknown_8C(false);
+		((RenderObjGadgetClass *)Arrows[0])->Unknown_8C(false);
 	}
 	if (Unknown8C >= (int)SortedGalaxies.size() - 6) {
 		Arrows[1]->Unknown_40(false);
-		((RObjGadgetClass *)Arrows[1])->Unknown_8C(true);
+		((RenderObjGadgetClass *)Arrows[1])->Unknown_8C(true);
 	} else {
 		Arrows[1]->Unknown_40(true);
-		((RObjGadgetClass *)Arrows[1])->Unknown_8C(false);
+		((RenderObjGadgetClass *)Arrows[1])->Unknown_8C(false);
 	}
 }
 
 
 // @0x617270
-void Unknown615A50InterfaceClass::Unknown_617270()
+void ShardInterface::Unknown_617270()
 {
 	if (Unknown8C != 0) {
 		Unknown8C--;
@@ -423,7 +423,7 @@ void Unknown615A50InterfaceClass::Unknown_617270()
 
 
 // @0x6172A0
-void Unknown615A50InterfaceClass::Unknown_6172A0()
+void ShardInterface::Unknown_6172A0()
 {
 	if (Unknown8C < (int)SortedGalaxies.size() - 6) {
 		Unknown8C++;
@@ -433,7 +433,7 @@ void Unknown615A50InterfaceClass::Unknown_6172A0()
 
 
 // @0x617310
-void Unknown615A50InterfaceClass::Unknown_617310()
+void ShardInterface::Unknown_617310()
 {
 	int i;
 	for (i = 0; i < 10; i++) {
@@ -466,7 +466,7 @@ void Unknown615A50InterfaceClass::Unknown_617310()
 
 
 // @0x617540
-void Unknown615A50InterfaceClass::Unknown_617540()
+void ShardInterface::Unknown_617540()
 {
 	int i;
 	for (i = 0; i < 10; i++) {
@@ -488,7 +488,7 @@ void Unknown615A50InterfaceClass::Unknown_617540()
 
 
 // @0x617660
-void Unknown615A50InterfaceClass::Unknown_617660(bool named)
+void ShardInterface::Unknown_617660(bool named)
 {
 	TextureClass *texture;
 	if (named) {
@@ -497,7 +497,7 @@ void Unknown615A50InterfaceClass::Unknown_617660(bool named)
 		texture = WW3DAssetManager::Get_Instance()->Get_Texture("co0102nw.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true);
 	}
 	if (texture) {
-		Unknown_495FD0(((RObjGadgetClass *)Buttons[7])->RObj, texture, 0);
+		Unknown_495FD0(((RenderObjGadgetClass *)Buttons[7])->RObj, texture, 0);
 		texture->Release_Ref();
 	}
 }
@@ -506,7 +506,7 @@ void Unknown615A50InterfaceClass::Unknown_617660(bool named)
 // The four dead size() reads spend VC6's inline budget so that clear()'s erase and insert(at, 1, x) stay out of
 // line (0x617F70, 0x617B70) as in the client (workflow.md 3.1: 4 or 5 reads match, 2-3 or 6 do not).
 // @0x6176F0
-void Unknown615A50InterfaceClass::Unknown_6176F0()
+void ShardInterface::Unknown_6176F0()
 {
 	SortedGalaxies.clear();
 	SortedGalaxies.size();
@@ -530,7 +530,7 @@ void Unknown615A50InterfaceClass::Unknown_6176F0()
 
 
 // @0x6179D0
-void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
+void ShardInterface::Unknown_6179D0(int row)
 {
 	ShardSelection = Unknown8C + row;
 	Unknown_616DA0();
@@ -702,7 +702,7 @@ void Unknown615A50InterfaceClass::Unknown_6179D0(int row)
 
 
 // @0x617A10
-int Unknown615A50InterfaceClass::Unknown_617A10()
+int ShardInterface::Unknown_617A10()
 {
 	FAIL_IF(ShardSelection < 0 || ShardSelection >= (int)SortedGalaxies.size()) return -1;
 	return SortedGalaxies[ShardSelection].ID;
@@ -710,7 +710,7 @@ int Unknown615A50InterfaceClass::Unknown_617A10()
 
 
 // @0x617AA0
-void Unknown615A50InterfaceClass::Unknown_617AA0()
+void ShardInterface::Unknown_617AA0()
 {
 	Unknown9D = !Unknown9D;
 	FontSys *skip = Unknown_BE67C4->Get_Style("Skip_fe02a", CharacterView->Peek_Model());
@@ -734,7 +734,7 @@ void Unknown615A50InterfaceClass::Unknown_617AA0()
 **	disassembly; the FAIL_IF sits on the client's line 707 through the blank lines above 0x617A10 (D25).
 **
 **	The Accept (event 9; its button is the model's 'button_cancel') names the character view's avatar (+0x88,
-**	AvatarDescClass::Unknown_4C1460 with the text gadget's 0x14 characters) and calls LoginTaskClass slot +0x48
+**	AvatarDescriptionClass::Unknown_4C1460 with the text gadget's 0x14 characters) and calls LoginTaskClass slot +0x48
 **	(0x7689E0) with the view's avatar, its ship (+0x244), the picked galaxy's ID and the tutorial skip: the
 **	GlobalCreateCharacterPacketClass (opcode 114) on the global connection. The answer comes back through the
 **	task's +0x20 (1: approved, then +0x1D) or its error +0x1090 (8-13: the narrator's 'NameTaken' ...).

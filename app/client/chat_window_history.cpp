@@ -2,8 +2,8 @@
 #include "..\shared\g_assert.h"
 #include <string.h>
 
-ChatWindowHistoryClass::ChatWindowHistoryClass(int unknown) :
-	Splitter(RefCountPtr<Font32Class>(), NULL, 0.0f, 0),
+ChatWindowHistory::ChatWindowHistory(int unknown) :
+	Splitter(RefCountPtr<Font32Bit>(), NULL, 0.0f, 0),
 	Unknown44(unknown),
 	Unknown48(0),
 	Unknown4C(0),
@@ -13,27 +13,27 @@ ChatWindowHistoryClass::ChatWindowHistoryClass(int unknown) :
 	Unknown5C(false)
 {
 	History.size(); History.size();
-	NullLine = Create_NEW(new ChatLineClass(-1, "", Vector3(0.0f, 0.0f, 0.0f), true, true));
+	NullLine = Create_NEW(new ChatLineData(-1, "", Vector3(0.0f, 0.0f, 0.0f), true, true));
 	NullLine->Null = true;
 	Splitter.Set_Trim_Lines(false);
 	Splitter.Set_Escaped_New_Lines(false);
 }
 
-ChatWindowHistoryClass::~ChatWindowHistoryClass()
+ChatWindowHistory::~ChatWindowHistory()
 {
 	History.clear();
 	Unknown4C = 0;
 	Unknown50 = 0;
 }
 
-void ChatWindowHistoryClass::Set_Font(const RefCountPtr<Font32Class> &font)
+void ChatWindowHistory::Set_Font(const RefCountPtr<Font32Bit> &font)
 {
 	Splitter.Set_Font(font);
 	Unknown_681DB0();
 	Unknown_6818C0();
 }
 
-bool ChatWindowHistoryClass::Unknown_04(unsigned int max_lines, unsigned int width)
+bool ChatWindowHistory::Unknown_04(unsigned int max_lines, unsigned int width)
 {
 	bool changed = false;
 	if (Unknown48 != max_lines) {
@@ -73,21 +73,21 @@ bool ChatWindowHistoryClass::Unknown_04(unsigned int max_lines, unsigned int wid
 	return changed;
 }
 
-void ChatWindowHistoryClass::Unknown_6818C0()
+void ChatWindowHistory::Unknown_6818C0()
 {
-	std::vector< RefCountPtr<ChatLineClass> > old;
+	std::vector< RefCountPtr<ChatLineData> > old;
 	old.swap(History);
-	for (std::vector< RefCountPtr<ChatLineClass> >::iterator it = old.begin(); it != old.end(); ++it) {
+	for (std::vector< RefCountPtr<ChatLineData> >::iterator it = old.begin(); it != old.end(); ++it) {
 		const char *text = (*it)->Text.c_str();
 		if (Splitter.Split(text, (float)Unknown54, 0)) {
 			int count = Splitter.Count();
 			for (int i = 0; i < count; i++) {
-				RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, Splitter.Get(i), (*it)->Color, i == 0, i + 1 == count));
+				RefCountPtr<ChatLineData> line = Create_NEW(new ChatLineData(Unknown58++, Splitter.Get(i), (*it)->Color, i == 0, i + 1 == count));
 				line->Set_Bit_3();
 				History.push_back(line);
 			}
 		} else {
-			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, text, (*it)->Color, true, true));
+			RefCountPtr<ChatLineData> line = Create_NEW(new ChatLineData(Unknown58++, text, (*it)->Color, true, true));
 			line->Unknown29 = true;
 			History.push_back(line);
 			line->Set_Bit_3();
@@ -99,15 +99,15 @@ void ChatWindowHistoryClass::Unknown_6818C0()
 }
 
 // 0x681DB0
-void ChatWindowHistoryClass::Unknown_681DB0()
+void ChatWindowHistory::Unknown_681DB0()
 {
-	std::vector< RefCountPtr<ChatLineClass> > old;
+	std::vector< RefCountPtr<ChatLineData> > old;
 	old.swap(History);
 	std::string text;
-	for (std::vector< RefCountPtr<ChatLineClass> >::iterator it = old.begin(); it != old.end(); ++it) {
+	for (std::vector< RefCountPtr<ChatLineData> >::iterator it = old.begin(); it != old.end(); ++it) {
 		text += (*it)->Text;
 		if ((*it)->Is_Last()) {
-			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, text, (*it)->Color, true, true));
+			RefCountPtr<ChatLineData> line = Create_NEW(new ChatLineData(Unknown58++, text, (*it)->Color, true, true));
 			line->Set_Bit_3();
 			History.push_back(line);
 			text.erase();
@@ -115,7 +115,7 @@ void ChatWindowHistoryClass::Unknown_681DB0()
 	}
 }
 
-int ChatWindowHistoryClass::Unknown_10(int unknown)
+int ChatWindowHistory::Unknown_10(int unknown)
 {
 	unsigned int page = Unknown48;
 	int result = 0;
@@ -156,13 +156,13 @@ int ChatWindowHistoryClass::Unknown_10(int unknown)
 	return result;
 }
 
-void ChatWindowHistoryClass::Unknown_0C(const Vector3 &color, const std::string &text)
+void ChatWindowHistory::Unknown_0C(const Vector3 &color, const std::string &text)
 {
 	Unknown4C = 0;
-	ChatWindowHistoryClass::Unknown_08(color, text);
+	ChatWindowHistory::Unknown_08(color, text);
 }
 
-int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &text)
+int ChatWindowHistory::Unknown_08(const Vector3 &color, const std::string &text)
 {
 	if (text.empty()) {
 		return 0;
@@ -172,13 +172,13 @@ int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &
 	Splitter.Split(text.c_str(), (float)Unknown54, 0);
 	int count = Splitter.Count();
 	if (count == 1) {
-		RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, text, color, true, true));
+		RefCountPtr<ChatLineData> line = Create_NEW(new ChatLineData(Unknown58++, text, color, true, true));
 		History.push_back(line);
 		Unknown_682730(History.size() - Unknown48 - 1)->Set_Bit_3();
 	} else {
 		History.size(); History.size();
 		for (int i = 0; i < count; i++) {
-			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, Splitter.Get(i), color, i == 0, i + 1 == count));
+			RefCountPtr<ChatLineData> line = Create_NEW(new ChatLineData(Unknown58++, Splitter.Get(i), color, i == 0, i + 1 == count));
 			History.push_back(line);
 			Unknown_682730(History.size() - Unknown48 - 1)->Set_Bit_3();
 		}
@@ -196,7 +196,7 @@ int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &
 	unsigned int keep = Unknown44 > Unknown48 ? Unknown44 : Unknown48;
 	History.size(); History.size();
 	while (History.size() > keep) {
-		std::vector< RefCountPtr<ChatLineClass> >::iterator it = History.begin();
+		std::vector< RefCountPtr<ChatLineData> >::iterator it = History.begin();
 		while (!(*it)->Is_Last()) {
 			++it;
 		}
@@ -205,7 +205,7 @@ int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &
 	return count;
 }
 
-const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682730(unsigned int index)
+const RefCountPtr<ChatLineData> &ChatWindowHistory::Unknown_682730(unsigned int index)
 {
 	if (index >= History.size()) {
 		return NullLine;
@@ -214,12 +214,12 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682730(unsigne
 }
 
 
-const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigned int index)
+const RefCountPtr<ChatLineData> &ChatWindowHistory::Unknown_682770(unsigned int index)
 {
 	if (History.empty()) {
 		return NullLine;
 	}
-	std::vector< RefCountPtr<ChatLineClass> >::iterator it = History.end() - 1;
+	std::vector< RefCountPtr<ChatLineData> >::iterator it = History.end() - 1;
 
 
 
@@ -426,18 +426,18 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigne
 	} return *it;
 }
 
-int ChatWindowHistoryClass::Unknown_682840()
+int ChatWindowHistory::Unknown_682840()
 {
 	return History.size() - Unknown50 - Unknown4C;
 }
 
-int ChatWindowHistoryClass::Unknown_682880()
+int ChatWindowHistory::Unknown_682880()
 {
 	int count = History.size() - Unknown48;
 	return (count > 0) ? count : 0;
 }
 
-bool ChatWindowHistoryClass::Unknown_14(const char *command)
+bool ChatWindowHistory::Unknown_14(const char *command)
 {
 	if (strncmp(command, "/chat page", strlen("/chat page")) == 0) {
 		Unknown5C = !Unknown5C;

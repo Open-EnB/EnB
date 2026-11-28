@@ -4,14 +4,14 @@
 #include <stdio.h>
 #include <string.h>
 
-Packet_0063Class::Packet_0063Class(char *text, int unknown14) :
+BroadcastPacketClass::BroadcastPacketClass(char *text, int unknown14) :
 	Unknown14(unknown14)
 {
 	Size = (short)(strlen(text) + 1);
 	String = nstrdup(text);
 }
 
-Packet_0063Class::Packet_0063Class(RawPacketClass *raw)
+BroadcastPacketClass::BroadcastPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&Size, sizeof(Size));
 	String = new char[Size];
@@ -19,13 +19,13 @@ Packet_0063Class::Packet_0063Class(RawPacketClass *raw)
 	raw->Get(Unknown14);
 }
 
-Packet_0063Class::~Packet_0063Class()
+BroadcastPacketClass::~BroadcastPacketClass()
 {
 	delete [] String;
 	String = 0;
 }
 
-RawPacketClass *Packet_0063Class::Build()
+RawPacketClass *BroadcastPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(99, Get_Data_Size());
 	raw->Add(&Size, sizeof(Size));
@@ -34,12 +34,12 @@ RawPacketClass *Packet_0063Class::Build()
 	return(raw);
 }
 
-int Packet_0063Class::Get_Data_Size()
+int BroadcastPacketClass::Get_Data_Size()
 {
 	return(sizeof(Size) + sizeof(Unknown14) + Size);
 }
 
-int Packet_0063Class::Print(char *buffer, int)
+int BroadcastPacketClass::Print(char *buffer, int)
 {
 	char text[128];
 	short len = Size;

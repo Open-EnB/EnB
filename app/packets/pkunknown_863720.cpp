@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "..\shared\auth_product.h"
-Packet_00E6Class::Packet_00E6Class(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet) :
+GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(unknown18),
@@ -25,7 +25,7 @@ Packet_00E6Class::Packet_00E6Class(__int64 unknown18, const char *string, __int6
 	delete raw;
 }
 
-Packet_00E6Class::Packet_00E6Class(RawPacketClass *raw) :
+GlobalContainerRequestPacketClass::GlobalContainerRequestPacketClass(RawPacketClass *raw) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(0),
@@ -43,7 +43,7 @@ Packet_00E6Class::Packet_00E6Class(RawPacketClass *raw) :
 	raw->Get(Data, DataSize);
 }
 
-Packet_00E6Class::~Packet_00E6Class()
+GlobalContainerRequestPacketClass::~GlobalContainerRequestPacketClass()
 {
 	delete [] String;
 	String = NULL;
@@ -55,7 +55,7 @@ Packet_00E6Class::~Packet_00E6Class()
 	Unknown34 = NULL;
 }
 
-RawPacketClass *Packet_00E6Class::Build()
+RawPacketClass *GlobalContainerRequestPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown18);
@@ -67,23 +67,23 @@ RawPacketClass *Packet_00E6Class::Build()
 	return(raw);
 }
 
-int Packet_00E6Class::Get_Type()
+int GlobalContainerRequestPacketClass::Get_Type()
 {
 	return(230);
 }
 
-int Packet_00E6Class::Get_Data_Size()
+int GlobalContainerRequestPacketClass::Get_Data_Size()
 {
 	unsigned int size = RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
 	return(size + DataSize);
 }
 
-int Packet_00E6Class::Print(char *buffer, int)
+int GlobalContainerRequestPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GlobalContainerRequest"));
 }
 
-Packet_00E7Class::Packet_00E7Class(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet) :
+GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(__int64 unknown18, const char *string, __int64 unknown28, int unknown30, PacketClass *packet) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(unknown18),
@@ -103,7 +103,7 @@ Packet_00E7Class::Packet_00E7Class(__int64 unknown18, const char *string, __int6
 	delete raw;
 }
 
-Packet_00E7Class::Packet_00E7Class(RawPacketClass *raw) :
+GlobalContainerResponsePacketClass::GlobalContainerResponsePacketClass(RawPacketClass *raw) :
 	Data(NULL),
 	DataSize(0),
 	Unknown18(0),
@@ -120,7 +120,7 @@ Packet_00E7Class::Packet_00E7Class(RawPacketClass *raw) :
 	raw->Get(Data, DataSize);
 }
 
-Packet_00E7Class::~Packet_00E7Class()
+GlobalContainerResponsePacketClass::~GlobalContainerResponsePacketClass()
 {
 	delete [] String;
 	String = NULL;
@@ -128,7 +128,7 @@ Packet_00E7Class::~Packet_00E7Class()
 	Data = NULL;
 }
 
-RawPacketClass *Packet_00E7Class::Build()
+RawPacketClass *GlobalContainerResponsePacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown18);
@@ -140,18 +140,18 @@ RawPacketClass *Packet_00E7Class::Build()
 	return(raw);
 }
 
-int Packet_00E7Class::Get_Type()
+int GlobalContainerResponsePacketClass::Get_Type()
 {
 	return(231);
 }
 
-int Packet_00E7Class::Get_Data_Size()
+int GlobalContainerResponsePacketClass::Get_Data_Size()
 {
 	unsigned int size = RawPacketClass::Get_Size(String) + sizeof(Unknown18) + sizeof(Unknown28) + sizeof(Unknown30) + sizeof(DataSize);
 	return(size + DataSize);
 }
 
-int Packet_00E7Class::Print(char *buffer, int)
+int GlobalContainerResponsePacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GlobalContainerResponse"));
 }

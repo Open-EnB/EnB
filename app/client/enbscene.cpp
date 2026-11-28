@@ -16,7 +16,7 @@
 static void Unknown_75F750(RenderObjClass *obj, const Vector3 &color);	// NAME 1 [obj, color]: neutral (D10)
 
 // @0x75ECF0
-MainViewSceneClass::MainViewSceneClass(void)
+ENBSceneClass::ENBSceneClass(void)
 {
 	Create_Projector_Manager();
 	Create_Static_Culling_System();
@@ -26,7 +26,7 @@ MainViewSceneClass::MainViewSceneClass(void)
 }
 
 // @0x75EED0
-MainViewSceneClass::~MainViewSceneClass(void)
+ENBSceneClass::~ENBSceneClass(void)
 {
 	UnknownA8.Reset_List();
 	UnknownC0.Reset_List();
@@ -34,9 +34,9 @@ MainViewSceneClass::~MainViewSceneClass(void)
 }
 
 // @0x75F180
-void MainViewSceneClass::Add_Render_Object(RenderObjClass * obj)
+void ENBSceneClass::Add_Render_Object(RenderObjClass * obj)
 {
-	ProjSceneClass::Add_Render_Object(obj);
+	ProjectionSceneClass::Add_Render_Object(obj);
 
 	StringClass name(obj->Get_Name(), true);
 	strlwr(name.Peek_Buffer());
@@ -94,9 +94,9 @@ void MainViewSceneClass::Add_Render_Object(RenderObjClass * obj)
 
 
 // @0x75F440
-void MainViewSceneClass::Remove_Render_Object(RenderObjClass * obj)
+void ENBSceneClass::Remove_Render_Object(RenderObjClass * obj)
 {
-	ProjSceneClass::Remove_Render_Object(obj);
+	ProjectionSceneClass::Remove_Render_Object(obj);
 
 	UnknownA8.Remove(obj);
 	UnknownC0.Remove(obj);
@@ -109,17 +109,17 @@ void MainViewSceneClass::Remove_Render_Object(RenderObjClass * obj)
 }
 
 // @0x75F560
-void MainViewSceneClass::Remove_All_Render_Objects(void)
+void ENBSceneClass::Remove_All_Render_Objects(void)
 {
 	UnknownA8.Reset_List();
 	UnknownC0.Reset_List();
 	UnknownDC.Reset_List();
-	ProjSceneClass::Remove_All_Render_Objects();
+	ProjectionSceneClass::Remove_All_Render_Objects();
 	Land = NULL;
 }
 
 // @0x75F690
-void MainViewSceneClass::Unknown_75F690(const Vector3 &sun, const Vector3 &camera)
+void ENBSceneClass::Unknown_75F690(const Vector3 &sun, const Vector3 &camera)
 {
 	RefMultiListIterator<RenderObjClass> it(&UnknownA8);
 	for (it.First(); !it.Is_Done(); it.Next()) {
@@ -128,7 +128,7 @@ void MainViewSceneClass::Unknown_75F690(const Vector3 &sun, const Vector3 &camer
 }
 
 // @0x75F700
-void MainViewSceneClass::Unknown_75F700(const Vector3 &color)
+void ENBSceneClass::Unknown_75F700(const Vector3 &color)
 {
 	RefMultiListIterator<RenderObjClass> it(&UnknownC0);
 	for (it.First(); !it.Is_Done(); it.Next()) {
@@ -168,10 +168,10 @@ static void Unknown_75F750(RenderObjClass *obj, const Vector3 &color)
 
 // @0x75F8B0
 // NOT EXACT: field-offset (explain.py; 0.78): the client addresses the projector lists' heads from the manager (+0x60 / +0x64, +0x48 / +0x4C), ours from the list (add 0x5C, +4 / +8), and copies the camera's transform in another order
-void MainViewSceneClass::Apply_Projectors(CameraClass * camera)
+void ENBSceneClass::Apply_Projectors(CameraClass * camera)
 {
 	if (ProjectorManager != NULL) {
-		ProjSceneClass::Apply_Projectors(camera);
+		ProjectionSceneClass::Apply_Projectors(camera);
 		if (Land != NULL) {
 			Land->Clear_Unknown1218();
 			Matrix3D tm = camera->Get_Transform();
@@ -199,7 +199,7 @@ void MainViewSceneClass::Apply_Projectors(CameraClass * camera)
 
 // @0x75FB00
 // NOT EXACT: field-offset (explain.py; 0.84): FP operand order only: the client evaluates the inlined Matrix3::Rotate_Vector rows (Compute_Point) and Matrix3D::Inverse_Transform_Vector in another order than the tree's wwmath forms
-void MainViewSceneClass::Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship)
+void ENBSceneClass::Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship)
 {
 	Vector3 points[16];
 	int count = 0;
@@ -256,13 +256,13 @@ void MainViewSceneClass::Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &
 /*
 ** Reconstruction notes (WE5, WE7, 2026-11-07)
 **
-** The scene (enbscene.h) derives from projscen.cpp's ProjSceneClass: the constructor calls its constructor and its
+** The scene (enbscene.h) derives from projscen.cpp's ProjectionSceneClass: the constructor calls its constructor and its
 ** three Create_ methods (0x495280, 0x495560, 0x495680 with a +-200000 x +-200000 x +-5000 box and 10000), the virtuals
 ** call its Add / Remove_Render_Object and Remove_All_Render_Objects. Add_Render_Object sorts by name and class:
 ** 'plt' models into +0xA8, 'clouds' into +0xC0, the land (Class_ID 0x23) into Land and +0xDC, meshes, HLODs and the
 ** render-state tracks (0x10001) over one into +0xDC. Create_Peek is RefCountPtr's out-of-line friend 0x760290.
 ** Remove_Render_Object holds the file's one assert (line 106). Apply_Projectors 0x75F8B0 (the +0x68 slot, RH1) runs
-** ProjSceneClass's, then hands every dynamic and static texture projector, updated for the camera, to the land
+** ProjectionSceneClass's, then hands every dynamic and static texture projector, updated for the camera, to the land
 ** (Clear_Unknown1218 / Add_Unknown1218; Create_Peek<TexProjectClass> is 0x7602F0). 0x75FB00 (RH2;
 ** camera_manager.cpp's 0x7998B0 and camctrl_takeoff.cpp's 0x796920) sweeps an oriented box from 'from' to 'to': the
 ** 16 corners of both boxes (OBBoxClass::Compute_Point) bound an AABoxClass (its points constructor, which spends the

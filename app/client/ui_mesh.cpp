@@ -18,7 +18,7 @@
 
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);
 
-UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
+UIMeshClass::UIMeshClass(const char *name, int count) : ObserverSubjectClass(2), InterfaceMesh(NULL), Unknown2C(NULL), Unknown6C(0), Unknown70(0)
 {
 	Unknown_5B8850(name, count);
 }
@@ -33,7 +33,7 @@ UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), Interfa
 
 
 // 0x5B8330 (the hsv zeros are a Vector3 temporary inside the new expression: the client stores them after the allocation's null test)
-UIMeshClass::UIMeshClass(const char *name, ClientClass *client) : SubjectClass(2), Unknown6C(1), Unknown70(0)
+UIMeshClass::UIMeshClass(const char *name, ClientClass *client) : ObserverSubjectClass(2), Unknown6C(1), Unknown70(0)
 {
 	G_ASSERT(client);
 	RenderStateListClass *list = client->RSLRegistry->Unknown_764060(name);
@@ -69,14 +69,14 @@ void UIMeshClass::Unknown_5B8850(const char *name, int count)
 		delete Unknown2C;
 		Unknown2C = NULL;
 		for (int i = 0; i < Unknown6C; i++) {
-			for (DataNode<UIProcClass *> *node = Unknown4C[i]->First_Valid(); node != NULL; node = Unknown4C[i]->First_Valid()) {
+			for (DataNode<UIProcessClass *> *node = Unknown4C[i]->First_Valid(); node != NULL; node = Unknown4C[i]->First_Valid()) {
 				delete node->Get();
 			}
 			delete Unknown4C[i];
 			Unknown4C[i] = NULL;
 			Unknown5C[i] = false;
 		}
-		for (DataNode<UIProcClass *> *node = Unknown30.First_Valid(); node != NULL; node = Unknown30.First_Valid()) {
+		for (DataNode<UIProcessClass *> *node = Unknown30.First_Valid(); node != NULL; node = Unknown30.First_Valid()) {
 			delete node->Get();
 		}
 		Unknown6C = 0;
@@ -186,7 +186,7 @@ void UIMeshClass::Unknown_5B8D50(RenderObjClass *robj)
 
 void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
 {
-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+	UIProcessClass *proc = new UIAnimProcessClass(this, anim_name, loop, a, b, c, d);
 	proc->Id = id;
 	Unknown30.Add_Head(&proc->Node);
 }
@@ -194,7 +194,7 @@ void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, bool 
 // NOT EXACT: 0x5B8EE0 (0.50): register choice (slot in edx, the node through lea ecx)
 void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
 {
-	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
+	UIProcessClass *proc = new UIAnimProcessClass(this, anim_name, loop, a, b, c, d);
 	proc->Slot = slot;
 	proc->Id = id;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
@@ -203,7 +203,7 @@ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool l
 // NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0
 void UIMeshClass::Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, bool a, bool b, int c, int d)
 {
-	UIProcClass *proc = new UIProc5DCD20Class(this, (HAnimClass *)morph_anim, loop, a, b, c, d);
+	UIProcessClass *proc = new UIAnimProcessClass(this, (HAnimClass *)morph_anim, loop, a, b, c, d);
 	proc->Slot = slot;
 	proc->Id = id;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
@@ -244,14 +244,14 @@ void UIMeshClass::Unknown_5B92B0()
 	InterfaceMesh->Remove();
 }
 
-UIProcClass *UIMeshClass::Unknown_5B92D0(int slot)
+UIProcessClass *UIMeshClass::Unknown_5B92D0(int slot)
 {
 	if (slot == -1 || Unknown5C[slot]) {
 		return(NULL);
 	}
-	DataNode<UIProcClass *> *node;
+	DataNode<UIProcessClass *> *node;
 	while ((node = Unknown4C[slot]->First_Valid()) != NULL) {
-		UIProcClass *proc = node->Get();
+		UIProcessClass *proc = node->Get();
 		if (proc->Unknown_04()) {
 			Unknown5C[slot] = true;
 			node->Unlink();
@@ -277,10 +277,10 @@ void UIMeshClass::Unknown_5B9410()
 	if (Unknown2C->Get_Num_Anims() != 0) {
 		Unknown2C->Reset();
 	}
-	DataNode<UIProcClass *> *node = Unknown30.First_Valid();
+	DataNode<UIProcessClass *> *node = Unknown30.First_Valid();
 	while (node != NULL) {
-		DataNode<UIProcClass *> *next = node->Next_Valid();
-		UIProcClass *proc = node->Get();
+		DataNode<UIProcessClass *> *next = node->Next_Valid();
+		UIProcessClass *proc = node->Get();
 		bool running = true;
 		while (running) {
 			int slot = proc->Slot;
@@ -304,10 +304,10 @@ void UIMeshClass::Unknown_5B9410()
 
 void UIMeshClass::Unknown_5B9550(int id)
 {
-	DataNode<UIProcClass *> *node = Unknown30.First_Valid();
+	DataNode<UIProcessClass *> *node = Unknown30.First_Valid();
 	while (node != NULL) {
-		DataNode<UIProcClass *> *next = node->Next_Valid();
-		UIProcClass *proc = node->Get();
+		DataNode<UIProcessClass *> *next = node->Next_Valid();
+		UIProcessClass *proc = node->Get();
 		if (proc->Id == id) {
 			if (proc->Slot != -1) {
 				Unknown5C[proc->Slot] = false;
@@ -321,17 +321,17 @@ void UIMeshClass::Unknown_5B9550(int id)
 
 void UIMeshClass::Unknown_5B95E0(int slot, int arg)
 {
-	UIProcClass *proc = new UIProc5DD7E0Class(this, arg);
+	UIProcessClass *proc = new UIProc5DD7E0Class(this, arg);
 	proc->Slot = slot;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
 
 void UIMeshClass::Unknown_5B9830()
 {
-	DataNode<UIProcClass *> *node = Unknown30.First_Valid();
+	DataNode<UIProcessClass *> *node = Unknown30.First_Valid();
 	while (node != NULL) {
-		DataNode<UIProcClass *> *next = node->Next_Valid();
-		UIProcClass *proc = node->Get();
+		DataNode<UIProcessClass *> *next = node->Next_Valid();
+		UIProcessClass *proc = node->Get();
 		if (proc->Slot != -1) {
 			Unknown5C[proc->Slot] = false;
 		}
@@ -343,10 +343,10 @@ void UIMeshClass::Unknown_5B9830()
 
 void UIMeshClass::Unknown_5B98B0(int slot, int id)
 {
-	DataNode<UIProcClass *> *node = Unknown4C[slot]->First_Valid();
+	DataNode<UIProcessClass *> *node = Unknown4C[slot]->First_Valid();
 	while (node != NULL) {
-		DataNode<UIProcClass *> *next = node->Next_Valid();
-		UIProcClass *proc = node->Get();
+		DataNode<UIProcessClass *> *next = node->Next_Valid();
+		UIProcessClass *proc = node->Get();
 		if (id == -1 || proc->Id == id) {
 			delete proc;
 		}
@@ -382,14 +382,14 @@ void UIMeshClass::Unknown_5B9A20(int id, bool on)
 
 void UIMeshClass::Unknown_5B9A70(int slot, int arg, bool on)
 {
-	UIProcClass *proc = new UIProc5DD770Class(this, arg, on);
+	UIProcessClass *proc = new UIProc5DD770Class(this, arg, on);
 	proc->Slot = slot;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
 
 void UIMeshClass::Unknown_5B9BC0(int slot, const char *name, int arg)
 {
-	UIProcClass *proc = new UIProc5DD830Class(this, name, arg);
+	UIProcessClass *proc = new UIProc5DD830Class(this, name, arg);
 	proc->Slot = slot;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
@@ -450,7 +450,7 @@ void UIMeshClass::Unknown_5B9D80(const char *name, TextureClass *texture)
 
 void UIMeshClass::Unknown_5B9DF0(int slot, const char *name, bool on)
 {
-	UIProcClass *proc = new UIProc5DD8A0Class(this, name, on);
+	UIProcessClass *proc = new UIProc5DD8A0Class(this, name, on);
 	proc->Slot = slot;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
@@ -480,7 +480,7 @@ bool UIMeshClass::Unknown_5BA030(const char *name)
 
 void UIMeshClass::Unknown_5BA0B0(int slot, const char *name)
 {
-	UIProcClass *proc = new UIProc5DD910Class(this, name);
+	UIProcessClass *proc = new UIProc5DD910Class(this, name);
 	proc->Slot = slot;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
@@ -498,7 +498,7 @@ bool UIMeshClass::Unknown_5BA2A0(int slot)
 	if (Unknown4C[slot]->First_Valid() != NULL) {
 		return(false);
 	}
-	for (DataNode<UIProcClass *> *node = Unknown30.First_Valid(); node != NULL; node = node->Next_Valid()) {
+	for (DataNode<UIProcessClass *> *node = Unknown30.First_Valid(); node != NULL; node = node->Next_Valid()) {
 		if (node->Get()->Slot == slot) {
 			return(false);
 		}
@@ -542,8 +542,8 @@ bool UIMeshClass::Unknown_5BA320(int index, bool reverse)
 int UIMeshClass::Unknown_5BA3B0(int slot)
 {
 	if (Unknown5C[slot]) {
-		for (DataNode<UIProcClass *> *node = Unknown30.First_Valid(); node != NULL; node = node->Next_Valid()) {
-			UIProcClass *proc = node->Get();
+		for (DataNode<UIProcessClass *> *node = Unknown30.First_Valid(); node != NULL; node = node->Next_Valid()) {
+			UIProcessClass *proc = node->Get();
 			if (proc->Slot == slot) {
 				return(proc->Id);
 			}
@@ -565,9 +565,9 @@ void UIMeshClass::Unknown_5BA460(int arg)
 // Reconstruction notes (UM1, 2026-11-07)
 // - The object: after ui_manu_util.cpp's <string> initialiser 0x5B80D0 and the two adjustor thunks 0x5B8100 / 0x5B8110 (into
 //   0x5B7B70, ui_manu_util's), up to its own initialiser 0x5BB220; Unknown5BB320Class 0x5BB250 follows.
-// - UIMeshClass derives from observer.cpp's SubjectClass at +0x04: the destructor calls ~SubjectClass 0x49E950 through a
+// - UIMeshClass derives from observer.cpp's ObserverSubjectClass at +0x04: the destructor calls ~ObserverSubjectClass 0x49E950 through a
 //   null-checked this + 4 (a member gave a plain call and a different frame).
-// - 0x5BA480-0x5BB1B0 are the wwlib templates this file instantiates (SList<GadgetClass>, DataNode / List of UIProcClass,
+// - 0x5BA480-0x5BB1B0 are the wwlib templates this file instantiates (SList<GadgetClass>, DataNode / List of UIProcessClass,
 //   VectorClass<UIProcListClass *> and VectorClass<bool>), emitted with the tables 0xAF31E0-0xAF3274.
-// - UIProcClass's constructor sets Node's value in its body: in the initialiser list the store moved ahead of UIMesh's.
+// - UIProcessClass's constructor sets Node's value in its body: in the initialiser list the store moved ahead of UIMesh's.
 // - 0x5B92D0 is exact only with the node assigned in the while condition (a for loop gave this and slot swapped registers).

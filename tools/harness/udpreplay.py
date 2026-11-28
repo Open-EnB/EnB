@@ -32,7 +32,7 @@ that drops every Nth datagram (default 0 = none, then 10 and 4), the clock advan
 which a replay of the capture can't test (the dumps have no times).
 
 conn: the same replay and loop runs with --conn: what each receiving CordCon delivers is read through
-app\\common's UDPConnection::Receive (CordCon::read, the packet factory: tests/udpreplay/
+app\\common's UDPConnectionClass::Receive (CordCon::read, the packet factory: tests/udpreplay/
 conn_replay.cpp supplies a test packet) and then through the stream connection's framing (Send_Packet
 writes {size, opcode} and the payload to a memory transport; Receive reads them back through the
 100,000-byte ring in chunks of 1 to 4,096 bytes). Passes when the {size, opcode, payload} messages
@@ -758,7 +758,7 @@ def conn(name, exe, drops, step):
                 equal += 1
                 resized += sum(1 for x, y in zip(a, b) if x != y and masked(x) != masked(y))
                 timed += sum(1 for x, y in zip(a, b) if x != y and masked(x) == masked(y))
-        line = '  %s: CordCon::read %d, through UDPConnection and the stream %d (+ %d left in a closed CordCon: %s); ' \
+        line = '  %s: CordCon::read %d, through UDPConnectionClass and the stream %d (+ %d left in a closed CordCon: %s); ' \
                'sessions/directions equal in order %d of %d; size fields wrong %d; harness errors %s; under 4 bytes ' \
                '(no header: counted, not framed) %d of %d; size field not the length (compared over the length) %d; ' \
                'written by a rebuilt class\'s Build %d (time field masked: %d); sent as received (D95) %d' % (

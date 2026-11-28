@@ -176,13 +176,13 @@ void UIJobsClass::Unknown_58()
 		Unknown_5A32B0();
 		Unknown0B0->Unknown_7C(View, true);
 		if (sclient->Unknown135C) {
-			((SBaseViewClass *)sclient->Unknown135C)->Unknown_69DC40();
+			((StarbaseViewClass *)sclient->Unknown135C)->Unknown_69DC40();
 		}
 		Unknown5BB320Class::Unknown_58();
 		Unknown_5A3090();
 		Unknown_5A3890();
 		sclient->Unknown_744560(0x1B);
-		sclient->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(sclient), 6, 0));
+		sclient->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(sclient), 6, 0));
 		Unknown_5A3440(0);
 	}
 }
@@ -194,9 +194,9 @@ void UIJobsClass::Unknown_5C()
 	if (State == UI_OPEN) {
 		State = UI_CLOSED;
 		if (sclient->Unknown135C) {
-			((SBaseViewClass *)sclient->Unknown135C)->Unknown_69DC60();
+			((StarbaseViewClass *)sclient->Unknown135C)->Unknown_69DC60();
 		}
-		sclient->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(sclient), 9, 0));
+		sclient->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(sclient), 9, 0));
 		Unknown0B0->Unknown_5C();
 		Unknown5BB320Class::Unknown_5C();
 		sclient->Unknown_744560(0x1C);
@@ -217,7 +217,7 @@ bool UIJobsClass::Unknown_68(int key)
 		switch (key) {
 			case 2:
 				SoundLibraryClass::Play_2D_Sound("INTERFACE_MenuSlide01C.wav", 2);
-				((SBaseViewClass *)View->Unknown_30())->Unknown_69F440();
+				((StarbaseViewClass *)View->Unknown_30())->Unknown_69F440();
 				return(true);
 			case 3:
 				Unknown_5A3440(0);
@@ -362,7 +362,7 @@ void UIJobsClass::Unknown_5A2730(int row)
 	Unknown0D0 = job_id;
 	Unknown_5A3090();
 	Unknown_5A3240();
-	Client->As_Space_Client()->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 7, JobInfo[Unknown0CC]->Unknown44));
+	Client->As_Space_Client()->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 7, JobInfo[Unknown0CC]->Unknown44));
 	Unknown0C4 = 2;
 }
 
@@ -597,7 +597,7 @@ void UIJobsClass::Unknown_5A3440(int category)
 void UIJobsClass::Unknown_5A36F0()
 {
 	if (Unknown0CC >= 0 && Unknown0CC < (int)JobInfo.size()) {
-		Client->As_Space_Client()->Send_Packet(&StarbaseRequestPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 8, JobInfo[Unknown0CC]->Unknown44));
+		Client->As_Space_Client()->Send_Packet(&StarbaseReqPacketClass(Jobs_Player_Id(Client->As_Space_Client()), 8, JobInfo[Unknown0CC]->Unknown44));
 		Unknown0C4 = 3;
 	}
 }

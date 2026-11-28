@@ -14,7 +14,7 @@
 **	the vertex accessors 0x463C80-0x463E70, the height at a position 0x464600 (two triangles per
 **	cell), the ray and box collision code 0x463F00-0x465D30 (not rebuilt). VIDTEST's 2002 copy:
 **	0x4023D0, 0x402420, 0x4026B0, Sample 0x402AE0. The client doesn't name the class (D24):
-**	HeightFieldClass is descriptive. The object is 0x98 bytes; the heights are 16-bit, in a buffer
+**	HeightMapClass is descriptive. The object is 0x98 bytes; the heights are 16-bit, in a buffer
 **	aligned to 64 bytes (+0x04 is the allocation), indexed (j & Mask) << Log2 | (i & Mask).
 */
 
@@ -37,15 +37,15 @@ class AABoxCollisionTestClass;
 class OBBoxCollisionTestClass;
 class OBBoxClass;
 
-// NAME 2: after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class
-class HeightFieldClass
+// NAME 5: thunk order, binary.md 5.11; before the rename NAME 2: after land.ini's [HEIGHTMAP] / HEIGHT_MAP; the client names no class
+class HeightMapClass
 {
 public:
-	HeightFieldClass(void);
-	~HeightFieldClass(void);
+	HeightMapClass(void);
+	~HeightMapClass(void);
 
 // NAME 2: methods after what they do (the client's 0x4634F0, 0x4637C0, 0x463BF0, 0x463C80-0x463E70, 0x464600)
-	static HeightFieldClass *	Load(const char *ini_name, unsigned int max_size);
+	static HeightMapClass *	Load(const char *ini_name, unsigned int max_size);
 	bool						Load_PGM(const char *filename, bool flip, unsigned int max_size);
 	Vector3					Sample(const Vector2 &uv);
 	float						Get_Height(unsigned int i, unsigned int j);

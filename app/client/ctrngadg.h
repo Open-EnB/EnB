@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\Client\ctrngadg.h (name assumed from ctrngadg.cpp, whose
 **	__FILE__ is 'e:\build\beta\G\app\client\ctrngadg.cpp' (0xB76294); the client holds no string of this header)
 **
-**	The cockpit's full-screen gadget (UICpitClass::Unknown_54 0x57DD20 makes it with 0, 0, 640, 480 and its
+**	The cockpit's full-screen gadget (CockpitInterface::Unknown_54 0x57DD20 makes it with 0, 0, 640, 480 and its
 **	client, 0x57E014): a deactivation gadget whose pointer drags turn the camera (camera_manager.cpp's
 **	0x79B370-0x79B410) and whose wheel zooms it. 0x50 bytes; constructor 0x50A850, table 0xAECDE4 (29 slots:
 **	GadgetClass's one-line slots 0x50A8C0-0x50AAC0 are emitted in this object), deleting destructor 0x50AAE0,

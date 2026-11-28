@@ -3,22 +3,22 @@
 #include <stdio.h>
 
 
-Packet_00A7Class::Packet_00A7Class() : Unknown0C(0)
+ChatBasicRequestPacketClass::ChatBasicRequestPacketClass() : Unknown0C(0)
 {
 }
 
-Packet_00A7Class::Packet_00A7Class(RawPacketClass *raw) : Unknown0C(0)
+ChatBasicRequestPacketClass::ChatBasicRequestPacketClass(RawPacketClass *raw) : Unknown0C(0)
 {
 	raw->Get(&Unknown0C, sizeof(Unknown0C));
 	raw->Get(&Unknown10);
 	raw->Get(&Unknown20);
 }
 
-Packet_00A7Class::~Packet_00A7Class()
+ChatBasicRequestPacketClass::~ChatBasicRequestPacketClass()
 {
 }
 
-RawPacketClass *Packet_00A7Class::Build()
+RawPacketClass *ChatBasicRequestPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(167, Get_Data_Size());
 	raw->Add(&Unknown0C, sizeof(Unknown0C));
@@ -27,7 +27,7 @@ RawPacketClass *Packet_00A7Class::Build()
 	return(raw);
 }
 
-int Packet_00A7Class::Get_Data_Size()
+int ChatBasicRequestPacketClass::Get_Data_Size()
 {
 	int size = sizeof(Unknown0C);
 	size += RawPacketClass::Get_Size(Unknown10);
@@ -35,7 +35,7 @@ int Packet_00A7Class::Get_Data_Size()
 	return(size);
 }
 
-int Packet_00A7Class::Print(char *buffer, int len)
+int ChatBasicRequestPacketClass::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "ChatBasicRequestPacketClass"));
 }

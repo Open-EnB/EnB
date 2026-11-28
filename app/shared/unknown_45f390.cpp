@@ -3,7 +3,7 @@
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\Sound3D.h"
 
-Unknown45F390Class::Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message) :
+RenderStateSoundClass::RenderStateSoundClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message) :
 	Unknown45D840Class(list, id, link_id, flags, message),
 	SoundName(NULL),
 	Sound(NULL),
@@ -16,7 +16,7 @@ Unknown45F390Class::Unknown45F390Class(RenderStateListClass *list, int id, int l
 	}
 }
 
-Unknown45F390Class::Unknown45F390Class(RenderStateListClass *list, const Unknown45F390Class &source) :
+RenderStateSoundClass::RenderStateSoundClass(RenderStateListClass *list, const RenderStateSoundClass &source) :
 	Unknown45D840Class(list, source),
 	SoundName(NULL),
 	Sound(NULL),
@@ -29,12 +29,12 @@ Unknown45F390Class::Unknown45F390Class(RenderStateListClass *list, const Unknown
 	}
 }
 
-RenderStateClass *Unknown45F390Class::Unknown_04(RenderStateListClass *list)
+RenderStateClass *RenderStateSoundClass::Unknown_04(RenderStateListClass *list)
 {
-	return(new Unknown45F390Class(list, *this));
+	return(new RenderStateSoundClass(list, *this));
 }
 
-Unknown45F390Class::~Unknown45F390Class()
+RenderStateSoundClass::~RenderStateSoundClass()
 {
 	Unknown_45FA30();
 	Unknown_0C();
@@ -44,14 +44,14 @@ Unknown45F390Class::~Unknown45F390Class()
 	}
 }
 
-void Unknown45F390Class::Unknown_14(RsTrackClass *owner)
+void RenderStateSoundClass::Unknown_14(RsTrackClass *owner)
 {
 	Unknown_457E10();
 	Unknown_45FB40();
 	owner->Unknown_1D4((int)this, Message, (int)Sound);
 }
 
-void Unknown45F390Class::Unknown_18(RsTrackClass *owner)
+void RenderStateSoundClass::Unknown_18(RsTrackClass *owner)
 {
 	if (!Test_Flag(3)) {
 		Unknown_45FA30();
@@ -59,7 +59,7 @@ void Unknown45F390Class::Unknown_18(RsTrackClass *owner)
 	}
 }
 
-void Unknown45F390Class::Unknown_45F890(const char *sound)
+void RenderStateSoundClass::Unknown_45F890(const char *sound)
 {
 	Unknown_45FA30();
 	if (SoundName != NULL) {
@@ -73,7 +73,7 @@ void Unknown45F390Class::Unknown_45F890(const char *sound)
 	}
 }
 
-void Unknown45F390Class::Unknown_45F960(const char *sound)
+void RenderStateSoundClass::Unknown_45F960(const char *sound)
 {
 	Unknown_45FA30();
 	if (SoundName != NULL) {
@@ -86,7 +86,7 @@ void Unknown45F390Class::Unknown_45F960(const char *sound)
 	}
 }
 
-void Unknown45F390Class::Unknown_45FA30()
+void RenderStateSoundClass::Unknown_45FA30()
 {
 	if (Sound != NULL) {
 		if (!Test_Flag(17)) {
@@ -98,18 +98,18 @@ void Unknown45F390Class::Unknown_45FA30()
 	}
 }
 
-void Unknown45F390Class::Unknown_0C()
+void RenderStateSoundClass::Unknown_0C()
 {
 	Unknown_45FA30();
 }
 
-bool Unknown45F390Class::Unknown_10()
+bool RenderStateSoundClass::Unknown_10()
 {
 	Unknown_45FB40();
 	return(Sound != NULL);
 }
 
-void Unknown45F390Class::Unknown_45FB40()
+void RenderStateSoundClass::Unknown_45FB40()
 {
 	if (Sound == NULL) {
 		if (Test_Flag(15)) {
@@ -130,7 +130,7 @@ void Unknown45F390Class::Unknown_45FB40()
 	Unknown38 = false;
 }
 
-void Unknown45F390Class::Unknown_30(RsTrackClass *owner, float seconds)
+void RenderStateSoundClass::Unknown_30(RsTrackClass *owner, float seconds)
 {
 	if (Sound != NULL) {
 		if (!Unknown38) {

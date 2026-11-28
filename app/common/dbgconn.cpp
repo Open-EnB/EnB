@@ -206,11 +206,11 @@ bool RateConnectionClass::Get_Stats(float *out_rate, float *in_rate, float *c, f
 	return(true);
 }
 
-// StatsConnectionClass (vtable 0xB08794): -PACKET_STATS; counts by the packet's printed name
+// PacketStatsConnection (vtable 0xB08794): -PACKET_STATS; counts by the packet's printed name
 void Record_Sent(const char *name, int bytes);		// 0x8255B0  // NAME 2: what it does
 void Record_Received(const char *name, int bytes);	// 0x825390  // NAME 2: what it does
 
-StatsConnectionClass::StatsConnectionClass(ConnectionClass *connection) :
+PacketStatsConnection::PacketStatsConnection(ConnectionClass *connection) :
 	ForwardingConnectionClass(connection)
 {
 
@@ -298,18 +298,18 @@ StatsConnectionClass::StatsConnectionClass(ConnectionClass *connection) :
 	G_ASSERT(connection);
 }
 
-StatsConnectionClass::~StatsConnectionClass()
+PacketStatsConnection::~PacketStatsConnection()
 {
 }
 
-bool StatsConnectionClass::Send_Message(RawPacketClass *packet)
+bool PacketStatsConnection::Send_Message(RawPacketClass *packet)
 {
 
 	G_ASSERT(0);
 	return(Connection->Send_Message(packet));
 }
 
-bool StatsConnectionClass::Send_Packet(PacketClass *packet)
+bool PacketStatsConnection::Send_Packet(PacketClass *packet)
 {
 	if (packet != 0) {
 		char text[0x800];
@@ -322,7 +322,7 @@ bool StatsConnectionClass::Send_Packet(PacketClass *packet)
 	return(Connection->Send_Packet(packet));
 }
 
-PacketClass *StatsConnectionClass::Receive()
+PacketClass *PacketStatsConnection::Receive()
 {
 	PacketClass *packet = ForwardingConnectionClass::Receive();
 	if (packet == 0) {

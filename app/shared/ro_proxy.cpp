@@ -19,7 +19,7 @@
 static void Unknown_480A40(RenderObjClass *robj, RenderInfoClass &rinfo);	// NAME 1: neutral
 
 // 0x47FA70
-ProxyRObj::ProxyRObj(bool arg) :
+ProxyRenderObjClass::ProxyRenderObjClass(bool arg) :
 	Proxied(NULL),
 	Unknown090(true),
 	SortLevel(0)
@@ -28,7 +28,7 @@ ProxyRObj::ProxyRObj(bool arg) :
 }
 
 // 0x47FB60
-ProxyRObj::ProxyRObj(const ProxyRObj &src) :
+ProxyRenderObjClass::ProxyRenderObjClass(const ProxyRenderObjClass &src) :
 	Proxied(src.Proxied),
 	Unknown090(src.Unknown090),
 	SortLevel(src.SortLevel),
@@ -49,7 +49,7 @@ ProxyRObj::ProxyRObj(const ProxyRObj &src) :
 
 
 // 0x47FC90
-const ProxyRObj &ProxyRObj::operator=(const ProxyRObj &src)
+const ProxyRenderObjClass &ProxyRenderObjClass::operator=(const ProxyRenderObjClass &src)
 {
 	RenderObjClass::operator=(src);
 	if (this != &src) {
@@ -59,7 +59,7 @@ const ProxyRObj &ProxyRObj::operator=(const ProxyRObj &src)
 }
 
 // 0x47FCD0
-ProxyRObj::~ProxyRObj(void)
+ProxyRenderObjClass::~ProxyRenderObjClass(void)
 {
 	if (Proxied != NULL) {
 		Proxied->Release_Ref();
@@ -68,13 +68,13 @@ ProxyRObj::~ProxyRObj(void)
 }
 
 // 0x47FDE0
-RenderObjClass *ProxyRObj::Clone(void) const
+RenderObjClass *ProxyRenderObjClass::Clone(void) const
 {
-	return(new ProxyRObj(*this));
+	return(new ProxyRenderObjClass(*this));
 }
 
 // 0x47FF70
-bool ProxyRObj::Unknown_47FF70(RenderObjClass *obj)
+bool ProxyRenderObjClass::Unknown_47FF70(RenderObjClass *obj)
 {
 	if (Proxied == obj) {
 		return(false);
@@ -93,7 +93,7 @@ bool ProxyRObj::Unknown_47FF70(RenderObjClass *obj)
 }
 
 // 0x47FFF0
-const char *ProxyRObj::Get_Name(void) const
+const char *ProxyRenderObjClass::Get_Name(void) const
 {
 	char name[100];
 
@@ -106,7 +106,7 @@ const char *ProxyRObj::Get_Name(void) const
 }
 
 // 0x480070
-int ProxyRObj::Get_Num_Polys(void) const
+int ProxyRenderObjClass::Get_Num_Polys(void) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Num_Polys());
@@ -115,7 +115,7 @@ int ProxyRObj::Get_Num_Polys(void) const
 }
 
 // 0x4800A0
-void ProxyRObj::Render(RenderInfoClass &rinfo)
+void ProxyRenderObjClass::Render(RenderInfoClass &rinfo)
 {
 	WWPROFILE("ProxyRObj::Render");
 
@@ -135,7 +135,7 @@ void ProxyRObj::Render(RenderInfoClass &rinfo)
 }
 
 // 0x4802F0
-bool ProxyRObj::Intersect(IntersectionClass *Intersection, IntersectionResultClass *Final_Result)
+bool ProxyRenderObjClass::Intersect(IntersectionClass *Intersection, IntersectionResultClass *Final_Result)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Intersect(Intersection, Final_Result));
@@ -144,7 +144,7 @@ bool ProxyRObj::Intersect(IntersectionClass *Intersection, IntersectionResultCla
 }
 
 // 0x480330 (the client calls this object's own slot, not the proxied object's; as 0x480370 and 0x4803B0-0x480470)
-bool ProxyRObj::Intersect_Sphere(IntersectionClass *Intersection, IntersectionResultClass *Final_Result)
+bool ProxyRenderObjClass::Intersect_Sphere(IntersectionClass *Intersection, IntersectionResultClass *Final_Result)
 {
 	if (Proxied != NULL) {
 		return(Intersect_Sphere(Intersection, Final_Result));
@@ -153,7 +153,7 @@ bool ProxyRObj::Intersect_Sphere(IntersectionClass *Intersection, IntersectionRe
 }
 
 // 0x480370
-bool ProxyRObj::Intersect_Sphere_Quick(IntersectionClass *Intersection, IntersectionResultClass *Final_Result)
+bool ProxyRenderObjClass::Intersect_Sphere_Quick(IntersectionClass *Intersection, IntersectionResultClass *Final_Result)
 {
 	if (Proxied != NULL) {
 		return(Intersect_Sphere_Quick(Intersection, Final_Result));
@@ -162,7 +162,7 @@ bool ProxyRObj::Intersect_Sphere_Quick(IntersectionClass *Intersection, Intersec
 }
 
 // 0x4803B0
-bool ProxyRObj::Cast_Ray(RayCollisionTestClass &raytest)
+bool ProxyRenderObjClass::Cast_Ray(RayCollisionTestClass &raytest)
 {
 	if (Proxied != NULL) {
 		return(Cast_Ray(raytest));
@@ -171,7 +171,7 @@ bool ProxyRObj::Cast_Ray(RayCollisionTestClass &raytest)
 }
 
 // 0x4803E0
-bool ProxyRObj::Cast_AABox(AABoxCollisionTestClass &boxtest)
+bool ProxyRenderObjClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
 {
 	if (Proxied != NULL) {
 		return(Cast_AABox(boxtest));
@@ -180,7 +180,7 @@ bool ProxyRObj::Cast_AABox(AABoxCollisionTestClass &boxtest)
 }
 
 // 0x480410
-bool ProxyRObj::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
+bool ProxyRenderObjClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 {
 	if (Proxied != NULL) {
 		return(Cast_OBBox(boxtest));
@@ -189,7 +189,7 @@ bool ProxyRObj::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 }
 
 // 0x480440
-bool ProxyRObj::Intersect_AABox(AABoxIntersectionTestClass &boxtest)
+bool ProxyRenderObjClass::Intersect_AABox(AABoxIntersectionTestClass &boxtest)
 {
 	if (Proxied != NULL) {
 		return(Intersect_AABox(boxtest));
@@ -198,7 +198,7 @@ bool ProxyRObj::Intersect_AABox(AABoxIntersectionTestClass &boxtest)
 }
 
 // 0x480470
-bool ProxyRObj::Intersect_OBBox(OBBoxIntersectionTestClass &boxtest)
+bool ProxyRenderObjClass::Intersect_OBBox(OBBoxIntersectionTestClass &boxtest)
 {
 	if (Proxied != NULL) {
 		return(Intersect_OBBox(boxtest));
@@ -207,7 +207,7 @@ bool ProxyRObj::Intersect_OBBox(OBBoxIntersectionTestClass &boxtest)
 }
 
 // 0x4804A0
-void ProxyRObj::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
+void ProxyRenderObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 {
 	if (Proxied != NULL) {
 		Proxied->Get_Obj_Space_Bounding_Sphere(sphere);
@@ -217,7 +217,7 @@ void ProxyRObj::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 }
 
 // 0x4804F0
-void ProxyRObj::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
+void ProxyRenderObjClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 {
 	if (Proxied != NULL) {
 		Proxied->Get_Obj_Space_Bounding_Box(box);
@@ -227,7 +227,7 @@ void ProxyRObj::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 }
 
 // 0x480540
-void ProxyRObj::Prepare_LOD(CameraClass &camera)
+void ProxyRenderObjClass::Prepare_LOD(CameraClass &camera)
 {
 	if (Proxied != NULL) {
 		Proxied->Prepare_LOD(camera);
@@ -235,7 +235,7 @@ void ProxyRObj::Prepare_LOD(CameraClass &camera)
 }
 
 // 0x480570
-void ProxyRObj::Increment_LOD(void)
+void ProxyRenderObjClass::Increment_LOD(void)
 {
 	if (Proxied != NULL) {
 		Proxied->Increment_LOD();
@@ -243,7 +243,7 @@ void ProxyRObj::Increment_LOD(void)
 }
 
 // 0x4805A0
-void ProxyRObj::Decrement_LOD(void)
+void ProxyRenderObjClass::Decrement_LOD(void)
 {
 	if (Proxied != NULL) {
 		Proxied->Decrement_LOD();
@@ -251,25 +251,25 @@ void ProxyRObj::Decrement_LOD(void)
 }
 
 // 0x4805D0
-float ProxyRObj::Get_Cost(void) const
+float ProxyRenderObjClass::Get_Cost(void) const
 {
 	return((Proxied != NULL) ? Proxied->Get_Cost() : 0.000001f);
 }
 
 // 0x480600
-float ProxyRObj::Get_Value(void) const
+float ProxyRenderObjClass::Get_Value(void) const
 {
 	return((Proxied != NULL) ? Proxied->Get_Value() : AT_MIN_LOD);
 }
 
 // 0x480630
-float ProxyRObj::Get_Post_Increment_Value(void) const
+float ProxyRenderObjClass::Get_Post_Increment_Value(void) const
 {
 	return((Proxied != NULL) ? Proxied->Get_Post_Increment_Value() : AT_MAX_LOD);
 }
 
 // 0x480660
-void ProxyRObj::Set_LOD_Level(int lod)
+void ProxyRenderObjClass::Set_LOD_Level(int lod)
 {
 	if (Proxied != NULL) {
 		Proxied->Set_LOD_Level(lod);
@@ -277,7 +277,7 @@ void ProxyRObj::Set_LOD_Level(int lod)
 }
 
 // 0x480690
-int ProxyRObj::Get_LOD_Level(void) const
+int ProxyRenderObjClass::Get_LOD_Level(void) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_LOD_Level());
@@ -286,7 +286,7 @@ int ProxyRObj::Get_LOD_Level(void) const
 }
 
 // 0x4806C0
-int ProxyRObj::Get_LOD_Count(void) const
+int ProxyRenderObjClass::Get_LOD_Count(void) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_LOD_Count());
@@ -295,7 +295,7 @@ int ProxyRObj::Get_LOD_Count(void) const
 }
 
 // 0x4806F0
-void ProxyRObj::Set_LOD_Bias(float bias)
+void ProxyRenderObjClass::Set_LOD_Bias(float bias)
 {
 	if (Proxied != NULL) {
 		Proxied->Set_LOD_Bias(bias);
@@ -303,7 +303,7 @@ void ProxyRObj::Set_LOD_Bias(float bias)
 }
 
 // 0x480720
-RenderObjClass *ProxyRObj::Get_Current_LOD(void)
+RenderObjClass *ProxyRenderObjClass::Get_Current_LOD(void)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Current_LOD());
@@ -313,7 +313,7 @@ RenderObjClass *ProxyRObj::Get_Current_LOD(void)
 }
 
 // 0x480750
-MaterialInfoClass *ProxyRObj::Get_Material_Info(void)
+MaterialInfoClass *ProxyRenderObjClass::Get_Material_Info(void)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Material_Info());
@@ -322,7 +322,7 @@ MaterialInfoClass *ProxyRObj::Get_Material_Info(void)
 }
 
 // 0x480780
-int ProxyRObj::Is_Translucent(void) const
+int ProxyRenderObjClass::Is_Translucent(void) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Is_Translucent());
@@ -331,7 +331,7 @@ int ProxyRObj::Is_Translucent(void) const
 }
 
 // 0x4807B0
-void ProxyRObj::Set_Translucent(int onoff)
+void ProxyRenderObjClass::Set_Translucent(int onoff)
 {
 	if (Proxied != NULL) {
 		Proxied->Set_Translucent(onoff);
@@ -339,7 +339,7 @@ void ProxyRObj::Set_Translucent(int onoff)
 }
 
 // 0x4807E0
-bool ProxyRObj::Is_Complete(void)
+bool ProxyRenderObjClass::Is_Complete(void)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Is_Complete());
@@ -348,7 +348,7 @@ bool ProxyRObj::Is_Complete(void)
 }
 
 // 0x480810
-void ProxyRObj::Unknown_480810(float scale)
+void ProxyRenderObjClass::Unknown_480810(float scale)
 {
 	if (Proxied != NULL) {
 		Proxied->Scale(scale);
@@ -356,7 +356,7 @@ void ProxyRObj::Unknown_480810(float scale)
 }
 
 // 0x480840
-int ProxyRObj::Get_Num_Sub_Objects(void) const
+int ProxyRenderObjClass::Get_Num_Sub_Objects(void) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Num_Sub_Objects());
@@ -365,7 +365,7 @@ int ProxyRObj::Get_Num_Sub_Objects(void) const
 }
 
 // 0x480870
-RenderObjClass *ProxyRObj::Get_Sub_Object(int index) const
+RenderObjClass *ProxyRenderObjClass::Get_Sub_Object(int index) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Sub_Object(index));
@@ -374,7 +374,7 @@ RenderObjClass *ProxyRObj::Get_Sub_Object(int index) const
 }
 
 // 0x4808A0
-int ProxyRObj::Add_Sub_Object(RenderObjClass *subobj)
+int ProxyRenderObjClass::Add_Sub_Object(RenderObjClass *subobj)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Add_Sub_Object(subobj));
@@ -383,7 +383,7 @@ int ProxyRObj::Add_Sub_Object(RenderObjClass *subobj)
 }
 
 // 0x4808D0
-int ProxyRObj::Remove_Sub_Object(RenderObjClass *robj)
+int ProxyRenderObjClass::Remove_Sub_Object(RenderObjClass *robj)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Remove_Sub_Object(robj));
@@ -392,7 +392,7 @@ int ProxyRObj::Remove_Sub_Object(RenderObjClass *robj)
 }
 
 // 0x480900
-RenderObjClass *ProxyRObj::Get_Sub_Object_By_Name(const char *name) const
+RenderObjClass *ProxyRenderObjClass::Get_Sub_Object_By_Name(const char *name) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Sub_Object_By_Name(name));
@@ -401,7 +401,7 @@ RenderObjClass *ProxyRObj::Get_Sub_Object_By_Name(const char *name) const
 }
 
 // 0x480930
-int ProxyRObj::Get_Num_Sub_Objects_On_Bone(int boneindex) const
+int ProxyRenderObjClass::Get_Num_Sub_Objects_On_Bone(int boneindex) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Num_Sub_Objects_On_Bone(boneindex));
@@ -410,7 +410,7 @@ int ProxyRObj::Get_Num_Sub_Objects_On_Bone(int boneindex) const
 }
 
 // 0x480960
-RenderObjClass *ProxyRObj::Get_Sub_Object_On_Bone(int index, int boneindex) const
+RenderObjClass *ProxyRenderObjClass::Get_Sub_Object_On_Bone(int index, int boneindex) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Sub_Object_On_Bone(index, boneindex));
@@ -419,7 +419,7 @@ RenderObjClass *ProxyRObj::Get_Sub_Object_On_Bone(int index, int boneindex) cons
 }
 
 // 0x4809A0
-int ProxyRObj::Get_Sub_Object_Bone_Index(RenderObjClass *subobj) const
+int ProxyRenderObjClass::Get_Sub_Object_Bone_Index(RenderObjClass *subobj) const
 {
 	if (Proxied != NULL) {
 		return(Proxied->Get_Sub_Object_Bone_Index(subobj));
@@ -428,7 +428,7 @@ int ProxyRObj::Get_Sub_Object_Bone_Index(RenderObjClass *subobj) const
 }
 
 // 0x4809D0
-int ProxyRObj::Add_Sub_Object_To_Bone(RenderObjClass *subobj, int bone_index)
+int ProxyRenderObjClass::Add_Sub_Object_To_Bone(RenderObjClass *subobj, int bone_index)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Add_Sub_Object_To_Bone(subobj, bone_index));
@@ -437,7 +437,7 @@ int ProxyRObj::Add_Sub_Object_To_Bone(RenderObjClass *subobj, int bone_index)
 }
 
 // 0x480A10
-int ProxyRObj::Remove_Sub_Objects_From_Bone(const char *bname)
+int ProxyRenderObjClass::Remove_Sub_Objects_From_Bone(const char *bname)
 {
 	if (Proxied != NULL) {
 		return(Proxied->Remove_Sub_Objects_From_Bone(bname));

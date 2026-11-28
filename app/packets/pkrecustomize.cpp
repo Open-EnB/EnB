@@ -127,7 +127,7 @@ RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(RawPacketClas
 	raw->Get(Unknown118);
 }
 
-RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(int unknown118, const AvatarDescClass &desc) :
+RecustomizeAvatarDonePacketClass::RecustomizeAvatarDonePacketClass(int unknown118, const AvatarDescriptionClass &desc) :
 	Unknown118(unknown118)
 {
 	Desc = desc;
@@ -158,7 +158,7 @@ RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(RawPacket
 	raw->Get(Unknown118);
 }
 
-RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(int unknown118, const AvatarDescClass &desc) :
+RecustomizeAvatarUpdatePacketClass::RecustomizeAvatarUpdatePacketClass(int unknown118, const AvatarDescriptionClass &desc) :
 	Unknown118(unknown118)
 {
 	Desc = desc;
@@ -191,6 +191,6 @@ int RecustomizeAvatarUpdatePacketClass::Print(char *buffer, int)
 **	  RECUSTOMIZE_AVATAR_DONE 132 and RECUSTOMIZE_AVATAR_UPDATE 133 in that order. 129-133 written by hand
 **	  (builder P7, 2026-10-27): 129 over a ShipCustDescClass and the 12-int cost object, 130 over a
 **	  ShipCustDescClass, 131 over recustomization_cost.cpp's wire object, 132 / 133 over an
-**	  AvatarDescClass.
+**	  AvatarDescriptionClass.
 **	* The file name is provisional (no assert names it).
 */

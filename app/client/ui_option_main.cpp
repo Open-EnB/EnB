@@ -77,7 +77,7 @@ bool UIOptionMainClass::Unknown_68(int key)
 	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
 		case 1:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			Unknown_5C();
 			Closed = 1;
 			return(true);

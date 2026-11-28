@@ -206,7 +206,7 @@ bool UIPetitionPlayerEntryClass::Unknown_A0()
 	std::string subject;
 	std::string details;
 	Get_Text(subject, details);
-	int ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionStuckPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str())); // NAME 1 [ship_id]: neutral (D10)
+	int ship_id; ((ClientClass *)Get_Client())->Send_Packet(&PetitionPacketClass(ship_id = ((ClientClass *)Get_Client())->ShipID, Unknown0B8, subject.c_str(), details.c_str(), names.c_str())); // NAME 1 [ship_id]: neutral (D10)
 	return(true);
 }
 
@@ -300,7 +300,7 @@ void UIPetitionPlayerNameClass::Unknown_60()
 	NameEditor->Unknown_6AAD10();
 }
 
-template<> inline DeltaStringClass *Unknown_Find_Set_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name) { DeltaStringClass *t = Unknown_Find_Field<DeltaStringClass>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }	// auxdata.h's Find_Set_Field instance spelled out: its six dead reads (D272, provisional) send rtti.h's Cast 0x5469C0 out of line at both lookups of 0x5D6EE0 (five or seven: not exact)
+template<> inline DeltaString *Unknown_Find_Set_Field<DeltaString>(DeltaContainer *root, const AuxDataName &name) { DeltaString *t = Unknown_Find_Field<DeltaString>(root, name); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); if (t) { if (t->Unknown70) { return(t); } } return(NULL); }	// auxdata.h's Find_Set_Field instance spelled out: its six dead reads (D272, provisional) send rtti.h's Cast 0x5469C0 out of line at both lookups of 0x5D6EE0 (five or seven: not exact)
 // 0x5D6EE0
 bool UIPetitionPlayerNameClass::Unknown_68(int key)
 {
@@ -317,11 +317,11 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 				ClientObjectClass *target = sclient->Get_Target();	// NAME 1: neutral (D10)
 				if (target && target->Type == 1) {
 					SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-					NameClass owner("Owner");
-					DeltaStringClass *t = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, owner);	// NAME 1: neutral (D10)
+					AuxDataName owner("Owner");
+					DeltaString *t = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, owner);	// NAME 1: neutral (D10)
 					if (!t) {
-						NameClass field("Name");
-						t = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
+						AuxDataName field("Name");
+						t = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, field);
 					}
 					const char *name = t ? t->String : "Unknown";	// NAME 1: neutral (D10)
 					bool append = NameEditor->Unknown3B;	// NAME 1: neutral (D10)

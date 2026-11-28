@@ -576,7 +576,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	}
 	CharacterView->Unknown3A4->Unknown_760770(100005, true);
 	Unknown264 = (Desc.Selected_Decal == 0x7FFFFFF) ? 0 : Desc.Selected_Decal + 1;
-	Unknown22C = new ShipPipClass(0);
+	Unknown22C = new ShipPIPClass(0);
 	Unknown22C->Unknown_80C220((ViewClass *)CharacterView);
 	Unknown22C->Unknown_74(0);
 	Unknown22C->Unknown_65FFC0(1, NULL);
@@ -1388,7 +1388,7 @@ void ShipCustomizeInterface::Unknown_624E50()
 		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		Vector3 *color = (Page == 1) ? &Desc.Parts[Unknown258].Settings[Unknown25C].Color : &Desc.Ship_Name_Color;
-		RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, u, 1.0f - v, color);
+		RenderObjClass *robj = ((RenderObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, u, 1.0f - v, color);
 		Unknown_6251F0(Vector2(u, v));
 		if (Page == 1) {
 			Unknown_6211D0(CharacterView->Unknown3A4);
@@ -1745,9 +1745,9 @@ void ShipCustomizeInterface::Unknown_625A60(int page)
 			Unknown_624B50(0x12, "METAL00", NULL, 0, 0);
 			Unknown_624B50(0x13, "METAL01", NULL, 0, 0);
 			Unknown_624B50(0x14, "METAL02", NULL, 0, 0);
-			Unknown220[0] = ((RObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
-			Unknown220[1] = ((RObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
-			Unknown220[2] = ((RObjGadgetClass *)Gadgets[0x14].Gadget)->Peek_Render_Obj();
+			Unknown220[0] = ((RenderObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
+			Unknown220[1] = ((RenderObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
+			Unknown220[2] = ((RenderObjGadgetClass *)Gadgets[0x14].Gadget)->Peek_Render_Obj();
 			Unknown_624B50(0x15, "PRIMARY", "primary_fa_ship02", 0, 3);
 			Unknown_624B50(0x16, "SECONDARY", "secondary_fa_ship02", 0, 3);
 			Unknown_624B50(0x17, "HULL", "hull_fa_ship02", 0, 1);
@@ -1937,7 +1937,7 @@ void ShipCustomizeInterface::Unknown_627200()
 				if (metal_or_paint == 0) {
 					uv.X = (float)Unknown_BDBB84(0, 100) * 0.01f;
 					uv.Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
-					RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, uv.X, 1.0f - uv.Y, &color);
+					RenderObjClass *robj = ((RenderObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, uv.X, 1.0f - uv.Y, &color);
 				}
 				for (int p = 0; p < 4; p++) {
 					Unknown258 = p;
@@ -1980,7 +1980,7 @@ void ShipCustomizeInterface::Unknown_627200()
 			Vector2 *position = &Desc.Unknown3C;
 			position->X = (float)Unknown_BDBB84(0, 100) * 0.01f; position->Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
 			Vector3 color;
-			RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, Desc.Unknown3C.X, 1.0f - Desc.Unknown3C.Y, &color);
+			RenderObjClass *robj = ((RenderObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, Desc.Unknown3C.X, 1.0f - Desc.Unknown3C.Y, &color);
 			Unknown_627730(color);
 			Unknown_6251F0(Desc.Unknown3C);
 			Unknown_625260();

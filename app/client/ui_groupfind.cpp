@@ -110,7 +110,7 @@ void UIGroupFindClass::Unknown_58()
 		Top = -1;
 		Unknown_599B10(0);
 		if (Unknown0A8[0]) {
-			((RObjGadgetClass *)Unknown0A8[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Unknown0A8[0])->Unknown_66C360();
 		}
 	}
 }

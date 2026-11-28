@@ -19,11 +19,11 @@
 class CameraClass;
 class RenderObjClass;
 
-class ProjSceneClass : public SimpleSceneClass	// NAME 3: class-from-file (D24) for app\shared\projscen.cpp
+class ProjectionSceneClass : public SimpleSceneClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	ProjSceneClass(void);														// 0x494EE0
-	virtual ~ProjSceneClass(void);											// 0x494F50 (deleting 0x494F20)
+	ProjectionSceneClass(void);														// 0x494EE0
+	virtual ~ProjectionSceneClass(void);											// 0x494F50 (deleting 0x494F20)
 
 	virtual int		Get_Scene_ID(void) const	{ return 0x10002; }		// +0x08 0x495F60
 	virtual void	Add_Render_Object(RenderObjClass * obj);				// +0x0C 0x495070
@@ -42,7 +42,7 @@ public:
 	void				Delete_Dynamic_Culling_System(void);					// 0x495960 (no caller)  // NAME 2: what it does
 
 	ProjectorManagerClass *				ProjectorManager;					// +0x98  // NAME 2: what it holds
-	ProjectionDefClass *					ProjectionDef;						// +0x9C  // NAME 2: as ProjectorCasterClass's
+	ProjectionDefClass *					ProjectionDef;						// +0x9C  // NAME 2: as ProjectionSourceClass's
 	ReceiverAABTreeCullSystemClass *	StaticCullingSystem;				// +0xA0 (the assert's)
 	ReceiverGridCullSystemClass *		DynamicCullingSystem;			// +0xA4 (the assert's)
 };

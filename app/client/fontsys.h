@@ -18,9 +18,9 @@
 #include "..\..\ww3d2\dynamesh.h"
 #include "fontstring.h"	// FontStringStruct (FontSys::Info)
 
-struct FontStringStruct;
+struct StringInfo;
 class FontDatabaseClass;
-class Font32Class;
+class Font32Bit;
 
 struct FontStyleColorStruct  // NAME 1 [FontStyleColorStruct]: neutral (D10): 16 bytes, a color r, g, b (0..1) and its alpha (floats: 0x6D5170, Update_Text, 0x6CA0C0)
 {
@@ -33,12 +33,12 @@ class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 by
 public:
 	Unknown_6D8B90Class();												// 0x6D8B90
 	~Unknown_6D8B90Class();												// 0x6D8C50
-	bool Is_Printed(RefCountPtr<Font32Class> *font, const char *str);			// 0x6D8D30: Texture made from str with *font already (inlined in 0x6D8DC0)  // NAME 2: what it tests
-	bool Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *str, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
+	bool Is_Printed(RefCountPtr<Font32Bit> *font, const char *str);			// 0x6D8D30: Texture made from str with *font already (inlined in 0x6D8DC0)  // NAME 2: what it tests
+	bool Unknown_6D8DC0(RefCountPtr<Font32Bit> *font, const char *str, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Bit::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
 
 	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
 	char *Text;															// +0x04: the text last printed (nstrdup; 0x6D8DC0, 0x6D8C50)  // NAME 2: what it holds
-	RefCountPtr<Font32Class> Font;										// +0x08: the font it was printed with (released after the destructor's EH state: a member)  // NAME 2: what it holds
+	RefCountPtr<Font32Bit> Font;										// +0x08: the font it was printed with (released after the destructor's EH state: a member)  // NAME 2: what it holds
 	TextureClass *Texture;												// +0x0C  // NAME 2: what it holds
 
 	static int Count;													// 0xBE67CC: live objects (0x6D8C50 frees 0xBE67C8 at 0)  // NAME 2: what 0x6D8B90 / 0x6D8C50 do with it
@@ -49,7 +49,7 @@ class FontSys : public DynamicMeshClass  // NAME 5: the client's (Get_Name 0x67E
 {
 public:
 	FontSys(const char *name, RenderObjClass *object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
-	FontSys(FontStringStruct def, RenderObjClass *object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
+	FontSys(StringInfo def, RenderObjClass *object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
 	// ~FontSys: implicit, 0x67F230 (no vptr stores, Font released as a member: EH state 1), 0x6D4C40 its deleting form
 
 	virtual int Class_ID(void) const { return 0x1000D; }					// 0x67EF00  // NAME 2: RenderObjClass's
@@ -96,11 +96,11 @@ public:
 	void Unknown_6CE4E0(int font_index);								// 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text rebuilt (SWITCH / REVERT; not yet reconstructed)  // NAME 1 [Unknown_6CE4E0, font_index]: neutral (D10)
 	void __cdecl Unknown_6CE420(int unknown, const char *format, ...);	// 0x6CE420: the text from a format (ui_missn.cpp's 0x5C5AC0 passes 0, ui_line_display.cpp's slot +0x60 2)  // NAME 1 [Unknown_6CE420, unknown, format]: neutral (D10)
 
-	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
+	StringInfo Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores
 	FontEffectStruct *Effects[6][4];									// +0x1E8: Info's six effect lists (EffectOn ... EffectTriggered) found by name (0x6D5170)  // NAME 2: what 0x6D5170 stores
 	RenderObjClass *Object;												// +0x248: the constructors' object, the model the text attaches to (Info.Attach: 0x6D5D40, 0x6D6390)  // NAME 2: what the constructors pass
-	RefCountPtr<Font32Class> Font;										// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640; a member with a destructor: 0x67F230's EH state 1)  // NAME 3: the assert's
+	RefCountPtr<Font32Bit> Font;										// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640; a member with a destructor: 0x67F230's EH state 1)  // NAME 3: the assert's
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
 	int Unknown254[6];													// +0x254: zeroed by 0x6D5170  // NAME 1: neutral (D10)
 	int Unknown26C;														// +0x26C: 0x6CF930 sets it per line (ftol)  // NAME 1: neutral (D10)

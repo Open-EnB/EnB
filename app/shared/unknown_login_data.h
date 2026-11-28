@@ -38,8 +38,8 @@ class TicketClass : public Unknown_PacketDataClass	// NAME 1: Init's assert 'ker
 public:
 	TicketClass(int unknown);							// 0x8C15F0 (ClientTask passes 0)
 	TicketClass(const TicketClass &that);				// 0x8C1690
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x8C1780
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x8C1960
+	virtual bool Write(LinearBuffer *buffer);		// +0x00 0x8C1780
+	virtual bool Read(LinearBuffer *buffer);		// +0x04 0x8C1960
 	virtual int Get_Size();								// +0x08 0x8C1B30
 	virtual ~TicketClass();								// +0x0C 0x8C16D0 (deleting 0x8C1660)
 	TicketClass &operator=(const TicketClass &that);	// 0x8C16F0
@@ -67,8 +67,8 @@ class LoginCharacterClass : public Unknown_PacketDataClass, public DeltaInterfac
 public:
 	LoginCharacterClass();								// 0x8C06E0
 	~LoginCharacterClass();								// 0x8C0750 (stores the vtables: explicit)
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x8C0770 (vtable 0xB0C560)
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x8C0940
+	virtual bool Write(LinearBuffer *buffer);		// +0x00 0x8C0770 (vtable 0xB0C560)
+	virtual bool Read(LinearBuffer *buffer);		// +0x04 0x8C0940
 	virtual int Get_Size();								// +0x08 0x8C0AC0
 	virtual void Unknown_00(KVEncoderClass *visitor);			// second table +0x00 0x8C0AE0 (0xB0C55C)
 

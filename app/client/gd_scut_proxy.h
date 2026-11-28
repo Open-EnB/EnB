@@ -30,7 +30,7 @@ public:
 	virtual ~FullScreenGadgetClass();									// +0x00 0x66C9A0 (deleting 0x66C970)
 };
 
-// The shortcut bar's proxy button: shows the shortcut (an RObjGadgetClass) at its place on the bar (0x80 bytes, table 0xAFAC78)
+// The shortcut bar's proxy button: shows the shortcut (an RenderObjGadgetClass) at its place on the bar (0x80 bytes, table 0xAFAC78)
 class UIScutProxyGadgetClass : public RObjProxyGadgetClass  // NAME 1: neutral (D10): after ui_scut.cpp, its maker
 {
 public:

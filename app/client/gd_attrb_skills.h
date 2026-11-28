@@ -23,21 +23,21 @@
 
 class RenderObjClass;
 class FontSys;
-class UIAttrbSkillsClass;
+class AttributeSkillsInterface;
 class SkillDataClass;
-class SlotDataGadgetClass;
+class SlotDataGadget;
 
-class Unknown664500Class : public ButtonGadgetClass	// NAME 1: neutral (D10)
+class AttributeSkillsGadget : public ButtonGadgetClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown664500Class();									// 0x662DC0 (0x114 bytes; ui_attrb_skills.cpp's 0x54ACE0 makes it)
-	virtual ~Unknown664500Class();							// +0x00 0x6636E0 (deleting 0x6636B0)
+	AttributeSkillsGadget();									// 0x662DC0 (0x114 bytes; ui_attrb_skills.cpp's 0x54ACE0 makes it)
+	virtual ~AttributeSkillsGadget();							// +0x00 0x6636E0 (deleting 0x6636B0)
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x663B50 (the hovered dot, else the base's)
 	virtual void Unknown_28(LayerClass *layer);				// +0x28 0x663DA0 (the slot gadgets too)
 	virtual bool Unknown_30(float x, float y);				// +0x30 0x663950 (which dot the pointer is on: Unknown88)
 	virtual void Unknown_A4(bool arg);						// +0xA4 0x663BE0 (the levels read from the skill data)  // NAME 1 [arg]: neutral
 
-	int Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int index);	// 0x663DF0 (returns Unknown110)  // NAME 1 [skill, index]: neutral; ui: its FAIL_IF '!ui'
+	int Unknown_663DF0(AttributeSkillsInterface *ui, int skill, int index);	// 0x663DF0 (returns Unknown110)  // NAME 1 [skill, index]: neutral; ui: its FAIL_IF '!ui'
 	void Unknown_664430();									// 0x664430 (hidden, detached, its slot gadgets dropped)
 	void Unknown_664500();									// 0x664500 (each shown slot gadget's level state)
 	int Unknown_6645A0(int level, bool arg);				// 0x6645A0 (onto 'FILL_BONE%02d', large or small)  // NAME 1 [level, arg]: neutral
@@ -60,7 +60,7 @@ public:
 	RefCountPtr<RenderObjClass> Unknown8C[11];				// +0x8C ('DOT00_%02d'; MAX_SKILLS, the assert's)
 	RefCountPtr<RenderObjClass> AbilityIcons[7];			// +0xB8 ('ICON_BOX%02d')  // NAME 3: its assert
 	RefCountPtr<RenderObjClass> AbilityIconBox[7];			// +0xD4 ('SKILL_BOX%02d')  // NAME 3: its assert
-	std::vector<SlotDataGadgetClass *> UnknownF0;			// +0xF0 (its allocator byte, then +0xF4 first / +0xF8 last / +0xFC end)
+	std::vector<SlotDataGadget *> UnknownF0;			// +0xF0 (its allocator byte, then +0xF4 first / +0xF8 last / +0xFC end)
 	RefCountPtr<FontSys> Unknown100;						// +0x100 ('SKILL_NAME_ATT', on 'DESC00')
 	int Unknown104;											// +0x104 (0x6A54B0: the level)
 	int Unknown108;											// +0x108 (0x6A59E0: the dots shown; 11 at first)

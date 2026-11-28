@@ -30,12 +30,12 @@ public:
 	virtual ~DynamicWindowClass();																// +0x04 0x517490 (deleting 0x517460)
 
 	void Remove_All(bool recursive);															// 0x517580  // NAME 1 [Remove_All, recursive]
-	void Add_Object(DynamicWindowElementClass *object, int row_index);							// 0x5175B0 (FAIL_IF '!object')  // NAME 1 [Add_Object, object, row_index]
+	void Add_Object(DynamicWindowElement *object, int row_index);							// 0x5175B0 (FAIL_IF '!object')  // NAME 1 [Add_Object, object, row_index]
 	void Add_Object(DynamicWindowRenderObjectClass *object, int row_index);						// 0x517690 (FAIL_IF '!object')  // NAME 1 [the overload's type]: neutral (the same code)
-	void Add_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index);	// 0x517770 (FAIL_IF '!element')  // NAME 1 [Add_Element, element, row_index]
-	bool Remove_Object(DynamicWindowElementClass *object, int row_index);						// 0x517980 (FAIL_IF '!object')  // NAME 1 [Remove_Object]
+	void Add_Element(const RefCountPtr<DynamicWindowElement> &element, int row_index);	// 0x517770 (FAIL_IF '!element')  // NAME 1 [Add_Element, element, row_index]
+	bool Remove_Object(DynamicWindowElement *object, int row_index);						// 0x517980 (FAIL_IF '!object')  // NAME 1 [Remove_Object]
 	bool Remove_Object(DynamicWindowRenderObjectClass *object, int row_index);					// 0x517A60 (FAIL_IF '!object')  // NAME 1 [the overload's type]: neutral
-	bool Remove_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index);	// 0x517B40 (FAIL_IF 'row_index < 0')  // NAME 1 [Remove_Element]
+	bool Remove_Element(const RefCountPtr<DynamicWindowElement> &element, int row_index);	// 0x517B40 (FAIL_IF 'row_index < 0')  // NAME 1 [Remove_Element]
 	void Layout_Size(const Vector2 &size);														// 0x517C10  // NAME 1 [Layout_Size, size]
 	void Set_Center(Vector2 &center);															// 0x517C50 (kept on the 640 x 480 screen)  // NAME 1 [Set_Center, center]
 	void Get_Center(Vector2 &center);															// 0x517EE0  // NAME 1 [Get_Center, center]
@@ -44,11 +44,11 @@ public:
 	virtual void Set_Position(const Vector2 &position);											// +0x54 0x517FD0
 
 	virtual void Remove_All_Children(bool recursive);											// +0x4C +0x04 0x518000
-	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child);			// +0x4C +0x08 0x5180E0 (FAIL_IF '!element')
+	virtual bool Remove_Child(const RefCountPtr<DynamicWindowElement> &child);			// +0x4C +0x08 0x5180E0 (FAIL_IF '!element')
 
 protected:
-	RefCountPtr<DynamicWindowVerticalClass> Rows;												// +0x64  // NAME 1 [Rows]
-	std::vector< RefCountPtr<DynamicWindowHorizontalClass> > RowElements;						// +0x68 (FAIL_IF '... >= RowElements.size()')
+	RefCountPtr<VerticalDynamicWindow> Rows;												// +0x64  // NAME 1 [Rows]
+	std::vector< RefCountPtr<HorizontalDynamicWindow> > RowElements;						// +0x68 (FAIL_IF '... >= RowElements.size()')
 	Vector2 Position;																			// +0x78  // NAME 1 [Position]: Set_Position's
 };
 

@@ -17,7 +17,7 @@
 #include <vector>
 
 // A personality's data (0x1030 bytes, vtable 0xB04A40), loaded from personalities\PersonalityNN.ini
-class Unknown_78F700Class	// NAME 1: neutral (D10)
+class PersonalityClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	struct MoodStruct		// 8 bytes, destructor 0x78F970  // NAME 2: the INI section 'MOOD-%d'
@@ -33,8 +33,8 @@ public:
 		int AnimNumber;		// +0x04 (at most 255)  // NAME 2: the INI key
 	};
 
-	Unknown_78F700Class();	// 0x78F700
-	~Unknown_78F700Class();							// 0x78F850
+	PersonalityClass();	// 0x78F700
+	~PersonalityClass();							// 0x78F850
 	virtual void Unknown_78F9F0();					// +0x00 0x78F9F0: frees the name, moods and body animations  // NAME 1: neutral (D10)
 	virtual bool Load(const char *filename);		// +0x04 0x78FCB0  // NAME 2: what it does
 	virtual int Get_Gender() { return(Gender); }				// +0x08 0x78F730  // NAME 2: what it returns
@@ -81,12 +81,12 @@ class Unknown_790260Class	// NAME 1: neutral (D10)
 public:
 	Unknown_790260Class(const char *filename);		// 0x790260
 	~Unknown_790260Class();							// 0x790320
-	Unknown_78F700Class *Unknown_790360();			// 0x790360: the data, loaded (Personality00.ini when the file fails)  // NAME 1: neutral (D10)
+	PersonalityClass *Unknown_790360();			// 0x790360: the data, loaded (Personality00.ini when the file fails)  // NAME 1: neutral (D10)
 
 	char Filename[0x100];							// +0x000 (lower case)  // NAME 2: what it holds
 	char Name[0x40];								// +0x100 the file's name  // NAME 2: what it holds
 	char Unknown140[0x44];							// +0x140 (0x790E20 returns it; nothing here writes it)  // NAME 1: neutral (D10)
-	Unknown_78F700Class *Data;						// +0x184  // NAME 2: what it holds
+	PersonalityClass *Data;						// +0x184  // NAME 2: what it holds
 };
 
 // The lip-sync phoneme converter (unknown_phoneme.cpp, 0x791310-0x792040), the manager's +0x10: text
@@ -115,7 +115,7 @@ public:
 	void Unknown_790960();							// 0x790960: loads the files again (appends)  // NAME 1: neutral (D10)
 	void Unknown_790C70();							// 0x790C70: deletes them  // NAME 1: neutral (D10)
 	Unknown_790260Class *Unknown_790D00(int index);	// 0x790D00  // NAME 1: neutral (D10)
-	Unknown_78F700Class *Unknown_790D40(int index);	// 0x790D40: the data  // NAME 1: neutral (D10)
+	PersonalityClass *Unknown_790D40(int index);	// 0x790D40: the data  // NAME 1: neutral (D10)
 	const char *Unknown_790D90(int index);			// 0x790D90: the name  // NAME 1: neutral (D10)
 	Unknown_790260Class *Unknown_790DE0(int index);	// 0x790DE0  // NAME 1: neutral (D10)
 	const char *Unknown_790E20(int index);			// 0x790E20: +0x140  // NAME 1: neutral (D10)

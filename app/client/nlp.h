@@ -62,7 +62,7 @@ public:
 
 	bool Initialized;								// +0x04  // NAME 2: 'NLP not intialized!'
 	int Unknown08;									// +0x08 (-1)  // NAME 1: neutral (D10)
-	Unknown_78F700Class *Personality;				// +0x0C  // NAME 2: 'Personality's body anim is missing'
+	PersonalityClass *Personality;				// +0x0C  // NAME 2: 'Personality's body anim is missing'
 	NLPLexiconClass *Lexicon;						// +0x10  // NAME 2: 'NLP error: null lexicon!'
 };
 

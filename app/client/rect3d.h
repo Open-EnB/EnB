@@ -4,9 +4,9 @@
 **	Original location: e:\build\beta\G\app\Client\rect3d.h (PROVISIONAL, after rect3d.cpp's __FILE__
 **	'e:\build\beta\G\app\Client\rect3d.cpp' 0xB92CE8; the client holds no string of this header)
 **
-**	rect3d.cpp's Rect3DClass: a flat four-vertex DynamicMeshClass (one tri strip, two polygons) in one
+**	rect3d.cpp's Rectangle3DClass: a flat four-vertex DynamicMeshClass (one tri strip, two polygons) in one
 **	color, the size of DynamicMeshClass (0xF4), vtable 0xAFFB08 (0xAFFAF0 / 0xAFFAEC for the other bases).
-**	fontsys_cursor.cpp's TextCursorClass derives from it; the HUD's 0x66CC00 makes four.
+**	fontsys_cursor.cpp's FontSysCursor derives from it; the HUD's 0x66CC00 makes four.
 */
 
 
@@ -23,13 +23,13 @@
 
 class SceneClass;
 
-class Rect3DClass : public DynamicMeshClass  // NAME 2 [Rect3DClass]: rect3d.cpp's class (the file name, Westwood's Class suffix)
+class Rectangle3DClass : public DynamicMeshClass  // NAME 5: thunk order, binary.md 5.11; NAME 2 [Rectangle3DClass]: rect3d.cpp's class (the file name, Westwood's Class suffix)
 {
 public:
-	Rect3DClass(const Vector4 &color, const Vector4 &rect);		// 0x6E2290: rect is x, y, width, height (y down by the height)  // NAME 2 [color, rect]: what it does with them
-	Rect3DClass(const Rect3DClass &src);						// 0x6E26B0: G_ASSERT(0)
-	Rect3DClass &operator=(const Rect3DClass &that);			// 0x6E2740: G_ASSERT(0)
-	virtual ~Rect3DClass();										// 0x6E28F0
+	Rectangle3DClass(const Vector4 &color, const Vector4 &rect);		// 0x6E2290: rect is x, y, width, height (y down by the height)  // NAME 2 [color, rect]: what it does with them
+	Rectangle3DClass(const Rectangle3DClass &src);						// 0x6E26B0: G_ASSERT(0)
+	Rectangle3DClass &operator=(const Rectangle3DClass &that);			// 0x6E2740: G_ASSERT(0)
+	virtual ~Rectangle3DClass();										// 0x6E28F0
 
 	virtual RenderObjClass *Clone() const;						// 0x6E2920
 	virtual int Class_ID() const { return 0x1000A; }			// 0x685840 (the copy fontsys_cursor.obj emitted first)  // NAME 2: E&B's class id

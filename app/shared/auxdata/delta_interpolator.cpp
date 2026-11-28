@@ -7,8 +7,8 @@
 // the time LastTime starts from (0xBE3A88, set to 0 by this file's initialiser 0x4A60F0)
 static DurationClass UnknownTime(0);
 
-DeltaInterpolatorClass::DeltaInterpolatorClass(const char *name) :
-	DeltaCompoundClass(name),
+DeltaInterpolator::DeltaInterpolator(const char *name) :
+	DeltaContainer(name),
 	EndTime("EndTime", DurationClass(0)),
 	ChangePerTick("ChangePerTick"),
 	StartValue("StartValue"),
@@ -21,12 +21,12 @@ DeltaInterpolatorClass::DeltaInterpolatorClass(const char *name) :
 	Add(&StartValue);
 }
 
-float DeltaInterpolatorClass::Get_Change() const
+float DeltaInterpolator::Get_Change() const
 {
 	return ChangePerTick.Value;
 }
 
-float DeltaInterpolatorClass::Update(const DurationClass &time)
+float DeltaInterpolator::Update(const DurationClass &time)
 {
 	float change = ChangePerTick.Value;
 	DurationClass end;
@@ -106,7 +106,7 @@ float DeltaInterpolatorClass::Update(const DurationClass &time)
 
 
 
-void DeltaInterpolatorClass::Set(float value, float change, const DurationClass &time)
+void DeltaInterpolator::Set(float value, float change, const DurationClass &time)
 {
 	G_ASSERT(value <= 1.0f);
 	G_ASSERT(value >= 0.0f);
@@ -126,7 +126,7 @@ void DeltaInterpolatorClass::Set(float value, float change, const DurationClass 
 	LastValue = value;
 }
 
-void DeltaInterpolatorClass::Set(float value, const DurationClass &time)
+void DeltaInterpolator::Set(float value, const DurationClass &time)
 {
 	Set(value, ChangePerTick.Value, time);
 }
@@ -154,7 +154,7 @@ void DeltaInterpolatorClass::Set(float value, const DurationClass &time)
 
 
 
-void DeltaInterpolatorClass::Set_Change(float change, const DurationClass &time)
+void DeltaInterpolator::Set_Change(float change, const DurationClass &time)
 {
 	G_ASSERT(_finite(change));
 	if (ChangePerTick.Value != change) {
@@ -162,12 +162,12 @@ void DeltaInterpolatorClass::Set_Change(float change, const DurationClass &time)
 	}
 }
 
-void DeltaInterpolatorClass::Unknown_3C(DeltaClass *delta)
+void DeltaInterpolator::Unknown_3C(DeltaClass *delta)
 {
 	Unknown24C = false;
 	LastTime = UnknownTime;
 	LastValue = 0;
-	DeltaCompoundClass::Unknown_3C(delta);
+	DeltaContainer::Unknown_3C(delta);
 }
 
 // the time since the first call (0x4A3B40, timeGetTime through a pointer; not rebuilt yet)
@@ -177,16 +177,16 @@ unsigned int Unknown_Get_Ticks();
 class DeltaInterpolatorValueClass : public KVAccessorClass<float>  // NAME 2: describes what it does
 {
 public:
-	DeltaInterpolatorValueClass(DeltaInterpolatorClass *owner) : Owner(owner) {}
+	DeltaInterpolatorValueClass(DeltaInterpolator *owner) : Owner(owner) {}
 	virtual const float &Get();
 	virtual void Set(const float &) {}
 	virtual KVAccessorClass<float> *Clone() const;
 
-	DeltaInterpolatorClass *Owner;		// +0x04  // NAME 2: describes what it does
+	DeltaInterpolator *Owner;		// +0x04  // NAME 2: describes what it does
 	float Value;								// +0x08 the value Get read last  // NAME 2: describes what it does
 };
 
-void DeltaInterpolatorClass::Unknown_00(KVEncoderClass *visitor)
+void DeltaInterpolator::Unknown_00(KVEncoderClass *visitor)
 {
 	visitor->Push_Prefix(Name.Get_String());
 	visitor->Push_Flags();
@@ -212,7 +212,7 @@ const float &DeltaInterpolatorValueClass::Get()
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4A6110-0x4A6913: DeltaInterpolatorClass (D24), vtable 0xAEAE54 (slot 0 0x4A6930
+**	client.exe 0x4A6110-0x4A6913: DeltaInterpolator (D24), vtable 0xAEAE54 (slot 0 0x4A6930
 **	and slot 0x3C 0x4A68E0 overridden), size 0x250. Rebuilt: the constructor 0x4A6110 (the field
 **	names are its strings), the destructor 0x4A6330 (implicit), Get_Change 0x4A6360, Update 0x4A6380
 **	(Get's FAIL_IF from duration.h line 190), Set 0x4A6590 (asserts on the client's lines 111-113),

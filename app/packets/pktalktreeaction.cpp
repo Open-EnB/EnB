@@ -138,6 +138,6 @@ int SelectTalkTreePacketClass::Print(char *buffer, int)
 **	* TALK_TREE 84 written by hand (builder P6, 2026-10-27): two strings and a std::vector of responses
 **	  (an int and a string each); Add_Response 0x8A6BC0 sits between the value and the raw constructor.
 **	* 0x8A75F0, SELECT_TALK_TREE's sending constructor, written 2026-11-15 (E2): /play 7's starbase crashed on
-**	  its generated stand-in (no vtable: ui_talkt.cpp's UITalkTreeClass::Unknown_5C sent a packet with a garbage
+**	  its generated stand-in (no vtable: ui_talkt.cpp's TalkTreeInterface::Unknown_5C sent a packet with a garbage
 **	  vptr), as /play 9's did on 0x8A3600.
 */

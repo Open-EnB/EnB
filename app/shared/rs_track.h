@@ -64,7 +64,7 @@ public:
 	RenderStateClass *Unknown_45B480(INIClass &ini, const char *section, int id);	// 0x45B480 ('sound')
 	RenderStateClass *Unknown_45B550(const char *filename, int link_id, unsigned int flags, int id, int next_id);	// 0x45B550 ('effect_pass': reads the file's Effect_Pass_Description)  // NAME 1 [filename]: the key
 	RenderStateClass *Unknown_45B990(INIClass &ini, const char *section, int id);	// 0x45B990 ('effect_pass')
-	RenderStateClass *Unknown_45BAB0(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone, int message);	// 0x45BAB0 ('bone': Unknown458710Class by name)
+	RenderStateClass *Unknown_45BAB0(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone, int message);	// 0x45BAB0 ('bone': RenderStateBoneClass by name)
 	RenderStateClass *Unknown_45BB70(int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone, int message);	// 0x45BB70 (no caller: by model)
 	RenderStateClass *Unknown_45BC30(INIClass &ini, const char *section, int id);	// 0x45BC30 ('bone')
 	void Unknown_45C8B0();											// 0x45C8B0 (no caller: every state's Unknown_0C)  // NAME 1: neutral (D10)
@@ -90,13 +90,13 @@ extern Unknown45C430Class Unknown_BDC0A0;							// 0xBDC0A0 (rs_list.cpp; its in
 // rs_robj.cpp's render-object state (vtable 0xAE8138, 0x44 bytes): a state that shows a model (made by name from
 // the asset manager or handed in), and after Unknown34 seconds moves on to the state NextID names
 // (interim, D137: rs_robj.cpp's header is not in the tree yet)
-class Unknown45E850Class : public RenderStateClass	// NAME 1: neutral (D10)
+class RenderStateRenderObjClass : public RenderStateClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown45E850Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration);	// 0x45E5F0  // NAME 1 [name, next_id, duration]: the members they set
-	Unknown45E850Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration);	// 0x45E880  // NAME 1 [robj, next_id, duration]: the members they set
-	Unknown45E850Class(RenderStateListClass *list, const Unknown45E850Class &source);	// 0x45E9F0  // NAME 1 [list, source]: neutral
-	virtual ~Unknown45E850Class();									// 0x45EC00 (deleting 0x45E850)
+	RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration);	// 0x45E5F0  // NAME 1 [name, next_id, duration]: the members they set
+	RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration);	// 0x45E880  // NAME 1 [robj, next_id, duration]: the members they set
+	RenderStateRenderObjClass(RenderStateListClass *list, const RenderStateRenderObjClass &source);	// 0x45E9F0  // NAME 1 [list, source]: neutral
+	virtual ~RenderStateRenderObjClass();									// 0x45EC00 (deleting 0x45E850)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x45EB70
 	virtual void Unknown_0C();										// +0x0C 0x45EF10 (drops a model it can load again)  // NAME 1: neutral (D10)
 	virtual bool Unknown_10();										// +0x10 0x45EF80 (loads the model)  // NAME 1: neutral (D10)
@@ -118,13 +118,13 @@ public:
 
 // rs.cpp's render-object state on a bone path (vtable 0xAE7D58, 0x4C bytes): its model goes onto the
 // owner's bone path while it is active
-class Unknown458710Class : public Unknown45E850Class	// NAME 1: neutral (D10)
+class RenderStateBoneClass : public RenderStateRenderObjClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg);	// 0x458710  // NAME 1 [bone_path, arg]: what 0x458B20 passes on
-	Unknown458710Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg);	// 0x4588A0
-	Unknown458710Class(RenderStateListClass *list, const Unknown458710Class &source);	// 0x458810
-	virtual ~Unknown458710Class();									// 0x458A60 (deleting 0x4587E0)
+	RenderStateBoneClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone_path, int arg);	// 0x458710  // NAME 1 [bone_path, arg]: what 0x458B20 passes on
+	RenderStateBoneClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone_path, int arg);	// 0x4588A0
+	RenderStateBoneClass(RenderStateListClass *list, const RenderStateBoneClass &source);	// 0x458810
+	virtual ~RenderStateBoneClass();									// 0x458A60 (deleting 0x4587E0)
 	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x458970
 	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x458B20
 	virtual void Unknown_18(RsTrackClass *owner);					// +0x18 0x458B70

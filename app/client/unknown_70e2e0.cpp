@@ -6,7 +6,7 @@
 
 // 0x70E2E0
 Unknown70E2E0Class::Unknown70E2E0Class(ClientClass *client, int type, unsigned id) :
-	Unknown70DBC0Class(client, type, id),
+	ClientProximityObjectClass(client, type, id),
 	Unknown220(false)
 {
 }
@@ -25,7 +25,7 @@ Unknown70E2E0Class::~Unknown70E2E0Class()
 // 0x70E3B0 (inlined into the next three)
 void Unknown70E2E0Class::Unknown_70E3B0(const Vector3 &pos)
 {
-	HeightFieldClass *field = Client->Unknown1144;
+	HeightMapClass *field = Client->Unknown1144;
 	float height = field->Get_Height(pos);
 	Unknown20C = pos.Z - height;
 }
@@ -33,21 +33,21 @@ void Unknown70E2E0Class::Unknown_70E3B0(const Vector3 &pos)
 // 0x70E3F0
 void Unknown70E2E0Class::Unknown_Dyn68(Vector3 pos)
 {
-	DynObj::Unknown_Dyn68(pos);
+	DynamicObjectClass::Unknown_Dyn68(pos);
 	Unknown_70E3B0(pos);
 }
 
 // 0x70E460
 void Unknown70E2E0Class::Unknown_Dyn6C(const Matrix3D &tm)
 {
-	DynObj::Unknown_Dyn6C(tm);
+	DynamicObjectClass::Unknown_Dyn6C(tm);
 	Unknown_70E3B0(tm.Get_Translation());
 }
 
 // 0x70E4E0
 void Unknown70E2E0Class::Unknown_20()
 {
-	Unknown70DBC0Class::Unknown_20();
+	ClientProximityObjectClass::Unknown_20();
 	Unknown_70E3B0(Unknown_24());
 }
 

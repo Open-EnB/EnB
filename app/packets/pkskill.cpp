@@ -33,18 +33,18 @@ int SkillPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "Skill {GameID=%d Action=%d, SkillIndex=%d}", GameID, Action, SkillIndex));
 }
 
-SkillPacket_88Class::SkillPacket_88Class(int game_id, int action, int ability_index) : GameID(game_id), Action(action), AbilityIndex(ability_index)
+SkillAbilityPacketClass::SkillAbilityPacketClass(int game_id, int action, int ability_index) : GameID(game_id), Action(action), AbilityIndex(ability_index)
 {
 }
 
-SkillPacket_88Class::SkillPacket_88Class(RawPacketClass *raw)
+SkillAbilityPacketClass::SkillAbilityPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&Action, sizeof(Action));
 	raw->Get(&AbilityIndex, sizeof(AbilityIndex));
 }
 
-RawPacketClass *SkillPacket_88Class::Build()
+RawPacketClass *SkillAbilityPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(88, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -53,12 +53,12 @@ RawPacketClass *SkillPacket_88Class::Build()
 	return(raw);
 }
 
-int SkillPacket_88Class::Get_Data_Size()
+int SkillAbilityPacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(Action) + sizeof(AbilityIndex));
 }
 
-int SkillPacket_88Class::Print(char *buffer, int)
+int SkillAbilityPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "Skill {GameID=%d Action=%d, AbilityIndex=%d}", GameID, Action, AbilityIndex));
 }

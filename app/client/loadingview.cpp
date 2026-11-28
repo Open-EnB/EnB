@@ -21,8 +21,8 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\wwlib\ini.h"
 #include "WWAudio.h"
-// the 0xFC-byte render object at +0x64: 0x691830 news a GalaxyMapLineRObjClass (constructor 0x7B3E30) into it
-// (sclient.h holds it as RefCountPtr<GalaxyMapLineRObjClass>: its instances are galaxy_map_render.cpp's Line's)
+// the 0xFC-byte render object at +0x64: 0x691830 news a GalaxyMapLineRObj (constructor 0x7B3E30) into it
+// (sclient.h holds it as RefCountPtr<GalaxyMapLineRObj>: its instances are galaxy_map_render.cpp's Line's)
 
 
 
@@ -105,7 +105,7 @@ void LoadingViewClass::Unknown_691830(const std::string &source_sector, const st
 	AIL_set_preference(DIG_DS_MIX_FRAGMENT_CNT, 16);
 	AIL_serve();
 
-	InterfaceSortClass sort((InterfaceSceneClass *)Unknown_50(), false);
+	LocalInterfaceSort sort((InterfaceSceneClass *)Unknown_50(), false);
 	if (source_sector.length() == 0 && source_system.length() == 0 && name.length() == 0 && system.length() == 0) {
 		Unknown69 = true;
 	} else {
@@ -183,7 +183,7 @@ void LoadingViewClass::Unknown_691830(const std::string &source_sector, const st
 		Unknown_BE67C4->Get_Style("Loading_Text_map_load00", Unknown58.Peek())->Set_Sort_Level(1);
 
 		if (from != to && from != 0 && to != 0) {
-			Unknown64 = Create_NEW(new GalaxyMapLineRObjClass);
+			Unknown64 = Create_NEW(new GalaxyMapLineRObj);
 			INIClass ini("galaxy_map_c.ini");
 			Unknown64->Unknown_7B3F00(ini, "SectorLoadLine", Vector3(1.0f, 0.0f, 0.0f), Unknown60, Unknown5C);
 			Unknown64->Add(Unknown1C);
@@ -275,9 +275,9 @@ int LoadingViewClass::Unknown_0C(bool on)
 **	takes the RefCountPtr, 0x6D25D0 the pointer). START 0x692330 and the slot +0x0C 0x692420 rebuilt (UI1).
 **	Not rebuilt: 0x6912A0 / 0x691320 before the constructor (no callers: a helper over a render object, a
 **	second object and a Vector3, its class unknown).
-**	SERVER_HANDOFF's 0x691830 rebuilt exact (L1, 2026-11-14): +0x64 is a GalaxyMapLineRObjClass (0x691830 news
+**	SERVER_HANDOFF's 0x691830 rebuilt exact (L1, 2026-11-14): +0x64 is a GalaxyMapLineRObj (0x691830 news
 **	one, constructor 0x7B3E30, and calls its 0x7B3F00 with galaxy_map_c.ini's 'SectorLoadLine'); the file's
-**	member is RefCountPtr<GalaxyMapLineRObjClass> in sclient.h, galaxy_map_render.cpp's Line's type (the
+**	member is RefCountPtr<GalaxyMapLineRObj> in sclient.h, galaxy_map_render.cpp's Line's type (the
 **	instances 0x692680 Create_NEW, 0x6926B0 operator=(NULL) are this object's). Its first block is START's
 **	teardown through one inline layer (Release_Screen): the layer leaves the four RefCountPtr clears out of
 **	line, as the client calls them.

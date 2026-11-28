@@ -23,15 +23,15 @@ class JobListPacketClass;
 class JobDescriptionPacketClass;
 class JobAcceptReplyPacketClass;
 class LoungeNPCPacketClass;
-class AvatarDescClass;
+class AvatarDescriptionClass;
 class ShipCustDescClass;
 class ShipRecustomizationCostClass;
 class RecustomizationCostClass;
 class LayerClass;
-class CharacterViewAvatarClass;
+class AvatarClass;
 class Unknown78A910AvatarClass;	// NAME 1: neutral (D10)
 
-class SBaseViewClass;
+class StarbaseViewClass;
 class LightClass;
 class FontSys;
 
@@ -43,7 +43,7 @@ class StarbaseNPCClass;
 
 
 // ui_starbase.cpp's symbol chat menu (the starbase interface's +0x1F8; described there, interim placement D137): here
-// so that UIStarbaseClass can hold it as RefCountPtr<UIStarbaseUnknown1F8Class>
+// so that StarbaseInterface can hold it as RefCountPtr<UIStarbaseUnknown1F8Class>
 struct UIStarbaseSymbolChatOptionStruct;
 class DynamicWindowClass;
 class GadgetClass;
@@ -193,7 +193,7 @@ public:
 	UIStarbaseUnknownCCClass();	// (inline in ui_starbase.cpp: 0x634140 inlines it, 0x38 bytes)
 	~UIStarbaseUnknownCCClass();	// 0x632E50
 	int Unknown00;					// +0x00  // NAME 1: neutral
-	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
+	RefCountPtr<AvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
 	bool Unknown_633010();			// 0x633010 (no caller: +0x18's bits 1-5, or the avatar's path not empty)
 	void Unknown_633040();			// 0x633040 (no caller: +0x20 counted down by the frame time; at 0 the name tag's text back)
 	void Unknown_6330E0(const Vector3 &color);	// 0x6330E0 (no caller: the name tag '.....' in the colour for 2 seconds)  // NAME 1 [color]: what it sets
@@ -228,15 +228,15 @@ public:
 };
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
-class UIStarbaseClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
+class StarbaseInterface : public Unknown5BB320Class  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index, const char *name);	// 0x6333E0 (0x224 bytes; the starbase view's 0x69D030: itself, its +0x80 layer, the index 0..3, 0x6A2120's name)  // NAME 1 [view, layer, index, name]: what 0x69D030 passes
+	StarbaseInterface(UIViewClass *view, LayerClass *layer, int index, const char *name);	// 0x6333E0 (0x224 bytes; the starbase view's 0x69D030: itself, its +0x80 layer, the index 0..3, 0x6A2120's name)  // NAME 1 [view, layer, index, name]: what 0x69D030 passes
 	void Unknown_639030(int arg);	// 0x639030 (the starbase view's 0x69C8F0 passes its +0x190's 0x64CF90)  // NAME 1 [arg]: neutral
 	void Unknown_63CF30(int avatar_id, int new_room);	// 0x63CF30 (STARBASE_AVATAR_ROOM_UPDATE 160)  // NAME 1 [avatar_id, new_room]: the packet's fields
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
 	void Unknown_6435E0();	// 0x6435E0 (ui_avatar_cust.cpp 0x54EC30, once the new look is sent)
-	virtual ~UIStarbaseClass();	// +0x00 0x633B50 (deleting 0x633A90)
+	virtual ~StarbaseInterface();	// +0x00 0x633B50 (deleting 0x633A90)
 	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();	// +0x54 0x634140, +0x58 0x6366A0, +0x5C 0x636D50, +0x60 0x638390 (the client's overrides, table 0xAF836C: declared so the constructor's table doesn't emit the base's inline defaults; not rebuilt)
 	virtual bool Unknown_68(int key); virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager);	// +0x68 0x638500, +0x70 0x637130, +0x74 0x637A90 (the keys added and removed; FAIL_IF '!manager')  // NAME 1 [key]: InterfaceClass's; NAME 3 [manager]: the FAIL_IFs'
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x638FF0 (not rebuilt)  // NAME 1 [view, arg]: InterfaceClass's
@@ -246,7 +246,7 @@ public:
 	StarbaseInfoClass *Get_Info();	// inline in ui_starbase.cpp: the view's +0x1B4 (0x6333E0 reads it through this: it loads +0xB0 before Room, and the inline spends the budget that keeps the lists' begin() out of line)  // NAME 2: what it returns
 	RenderObjClass *Unknown_Model() { return(InterfaceMesh->InterfaceMesh); }	// the mesh's model (0x6333E0: the same budget)  // NAME 1: neutral (D10)
 	int Room;	// +0xAC (158 moves an avatar only in this room; the constructor's index)  // NAME 2: what the handler compares with the packet's Room
-	SBaseViewClass *UnknownB0;	// +0xB0 (the starbase view: 0x640D80 reads its +0x1B4's +0x18, 0x640E90 / 0x640EC0 call its +0x70 scene)
+	StarbaseViewClass *UnknownB0;	// +0xB0 (the starbase view: 0x640D80 reads its +0x1B4's +0x18, 0x640E90 / 0x640EC0 call its +0x70 scene)
 	StarbaseRoomClass *RoomInfo;	// +0xB4 (0x640D80: its bytes +0x0A / +0x0B; the constructor's 0x698730 of the room's key)  // NAME 2: what it holds
 	GadgetClass *UnknownB8;	// +0xB8 (0x63A100 tests its +0x2C bits 2 and 4)
 	RefCountPtr<RenderObjClass> ExtraBones;	// +0xBC (the constructor's '%sextra_%s' model, added to the mesh's model; 0x634140's wall terminals and ship_extents00)  // NAME 3: 0x634140's G_ASSERT 'ExtraBones' (l.862)
@@ -276,7 +276,7 @@ public:
 	bool Unknown214, Unknown215, Unknown216, Unknown217, Unknown218, Unknown219, Unknown21A, Unknown21B, Unknown21C;	// +0x214
 	int Unknown220;	// +0x220
 	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SClient 0x74ABC0: '/starbase reset'); 0x6425D0 (SClient 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
-	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
+	void Unknown_6437A0(int unknown, AvatarDescriptionClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
 	void Unknown_640110(int state);	// 0x640110 (TRADE 31: 8 when a trade opens, 0 when it ends)  // NAME 1 [state]: neutral
 	int Unknown_Kind();	// NAME 1: neutral (D10): the third light key as 0x640810 inlines it (an inline level: it moves 0x640810's budget to the client's out-of-line calls; 0x640D80 has its own setne form) (inline in ui_starbase.cpp: it reads the room, sbase_info.h's)
 	void Unknown_640810();	// 0x640810 (0x6366A0: the lights rebuilt from the model's D_LIGHTnn bones, else one default light)
@@ -288,7 +288,7 @@ public:
 	void Unknown_63C080(const char *name, bool a, bool b);	// 0x63C080  // NAME 1 [name, a, b]: what 0x6366A0 / 0x6390A0 pass
 	void Unknown_63D2F0(int index);					// 0x63D2F0  // NAME 1 [index]: neutral
 	void Unknown_63E2B0();							// 0x63E2B0
-	void Unknown_640F50(CharacterViewAvatarClass *avatar);	// 0x640F50  // NAME 1 [avatar]: neutral
+	void Unknown_640F50(AvatarClass *avatar);	// 0x640F50  // NAME 1 [avatar]: neutral
 	void Unknown_63B5A0();	// 0x63B5A0 (the software mouse's cursor 2 unless the chat panel is busy; the text object hidden)
 	bool Unknown_63E8F0(int id);	// 0x63E8F0 (an entry of +0xEC with this id)  // NAME 1 [id]: neutral
 	void Unknown_641AB0();	// 0x641AB0 (+0x190 released, as the destructor)
@@ -308,7 +308,7 @@ public:
 	void Unknown_63AAF0();	// 0x63AAF0 (0x638390's frame: the avatars' per-frame update, the own avatar's step kept clear of the model)
 	void Unknown_63B310();	// 0x63B310 (0x638390's frame: the camera after the own avatar)
 	bool Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius);	// 0x63BA70 (no caller: two objects within 3 units, 0x831E90)  // NAME 1 [a, b, radius]: neutral
-	void Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar);	// 0x63BC30 (0x63AAF0: the step retried 10 times against the model, else back to +0x1EC)  // NAME 1 [avatar]: neutral
+	void Unknown_63BC30(RefCountPtr<AvatarClass> &avatar);	// 0x63BC30 (0x63AAF0: the step retried 10 times against the model, else back to +0x1EC)  // NAME 1 [avatar]: neutral
 	void Unknown_63C4B0(RenderObjClass *obj, const char *bone);	// 0x63C4B0 (no caller: obj added to the scene on the mesh's bone)  // NAME 1 [obj, bone]: neutral
 	void Unknown_63C590();	// 0x63C590 (0x638390's frame: the four doors +0x118 opened or closed by an avatar within 3 units, '%sbar06.%sbar06-1' and the door sounds)
 	void Unknown_63C890();	// 0x63C890 ('(%s) Clearing avatar %s from room %d': every entry of +0xD4 deleted, the table cleared)
@@ -318,7 +318,7 @@ public:
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
 
-// ui_ptrade.cpp's player trade interface UIPTradeClass (the starbase view's +0x1A4): sclient.h (the main view's +0x1E4)
+// ui_ptrade.cpp's player trade interface PlayerTradeInterface (the starbase view's +0x1A4): sclient.h (the main view's +0x1E4)
 
 class StarbaseShipCustomizeInterface;	// ui_ship_cust.h: the starbase view's +0x1A0 (RECUSTOMIZE_SHIP_START 129: 0x61F250; the client's RTTI 0xB89BB0)
 class StarbaseAvatarCreationInterface;	// ui_avatar_cust.h: the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40; 0x69F8F0 case 14: 0x54B7B0, 0x3D0 bytes; the client's RTTI 0xB7AC88)
@@ -341,7 +341,7 @@ class UIManuClass;	// ui_manu.h: the starbase view's +0x18C (0x69F8F0 case 7: 0x
 
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
 // ScriptedMovieViewerSettingsStruct (the view's +0x68): unknown_490900.h
-// ui_talkt.cpp's talk tree UITalkTreeClass (the view's +0x190): sclient.h
+// ui_talkt.cpp's talk tree TalkTreeInterface (the view's +0x190): sclient.h
 // the view's +0x1B4: sbase_info.h's StarbaseInfoClass (0x6A2120 tests its rooms' +0x0A / +0x0B; the view's destructor 0x69B0C0 deletes it)
 
 class Unknown761C80Class;	// the +0x70 scene (unknown_761c80.h)
@@ -373,11 +373,11 @@ struct SBaseViewChannelStruct	// NAME 1: neutral (D10)
 
 
 
-class SBaseViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
+class StarbaseViewClass : public Unknown65B810ViewClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	SBaseViewClass(ClientTaskClass *task, int arg);	// 0x69AD30 (table 0xAFD2FC; SClient 0x74B680 passes its +0x1384 task and +0x1324)  // NAME 1 [task, arg]: what the base / +0x1F4 get
-	virtual ~SBaseViewClass();	// +0x00 0x69B0C0 (deleting 0x69B090)
+	StarbaseViewClass(ClientTaskClass *task, int arg);	// 0x69AD30 (table 0xAFD2FC; SClient 0x74B680 passes its +0x1384 task and +0x1324)  // NAME 1 [task, arg]: what the base / +0x1F4 get
+	virtual ~StarbaseViewClass();	// +0x00 0x69B0C0 (deleting 0x69B090)
 	virtual void Unknown_04();	// +0x04 0x69B5E0 (Init: the scenes, cameras, layers, text object, interfaces and lights)
 	virtual int Unknown_0C(bool on);	// +0x0C 0x69C5E0 (not rebuilt: the render, WW3D::Begin_Render with on)
 	virtual void Unknown_10();	// +0x10 0x69C0D0 (not rebuilt)
@@ -408,8 +408,8 @@ public:
 	void Unknown_69DBA0(int type, const RefCountPtr<RenderObjClass> &obj);	// 0x69DBA0: obj as ViewRObjs[type]  // NAME 1 [obj]: neutral
 	void Unknown_69DC40();	// 0x69DC40: 'FE_COMP1' as ViewRObjs[2]
 	void Unknown_69DC60();	// 0x69DC60: ViewRObjs[2] away
-	void Unknown_69DC80(RefCountPtr<CharacterViewAvatarClass> avatar, const char *bone, bool offset);	// 0x69DC80: the avatar (ui_starbase 0x63C080 passes it) at ViewRObjs[1]'s bone, kept in its +0x330; offset: its own turn at the bone's position plus +0x1E0  // NAME 1 [avatar, bone, offset]: neutral
-	void Unknown_69DFC0(RefCountPtr<CharacterViewAvatarClass> avatar, const Matrix3D &tm, bool offset);	// 0x69DFC0: as 0x69DC80 at tm (ui_starbase 0x63BDB0)  // NAME 1 [avatar, tm, offset]: neutral
+	void Unknown_69DC80(RefCountPtr<AvatarClass> avatar, const char *bone, bool offset);	// 0x69DC80: the avatar (ui_starbase 0x63C080 passes it) at ViewRObjs[1]'s bone, kept in its +0x330; offset: its own turn at the bone's position plus +0x1E0  // NAME 1 [avatar, bone, offset]: neutral
+	void Unknown_69DFC0(RefCountPtr<AvatarClass> avatar, const Matrix3D &tm, bool offset);	// 0x69DFC0: as 0x69DC80 at tm (ui_starbase 0x63BDB0)  // NAME 1 [avatar, tm, offset]: neutral
 	void Unknown_69F440();	// 0x69F440: +0x1B0 set
 	void Unknown_69F460(int arg);	// 0x69F460  // NAME 1 [arg]: neutral
 	void Unknown_69F480(int index);	// 0x69F480: channel index stopped and released  // NAME 1 [index]: neutral
@@ -457,14 +457,14 @@ public:
 	RefCountPtr<RenderObjClass> ViewRObjs[3];	// +0xEC: by type, in the scenes +0x1C / +0x70 / +0x78 (0x69D930)  // NAME 3: the assert's 'ViewRObjs[type]'
 	SBaseViewChannelStruct Channels[6];	// +0xF8  // NAME 2: what it holds
 	bool Unknown170;	// +0x170 (0x69C8F0: set, 0x69D030(-1) and cleared)
-	RefCountPtr<UIStarbaseClass> Unknown174;	// +0x174
-	RefCountPtr<UIStarbaseClass> Unknown178, Unknown17C, Unknown180;	// +0x178 (0x69C8F0 picks +0x174..+0x180 by +0x50)
+	RefCountPtr<StarbaseInterface> Unknown174;	// +0x174
+	RefCountPtr<StarbaseInterface> Unknown178, Unknown17C, Unknown180;	// +0x178 (0x69C8F0 picks +0x174..+0x180 by +0x50)
 	RefCountPtr<SBaseViewUnknown184Class> Unknown184; RefCountPtr<SBaseViewUnknown188Class> Unknown188; RefCountPtr<UIManuClass> Unknown18C;	// +0x184 (0x69CDE0 releases them; 0x69F8F0 makes them)
-	RefCountPtr<UITalkTreeClass> Unknown190;	// +0x190 (0x69F8F0, case 11: 0x64B6E0 with the client and 1)
+	RefCountPtr<TalkTreeInterface> Unknown190;	// +0x190 (0x69F8F0, case 11: 0x64B6E0 with the client and 1)
 	RefCountPtr<UIJobsClass> Jobs; RefCountPtr<Unknown65A020Class> Unknown198; RefCountPtr<StarbaseAvatarCreationInterface> AvatarUI; RefCountPtr<StarbaseShipCustomizeInterface> ShipUI;	// +0x194  // NAME 2 [Jobs]: what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests
-	RefCountPtr<UIPTradeClass> PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
-	RefCountPtr<UIGroupClass> Unknown1A8;	// +0x1A8 ui_group.cpp's interface (0x69C8F0: its slots +0x58 / +0x5C and 0x596770)
-	RefCountPtr<UIBuffClass> Unknown1AC;	// +0x1AC (0x69B5E0: the main view's +0x1D4 class, 0x5608D0)
+	RefCountPtr<PlayerTradeInterface> PTrade;	// +0x1A4 (TRADE 31 in a starbase)  // NAME 3: its class's file (ui_ptrade.cpp)
+	RefCountPtr<GroupInterface> Unknown1A8;	// +0x1A8 ui_group.cpp's interface (0x69C8F0: its slots +0x58 / +0x5C and 0x596770)
+	RefCountPtr<BuffInterface> Unknown1AC;	// +0x1AC (0x69B5E0: the main view's +0x1D4 class, 0x5608D0)
 	bool Unknown1B0;	// +0x1B0 (0x69F440 sets it, 0x69CDE0 clears it)
 	StarbaseInfoClass *Info;	// +0x1B4 (LOUNGE_NPC 82: StarbaseInfoClass::Create of the packet; the destructor deletes it)  // NAME 2: what it holds
 	RefCountPtr<FontSys> Unknown1B8;	// +0x1B8: a text object (0x6A0E80 changes its text)

@@ -8,7 +8,7 @@
 #include "sclient.h"
 #include "fontmanager.h"
 
-class UIMFDClass;
+class MFDInterface;
 class ClientObjectClass;
 class GadgetClass;
 
@@ -17,7 +17,7 @@ class GadgetClass;
 class UIMFDItemClass	// NAME 1: neutral (D10)
 {
 public:
-	UIMFDItemClass(UIMFDClass *owner) : Owner(owner) {}	// NAME 2 [owner]: what it holds
+	UIMFDItemClass(MFDInterface *owner) : Owner(owner) {}	// NAME 2 [owner]: what it holds
 	virtual ~UIMFDItemClass() {}						// 0x5BBC90
 	virtual void Unknown_04(ClientObjectClass *object) {}	// +0x04 0x5BBB50 (0x5BC9E0: the display's new object)  // NAME 2 [object]: what 0x5BC9E0 passes
 	virtual void Unknown_08() {}						// +0x08 0x5BBB70 (0x5BC940, 0x5BCB30: shown)
@@ -31,7 +31,7 @@ public:
 	virtual int Unknown_28() { return(0); }				// +0x28 0x5BBC50
 	virtual int Unknown_2C() { return(0); }				// +0x2C 0x5BBC70
 
-	UIMFDClass *Owner;									// +0x04  // NAME 2: what it holds
+	MFDInterface *Owner;									// +0x04  // NAME 2: what it holds
 };
 
 // The items 0x5BE570 and 0x5BEA00 add (their sizes 0xC / 0x44 and 0x58 / 0xC)
@@ -59,7 +59,7 @@ struct UIMFDValueStruct	// NAME 1: neutral (D10)
 
 // The multi-function display (0x188 bytes, tables 0xAF3544 / 0xAF3538 / 0xAF352C / 0xAF3518; constructor 0x5BB720, destructor
 // 0x5BC2E0; 'fc_mfd.ini'): watches the target object through its second base; slot +0x90 is pure (0xAF35D4 _purecall)
-class UIMFDClass : public InterfaceClass, public UnknownObjectWatchClass	// NAME 3: D24 class-from-file for ui_mfd.cpp
+class MFDInterface : public InterfaceClass, public UnknownObjectWatchClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	// One of the two value lines (0x48 bytes, the constructor's loop)
@@ -71,8 +71,8 @@ public:
 		int Type;										// +0x44 (0x5BCC60 steps it; 0x5BD540 turns it into a value)  // NAME 2: what it holds
 	};
 
-	UIMFDClass(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer, int flag);	// 0x5BB720  // NAME 1 [view, robj, layer, flag]: what it does with them
-	virtual ~UIMFDClass();								// 0x5BC2E0 (deleting 0x5BBCC0)
+	MFDInterface(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer, int flag);	// 0x5BB720  // NAME 1 [view, robj, layer, flag]: what it does with them
+	virtual ~MFDInterface();								// 0x5BC2E0 (deleting 0x5BBCC0)
 	virtual void Unknown_54();							// 0x5BBF70
 	virtual void Unknown_58();							// 0x5BC510
 	virtual void Unknown_5C();							// 0x5BC5A0
@@ -127,7 +127,7 @@ void Unknown_5BF4D0();									// 0x5BF4D0 (the destructor's: the same file unlo
 
 // The display with slots +0x54 / +0x90 for what 0x5DD960's class builds on (constructor 0x5BE4F0: flag 0; tables 0xAF3678 /
 // 0xAF366C / 0xAF3660 / 0xAF364C)
-class Unknown5BE4F0Class : public UIMFDClass	// NAME 1: neutral (D10)
+class Unknown5BE4F0Class : public MFDInterface	// NAME 1: neutral (D10)
 {
 public:
 	Unknown5BE4F0Class(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer);	// 0x5BE4F0  // NAME 1 [view, robj, layer]: the base's
@@ -137,7 +137,7 @@ public:
 };
 
 // The display ScannerInterface builds on (constructor 0x5BE980: flag 1; tables 0xAF3758 / 0xAF374C / 0xAF3740 / 0xAF372C)
-class Unknown5BE980Class : public UIMFDClass	// NAME 1: neutral (D10)
+class Unknown5BE980Class : public MFDInterface	// NAME 1: neutral (D10)
 {
 public:
 	Unknown5BE980Class(UIViewClass *view, RenderObjClass *robj, const LayerClass &layer);	// 0x5BE980  // NAME 1 [view, robj, layer]: the base's

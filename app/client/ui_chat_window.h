@@ -9,7 +9,7 @@
 #include "..\..\wwmath\rect.h"
 
 class FontSys;					// fontmanager.h's (not included here: ui_chat_panel.cpp declares its own)
-class TextCursorClass;			// fontsys_cursor.h's
+class FontSysCursor;			// fontsys_cursor.h's
 class ButtonGadgetClass;		// unknown_675120.h's
 class ChatWindowClass;			// chat_window.h's
 class Unknown67D430Class;		// unknown_67d430.h's: the chat panel's ring of chat lines (+0x13C)
@@ -84,7 +84,7 @@ public:
 	RefCountPtr<FontSys> UnknownB8;						// +0xB8 ('Chat_Line': the entry's text)
 	ChatViewportStruct Viewport;						// +0xBC ('chat_vp_tl', 'chat_vp_br')  // NAME 1: neutral
 	RefCountPtr<RenderObjClass> UnknownD4;				// +0xD4 ('TEXTBOX')
-	RefCountPtr<TextCursorClass> UnknownD8;				// +0xD8 (the entry's cursor, 0x685680)
+	RefCountPtr<FontSysCursor> UnknownD8;				// +0xD8 (the entry's cursor, 0x685680)
 	ButtonGadgetClass *UnknownDC;						// +0xDC ('DEST_BOX', the gadget 1)
 	RefCountPtr<FontSys> DestBttnText;					// +0xE0 ('Chat_Dest_Bttn')  // NAME 3: the assert's '!DestBttnText'
 	bool UnknownE4;										// +0xE4 (0x571210 flips it: the frame hidden)

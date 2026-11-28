@@ -32,8 +32,8 @@ public:
 	DeltaTemplateClass(const char *name, const T &value = T()) : DeltaClass(name), Value(value) { Unknown04 = UnknownGlobal; }
 
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 (float: 0x4A6C90)
-	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C (float: 0x4A6DF0)
-	virtual bool Write(LinearBufferClass &buf);				// +0x30 (float: 0x4A6E60)
+	virtual bool Read(LinearBuffer &buf, const DurationClass &base);	// +0x2C (float: 0x4A6DF0)
+	virtual bool Write(LinearBuffer &buf);				// +0x30 (float: 0x4A6E60)
 
 	// stores the value and reports the change through Unknown_34 (inlined in 0x4A6590)
 	void Set_Value(const T &value)  // NAME 2: describes what it does
@@ -59,8 +59,8 @@ public:
 	DeltaTemplateClass(const char *name, const DurationClass &value = DurationClass());	// 0x4A8150
 
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00
-	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A81D0
-	virtual bool Write(LinearBufferClass &buf);				// +0x30 0x4A8270
+	virtual bool Read(LinearBuffer &buf, const DurationClass &base);	// +0x2C 0x4A81D0
+	virtual bool Write(LinearBuffer &buf);				// +0x30 0x4A8270
 
 	void Set_Value(const DurationClass &value)  // NAME 2: describes what it does
 	{
@@ -85,7 +85,7 @@ inline const DurationClass &DeltaTemplateClass<DurationClass>::Get_Value() const
 
 
 
-template<class T> bool DeltaTemplateClass<T>::Write(LinearBufferClass &buf)
+template<class T> bool DeltaTemplateClass<T>::Write(LinearBuffer &buf)
 {
 	if (buf.Write(&Value, sizeof(Value)) != sizeof(Value)) {
 		G_ASSERT(0);
@@ -103,7 +103,7 @@ template<class T> bool DeltaTemplateClass<T>::Write(LinearBufferClass &buf)
 
 
 
-template<class T> bool DeltaTemplateClass<T>::Read(LinearBufferClass &buf, const DurationClass &)
+template<class T> bool DeltaTemplateClass<T>::Read(LinearBuffer &buf, const DurationClass &)
 {
 	T value;
 	if (buf.Read(&value, sizeof(value)) != sizeof(value)) {

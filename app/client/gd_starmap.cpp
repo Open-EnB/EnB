@@ -53,7 +53,7 @@
 
 
 
-GadgetStarmapClass::GadgetStarmapClass(StarmapPipClass *pip) :
+GadgetStarmapClass::GadgetStarmapClass(StarmapPIPClass *pip) :
 	GadgetPipSceneClass(pip),
 	StarmapPIP(pip)
 {

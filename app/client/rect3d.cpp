@@ -6,7 +6,7 @@
 #include "..\..\wwmath\matrix3d.h"
 #include "..\shared\g_assert.h"
 
-Rect3DClass::Rect3DClass(const Vector4 &color, const Vector4 &rect) :
+Rectangle3DClass::Rectangle3DClass(const Vector4 &color, const Vector4 &rect) :
 	DynamicMeshClass(2, 4)
 {
 	Set_Force_Visible(true);
@@ -86,14 +86,14 @@ Rect3DClass::Rect3DClass(const Vector4 &color, const Vector4 &rect) :
 
 
 
-Rect3DClass::Rect3DClass(const Rect3DClass &src) :
+Rectangle3DClass::Rectangle3DClass(const Rectangle3DClass &src) :
 	DynamicMeshClass(src)
 {
 	G_ASSERT(0);
 }
 
 
-Rect3DClass &Rect3DClass::operator=(const Rect3DClass &that)
+Rectangle3DClass &Rectangle3DClass::operator=(const Rectangle3DClass &that)
 {
 	if (this != &that) {
 		DynamicMeshClass::operator=(that);
@@ -102,28 +102,28 @@ Rect3DClass &Rect3DClass::operator=(const Rect3DClass &that)
 	return *this;
 }
 
-Rect3DClass::~Rect3DClass()
+Rectangle3DClass::~Rectangle3DClass()
 {
 }
 
-RenderObjClass *Rect3DClass::Clone() const
+RenderObjClass *Rectangle3DClass::Clone() const
 {
-	return new Rect3DClass(*this);
+	return new Rectangle3DClass(*this);
 }
 
-void Rect3DClass::Notify_Added(SceneClass *scene)
+void Rectangle3DClass::Notify_Added(SceneClass *scene)
 {
 	RenderObjClass::Notify_Added(scene);
 	scene->Register(this, SceneClass::ON_FRAME_UPDATE);
 }
 
-void Rect3DClass::Notify_Removed(SceneClass *scene)
+void Rectangle3DClass::Notify_Removed(SceneClass *scene)
 {
 	scene->Unregister(this, SceneClass::ON_FRAME_UPDATE);
 	RenderObjClass::Notify_Removed(scene);
 }
 
-void Rect3DClass::Set_Color(const Vector4 &color)
+void Rectangle3DClass::Set_Color(const Vector4 &color)
 {
 	Change_Vertex_Color(0, color, 0);
 	Change_Vertex_Color(1, color, 0);
@@ -131,7 +131,7 @@ void Rect3DClass::Set_Color(const Vector4 &color)
 	Change_Vertex_Color(3, color, 0);
 }
 
-void Rect3DClass::Set_Rect(const Vector4 &rect)
+void Rectangle3DClass::Set_Rect(const Vector4 &rect)
 {
 	Move_Vertex(0, rect.X, rect.Y, 0);
 	Move_Vertex(1, rect.Z + rect.X, rect.Y, 0);
@@ -144,7 +144,7 @@ void Rect3DClass::Set_Rect(const Vector4 &rect)
 **	client's lines 92 (the copy constructor, inlined in Clone) and 100 (operator=); D25: blank lines keep
 **	them there).
 **
-**	Rect3DClass: DynamicMeshClass(2, 4) with one vertex material (black, emissive white), the alpha solid
+**	Rectangle3DClass: DynamicMeshClass(2, 4) with one vertex material (black, emissive white), the alpha solid
 **	shader without depth test, depth writes or culling, sorted, one tri strip of four vertices in one
 **	color (x, y), (x + w, y), (x, y - h), (x + w, y - h), an identity transform. Copying asserts.
 **	Class_ID (0x1000A) is inline: the linker kept fontsys_cursor.obj's copy (0x685840), which the

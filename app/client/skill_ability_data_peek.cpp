@@ -29,12 +29,12 @@ SkillAbilityDataPeekClass::~SkillAbilityDataPeekClass()
 }
 
 // 0x813A60
-void SkillAbilityDataPeekClass::Attach(DeltaCompoundClass *root)
+void SkillAbilityDataPeekClass::Attach(DeltaContainer *root)
 {
 	List = 0;
 	Count = 0;
 	if (root && Name.Get_String()[0]) {
-		const NameClass &name = Name;
+		const AuxDataName &name = Name;
 		LookupClass *lookup = root->Get_Lookup();
 		DeltaClass *d = lookup->Find(name);
 		if (d) {
@@ -59,7 +59,7 @@ bool SkillAbilityDataPeekClass::Unknown_813B00()
 // 0x813B30
 bool SkillAbilityDataPeekClass::Unknown_813B30(int ability)
 {
-	DeltaCompoundClass *d = Get_Ability(ability);
+	DeltaContainer *d = Get_Ability(ability);
 	if (!d) {
 		return(false);
 	}
@@ -147,7 +147,7 @@ bool SkillAbilityDataPeekClass::Get_Can_Be_Used_While_Incapacitated(int ability)
 
 #pragma auto_inline(off)
 // 0x813E80
-DeltaCompoundClass *SkillAbilityDataPeekClass::Get_Ability(int ability)
+DeltaContainer *SkillAbilityDataPeekClass::Get_Ability(int ability)
 {
 	Status = 2;
 	if (!List) return(0);
@@ -157,7 +157,7 @@ DeltaCompoundClass *SkillAbilityDataPeekClass::Get_Ability(int ability)
 
 
 	FAIL_IF(!dskill) return(0);
-	DeltaCompoundClass *dcont = dskill->As_Compound();
+	DeltaContainer *dcont = dskill->As_Compound();
 
 	FAIL_IF(!dcont) return(0);
 	if (dcont->Unknown70) {
@@ -174,7 +174,7 @@ DeltaClass *SkillAbilityDataPeekClass::Get_Field(int ability, int field)
 	if (index == -1) {
 		return(0);
 	}
-	DeltaCompoundClass *dcont = Get_Ability(ability);
+	DeltaContainer *dcont = Get_Ability(ability);
 	if (!dcont) {
 		return(0);
 	}
@@ -210,7 +210,7 @@ void SkillAbilityDataPeekClass::Update_Fields()
 
 
 		FAIL_IF(!dskill) return;
-		DeltaCompoundClass *dcont = dskill->As_Compound();
+		DeltaContainer *dcont = dskill->As_Compound();
 
 		FAIL_IF(!dcont) return;
 		int count = dcont->Children.size();

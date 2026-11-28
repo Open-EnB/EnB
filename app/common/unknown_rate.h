@@ -4,7 +4,7 @@
 **	0x820830-0x820A20 (just before connect.cpp's first function, unattributed). Type 0 and 1 keep
 **	their counts in two shared sets (0xBE8E80-0xBE8E94), any other type in the object; Add counts
 **	bytes, Get averages them over the time since the last sample (time(), at most every Period
-**	seconds, 0xBA829C). UDPConnection keeps two of type 2 (the bytes in and out its CordCon counted).
+**	seconds, 0xBA829C). UDPConnectionClass keeps two of type 2 (the bytes in and out its CordCon counted).
 **
 **	Rebuilt in unknown_rate.cpp (same provisional name).
 */

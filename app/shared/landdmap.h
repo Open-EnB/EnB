@@ -6,12 +6,12 @@
 #include "aabox.h"
 #include <d3dx8.h>
 
-class HeightFieldClass;
+class HeightMapClass;
 class CameraClass;
 class Matrix4;
 class RenderInfoClass;
 
-void Unknown_466E70(HeightFieldClass *field, float detail_u, float detail_v);	// NAME 1: unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only
+void Unknown_466E70(HeightMapClass *field, float detail_u, float detail_v);	// NAME 1: unknown; news the global object (0x90 bytes, 0xBDC0D8) Unknown_466F10 deletes; called by Load_Assets only
 void Unknown_466F10(void);
 // NAME 1: unknown; a cell of the base mesh: its bounds (0x468BE0) and its four corner vertices (0x468920)
 struct LandUnknown466BE0CellStruct
@@ -23,11 +23,11 @@ struct LandUnknown466BE0CellStruct
 // NAME 1: unknown; the object Unknown_466E70 makes (0x90 bytes, vtable 0xAE8974, ctor 0x466BE0): the land's displacement-mapped
 // variant, on only for a Matrox adapter (vendor 0x102B) with pixel shader 1.3 and the registry's DisplacementMappingEnabled
 // (Software\Westwood Studios\Earth and Beyond\Render\DMap, 0x468120); Update_Patches and Render use it while its +0x11 is set
-class LandUnknown466BE0Class
+class DisplacementMapLandClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	LandUnknown466BE0Class(HeightFieldClass *field, float detail_u, float detail_v);
-	virtual ~LandUnknown466BE0Class(void);
+	DisplacementMapLandClass(HeightMapClass *field, float detail_u, float detail_v);
+	virtual ~DisplacementMapLandClass(void);
 	void							Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale);	// NAME 1: unknown; empty
 	void							Unknown_466F60(RenderInfoClass &rinfo);	// NAME 1: unknown; called first by Render 0x474B30
 	void							Create_Displacement_Map(void);	// NAME 2: CreateTexture into +0x30 (0x4676D0; inlined in the ctor)
@@ -35,7 +35,7 @@ public:
 	void							Release_Displacement_Map(void);	// NAME 2: (0x467750; inlined in the dtor)
 	void							Release_Height_Texture(void);	// NAME 2: (0x467780; inlined in the dtor)
 	void							Read_Registry(void);	// NAME 2: reads the DMap key's four values (0x468120)
-	void							Unknown_4677B0(HeightFieldClass *field);	// NAME 1: unknown; the height field into the L8 texture (+0x34)
+	void							Unknown_4677B0(HeightMapClass *field);	// NAME 1: unknown; the height field into the L8 texture (+0x34)
 	void							Unknown_467910(void);	// NAME 1: unknown; the L8 texture's levels into the displacement map (+0x30)
 	void							Unknown_467A50(float detail_u, float detail_v);	// NAME 1: unknown; the base mesh's index and vertex buffers
 	void							Unknown_467E00(void);	// NAME 1: unknown; empty, no caller (0x467E00: a bare ret)
@@ -59,7 +59,7 @@ public:
 	bool							Unknown12;
 	int							BaseTessellationSize;				// NAME 5: +0x14, BaseTessellationSize (registry, 16)
 	int							DisplacementMapSize;					// NAME 5: +0x18, DisplacementMapSize (registry, 256)
-	HeightFieldClass *		Field;									// NAME 2: +0x1C, the ctor's argument
+	HeightMapClass *		Field;									// NAME 2: +0x1C, the ctor's argument
 	float							TessellationRate;						// NAME 5: +0x20, TessellationRate (registry, 80000)
 	IDirect3DVertexBuffer8 *	VertexBuffer;						// NAME 2: +0x24, CreateVertexBuffer (0x467A50)
 	IDirect3DIndexBuffer8 *	IndexBuffer;							// NAME 2: +0x28, CreateIndexBuffer (0x467A50)

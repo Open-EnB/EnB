@@ -22,7 +22,7 @@
 #include "delta.h"
 #include "..\g_assert.h"
 
-template<class T> class DeltaItemArrayClass : public DeltaCompoundClass	// NAME 3: by convention (D24) from the client's file delta_item_array.h
+template<class T> class DeltaItemArrayClass : public DeltaContainer	// NAME 3: by convention (D24) from the client's file delta_item_array.h
 {
 public:
 	DeltaItemArrayClass(const char *name, unsigned int count);
@@ -47,7 +47,7 @@ template<class T> DeltaItemArrayClass<T>::~DeltaItemArrayClass()
 
 
 template<class T> DeltaItemArrayClass<T>::DeltaItemArrayClass(const char *name, unsigned int count) :
-	DeltaCompoundClass(name)
+	DeltaContainer(name)
 {
 	Unknown04 = UnknownGlobal;
 	char item_name[256];

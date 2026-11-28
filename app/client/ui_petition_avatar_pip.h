@@ -7,7 +7,7 @@
 #include "ui_chat_panel_base.h"
 
 class AvatarPipClass;
-class CharacterViewAvatarClass;
+class AvatarClass;
 
 // The window (0xA8 bytes, tables 0xAF4F74 / 0xAF4F68 / 0xAF4F5C; no slots of its own): ChatPanelUIBase with an
 // avatar drawn in a picture-in-picture over the model's 'Avatar' viewport. ui_petition.cpp's window (constructor
@@ -22,7 +22,7 @@ public:
 	virtual void Unknown_5C();							// +0x5C 0x5D42E0 (InterfaceClass's, then the PIP's model off)
 	virtual void Unknown_60();							// +0x60 0x5D4660 (the PIP shows the avatar)
 
-	RefCountPtr<CharacterViewAvatarClass> Avatar;		// +0xA0 (the avatar 'Megan' Unknown_54 makes)  // NAME 2: what it holds
+	RefCountPtr<AvatarClass> Avatar;		// +0xA0 (the avatar 'Megan' Unknown_54 makes)  // NAME 2: what it holds
 	AvatarPipClass *Pip;								// +0xA4 (its picture-in-picture over the model's 'Avatar')  // NAME 2: what it holds
 };
 

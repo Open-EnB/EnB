@@ -15,7 +15,7 @@
 class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xD4)
 class ProxyGadgetClass;			// gd_proxy.h's highlights (+0x108)
 class GadgetInvSlider;		// gd_inv_slider.h's (+0x160)
-class SlotDataGadgetClass;		// gd_slot_data.h's slot gadgets (the base's +0x88)
+class SlotDataGadget;		// gd_slot_data.h's slot gadgets (the base's +0x88)
 class RenderObjClass;
 class TextureClass;
 class SlotDataClass;			// slot_data.h's (the base's +0x98)

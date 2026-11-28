@@ -9,7 +9,7 @@
 
 class SkillDataClass;
 class SkillRenderClass;
-class SlotDataGadgetClass;
+class SlotDataGadget;
 class UISkillInfoAbilityClass;
 
 // ui_skill_info.cpp's window (0xCC bytes; tables 0xAF7C64 / 0xAF7C58 / 0xAF7C4C / 0xAF7C34; 'SKILL_INFO_MAIN',
@@ -28,10 +28,10 @@ public:
 	virtual bool Unknown_94();																// +0x94 0x62BC40 (the abilities' rows rebuilt: FAIL_IF '!SkillRender', '!SkillData', '!font_group')  // NAME 1: neutral (D10)
 
 	SkillDataClass *Unknown_62C9E0();														// 0x62C9E0 (no caller; FAIL_IF '!SkillData', its slot +0x14)  // NAME 1: neutral (D10)
-	bool Unknown_62CA20(SlotDataGadgetClass *gadget);										// 0x62CA20 (the gadget's skill render taken: FAIL_IF '!SkillRender'; NULL lets it go)  // NAME 1 [gadget]: what 0x62D540 passes
+	bool Unknown_62CA20(SlotDataGadget *gadget);										// 0x62CA20 (the gadget's skill render taken: FAIL_IF '!SkillRender'; NULL lets it go)  // NAME 1 [gadget]: what 0x62D540 passes
 	void Unknown_62CBB0();																	// 0x62CBB0 (no caller: the rows removed)  // NAME 1: neutral (D10)
 
-	SlotDataGadgetClass *UnknownB0;															// +0xB0 (the gadget shown)  // NAME 1: neutral (D10)
+	SlotDataGadget *UnknownB0;															// +0xB0 (the gadget shown)  // NAME 1: neutral (D10)
 	RefCountPtr<SkillRenderClass> SkillRender;												// +0xB4 (its +0x38: 1 while shown here)  // NAME 3: the FAIL_IFs'
 	SkillDataClass *SkillData;																// +0xB8  // NAME 3: the FAIL_IFs'
 	std::vector<UISkillInfoAbilityClass *> UnknownBC;										// +0xBC (one per ability shown; Unknown_68's keys)  // NAME 1: neutral (D10)

@@ -9,10 +9,10 @@ UIItemExaminationSpecialsClass::UIItemExaminationSpecialsClass(GadgetCollectionI
 	DynamicWindowBackgroundClass("ITEM_EXAMINATION_SPECIALS", 6),
 	Listener(listener)
 {
-	RefCountPtr<DynamicWindowVerticalClass> contents = Create_NEW(new DynamicWindowVerticalClass(6));
+	RefCountPtr<VerticalDynamicWindow> contents = Create_NEW(new VerticalDynamicWindow(6));
 	RefCountPtr<DynamicWindowTextClass> title = DynamicWindowTextClass::Create("SPECIALS_IEI00", "Specials", 0);
 	contents->Add_Element(title);
-	List = Create_NEW(new DynamicWindowVerticalClass(0x16));
+	List = Create_NEW(new VerticalDynamicWindow(0x16));
 	contents->Add_Element(List);
 	Set_Contents(contents);
 }
@@ -47,7 +47,7 @@ void UIItemExaminationSpecialsClass::Clear()
 }
 
 UIItemExaminationSpecialClass::UIItemExaminationSpecialClass(const RefCountPtr<ClientItemPropertySpecialClass> &special, GadgetCollectionInterface *listener) :
-	DynamicWindowHorizontalClass(0x10),
+	HorizontalDynamicWindow(0x10),
 	Listener(listener),
 	Gadget(NULL)
 {

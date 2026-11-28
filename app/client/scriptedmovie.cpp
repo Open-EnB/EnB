@@ -2590,7 +2590,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovie
 	if (effect != NULL) {
 
 
-		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+		BinaryEffectClass *binary_effect = effect->Unknown_14();
 
 		FAIL_IF(binary_effect == NULL) {return(false);}
 		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
@@ -2674,7 +2674,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMovieLi
 	if (effect != NULL) {
 
 
-		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+		BinaryEffectClass *binary_effect = effect->Unknown_14();
 
 
 		FAIL_IF(binary_effect == NULL) {return(false);}
@@ -2744,7 +2744,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(Scrip
 	if (effect != NULL) {
 
 
-		UnknownB0009CEffectClass *binary_effect = effect->Unknown_14();
+		BinaryEffectClass *binary_effect = effect->Unknown_14();
 
 
 		FAIL_IF(binary_effect == NULL) {return(false);}
@@ -2809,7 +2809,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Bone(ScriptedMovieLineClas
 	if (effect == NULL) {
 		return(false);
 	}
-	UnknownB00060EffectClass *unary_effect = effect->Unknown_10();
+	UnaryEffectClass *unary_effect = effect->Unknown_10();
 
 
 	FAIL_IF(unary_effect == NULL) {return(false);}
@@ -2859,7 +2859,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Object(ScriptedMovieLineCl
 	if (effect == NULL) {
 		return(false);
 	}
-	UnknownB00060EffectClass *unary_effect = effect->Unknown_10();
+	UnaryEffectClass *unary_effect = effect->Unknown_10();
 
 
 	FAIL_IF(unary_effect == NULL) {return(false);}

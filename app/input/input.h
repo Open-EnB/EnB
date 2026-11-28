@@ -75,11 +75,11 @@ public:
 };
 
 // The keyboard handler's base (vtable 0xAE7190, 4 bytes)
-class KeyboardClass		// NAME 1 [KeyboardClass]: neutral (D10)
+class KeyboardHandlerClass  // NAME 5: thunk order, binary.md 5.11; NAME 1 [KeyboardHandlerClass]: neutral (D10)
 {
 public:
-	KeyboardClass(KeyQueueClass *queue) { Queue = queue; }
-	virtual ~KeyboardClass() {}														// 0x42F060 (scalar deleting)
+	KeyboardHandlerClass(KeyQueueClass *queue) { Queue = queue; }
+	virtual ~KeyboardHandlerClass() {}														// 0x42F060 (scalar deleting)
 	virtual void Unknown_04() = 0;	// NAME 1 [Unknown_04]: neutral (D10)
 	virtual void Unknown_08() = 0;	// NAME 1 [Unknown_08]: neutral (D10)
 	virtual bool Unknown_0C(int unknown1, int unknown2) = 0;	// NAME 1 [Unknown_0C, unknown1, unknown2]: neutral (D10)
@@ -89,22 +89,22 @@ public:
 };
 
 // The keyboard for DIRECTX_KEYBOARD=T (vtable 0xAE7160): it does nothing
-class InputUnknownAE7160Class : public KeyboardClass	// NAME 1 [InputUnknownAE7160Class]: neutral (D10)
+class InputUnknownAE7160Class : public KeyboardHandlerClass	// NAME 1 [InputUnknownAE7160Class]: neutral (D10)
 {
 public:
-	InputUnknownAE7160Class(KeyQueueClass *queue) : KeyboardClass(queue) {}
+	InputUnknownAE7160Class(KeyQueueClass *queue) : KeyboardHandlerClass(queue) {}
 	virtual void Unknown_04() {}													// 0x42EF90
 	virtual void Unknown_08() {}													// 0x42EFB0
 	virtual bool Unknown_0C(int unknown1, int unknown2) { return false; }			// 0x42EFD0  // NAME 1 [unknown1, unknown2]: neutral (D10)
-	virtual bool Set_Repeat(bool enable) { return false; }							// 0x42EFF0  // NAME 1 [enable]: as KeyboardClass's
+	virtual bool Set_Repeat(bool enable) { return false; }							// 0x42EFF0  // NAME 1 [enable]: as KeyboardHandlerClass's
 };
 
 // The mouse handler's base (vtable 0xAE71A8, 4 bytes)
-class MouseClass		// NAME 1 [MouseClass]: neutral (D10)
+class MouseHandlerClass  // NAME 5: thunk order, binary.md 5.11; NAME 1 [MouseHandlerClass]: neutral (D10)
 {
 public:
-	MouseClass(KeyQueueClass *queue) { Queue = queue; }
-	virtual ~MouseClass() {}														// 0x42F220 (scalar deleting)
+	MouseHandlerClass(KeyQueueClass *queue) { Queue = queue; }
+	virtual ~MouseHandlerClass() {}														// 0x42F220 (scalar deleting)
 	virtual void Unknown_04() = 0;	// NAME 1 [Unknown_04]: neutral (D10)
 	virtual void Unknown_08() = 0;	// NAME 1 [Unknown_08]: neutral (D10)
 	virtual void Get_Pixel_Position(int *x, int *y) = 0;	// +0x0C: in the client area  // NAME 1 [Get_Pixel_Position, x, y]: what 0x431900 does
@@ -117,10 +117,10 @@ public:
 };
 
 // The mouse for DIRECTX_MOUSE=T (vtable 0xAE7134, one virtual more than the base): it does nothing
-class InputUnknownAE7134Class : public MouseClass	// NAME 1 [InputUnknownAE7134Class]: neutral (D10)
+class InputUnknownAE7134Class : public MouseHandlerClass	// NAME 1 [InputUnknownAE7134Class]: neutral (D10)
 {
 public:
-	InputUnknownAE7134Class(KeyQueueClass *queue) : MouseClass(queue) {}
+	InputUnknownAE7134Class(KeyQueueClass *queue) : MouseHandlerClass(queue) {}
 	virtual void Unknown_04() {}													// 0x42F090
 	virtual void Unknown_08() {}													// 0x42F0B0
 	virtual void Get_Pixel_Position(int *x, int *y) {}							// 0x42F0D0
@@ -138,8 +138,8 @@ class InputUnknownBDAA78Class	// NAME 1 [InputUnknownBDAA78Class]: neutral (D10)
 
 extern InputQueueClass *Unknown_BDA968;				// the event queue (a KeyQueueClass)  // NAME 1 [Unknown_BDA968]: neutral (D10)
 extern unsigned char Unknown_BDA96C[INPUT_KEY_COUNT];	// 0x42EB80's key state for ToAscii  // NAME 1 [Unknown_BDA96C]: neutral (D10)
-extern KeyboardClass *Unknown_BDAA70;					// NAME 1 [Unknown_BDAA70]: neutral (D10)
-extern MouseClass *Unknown_BDAA74;						// NAME 1 [Unknown_BDAA74]: neutral (D10)
+extern KeyboardHandlerClass *Unknown_BDAA70;					// NAME 1 [Unknown_BDAA70]: neutral (D10)
+extern MouseHandlerClass *Unknown_BDAA74;						// NAME 1 [Unknown_BDAA74]: neutral (D10)
 extern InputUnknownBDAA78Class *Unknown_BDAA78;		// NAME 1 [Unknown_BDAA78]: neutral (D10)
 extern HWND Unknown_BDAA7C;							// the window Init was given  // NAME 1 [Unknown_BDAA7C]: neutral (D10)
 extern int TrackMouseCounter;							// 0xBDAA80 (the client's assert in input.h, 0x42F3A0): > 0, 0x42E8A0 makes a pointer event when the queue is empty
@@ -151,7 +151,7 @@ void Unknown_42E4A0(HWND window);						// 0x42E4A0: start-up (..\data\input.ini)
 void Unknown_42E7B0();									// 0x42E7B0: shut-down  // NAME 1 [Unknown_42E7B0]: neutral (D10)
 void Unknown_42E8A0(KernelEventClass *event);			// 0x42E8A0: takes the next event (waits for one)  // NAME 1 [Unknown_42E8A0, event]: neutral (D10)
 bool Unknown_42EA80(KernelEventClass *event);			// 0x42EA80: the next event, kept  // NAME 1 [Unknown_42EA80, event]: neutral (D10)
-void Unknown_42EB20();									// 0x42EB20: the queue emptied, the pointer's count cleared (UITalkTreeClass 0x64DF80)  // NAME 1 [Unknown_42EB20]: neutral (D10)
+void Unknown_42EB20();									// 0x42EB20: the queue emptied, the pointer's count cleared (TalkTreeInterface 0x64DF80)  // NAME 1 [Unknown_42EB20]: neutral (D10)
 bool Unknown_42EB50(KernelEventClass *event);			// 0x42EB50: an event into the queue (slot +0x04, Add); no caller in the client  // NAME 1 [Unknown_42EB50, event]: neutral (D10)
 char Unknown_42EB80(KernelEventClass *event);			// 0x42EB80: a key event's character (ToAscii), 0 for none  // NAME 1 [Unknown_42EB80, event]: neutral (D10)
 float Unknown_42EC90();									// 0x42EC90: the pointer's x, 0..1  // NAME 1 [Unknown_42EC90]: neutral (D10)

@@ -298,9 +298,9 @@ void UIAvatarDialogClass::Unknown_552D90(int answer)
 
 
 // 0x552FC0
-void UIAvatarDialogClass::Unknown_552FC0(AvatarDescClass *desc)
+void UIAvatarDialogClass::Unknown_552FC0(AvatarDescriptionClass *desc)
 {
-	AvatarRObj = Create_NEW(new CharacterViewAvatarClass(desc, 1, 0, Unknown_Inline_Env_Maps((SClient *)((ClientClass *)Client)->As_Space_Client())));
+	AvatarRObj = Create_NEW(new AvatarClass(desc, 1, 0, Unknown_Inline_Env_Maps((SClient *)((ClientClass *)Client)->As_Space_Client())));
 	FAIL_IF(!AvatarRObj) return;
 
 

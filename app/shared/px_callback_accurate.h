@@ -50,12 +50,12 @@ struct PxAccurateActiveStruct  // NAME 2: Active's element (8 bytes; the FAIL_IF
 ** 0x40 bytes; vtables 0xAE7B10 (node: the deleting destructor 0x44E1A0, Process, the pure Test, Enter, Exit) and
 ** 0xAE7AF4 (callback, +0x0C: all pure).
 */
-class PxAccurateCallback : public PxProcessNode, public PxCallback  // NAME 2: px_callback_accurate.cpp's base class
+class PxCallbackAccurate : public PxProcessNode, public PxCallback  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	PxAccurateCallback(PxObject *object, PxCallbackFunction callback);		// 0x44E020  // NAME 2 [object, callback]: what it stores
-	PxAccurateCallback(PxObject *object, const PxAccurateCallback &src);	// 0x44E260 (only the function is copied)  // NAME 2 [object, src]: as the boxes'
-	virtual ~PxAccurateCallback();											// 0x44E390 (deleting 0x44E1A0)
+	PxCallbackAccurate(PxObject *object, PxCallbackFunction callback);		// 0x44E020  // NAME 2 [object, callback]: what it stores
+	PxCallbackAccurate(PxObject *object, const PxCallbackAccurate &src);	// 0x44E260 (only the function is copied)  // NAME 2 [object, src]: as the boxes'
+	virtual ~PxCallbackAccurate();											// 0x44E390 (deleting 0x44E1A0)
 
 	virtual void Process();								// 0x44F2F0 (node slot +0x04)
 	virtual bool Test(PxObject *object) = 0;			// node slot +0x08  // NAME 2: what Process asks
@@ -67,7 +67,7 @@ public:
 	void Loose_Enter(PxObject *object);					// 0x44E960 (no caller; any other box)  // NAME 1: what it does
 	void Tight_Exit(PxObject *object);					// 0x44EAE0 (no caller)  // NAME 1: what it does
 	void Loose_Exit(PxObject *object);					// 0x44EDB0 (no caller; FAIL_IF 'it == Overlaps.end()' l.133)  // NAME 1: what it does
-	void Activate(PxObject *object, bool inside);		// 0x44EF80 (into Active; the first one adds the node to the current PxProcessClass)  // NAME 1 [object, inside]: what it does
+	void Activate(PxObject *object, bool inside);		// 0x44EF80 (into Active; the first one adds the node to the current PxProcessList)  // NAME 1 [object, inside]: what it does
 	void Deactivate(PxObject *object, bool &inside);	// 0x44F200 (FAIL_IF l.170; the last one removes the node)  // NAME 1 [object, inside]: what it does
 
 	PxObject *Object;															// +0x10  // NAME 2: the constructor's argument
@@ -84,20 +84,20 @@ public:
 class PxAccurateBox : public PxBox  // NAME 2: what it is
 {
 public:
-	PxAccurateBox(PxObject *object, PxAccurateCallback *callback) : PxBox(object), Callback(callback) {}	// NAME 2 [object, callback]: what it stores
-	PxAccurateBox(PxObject *object, const PxBox &src, PxAccurateCallback *callback) : PxBox(object, src), Callback(callback) {}	// NAME 2 [src]: the copy's
+	PxAccurateBox(PxObject *object, PxCallbackAccurate *callback) : PxBox(object), Callback(callback) {}	// NAME 2 [object, callback]: what it stores
+	PxAccurateBox(PxObject *object, const PxBox &src, PxCallbackAccurate *callback) : PxBox(object, src), Callback(callback) {}	// NAME 2 [src]: the copy's
 
 	virtual void On_Enter(PxBox *box);					// 0x44F5D0
 	virtual void On_Exit(PxBox *box);					// 0x44F6E0
 
-	PxAccurateCallback *Callback;						// +0x20 (both accurate classes' boxes)  // NAME 2: its owner
+	PxCallbackAccurate *Callback;						// +0x20 (both accurate classes' boxes)  // NAME 2: its owner
 };
 
 /*
 ** The accurate box callback (0x50 bytes; vtables 0xAE7B70 (node), 0xAE7B54 (callback, +0x0C)): its own box (Test 1,
 ** Mask 1) is the extent around its object; Test asks whether an object's sphere touches that box.
 */
-class PxAccurateBoxCallback : public PxAccurateCallback  // NAME 2: the accurate callback with a box
+class PxAccurateBoxCallback : public PxCallbackAccurate  // NAME 2: the accurate callback with a box
 {
 public:
 	PxAccurateBoxCallback(PxObject *object, PxCallbackFunction callback, const Vector3 &extent);	// 0x44F3D0  // NAME 2 [object, callback, extent]: what it stores
@@ -120,7 +120,7 @@ public:
 ** makes it for Accurate without Polling. Its inner box (Test / Mask 3, as PxWrapper's tight box) is the radius / sqrt(3)
 ** cube, its outer box (Test / Mask 5, as the loose box) the radius cube; Test asks whether an object's sphere touches its sphere.
 */
-class PxAccurateSphereCallback : public PxAccurateCallback  // NAME 2: the accurate callback with a sphere
+class PxAccurateSphereCallback : public PxCallbackAccurate  // NAME 2: the accurate callback with a sphere
 {
 public:
 	PxAccurateSphereCallback(PxObject *object, PxCallbackFunction callback, float radius);		// 0x450030  // NAME 2 [object, callback, radius]: what it stores

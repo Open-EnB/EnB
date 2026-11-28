@@ -747,7 +747,7 @@ void SoundLibraryClass::Flush_Playlist()
 void SoundLibraryClass::Update()
 {
 	float volume = WWAudioClass::Get_Instance()->Get_Sound_Effects_Volume();
-	float target = OptionClass::Instance->Get_Float("Sound_SFX") * 0.01F;
+	float target = OptionManagerClass::Instance->Get_Float("Sound_SFX") * 0.01F;
 	if (volume != target) {
 		float new_volume = target;
 		if (target > volume) {
@@ -759,7 +759,7 @@ void SoundLibraryClass::Update()
 	}
 
 	volume = WWAudioClass::Get_Instance()->Get_Music_Volume();
-	target = OptionClass::Instance->Get_Float("Sound_Music") * 0.01F;
+	target = OptionManagerClass::Instance->Get_Float("Sound_Music") * 0.01F;
 	if (volume != target) {
 		float new_volume = target;
 		if (target > volume) {
@@ -771,7 +771,7 @@ void SoundLibraryClass::Update()
 	}
 
 	volume = WWAudioClass::Get_Instance()->Get_Dialog_Volume();
-	target = OptionClass::Instance->Get_Float("Sound_Dialog") * 0.01F;
+	target = OptionManagerClass::Instance->Get_Float("Sound_Dialog") * 0.01F;
 	if (volume != target) {
 		float new_volume = target;
 		if (target > volume) {
@@ -789,11 +789,11 @@ void SoundLibraryClass::Update()
 
 void SoundLibraryClass::Apply_Volumes()
 {
-	float volume = OptionClass::Instance->Get_Float("Sound_SFX") * 0.01F;
+	float volume = OptionManagerClass::Instance->Get_Float("Sound_SFX") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Sound_Effects_Volume(volume);
-	volume = OptionClass::Instance->Get_Float("Sound_Music") * 0.01F;
+	volume = OptionManagerClass::Instance->Get_Float("Sound_Music") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Music_Volume(volume);
-	volume = OptionClass::Instance->Get_Float("Sound_Dialog") * 0.01F;
+	volume = OptionManagerClass::Instance->Get_Float("Sound_Dialog") * 0.01F;
 	WWAudioClass::Get_Instance()->Set_Dialog_Volume(volume);
 }
 

@@ -3,26 +3,26 @@
 #include <stdio.h>
 
 
-Packet_003DClass::Packet_003DClass()
+ServerStopPacketClass::ServerStopPacketClass()
 {
 }
 
-Packet_003DClass::Packet_003DClass(RawPacketClass *)
+ServerStopPacketClass::ServerStopPacketClass(RawPacketClass *)
 {
 }
 
-RawPacketClass *Packet_003DClass::Build()
+RawPacketClass *ServerStopPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(61, Get_Data_Size());
 	return(raw);
 }
 
-int Packet_003DClass::Get_Data_Size()
+int ServerStopPacketClass::Get_Data_Size()
 {
 	return(0);
 }
 
-int Packet_003DClass::Print(char *buffer, int)
+int ServerStopPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "Server_Stop"));
 }

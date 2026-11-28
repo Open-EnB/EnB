@@ -21,11 +21,11 @@
 #include <string>
 #include <hash_map.h>
 
-class SymbolSubstitutionClass  // NAME 3: by convention (D24) from the client's file symbol_substitution.cpp
+class SymbolTableClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	SymbolSubstitutionClass();														// 0x4FCBD0
-	~SymbolSubstitutionClass();														// 0x4FCE00
+	SymbolTableClass();														// 0x4FCBD0
+	~SymbolTableClass();														// 0x4FCE00
 
 	void Add_Symbol(const std::string &name, const std::string &value);			// 0x4FD000  // NAME 2: describes what it does
 	const std::string &Get_Symbol(const std::string &name) const;					// 0x4FD190  // NAME 2: describes what it does
@@ -35,7 +35,7 @@ private:
 	std::hash_map<std::string, std::string> Symbols;								// +0x00, 0x18 bytes  // NAME 2: describes what it holds
 };
 
-bool Substitute_Symbols(std::string &str, const SymbolSubstitutionClass &symbols);	// 0x4FD3B0  // NAME 2: describes what it does
+bool Substitute_Symbols(std::string &str, const SymbolTableClass &symbols);	// 0x4FD3B0  // NAME 2: describes what it does
 void Escape_Symbols(std::string &str);													// 0x4FD7A0 (no caller)  // NAME 2: describes what it does
 
 #endif

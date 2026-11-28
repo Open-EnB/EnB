@@ -6,7 +6,7 @@
 #include "..\packets\pkloungenpc.h"
 
 // @0x006974F0
-StarbaseNPCClass::StarbaseNPCClass(int slot, int unknown04, int booth, int unknown1c, const AvatarDescClass &desc, const char *name) :
+StarbaseNPCClass::StarbaseNPCClass(int slot, int unknown04, int booth, int unknown1c, const AvatarDescriptionClass &desc, const char *name) :
 	Slot(slot),
 	Unknown04(unknown04),
 	Name(""),

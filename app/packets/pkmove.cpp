@@ -19,19 +19,19 @@ static char *MoveTypeNames[] = {	// 0xBB56F4 (Print's MoveType; the client's own
 	0
 };
 
-MovePacketClass::MovePacketClass(int game_id, char move_type) :
+MovementPacketClass::MovementPacketClass(int game_id, char move_type) :
 	GameID(game_id),
 	MoveType(move_type)
 {
 }
 
-MovePacketClass::MovePacketClass(RawPacketClass *raw)
+MovementPacketClass::MovementPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&MoveType, sizeof(MoveType));
 }
 
-RawPacketClass *MovePacketClass::Build()
+RawPacketClass *MovementPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(20, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -39,12 +39,12 @@ RawPacketClass *MovePacketClass::Build()
 	return(raw);
 }
 
-int MovePacketClass::Get_Data_Size()
+int MovementPacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(MoveType));
 }
 
-int MovePacketClass::Print(char *buffer, int)
+int MovementPacketClass::Print(char *buffer, int)
 {
 	char *type = MoveTypeNames[MoveType];
 	return(sprintf(buffer, "%s {GameID=%d MoveType=%s}", "Move", GameID, type));

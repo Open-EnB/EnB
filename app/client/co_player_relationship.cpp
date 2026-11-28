@@ -195,7 +195,7 @@ bool Unknown_70B790(SClient *client, ClientObjectClass *object, GutterColorSetSt
 
 
 // A field under root that is set (+0x70), else NULL: a wrapper over auxdata.h's lookup; the four dead size() reads spend the inline budget so rtti.h's cast stays out of line (0x598D80), as the client's (three are too few, six push the lookup out too)
-template<class C> inline C *Unknown_Relationship_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Relationship_Find_Set_Field(DeltaContainer *root, const AuxDataName &name)	// NAME 1: neutral (D10)
 {
 	root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); C *t = Unknown_Find_Field<C>(root, name);
 	return((t && t->Unknown70) ? t : NULL);
@@ -203,14 +203,14 @@ template<class C> inline C *Unknown_Relationship_Find_Set_Field(DeltaCompoundCla
 bool Unknown_70BAC0(SClient *client, ClientObjectClass *object)	// NAME 1 [Unknown_70BAC0]: the object is a player in the client's group (GroupInfo.Members' game ids)
 {
 	if (object->Type == 1) {
-		DeltaCompoundClass *aux_data = client->AuxData;
+		DeltaContainer *aux_data = client->AuxData;
 		FAIL_IF(!aux_data) return(false);
-		DeltaGroupInfoClass *group_data = (DeltaGroupInfoClass *)Unknown_Relationship_Find_Set_Field<DeltaCompoundClass>(aux_data, "GroupInfo");
+		DeltaGroupInfoClass *group_data = (DeltaGroupInfoClass *)Unknown_Relationship_Find_Set_Field<DeltaContainer>(aux_data, "GroupInfo");
 
 		FAIL_IF(!group_data) return(false);
 		int count = group_data->Members.Children.size();
 		for (int i = 0; i < count; i++) {
-			if (((DeltaGroupMemberClass *)group_data->Members.Children[i])->GameID.Value == object->GameID) return(true);
+			if (((DeltaGroupMember *)group_data->Members.Children[i])->GameID.Value == object->GameID) return(true);
 		}
 	}
 	return(false);
@@ -350,7 +350,7 @@ void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packe
 **	(0x70A010 / 0x70A2E0, the loader 0x70A7E0 sclient.cpp calls, the lookup 0x70ADF0); the dispatcher 0x70B0A0
 **	(radar_data.cpp's callers) over the checks Neutral 0x70B450 (NOT EXACT), Attacking 0x70B790, Group 0x70BC30
 **	(through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData
-**	+0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60),
+**	+0x12C0; rtti.h's DeltaContainer cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60),
 **	Player 0x70C2A0 and the reaction colours 0x70C5D0;
 **	the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out-of-line
 **	helpers (0x70CDF0-0x70DBC0); Neutral's type test 0x70B3D0 out of line (0x7C4940 calls it). Not counted: GutterColorSetStruct's operator= 0x70CAF0 (the client's window

@@ -15,13 +15,13 @@
 #include "aux_roots_types.h"
 
 // vtable 0xB037A4 (e.g. Player.Missions.N.Stages.N)
-// NAME 4: Net-7 AuxMissionStage confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# MissionStage
-class DeltaMissionStageClass : public DeltaCompoundClass
+// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxMissionStage confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# MissionStage
+class DeltaMissionStage : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_MISSION)
-	DeltaMissionStageClass(const char *name) :
-		DeltaCompoundClass(name),
+	DeltaMissionStage(const char *name) :
+		DeltaContainer(name),
 		Text("Text", ""),
 		IsTimed("IsTimed")
 	{
@@ -29,26 +29,26 @@ public:
 		Add(&IsTimed);
 	}
 #else
-	DeltaMissionStageClass(const char *name);
+	DeltaMissionStage(const char *name);
 #endif
 
-	DeltaStringClass Text;	// +0x9C
+	DeltaString Text;	// +0x9C
 	DeltaTemplateClass<bool> IsTimed;	// +0x124
 };
 
 // vtable 0xB03748 (e.g. Player.Missions.N)
-// NAME 4: Net-7 AuxMission confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 19 children = ours); C# Mission
-class DeltaMissionClass : public DeltaCompoundClass
+// NAME 5: thunk order, binary.md 5.11; before the rename NAME 4: Net-7 AuxMission confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 19 children = ours); C# Mission
+class DeltaMission : public DeltaContainer
 {
 public:
-	DeltaMissionClass(const char *name);	// 0x753DF0
+	DeltaMission(const char *name);	// 0x753DF0
 
 	DeltaTemplateClass<int> ID;	// +0x9C
-	DeltaStringClass Name;	// +0x124
-	DeltaStringClass Summary;	// +0x1AC
-	DeltaStringClass Reward;	// +0x234
-	DeltaStringClass FailureConsequence;	// +0x2BC
-	DeltaStringClass IssuingFaction;	// +0x344
+	DeltaString Name;	// +0x124
+	DeltaString Summary;	// +0x1AC
+	DeltaString Reward;	// +0x234
+	DeltaString FailureConsequence;	// +0x2BC
+	DeltaString IssuingFaction;	// +0x344
 	DeltaTemplateClass<bool> IsTimed;	// +0x3CC
 	DeltaTemplateClass<DurationClass> ExpirationTime;	// +0x458
 	DeltaTemplateClass<int> StartTime;	// +0x4E8
@@ -59,7 +59,7 @@ public:
 	DeltaTemplateClass<bool> IsFullyVisible;	// +0x790
 	DeltaTemplateClass<int> StageCount;	// +0x818
 	DeltaTemplateClass<int> Stage;	// +0x8A0
-	DeltaItemArrayClass<DeltaMissionStageClass> Stages;	// +0x928
+	DeltaItemArrayClass<DeltaMissionStage> Stages;	// +0x928
 	DeltaTemplateClass<DurationClass> StageExpirationTime;	// +0x9C8
 	DeltaTemplateClass<bool> HasGivenNewMissionMessage;	// +0xA58
 };

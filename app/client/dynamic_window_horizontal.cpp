@@ -4,7 +4,7 @@
 #include "..\shared\g_assert.h"
 #include <algorithm>
 
-DynamicWindowHorizontalClass::DynamicWindowHorizontalClass(unsigned int flags) :
+HorizontalDynamicWindow::HorizontalDynamicWindow(unsigned int flags) :
 	Elements(),
 	MinSize(0.0f, 0.0f),
 	ContentSize(0.0f, 0.0f),
@@ -22,7 +22,7 @@ DynamicWindowHorizontalClass::DynamicWindowHorizontalClass(unsigned int flags) :
 {
 }
 
-DynamicWindowHorizontalClass::~DynamicWindowHorizontalClass()
+HorizontalDynamicWindow::~HorizontalDynamicWindow()
 {
 	Remove_All_Children(false);
 	Elements.clear();
@@ -47,11 +47,11 @@ DynamicWindowHorizontalClass::~DynamicWindowHorizontalClass()
 
 
 
-void DynamicWindowHorizontalClass::Insert_Element(const RefCountPtr<DynamicWindowElementClass> &element, int index)
+void HorizontalDynamicWindow::Insert_Element(const RefCountPtr<DynamicWindowElement> &element, int index)
 {
 	FAIL_IF(!element) return;
 	if ((unsigned int)index < Elements.size()) {
-		RefCountPtr<DynamicWindowElementClass> &old_element = Elements[index];
+		RefCountPtr<DynamicWindowElement> &old_element = Elements[index];
 		if (old_element) {
 			old_element->Remove_From_Scene();
 			old_element->Clear_Parent();
@@ -69,18 +69,18 @@ void DynamicWindowHorizontalClass::Insert_Element(const RefCountPtr<DynamicWindo
 	Invalidate();
 }
 
-void DynamicWindowHorizontalClass::Add_Element(const RefCountPtr<DynamicWindowElementClass> &element)
+void HorizontalDynamicWindow::Add_Element(const RefCountPtr<DynamicWindowElement> &element)
 {
 	Insert_Element(element, Elements.size());
 }
 
-void DynamicWindowHorizontalClass::Set_Min_Size(const Vector2 &min_size)
+void HorizontalDynamicWindow::Set_Min_Size(const Vector2 &min_size)
 {
 	MinSize = min_size;
 	Invalidate();
 }
 static inline unsigned int Or_Flags(unsigned int &dst, unsigned int bits) { dst |= bits; return(dst); }	// NAME 2: what it does (D185 variant: the returned copy keeps the client's second register)
-void DynamicWindowHorizontalClass::Set_Flags(unsigned int flags)
+void HorizontalDynamicWindow::Set_Flags(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
 	unsigned int new_flags = Or_Flags(Flags, flags);
@@ -90,7 +90,7 @@ void DynamicWindowHorizontalClass::Set_Flags(unsigned int flags)
 }
 
 
-void DynamicWindowHorizontalClass::Clear_Flags(unsigned int flags)
+void HorizontalDynamicWindow::Clear_Flags(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
 	Flags &= ~flags;
@@ -99,7 +99,7 @@ void DynamicWindowHorizontalClass::Clear_Flags(unsigned int flags)
 	}
 }
 
-void DynamicWindowHorizontalClass::Set_Alignment(unsigned int flags)
+void HorizontalDynamicWindow::Set_Alignment(unsigned int flags)
 {
 	unsigned int old_flags = Flags;
 	Flags &= ~0xF0;
@@ -109,7 +109,7 @@ void DynamicWindowHorizontalClass::Set_Alignment(unsigned int flags)
 	}
 }
 
-void DynamicWindowHorizontalClass::Invalidate()
+void HorizontalDynamicWindow::Invalidate()
 {
 	Dirty = true;
 	ContentDirty = true;
@@ -118,12 +118,12 @@ void DynamicWindowHorizontalClass::Invalidate()
 	}
 }
 
-bool DynamicWindowHorizontalClass::Is_Dirty()
+bool HorizontalDynamicWindow::Is_Dirty()
 {
 	return Dirty;
 }
 
-Vector2 DynamicWindowHorizontalClass::Get_Min_Size()
+Vector2 HorizontalDynamicWindow::Get_Min_Size()
 {
 	if (ContentDirty) {
 		Update_Content_Size();
@@ -133,12 +133,12 @@ Vector2 DynamicWindowHorizontalClass::Get_Min_Size()
 	return Vector2(x, y);
 }
 
-bool DynamicWindowHorizontalClass::Has_Flags(unsigned int flags)
+bool HorizontalDynamicWindow::Has_Flags(unsigned int flags)
 {
 	return (Flags & flags) == flags;
 }
 
-void DynamicWindowHorizontalClass::Layout(const Vector2 &position, const Vector2 &size)
+void HorizontalDynamicWindow::Layout(const Vector2 &position, const Vector2 &size)
 {
 	LayoutPosition = position;
 	Size = size;
@@ -168,7 +168,7 @@ void DynamicWindowHorizontalClass::Layout(const Vector2 &position, const Vector2
 
 	float width = 0.0f;
 	float x = position.X;
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (!*it) {
 			x += width;
 			continue;
@@ -192,12 +192,12 @@ void DynamicWindowHorizontalClass::Layout(const Vector2 &position, const Vector2
 	}
 }
 
-Vector2 DynamicWindowHorizontalClass::Get_Size()
+Vector2 HorizontalDynamicWindow::Get_Size()
 {
 	return Size;
 }
 
-void DynamicWindowHorizontalClass::Get_Bounds(AABoxClass &box)
+void HorizontalDynamicWindow::Get_Bounds(AABoxClass &box)
 {
 	Vector2 position = Position + LayoutPosition;
 	box.Extent.X = Size.X * 0.5f;
@@ -224,7 +224,7 @@ void DynamicWindowHorizontalClass::Get_Bounds(AABoxClass &box)
 
 
 
-void DynamicWindowHorizontalClass::Set_Parent(DynamicWindowContainerClass *parent)
+void HorizontalDynamicWindow::Set_Parent(DynamicWindowContainerClass *parent)
 {
 	G_ASSERT(!Parent);
 	FAIL_IF(!parent) return;
@@ -234,21 +234,21 @@ void DynamicWindowHorizontalClass::Set_Parent(DynamicWindowContainerClass *paren
 
 
 
-void DynamicWindowHorizontalClass::Clear_Parent()
+void HorizontalDynamicWindow::Clear_Parent()
 {
 	FAIL_IF(!Parent) return;
 	Invalidate();
 	Parent = NULL;
 }
 
-DynamicWindowContainerClass *DynamicWindowHorizontalClass::Get_Container()
+DynamicWindowContainerClass *HorizontalDynamicWindow::Get_Container()
 {
 	return this;
 }
 
-void DynamicWindowHorizontalClass::Add_To_Scene(SceneClass *scene)
+void HorizontalDynamicWindow::Add_To_Scene(SceneClass *scene)
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (*it) {
 			(*it)->Remove_From_Scene();
 			(*it)->Add_To_Scene(scene);
@@ -256,51 +256,51 @@ void DynamicWindowHorizontalClass::Add_To_Scene(SceneClass *scene)
 	}
 }
 
-void DynamicWindowHorizontalClass::Remove_From_Scene()
+void HorizontalDynamicWindow::Remove_From_Scene()
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (*it) {
 			(*it)->Remove_From_Scene();
 		}
 	}
 }
 
-SceneClass *DynamicWindowHorizontalClass::Peek_Scene()
+SceneClass *HorizontalDynamicWindow::Peek_Scene()
 {
 	return Scene;
 }
 
-void DynamicWindowHorizontalClass::Set_Level(int level)
+void HorizontalDynamicWindow::Set_Level(int level)
 {
 	Level = level;
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (*it) {
 			(*it)->Set_Level(level);
 		}
 	}
 }
 
-int DynamicWindowHorizontalClass::Get_Level()
+int HorizontalDynamicWindow::Get_Level()
 {
 	return Level;
 }
 
-void DynamicWindowHorizontalClass::Set_Position(const Vector2 &position)
+void HorizontalDynamicWindow::Set_Position(const Vector2 &position)
 {
 	Position = position;
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (*it) {
 			(*it)->Set_Position(position);
 		}
 	}
 }
 
-void DynamicWindowHorizontalClass::Child_Changed(DynamicWindowElementClass &child)
+void HorizontalDynamicWindow::Child_Changed(DynamicWindowElement &child)
 {
 	FillXCount = 0;
 	FillYCount = 0;
 	Flags &= ~6;
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (*it) {
 			if ((*it)->Has_Flags(2)) {
 				FillXCount++;
@@ -319,9 +319,9 @@ void DynamicWindowHorizontalClass::Child_Changed(DynamicWindowElementClass &chil
 	Invalidate();
 }
 
-void DynamicWindowHorizontalClass::Remove_All_Children(bool recursive)
+void HorizontalDynamicWindow::Remove_All_Children(bool recursive)
 {
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (*it) {
 			if (recursive) {
 				DynamicWindowContainerClass *container = (*it)->Get_Container();
@@ -337,9 +337,9 @@ void DynamicWindowHorizontalClass::Remove_All_Children(bool recursive)
 	Invalidate();
 }
 
-bool DynamicWindowHorizontalClass::Remove_Child(const RefCountPtr<DynamicWindowElementClass> &child)
+bool HorizontalDynamicWindow::Remove_Child(const RefCountPtr<DynamicWindowElement> &child)
 {
-	std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = std::find(Elements.begin(), Elements.end(), child);
+	std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = std::find(Elements.begin(), Elements.end(), child);
 	if (it == Elements.end()) {
 		return false;
 	}
@@ -350,11 +350,11 @@ bool DynamicWindowHorizontalClass::Remove_Child(const RefCountPtr<DynamicWindowE
 	return true;
 }
 // 0x519460
-void DynamicWindowHorizontalClass::Update_Content_Size()
+void HorizontalDynamicWindow::Update_Content_Size()
 {
 	ContentSize.X = 0.0f;
 	ContentSize.Y = 0.0f;
-	for (std::vector< RefCountPtr<DynamicWindowElementClass> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
+	for (std::vector< RefCountPtr<DynamicWindowElement> >::iterator it = Elements.begin(); it != Elements.end(); ++it) {
 		if (!*it) {
 			float *width = &ContentSize.X;
 			*width = ContentSize.X;

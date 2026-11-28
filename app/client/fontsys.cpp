@@ -15,12 +15,12 @@
 #include "..\..\ww3d2\shader.h"
 #include "wwprofile.h"
 
-// 0x6D47C0 (exact with the Wait read cached in a local and FontStringStruct::operator='s per-loop counters)
+// 0x6D47C0 (exact with the Wait read cached in a local and StringInfo::operator='s per-loop counters)
 FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {
-	FontStringStruct *def = fontDatabase->Find_String(name);
+	StringInfo *def = fontDatabase->Find_String(name);
 	if (def != NULL) {
 		Info = *def;
 	}
@@ -37,7 +37,7 @@ FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	Unknown26C = (int)(wait * 1000.0f);
 }
 // 0x6D4C70 (exact once Info's Offset is a TPoint2D<float>: the by-value copy stores the point as the client, F1B)
-FontSys::FontSys(FontStringStruct def, RenderObjClass *object, const char *text) :
+FontSys::FontSys(StringInfo def, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {

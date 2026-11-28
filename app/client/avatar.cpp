@@ -46,7 +46,7 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x49
 void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
 // 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): the avatar's models
 // (body 0x77E9D0, head 0x77F000, weapon 0x77E0E0, accessory 0x77F960) load overbright (MODULATE2X), as FE_ROOM does
-static inline PlayerNLPClass *NLP_Of(CharacterViewAvatarClass *avatar) { return(avatar->PlayerNLP); } // NAME 1: neutral (D10)
+static inline PlayerNLPClass *NLP_Of(AvatarClass *avatar) { return(avatar->PlayerNLP); } // NAME 1: neutral (D10)
 void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *env_maps,
 	const Vector3 *skin);	// 0x80FCE0 (shiputils.cpp)
 
@@ -82,7 +82,7 @@ float Unknown_77B7D0(float t)	// NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 
 // 0x77B870
 // (every member in the init list, in declaration order: the client stores them all before the vtable)
-CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, bool a, bool b, EnvironmentMapManagerClass *env_maps)
+AvatarClass::AvatarClass(AvatarDescriptionClass *desc, bool a, bool b, EnvironmentMapManagerClass *env_maps)
 	: CompositeRenderObjClass(),
 	  Unknown0E4(0),
 	  PlayerNLP(NULL),
@@ -168,7 +168,7 @@ CharacterViewAvatarClass::CharacterViewAvatarClass(AvatarDescClass *desc, bool a
 }
 
 // 0x77C080
-CharacterViewAvatarClass::~CharacterViewAvatarClass()
+AvatarClass::~AvatarClass()
 {
 	Unknown_781C50();
 	if (PlayerNLP) {
@@ -224,13 +224,13 @@ CharacterViewAvatarClass::~CharacterViewAvatarClass()
 
 // 0x77C870
 // through the implicit copy constructor (0x77C8F0, out of line)
-RenderObjClass *CharacterViewAvatarClass::Clone() const
+RenderObjClass *AvatarClass::Clone() const
 {
-	return new CharacterViewAvatarClass(*this);
+	return new AvatarClass(*this);
 }
 
 // 0x77D1E0
-void CharacterViewAvatarClass::Set_Transform(const Matrix3D &m)
+void AvatarClass::Set_Transform(const Matrix3D &m)
 {
 	if (BodyObj) {
 		BodyObj->Set_Transform(m);
@@ -242,7 +242,7 @@ void CharacterViewAvatarClass::Set_Transform(const Matrix3D &m)
 }
 
 // 0x77D2B0
-void CharacterViewAvatarClass::Set_Position(const Vector3 &v)
+void AvatarClass::Set_Position(const Vector3 &v)
 {
 	if (BodyObj) {
 		BodyObj->Set_Position(v);
@@ -251,7 +251,7 @@ void CharacterViewAvatarClass::Set_Position(const Vector3 &v)
 }
 
 // 0x77D2F0 (the body's and the head's LOD, each clamped to its count)
-void CharacterViewAvatarClass::Set_LOD_Level(int lod)
+void AvatarClass::Set_LOD_Level(int lod)
 {
 	if (lod >= 0) {
 		if (BodyObj) {
@@ -264,7 +264,7 @@ void CharacterViewAvatarClass::Set_LOD_Level(int lod)
 }
 
 // 0x77D380 (the body's)
-int CharacterViewAvatarClass::Get_LOD_Level() const
+int AvatarClass::Get_LOD_Level() const
 {
 	if (BodyObj) {
 		return(BodyObj->Get_LOD_Level());
@@ -273,7 +273,7 @@ int CharacterViewAvatarClass::Get_LOD_Level() const
 }
 
 // 0x77D3B0 (the body's)
-int CharacterViewAvatarClass::Get_LOD_Count() const
+int AvatarClass::Get_LOD_Count() const
 {
 	if (BodyObj) {
 		return(BodyObj->Get_LOD_Count());
@@ -282,7 +282,7 @@ int CharacterViewAvatarClass::Get_LOD_Count() const
 }
 
 // 0x77D3E0 (the body's LODs, when the avatar is not hidden)
-void CharacterViewAvatarClass::Prepare_LOD(CameraClass &camera)
+void AvatarClass::Prepare_LOD(CameraClass &camera)
 {
 	if (Is_Not_Hidden_At_All() && BodyObj) {
 		BodyObj->Prepare_LOD(camera);
@@ -290,7 +290,7 @@ void CharacterViewAvatarClass::Prepare_LOD(CameraClass &camera)
 }
 
 // 0x77D420
-void CharacterViewAvatarClass::Render(RenderInfoClass &rinfo)
+void AvatarClass::Render(RenderInfoClass &rinfo)
 {
 	if (BodyObj) {
 		Set_Transform(Unknown330);
@@ -299,7 +299,7 @@ void CharacterViewAvatarClass::Render(RenderInfoClass &rinfo)
 }
 
 // 0x77D460 (the body is the one sub-object: CompositeRenderObjClass's bounds come from it)
-RenderObjClass *CharacterViewAvatarClass::Get_Sub_Object(int index) const
+RenderObjClass *AvatarClass::Get_Sub_Object(int index) const
 {
 	if (index != 0) {
 		return(NULL);
@@ -310,7 +310,7 @@ RenderObjClass *CharacterViewAvatarClass::Get_Sub_Object(int index) const
 
 // 0x77D4A0: the accessories' meshes taken out of the head prototype and every creation prototype released
 // (0x789FE0 inlined for each; the constructor, unless a player avatar is kept for the creation screens)
-void CharacterViewAvatarClass::Unknown_77D4A0()
+void AvatarClass::Unknown_77D4A0()
 {
 	if (HairSource) {
 		Unknown_789FE0("HAIR");
@@ -339,7 +339,7 @@ void CharacterViewAvatarClass::Unknown_77D4A0()
 
 // 0x77D7F0: the NLP made again from Desc, the models loaded again (0x77DA20) and, for a player avatar, the morph
 // weights normalised and shown at once (unreferenced; the constructor inlines it)
-void CharacterViewAvatarClass::Unknown_77D7F0()
+void AvatarClass::Unknown_77D7F0()
 {
 	Unknown_781680();
 	int delay = PlayerNLP->Personality->Get_Fidget_Delay() / 2;
@@ -355,7 +355,7 @@ void CharacterViewAvatarClass::Unknown_77D7F0()
 }
 
 // 0x77D9F0
-float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
+float AvatarClass::Unknown_77D9F0(bool a)
 {
 	if (a) {
 		const float &h = Unknown234;
@@ -550,7 +550,7 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 // 0x77DA20: the models from Desc: body, collision, head, the mask, the face animation and (player avatars) the
 // weapons and accessories, then the head object cloned again
 // (the mask's index a local: the client's idiv before the asset manager's load)
-void CharacterViewAvatarClass::Unknown_77DA20()
+void AvatarClass::Unknown_77DA20()
 {
 	Unknown_77E9D0(Desc.Body_Type, Desc.Pants_Type, false);
 	CollisionObj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("avcollision"));
@@ -609,7 +609,7 @@ void CharacterViewAvatarClass::Unknown_77DA20()
 // 0x77E0E0: the weapon model made into *slot and put on the body's bone; kind 0 '<gender><race><part><num>',
 // 1 'a<race><part><num>', 2 'a<part><num>'
 // (the slot a RefCountPtr: operator =(0), then Create_NEW 0x47D2E0 through its operator =)
-void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RefCountPtr<RenderObjClass> *slot)
+void AvatarClass::Unknown_77E0E0(int kind, const char *part, int num, const char *bone, RefCountPtr<RenderObjClass> *slot)
 {
 	if (*slot) {
 		BodyObj->Remove_Sub_Object(slot->Peek());
@@ -641,31 +641,31 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 }
 
 // 0x77E350: empty (unreferenced; ret 4)
-void CharacterViewAvatarClass::Unknown_77E350(int a)
+void AvatarClass::Unknown_77E350(int a)
 {
 }
 
 // 0x77E370
-void CharacterViewAvatarClass::Unknown_77E370(const char *name)
+void AvatarClass::Unknown_77E370(const char *name)
 {
 	Desc.Unknown_4C1460(name, true);
 }
 
 // 0x77E3A0
-void CharacterViewAvatarClass::Unknown_77E3A0(const char *name)
+void AvatarClass::Unknown_77E3A0(const char *name)
 {
 	Desc.Unknown_4C15F0(name, true);
 }
 
 // 0x77E3D0
-void CharacterViewAvatarClass::Unknown_77E3D0(int a)
+void AvatarClass::Unknown_77E3D0(int a)
 {
 	Unknown204 = a;
 }
 
 // 0x77E3F0: unless made (+0x221), the NLP and models made (0x77D7F0) and the creation prototypes released (0x77D4A0);
 // one more reference added (SClient's 0x74C7B0 and 0x749590 / 0x749A70)
-CharacterViewAvatarClass *CharacterViewAvatarClass::Unknown_77E3F0()
+AvatarClass *AvatarClass::Unknown_77E3F0()
 {
 	if (!Unknown221) {
 		Unknown_77D7F0();
@@ -677,7 +677,7 @@ CharacterViewAvatarClass *CharacterViewAvatarClass::Unknown_77E3F0()
 }
 
 // 0x77E610: 0x77E3F0 without the reference (SClient's 0x74C840)
-CharacterViewAvatarClass *CharacterViewAvatarClass::Unknown_77E610()
+AvatarClass *AvatarClass::Unknown_77E610()
 {
 	if (!Unknown221) {
 		Unknown_77D7F0();
@@ -716,7 +716,7 @@ CharacterViewAvatarClass *CharacterViewAvatarClass::Unknown_77E610()
 
 // 0x77E830: the body morph weights, normalised, into Desc.Body_Weight (+0x29C: step them, 0x781410)
 // (the G_ASSERT on the client's line 725)
-void CharacterViewAvatarClass::Unknown_77E830(const float *weights)
+void AvatarClass::Unknown_77E830(const float *weights)
 {
 	float sum = 0.0f;
 	Unknown29C = true;
@@ -739,7 +739,7 @@ void CharacterViewAvatarClass::Unknown_77E830(const float *weights)
 
 // 0x77E900: the head morph weights, normalised, into Desc.Head_Weight (+0x29D: step them, 0x781570)
 // (the G_ASSERT on the client's line 748)
-void CharacterViewAvatarClass::Unknown_77E900(const float *weights)
+void AvatarClass::Unknown_77E900(const float *weights)
 {
 	float sum = 0.0f;
 	Unknown29D = true;
@@ -766,7 +766,7 @@ void CharacterViewAvatarClass::Unknown_77E900(const float *weights)
 // again: the head, weapons and collision objects come off the old one and onto the new one; +0x234 is
 // K_HEAD's height above skel_reference; morph: the body weights shown at once (0x781410)
 // (the overbright switch on and off in each Avatar_Type branch; K_HEAD's transform copied: frame 0x50)
-void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
+void AvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 {
 	char body_name[32];
 	Desc.Body_Type = (char)body;
@@ -864,7 +864,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 // for an NPC); the accessories' meshes come off the old one and onto the new one (0x789D80), the hair
 // colour onto its hair and beard, then the head object is cloned again (0x77F750)
 // (the four removals through 0x789FE0, inlined; the head loaded in each Avatar_Type branch with overbright switched on and off around it, as 0x77E9D0)
-void CharacterViewAvatarClass::Unknown_77F000(int num)
+void AvatarClass::Unknown_77F000(int num)
 {
 	char name[64];
 	char head_name[32];
@@ -952,7 +952,7 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 // 0x77F750: the head object cloned again from the head prototype (with the accessories it now
 // holds) and put on the body's K_HEAD bone
 // (exact once HeadObj is a RefCountPtr)
-void CharacterViewAvatarClass::Unknown_77F750()
+void AvatarClass::Unknown_77F750()
 {
 	FAIL_IF(!HeadSource || !BodyObj) {
 		return;
@@ -984,7 +984,7 @@ void CharacterViewAvatarClass::Unknown_77F750()
 // 0x77F960: the accessory '<gender><race><part><num>' (AFTHAIR03) made into *slot; the meshes
 // '<part>0'..'<part>4' of the head prototype are removed first, the new ones added by 0x789D80
 // (the slot a RefCountPtr: Create_NEW, then its operator =; the prototype a RefCountPtr local)
-void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RefCountPtr<RenderObjClass> *slot)
+void AvatarClass::Unknown_77F960(const char *part, int num, RefCountPtr<RenderObjClass> *slot)
 {
 	FAIL_IF(!HeadSource) {
 		return;
@@ -1014,7 +1014,7 @@ void CharacterViewAvatarClass::Unknown_77F960(const char *part, int num, RefCoun
 
 // 0x77FC20: Hair_Num's hair ('HAIR'), Hair_Color onto it, then (rebuild) the head object cloned again
 // (exact once 0x77FFA0 / 0x77FEC0 hold RefCountPtrs)
-void CharacterViewAvatarClass::Unknown_77FC20(int num, bool rebuild)
+void AvatarClass::Unknown_77FC20(int num, bool rebuild)
 {
 	Desc.Hair_Num = (char)num;
 	Unknown_77F960("HAIR", num, &HairSource);
@@ -1025,7 +1025,7 @@ void CharacterViewAvatarClass::Unknown_77FC20(int num, bool rebuild)
 }
 
 // 0x77FC90: Ear_Num's ear pieces ('EAR'), then (rebuild) the head object cloned again
-void CharacterViewAvatarClass::Unknown_77FC90(int num, bool rebuild)
+void AvatarClass::Unknown_77FC90(int num, bool rebuild)
 {
 	Desc.Ear_Num = (char)num;
 	Unknown_77F960("EAR", num, &Unknown2CC);
@@ -1035,7 +1035,7 @@ void CharacterViewAvatarClass::Unknown_77FC90(int num, bool rebuild)
 }
 
 // 0x77FCE0: Goggle_Num's glasses ('GOGGLE'), then (rebuild) the head object cloned again
-void CharacterViewAvatarClass::Unknown_77FCE0(int num, bool rebuild)
+void AvatarClass::Unknown_77FCE0(int num, bool rebuild)
 {
 	Desc.Goggle_Num = (char)num;
 	Unknown_77F960("GOGGLE", num, &GoggleSource);
@@ -1046,7 +1046,7 @@ void CharacterViewAvatarClass::Unknown_77FCE0(int num, bool rebuild)
 
 // 0x77FD30: Beard_Num's beard ('BEARD'), Beard_Color onto it, then (rebuild) the head object cloned again
 // (exact once 0x7802F0 / 0x77FEC0 hold RefCountPtrs)
-void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
+void AvatarClass::Unknown_77FD30(int num, bool rebuild)
 {
 	Desc.Beard_Num = (char)num;
 	Unknown_77F960("BEARD", num, &BeardSource);
@@ -1057,7 +1057,7 @@ void CharacterViewAvatarClass::Unknown_77FD30(int num, bool rebuild)
 }
 
 // 0x77FDA0
-void CharacterViewAvatarClass::Unknown_77FDA0(int num)
+void AvatarClass::Unknown_77FDA0(int num)
 {
 	if (BodyObj && num) {
 		Desc.Weapon_Unique_Num = num;
@@ -1070,7 +1070,7 @@ void CharacterViewAvatarClass::Unknown_77FDA0(int num)
 }
 
 // 0x77FE20
-void CharacterViewAvatarClass::Unknown_77FE20(int num)
+void AvatarClass::Unknown_77FE20(int num)
 {
 	if (BodyObj && num) {
 		Desc.Weapon_Hip_Num = num;
@@ -1079,7 +1079,7 @@ void CharacterViewAvatarClass::Unknown_77FE20(int num)
 }
 
 // 0x77FE70
-void CharacterViewAvatarClass::Unknown_77FE70(int num)
+void AvatarClass::Unknown_77FE70(int num)
 {
 	if (BodyObj && num) {
 		Desc.Weapon_Back_Num = num;
@@ -1089,7 +1089,7 @@ void CharacterViewAvatarClass::Unknown_77FE70(int num)
 
 // 0x77FEC0: the colour onto the mesh's vertex material (ambient and diffuse)
 // (robj a RefCountPtr slot; the material info a RefCountPtr local, Create_Get 0x47D370)
-void CharacterViewAvatarClass::Unknown_77FEC0(RefCountPtr<RenderObjClass> *robj, const Vector3 &color, int index)
+void AvatarClass::Unknown_77FEC0(RefCountPtr<RenderObjClass> *robj, const Vector3 &color, int index)
 {
 	if (*robj) {
 		RefCountPtr<MaterialInfoClass> info = Create_Get((*robj)->Get_Material_Info());
@@ -1109,7 +1109,7 @@ void CharacterViewAvatarClass::Unknown_77FEC0(RefCountPtr<RenderObjClass> *robj,
 
 // 0x77FFA0: the hair colour onto the head prototype's HAIR0..4 and BEARD0..4 meshes; rebuild: 0x77F750
 // (each mesh a RefCountPtr local, Create_Get 0x474080; 0x77FEC0 and 0x7802F0 inline)
-void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild)
+void AvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild)
 {
 	char name[64];
 	int i;
@@ -1130,7 +1130,7 @@ void CharacterViewAvatarClass::Unknown_77FFA0(const Vector3 &color, bool rebuild
 
 // 0x7802F0: the beard colour onto the head prototype's BEARD0..4 meshes; rebuild: 0x77F750
 // (each mesh a RefCountPtr local, Create_Get 0x474080; 0x77FEC0 inline)
-void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild)
+void AvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild)
 {
 	char name[64];
 	Desc.Beard_Color = color;
@@ -1149,7 +1149,7 @@ void CharacterViewAvatarClass::Unknown_7802F0(const Vector3 &color, bool rebuild
 
 // 0x7804A0: the eye colour onto the head object's LEYE010..4 and REYE010..4 meshes (vertex material 1)
 // (each mesh a RefCountPtr local, Create_Get 0x474080; 0x77FEC0 inline)
-void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
+void AvatarClass::Unknown_7804A0(const Vector3 &color)
 {
 	Desc.Eye_Color = color;
 	if (HeadObj) {
@@ -1168,7 +1168,7 @@ void CharacterViewAvatarClass::Unknown_7804A0(const Vector3 &color)
 }
 
 // 0x780680: a colour by index: 0 Skin_Color, 1 / 2 the shirt's primary / secondary, 3 / 4 the pants'
-void CharacterViewAvatarClass::Unknown_780680(int index, Vector3 color)
+void AvatarClass::Unknown_780680(int index, Vector3 color)
 {
 	switch (index) {
 		case 0: Desc.Skin_Color = color; break;
@@ -1180,7 +1180,7 @@ void CharacterViewAvatarClass::Unknown_780680(int index, Vector3 color)
 }
 
 // 0x780790: a metal by index: 1 / 2 the shirt's primary / secondary, 3 / 4 the pants'
-void CharacterViewAvatarClass::Unknown_780790(int index, int metal)
+void AvatarClass::Unknown_780790(int index, int metal)
 {
 	switch (index) {
 		case 1: Desc.Shirt_Primary_Metal = metal; break;
@@ -1194,7 +1194,7 @@ void CharacterViewAvatarClass::Unknown_780790(int index, int metal)
 // a half's metal and its colour, white when the metal is an environment map (>= 0); then shiputils.cpp's 0x80FCE0 on
 // the body and the head with the skin colour
 // The region pair constructs its halves: copy ctor 0x780AC0 at Shirt, inline at Pants; vector insert uses assignment 0x62A5D0.
-void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)
+void AvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_maps)
 {
 	if (env_maps) {
 		std::vector<ColorizationRegionStruct> regions;
@@ -1308,7 +1308,7 @@ void CharacterViewAvatarClass::Unknown_780810(EnvironmentMapManagerClass *env_ma
 
 // 0x780AF0
 // (cache the name through the lookups; advance before obj is destroyed)
-void CharacterViewAvatarClass::Unknown_780AF0()
+void AvatarClass::Unknown_780AF0()
 {
 	FAIL_IF(!BodyObj || !BodySource) { return; }
 	Vector3 scale(0.0f, 0.0f, 0.0f); int i;
@@ -1362,7 +1362,7 @@ void CharacterViewAvatarClass::Unknown_780AF0()
 
 // 0x780F30
 // (exact once Get_Head_Morph returns by value and HeadObj is a RefCountPtr)
-void CharacterViewAvatarClass::Unknown_780F30()
+void AvatarClass::Unknown_780F30()
 {
 	FAIL_IF(HeadObj == 0 || HeadSource == 0) { return; }
 	Vector3 scale(0.0f, 0.0f, 0.0f);
@@ -1410,7 +1410,7 @@ void CharacterViewAvatarClass::Unknown_780F30()
 
 // 0x7812A0
 // (the FAIL_IF on the client's line 1415)
-void CharacterViewAvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh)
+void AvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass *dest_mesh)
 {
 	FAIL_IF(!source_mesh || !dest_mesh) {
 		return;
@@ -1437,7 +1437,7 @@ void CharacterViewAvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass 
 
 // 0x781410
 // (1 - keep computed once, before the loop; each product parenthesised: the client's x87 order)
-void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
+void AvatarClass::Unknown_781410(int now, int steps)
 {
 	if (BodyObj == NULL) {
 		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar body object");
@@ -1484,7 +1484,7 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 
 // 0x781570
 // (each product parenthesised: the client's x87 order)
-void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
+void AvatarClass::Unknown_781570(int now, int steps)
 {
 	if (HeadObj == NULL) {
 		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar head object");
@@ -1519,7 +1519,7 @@ void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 
 
 // 0x781680: a new NLP from Desc's personality and lexicon (FAIL_IF on the client's line 1524 when one is there)
-void CharacterViewAvatarClass::Unknown_781680()
+void AvatarClass::Unknown_781680()
 {
 	FAIL_IF(PlayerNLP != 0) {
 		return;
@@ -1529,7 +1529,7 @@ void CharacterViewAvatarClass::Unknown_781680()
 }
 
 // 0x781760
-void CharacterViewAvatarClass::Unknown_781760(const char *text)
+void AvatarClass::Unknown_781760(const char *text)
 {
 	if (PlayerNLP) {
 		Unknown0E8.Unknown_4C44A0();
@@ -1537,9 +1537,9 @@ void CharacterViewAvatarClass::Unknown_781760(const char *text)
 		Unknown0E8.Unknown_4C4410();
 	}
 }
-Unknown_ChatStreamClass *CharacterViewAvatarClass::Unknown_7817E0() { return(&Unknown0E8); }	// 0x7817E0: the chat stream +0xE8 (chatgadg.cpp's emotes; cpacket.cpp's CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)
+Unknown_ChatStreamClass *AvatarClass::Unknown_7817E0() { return(&Unknown0E8); }	// 0x7817E0: the chat stream +0xE8 (chatgadg.cpp's emotes; cpacket.cpp's CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)
 // 0x781800
-void CharacterViewAvatarClass::Unknown_781800(Unknown_ChatStreamClass *stream)
+void AvatarClass::Unknown_781800(Unknown_ChatStreamClass *stream)
 {
 	Unknown0E8.Unknown_4C44A0();
 	void *data = stream->Unknown04;
@@ -1547,7 +1547,7 @@ void CharacterViewAvatarClass::Unknown_781800(Unknown_ChatStreamClass *stream)
 }
 
 // 0x781840
-void CharacterViewAvatarClass::Unknown_781840(const void *data, int size)
+void AvatarClass::Unknown_781840(const void *data, int size)
 {
 	Unknown0E8.Unknown_4C44A0();
 	Unknown0E8.Unknown_4C44E0(data, size);
@@ -1555,13 +1555,13 @@ void CharacterViewAvatarClass::Unknown_781840(const void *data, int size)
 
 // 0x781880
 // (push_back: VC6 vector's insert inlined)
-void CharacterViewAvatarClass::Unknown_781880(char anim, const char *text, int mood)
+void AvatarClass::Unknown_781880(char anim, const char *text, int mood)
 {
 	Unknown2A0.push_back(new Unknown_AvatarQueueStruct(anim, text, mood));
 }
 
 // 0x781B20
-Unknown_AvatarQueueStruct *CharacterViewAvatarClass::Unknown_781B20()
+Unknown_AvatarQueueStruct *AvatarClass::Unknown_781B20()
 {
 	if (Unknown2A0.size() > 0) {
 		return Unknown2A0[0];
@@ -1570,7 +1570,7 @@ Unknown_AvatarQueueStruct *CharacterViewAvatarClass::Unknown_781B20()
 }
 
 // 0x781B50
-void CharacterViewAvatarClass::Unknown_781B50(Unknown_AvatarQueueStruct *entry)
+void AvatarClass::Unknown_781B50(Unknown_AvatarQueueStruct *entry)
 {
 	if (entry) {
 		unsigned int i;
@@ -1586,7 +1586,7 @@ void CharacterViewAvatarClass::Unknown_781B50(Unknown_AvatarQueueStruct *entry)
 
 // 0x781C50
 // (its callers inline it: the one more inline layer is what leaves their ??_G 0x781C10 and clear 0x78A510 out of line)
-void CharacterViewAvatarClass::Unknown_781C50()
+void AvatarClass::Unknown_781C50()
 {
 	unsigned int i;
 	for (i = 0; i < Unknown2A0.size(); i++) {
@@ -1597,7 +1597,7 @@ void CharacterViewAvatarClass::Unknown_781C50()
 
 // 0x781D10
 // one _snprintf per branch (tail-merged at the format)
-std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
+std::string AvatarClass::Unknown_781D10(int anim)
 {
 	char name[256];
 	if (Desc.Skeleton.size() != 0) {
@@ -1613,7 +1613,7 @@ std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
 
 // 0x781EA0
 // NOT EXACT: registers and two schedules (201/200 rows: the client compares Unknown210 in memory and loads PlayerNLP before the name; D5 2026-11-24: audited against the client's bytes)
-void CharacterViewAvatarClass::Unknown_781EA0()
+void AvatarClass::Unknown_781EA0()
 {
 	int delay = PlayerNLP->Personality->Get_Fidget_Delay();
 	Unknown220 = true;
@@ -1667,7 +1667,7 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 
 // 0x782200
 // the clears are 0x785480 (uncalled: inlined here); the dead size() after 0x781B50's site leaves its ??_G 0x781C10 out of line (D272)
-void CharacterViewAvatarClass::Unknown_782200()
+void AvatarClass::Unknown_782200()
 {
 	std::string name;
 	Unknown220 = false;
@@ -1726,7 +1726,7 @@ void CharacterViewAvatarClass::Unknown_782200()
 
 // 0x7826A0
 // (one _snprintf per branch; the back flag read as a bool of the unsigned shift)
-void CharacterViewAvatarClass::Unknown_7826A0()
+void AvatarClass::Unknown_7826A0()
 {
 	Unknown220 = false;
 	Unknown22C = 0.0f;
@@ -1760,7 +1760,7 @@ void CharacterViewAvatarClass::Unknown_7826A0()
 
 // 0x782850
 // NLP_Of: the client loads ecx before the argument
-void CharacterViewAvatarClass::Unknown_782850()
+void AvatarClass::Unknown_782850()
 {
 	char tag[16];
 	char name[32];
@@ -1786,7 +1786,7 @@ void CharacterViewAvatarClass::Unknown_782850()
 
 // 0x7829B0
 // (frames 0 when neither animation is set, the section loop a while)
-bool CharacterViewAvatarClass::Unknown_7829B0(const char *name)
+bool AvatarClass::Unknown_7829B0(const char *name)
 {
 	static char *moods[] = { "Mormal", "Angry", "Happy", "Puzzled", NULL };	// 0xB9CD4C
 	static char *brows[] = { "Open1", "Close1", "Open2", "Close2", "Wink", NULL };	// 0xB9CD60
@@ -1842,7 +1842,7 @@ bool CharacterViewAvatarClass::Unknown_7829B0(const char *name)
 
 // 0x782CA0
 // (each pass's start written as i * step: the client's induction variables start after the count test)
-void CharacterViewAvatarClass::Unknown_782CA0()
+void AvatarClass::Unknown_782CA0()
 {
 	int delay = PlayerNLP->Personality->Get_Blink_Delay();
 	int step = (delay < 1) ? 1 : delay;
@@ -1899,7 +1899,7 @@ void CharacterViewAvatarClass::Unknown_782CA0()
 
 // 0x782FF0
 // the frame count from the second animation if set, else the first (read as raw pointers: through RefCountPtr's inlines the loop's lea operands swap)
-void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
+void AvatarClass::Unknown_782FF0(const char *text)
 {
 	int delay = PlayerNLP->Personality->Get_Speech_Delay();
 	int base;
@@ -2127,7 +2127,7 @@ void CharacterViewAvatarClass::Unknown_782FF0(const char *text)
 
 // 0x7831C0
 // (the 0.5 a constant in .rdata, 0xB04494, shared with 0x783620; the not-rested test as a bool)
-void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
+void AvatarClass::Unknown_7831C0(const char *name)
 {
 	static const float blend = 0.5f;	// NAME 1: neutral (D10)
 	int i = 1;
@@ -2175,7 +2175,7 @@ void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 
 // 0x783470
 // the head sub-object playing the face animation (+0xBC, a RefCountPtr)
-void CharacterViewAvatarClass::Unknown_783470()
+void AvatarClass::Unknown_783470()
 {
 	char name[32];
 	if (Desc.Avatar_Type == 0) {
@@ -2195,7 +2195,7 @@ void CharacterViewAvatarClass::Unknown_783470()
 }
 
 // 0x7835D0
-bool CharacterViewAvatarClass::Unknown_7835D0()
+bool AvatarClass::Unknown_7835D0()
 {
 	if (Unknown0C0[1] != NULL) {
 		return false;
@@ -2269,7 +2269,7 @@ bool CharacterViewAvatarClass::Unknown_7835D0()
 
 // 0x783620
 // the blend weight is 0x77B7D0's ease written out in the call (the inlined call keeps it in a stack temp)
-void CharacterViewAvatarClass::Unknown_783620(float time)
+void AvatarClass::Unknown_783620(float time)
 {
 	for (int i = 0; i < 2; i++) {
 		if (Unknown0C0[i] && !Unknown0C8[i]) {
@@ -2378,7 +2378,7 @@ void CharacterViewAvatarClass::Unknown_783620(float time)
 
 // 0x783B50
 // (the two RefCountPtr objects go through Message_Error's ellipsis as they are, so the client loads BodyObj again for its push; the flag tests read Unknown2F8, no local: the count of the function's local symbols orders the X add of the three inlined Adjust_Translation)
-void CharacterViewAvatarClass::Unknown_1C4()
+void AvatarClass::Unknown_1C4()
 {
 	if (Unknown204 == 0) {
 		return;
@@ -2575,7 +2575,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 
 // 0x784700
 // (the queue emptied by 0x781C50, cases 4-7 by 0x784FF0 / 0x785040 / 0x784ED0 / 0x784F20 and the Value reads through an inline helper: the budget they spend leaves 0x781C50's ??_G 0x781C10 and clear 0x78A510 out of line, as the client calls them)
-void CharacterViewAvatarClass::Unknown_784700()
+void AvatarClass::Unknown_784700()
 {
 	const Unknown_ChatBlockStruct *block = (const Unknown_ChatBlockStruct *)Unknown0E8.Unknown_00();
 	if (block == NULL) {
@@ -2642,7 +2642,7 @@ void CharacterViewAvatarClass::Unknown_784700()
 
 // 0x784A50
 // (the asserts' lines written as the client's numbers)
-void CharacterViewAvatarClass::Unknown_784A50(const char *name, bool a, bool b)
+void AvatarClass::Unknown_784A50(const char *name, bool a, bool b)
 {
 	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
 		if (PlayerNLP == NULL) {
@@ -2665,7 +2665,7 @@ void CharacterViewAvatarClass::Unknown_784A50(const char *name, bool a, bool b)
 
 // 0x784B80
 // (the asserts' lines written as the client's numbers)
-void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
+void AvatarClass::Unknown_784B80(char *data, int size, bool flag)
 {
 	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
 		if (PlayerNLP == NULL) {
@@ -2722,7 +2722,7 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 
 // 0x784C90
 // (the asserts on the client's lines 2728 / 2729)
-void CharacterViewAvatarClass::Unknown_784C90(const char *name, bool a)
+void AvatarClass::Unknown_784C90(const char *name, bool a)
 {
 	if (PlayerNLP == NULL) {
 		G_Assert_Report("PlayerNLP", __FILE__, __LINE__);
@@ -2753,7 +2753,7 @@ void CharacterViewAvatarClass::Unknown_784C90(const char *name, bool a)
 }
 
 // 0x784E00
-void CharacterViewAvatarClass::Unknown_784E00()
+void AvatarClass::Unknown_784E00()
 {
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
@@ -2770,10 +2770,10 @@ void CharacterViewAvatarClass::Unknown_784E00()
 	}
 }
 
-bool CharacterViewAvatarClass::Unknown_784EA0(const char *name) { return(TutorialManagerClass::Instance->Was_Just_Finished(name)); }	// 0x784EA0 (on one line: avatar.cpp's later asserts keep their lines)
+bool AvatarClass::Unknown_784EA0(const char *name) { return(TutorialManagerClass::Instance->Was_Just_Finished(name)); }	// 0x784EA0 (on one line: avatar.cpp's later asserts keep their lines)
 
 // 0x784ED0
-void CharacterViewAvatarClass::Unknown_784ED0()
+void AvatarClass::Unknown_784ED0()
 {
 	if (Unknown20C == 2 && Unknown210 == 0) {
 		Unknown20C = 0;
@@ -2783,7 +2783,7 @@ void CharacterViewAvatarClass::Unknown_784ED0()
 }
 
 // 0x784F20
-void CharacterViewAvatarClass::Unknown_784F20()
+void AvatarClass::Unknown_784F20()
 {
 	if (Unknown20C != 2) {
 		Unknown208 = 0;
@@ -2793,7 +2793,7 @@ void CharacterViewAvatarClass::Unknown_784F20()
 }
 
 // 0x784F60
-void CharacterViewAvatarClass::Unknown_784F60(bool on)
+void AvatarClass::Unknown_784F60(bool on)
 {
 	if (Unknown2F4 != on) {
 		Unknown2F4 = on;
@@ -2805,7 +2805,7 @@ void CharacterViewAvatarClass::Unknown_784F60(bool on)
 }
 
 // 0x784FF0
-void CharacterViewAvatarClass::Unknown_784FF0()
+void AvatarClass::Unknown_784FF0()
 {
 	if (Unknown210 == 0) {
 		Unknown210 = 1;
@@ -2818,7 +2818,7 @@ void CharacterViewAvatarClass::Unknown_784FF0()
 }
 
 // 0x785040
-void CharacterViewAvatarClass::Unknown_785040()
+void AvatarClass::Unknown_785040()
 {
 	if (Unknown210 == 3) {
 		Unknown210 = 2;
@@ -2829,7 +2829,7 @@ void CharacterViewAvatarClass::Unknown_785040()
 
 // 0x785080: +0xE8 emptied, then one block by kind (0 type 6, 1 type 7, 2 type 4, 3 type 5, 4..7 type 3 with
 // value 0..3) and the end block (unreferenced)
-void CharacterViewAvatarClass::Unknown_785080(int kind)
+void AvatarClass::Unknown_785080(int kind)
 {
 	Unknown0E8.Unknown_4C44A0();
 	switch (kind) {
@@ -2863,7 +2863,7 @@ void CharacterViewAvatarClass::Unknown_785080(int kind)
 
 // 0x7851F0: the head's look-at angles +0x250 / +0x258 toward target: the direction from K_Head, less the body's X
 // axis, against its Y and Z axes, in degrees (unreferenced)
-void CharacterViewAvatarClass::Unknown_7851F0(Vector3 target)
+void AvatarClass::Unknown_7851F0(Vector3 target)
 {
 	Matrix3D tm = BodyObj->Get_Transform();
 	int bone = BodyObj->Get_Bone_Index("K_Head");
@@ -2879,14 +2879,14 @@ void CharacterViewAvatarClass::Unknown_7851F0(Vector3 target)
 }
 
 // 0x785450
-void CharacterViewAvatarClass::Unknown_785450(float yaw, float pitch)
+void AvatarClass::Unknown_785450(float yaw, float pitch)
 {
 	Unknown250 = yaw;
 	Unknown258 = pitch;
 }
 
 // 0x785480
-void CharacterViewAvatarClass::Unknown_785480()
+void AvatarClass::Unknown_785480()
 {
 	Unknown250 = 0.0f;
 	Unknown258 = 0.0f;
@@ -2895,7 +2895,7 @@ void CharacterViewAvatarClass::Unknown_785480()
 }
 
 // 0x7854B0
-void CharacterViewAvatarClass::Unknown_7854B0(float time)
+void AvatarClass::Unknown_7854B0(float time)
 {
 	if (!Unknown230) {
 		return;
@@ -2998,7 +2998,7 @@ void CharacterViewAvatarClass::Unknown_7854B0(float time)
 // 0x7857D0: Head_Texture_Num's face texture '<gender><race>FACETEX<num>.tga' onto the head
 // object's head0..4 meshes (stage 0)
 // (the texture and each mesh RefCountPtr locals: Create_Get 0x47D010 / 0x474080)
-void CharacterViewAvatarClass::Unknown_7857D0(int num)
+void AvatarClass::Unknown_7857D0(int num)
 {
 	FAIL_IF(!HeadObj) {
 		return;
@@ -3025,7 +3025,7 @@ void CharacterViewAvatarClass::Unknown_7857D0(int num)
 // 0x7859F0: Tattoo_Texture_Num's 'ATATTOO<num>.tga' (clamped) onto the head object's HEAD0..4
 // meshes (stage 1)
 // (the texture and each mesh RefCountPtr locals: Create_Get 0x47D010 / 0x474080)
-void CharacterViewAvatarClass::Unknown_7859F0(int num)
+void AvatarClass::Unknown_7859F0(int num)
 {
 	FAIL_IF(!HeadObj) {
 		return;
@@ -3057,7 +3057,7 @@ void CharacterViewAvatarClass::Unknown_7859F0(int num)
 // 0x785C00: Tattoo_Offset onto the head object's HEAD0..4 meshes: a linear offset mapper on stage 1
 // of vertex material 0 (X, Y the tattoo's place, Z its scale, clamped to 0.5 .. 16)
 // (the differences as a Vector2, then each start component divided: the client's x87 order)
-void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
+void AvatarClass::Unknown_785C00(const Vector3 &offset)
 {
 	FAIL_IF(!HeadObj) {
 		return;
@@ -3096,7 +3096,7 @@ void CharacterViewAvatarClass::Unknown_785C00(const Vector3 &offset)
 }
 
 // 0x785F20
-void CharacterViewAvatarClass::Unknown_785F20(bool on)
+void AvatarClass::Unknown_785F20(bool on)
 {
 	if (Unknown2C4) {
 		BodyObj->Remove_Sub_Object(Unknown2C4.Peek());
@@ -3113,13 +3113,13 @@ void CharacterViewAvatarClass::Unknown_785F20(bool on)
 }
 
 // 0x7860A0: empty (unreferenced)
-void CharacterViewAvatarClass::Unknown_7860A0()
+void AvatarClass::Unknown_7860A0()
 {
 }
 
 // 0x7860C0
 // (bool: mov al, 1 / xor al, al)
-bool CharacterViewAvatarClass::Unknown_7860C0()
+bool AvatarClass::Unknown_7860C0()
 {
 	if (Desc.Avatar_Type != 0) {
 		TutorialLineStruct *line = TutorialManagerClass::Instance->Next_Line();
@@ -3143,14 +3143,14 @@ bool CharacterViewAvatarClass::Unknown_7860C0()
 
 // 0x7861B0
 // (SpeechSound a RefCountPtr: Create_Get, then its operator=)
-void CharacterViewAvatarClass::Unknown_7861B0(const char *speech)
+void AvatarClass::Unknown_7861B0(const char *speech)
 {
 	Unknown_7862D0();
 	SpeechSound = Create_Get(SoundLibraryClass::Play_2D_Sound(speech, 1));
 }
 
 // 0x7862D0
-void CharacterViewAvatarClass::Unknown_7862D0()
+void AvatarClass::Unknown_7862D0()
 {
 	if (SpeechSound) {
 		SpeechSound->Stop(1);
@@ -3159,7 +3159,7 @@ void CharacterViewAvatarClass::Unknown_7862D0()
 }
 
 // 0x786320
-void CharacterViewAvatarClass::Unknown_786320()
+void AvatarClass::Unknown_786320()
 {
 	if (Unknown2F4) {
 		Unknown_4428E0(Unknown23C, Unknown330);
@@ -3169,7 +3169,7 @@ void CharacterViewAvatarClass::Unknown_786320()
 }
 
 // 0x786370
-void CharacterViewAvatarClass::Unknown_786370(bool on)
+void AvatarClass::Unknown_786370(bool on)
 {
 	if (BodyObj) {
 		BodyObj->Set_Hidden(on);
@@ -3180,7 +3180,7 @@ void CharacterViewAvatarClass::Unknown_786370(bool on)
 }
 
 // 0x7863E0
-bool CharacterViewAvatarClass::Unknown_7863E0()
+bool AvatarClass::Unknown_7863E0()
 {
 	if (BodyObj) {
 		if (BodyObj->Is_Hidden()) {
@@ -3237,7 +3237,7 @@ bool CharacterViewAvatarClass::Unknown_7863E0()
 // 0x786410: *camera_m from the avatar's transform turned a quarter about X and Y, then moved to K_HEAD (its offset
 // from skel_reference, 0.1 above or below) and 2.5 (close up) or 3.0 along its Z (FAIL_IF on the client's line 3242)
 
-void CharacterViewAvatarClass::Unknown_786410(Matrix3D *camera_m, bool close_up)
+void AvatarClass::Unknown_786410(Matrix3D *camera_m, bool close_up)
 {
 	FAIL_IF(!camera_m) return;
 	*camera_m = Get_Transform();
@@ -3261,7 +3261,7 @@ void CharacterViewAvatarClass::Unknown_786410(Matrix3D *camera_m, bool close_up)
 }
 
 // 0x786B60
-void CharacterViewAvatarClass::Unknown_786B60(bool keep)
+void AvatarClass::Unknown_786B60(bool keep)
 {
 	if (!keep) {
 		Unknown_Inline_786C70();
@@ -3270,7 +3270,7 @@ void CharacterViewAvatarClass::Unknown_786B60(bool keep)
 }
 
 // 0x786BF0
-void CharacterViewAvatarClass::Unknown_786BF0(bool keep)
+void AvatarClass::Unknown_786BF0(bool keep)
 {
 	if (!keep) {
 		Unknown_Inline_786C70();
@@ -3279,7 +3279,7 @@ void CharacterViewAvatarClass::Unknown_786BF0(bool keep)
 }
 
 // 0x786C70
-void CharacterViewAvatarClass::Unknown_786C70()
+void AvatarClass::Unknown_786C70()
 {
 	Unknown_784F20();
 
@@ -3290,47 +3290,47 @@ void CharacterViewAvatarClass::Unknown_786C70()
 }
 
 // 0x786CC0
-void CharacterViewAvatarClass::Unknown_786CC0(float rate)
+void AvatarClass::Unknown_786CC0(float rate)
 {
 	Unknown2F8 = (Unknown2F8 & 0xFFF3) | 8;
 	Unknown2FC = rate;
 }
 
 // 0x786CF0
-void CharacterViewAvatarClass::Unknown_786CF0(float rate)
+void AvatarClass::Unknown_786CF0(float rate)
 {
 	Unknown2F8 = (Unknown2F8 & 0xFFF3) | 4;
 	Unknown2FC = rate;
 }
 
 // 0x786D20
-void CharacterViewAvatarClass::Unknown_786D20()
+void AvatarClass::Unknown_786D20()
 {
 	Unknown2F8 &= 0xFFF3;
 }
 
 // 0x786D40
-void CharacterViewAvatarClass::Unknown_786D40(float rate)
+void AvatarClass::Unknown_786D40(float rate)
 {
 	Unknown2F8 = (Unknown2F8 & 0xFFCF) | 0x10;
 	Unknown300 = rate;
 }
 
 // 0x786D70
-void CharacterViewAvatarClass::Unknown_786D70(float rate)
+void AvatarClass::Unknown_786D70(float rate)
 {
 	Unknown2F8 = (Unknown2F8 & 0xFFCF) | 0x20;
 	Unknown300 = rate;
 }
 
 // 0x786DA0
-void CharacterViewAvatarClass::Unknown_786DA0()
+void AvatarClass::Unknown_786DA0()
 {
 	Unknown2F8 &= 0xFFCF;
 }
 
 // 0x786DC0
-void CharacterViewAvatarClass::Unknown_786DC0(float rate)
+void AvatarClass::Unknown_786DC0(float rate)
 {
 	if (Unknown2F5) {
 		Unknown2F8 = (Unknown2F8 & 0xFF3F) | 0x40;
@@ -3339,7 +3339,7 @@ void CharacterViewAvatarClass::Unknown_786DC0(float rate)
 }
 
 // 0x786E00
-void CharacterViewAvatarClass::Unknown_786E00(float rate)
+void AvatarClass::Unknown_786E00(float rate)
 {
 	if (Unknown2F5) {
 		Unknown2F8 = (Unknown2F8 & 0xFF3F) | 0x80;
@@ -3348,13 +3348,13 @@ void CharacterViewAvatarClass::Unknown_786E00(float rate)
 }
 
 // 0x786E40
-void CharacterViewAvatarClass::Unknown_786E40()
+void AvatarClass::Unknown_786E40()
 {
 	Unknown2F8 &= 0xFF3F;
 }
 
 // 0x786E60
-void CharacterViewAvatarClass::Unknown_786E60()
+void AvatarClass::Unknown_786E60()
 {
 	Unknown2F8 = 0;
 	Unknown308 = 0.0f;
@@ -3367,7 +3367,7 @@ void CharacterViewAvatarClass::Unknown_786E60()
 
 // 0x786EB0: the transform +0x330 set, then skel_reference's raised to K_HEAD's height + 0.2, moved half a unit along
 // its X and pitched by +0x30C (0x787A90 calls it)
-Matrix3D CharacterViewAvatarClass::Unknown_786EB0()
+Matrix3D AvatarClass::Unknown_786EB0()
 {
 	Set_Transform(Unknown330);
 	Matrix3D head = BodyObj->Get_Bone_Transform("K_HEAD");
@@ -3382,7 +3382,7 @@ Matrix3D CharacterViewAvatarClass::Unknown_786EB0()
 // 0x787130: the transform +0x330 set, then skel_reference's raised by +0x234 + 2, turned by +0x310 about Z, moved
 // 11 back and pitched by +0x30C + 0.3 (unreferenced)
 // (height a local: VC6 moves a literal summand after m[2][3], as the client's second 1.0f)
-Matrix3D CharacterViewAvatarClass::Unknown_787130()
+Matrix3D AvatarClass::Unknown_787130()
 {
 	Set_Transform(Unknown330);
 	Matrix3D m = BodyObj->Get_Bone_Transform("skel_reference");
@@ -3397,7 +3397,7 @@ Matrix3D CharacterViewAvatarClass::Unknown_787130()
 // 0x787450: the transform +0x330 set, then a camera 3.5 behind skel_reference (away from other), 3.5 aside, 8.5 up, looking at
 // the point 7 above the middle between it and other's (the UI's 0x63D2F0)
 
-Matrix3D CharacterViewAvatarClass::Unknown_787450(RenderObjClass *other) {
+Matrix3D AvatarClass::Unknown_787450(RenderObjClass *other) {
 	Set_Transform(Unknown330);
 	Matrix3D a = BodyObj->Get_Bone_Transform("skel_reference");
 	Matrix3D b = other->Get_Bone_Transform("skel_reference");
@@ -3421,7 +3421,7 @@ Matrix3D CharacterViewAvatarClass::Unknown_787450(RenderObjClass *other) {
 
 // 0x787A90: the camera matrix, behind the avatar (0x787130, inlined) while +0x2F5 is set, else at its head (0x786EB0);
 // the UI's 0x63BDB0 / 0x63C080 call it
-Matrix3D CharacterViewAvatarClass::Unknown_787A90()
+Matrix3D AvatarClass::Unknown_787A90()
 {
 	if (Unknown2F5) {
 		return(Unknown_787130());
@@ -3430,7 +3430,7 @@ Matrix3D CharacterViewAvatarClass::Unknown_787A90()
 }
 
 // 0x787DE0
-Matrix3D CharacterViewAvatarClass::Unknown_787DE0()
+Matrix3D AvatarClass::Unknown_787DE0()
 {
 	Matrix3D m = Unknown330;
 	m.Adjust_Translation(-Unknown360);
@@ -3439,7 +3439,7 @@ Matrix3D CharacterViewAvatarClass::Unknown_787DE0()
 
 // 0x787F40: the frame's step +0x360 taken back off +0x330, swept as the collision object's box (0.1 up) against obj;
 // on a hit the step slides along the wall's normal flattened to XY; the step is put back on +0x330 (the UI's 0x63BC30)
-bool CharacterViewAvatarClass::Unknown_787F40(RenderObjClass *obj)
+bool AvatarClass::Unknown_787F40(RenderObjClass *obj)
 {
 	if (obj) {
 		if (Unknown360.Length() != 0.0f) {
@@ -3477,7 +3477,7 @@ bool CharacterViewAvatarClass::Unknown_787F40(RenderObjClass *obj)
 
 // 0x7885D0
 // (list clear(): the second clear() inlines the whole erase; the first one, budget spent, calls its iterator ++ 0x78A7F0 and erase 0x78A730)
-void CharacterViewAvatarClass::Unknown_7885D0(bool second)
+void AvatarClass::Unknown_7885D0(bool second)
 {
 	std::list<Matrix3D *>::iterator it;
 	if (second) {
@@ -3494,14 +3494,14 @@ void CharacterViewAvatarClass::Unknown_7885D0(bool second)
 }
 
 // 0x788700
-void CharacterViewAvatarClass::Unknown_788700(const Matrix3D &goal)
+void AvatarClass::Unknown_788700(const Matrix3D &goal)
 {
 	Unknown_7885D0(false);
 	Unknown_788730(goal, true);
 }
 
 // 0x788730
-void CharacterViewAvatarClass::Unknown_788730(const Matrix3D &goal, bool trim)
+void AvatarClass::Unknown_788730(const Matrix3D &goal, bool trim)
 {
 	Unknown318.push_back(new Matrix3D(goal));
 	if (trim) {
@@ -3512,7 +3512,7 @@ void CharacterViewAvatarClass::Unknown_788730(const Matrix3D &goal, bool trim)
 }
 
 // 0x788890
-void CharacterViewAvatarClass::Unknown_788890()
+void AvatarClass::Unknown_788890()
 {
 	if (Unknown318.size() != 0) {
 		delete Unknown318.front();
@@ -3522,7 +3522,7 @@ void CharacterViewAvatarClass::Unknown_788890()
 
 // 0x788900
 
-void CharacterViewAvatarClass::Unknown_788900()
+void AvatarClass::Unknown_788900()
 {
 	while (Unknown318.size() != 0) {
 		Vector3 pos = Unknown330.Get_Translation();
@@ -3632,7 +3632,7 @@ void CharacterViewAvatarClass::Unknown_788900()
 // 0x788EF0
 // the teleport effect dropped at once (charview 0x67B390)
 // (exact once +0x370 / +0x374 are RefCountPtrs)
-void CharacterViewAvatarClass::Unknown_788EF0()
+void AvatarClass::Unknown_788EF0()
 {
 	if (Unknown370) {
 		Unknown370->Set_Animation();
@@ -3651,7 +3651,7 @@ void CharacterViewAvatarClass::Unknown_788EF0()
 // the teleport effect 'av_tele0N' and its animation into +0x370 / +0x374, put in the body's scene on the avatar,
 // hidden until 0x7896B0 plays it; +0x37C the time it runs, +0x378 the time left at which 0x7897D0 shows / hides the body
 // NOT EXACT: inline-budget + Matrix3D copy scheduling (0x788FF3 / 0x789009 operator=(NULL) and case 4 RefCountPtr calls inlined here, out of line in client; [esi+0x338] vs [esi+0x330])
-void CharacterViewAvatarClass::Unknown_788F90(int mode)
+void AvatarClass::Unknown_788F90(int mode)
 {
 	if (BodyObj == NULL || Unknown380 == mode) {
 		return;
@@ -3719,7 +3719,7 @@ void CharacterViewAvatarClass::Unknown_788F90(int mode)
 // 0x7896B0
 // the teleport effect 'mode' (0x788F90) shown and its animation played once (charview 0x67B390: 4, ui_avsel 0x55D9C0: 1)
 // (its tail is 0x788EF0 inlined)
-void CharacterViewAvatarClass::Unknown_7896B0(int a)
+void AvatarClass::Unknown_7896B0(int a)
 {
 	Unknown_788F90(a);
 	if (Unknown370) {
@@ -3748,7 +3748,7 @@ void CharacterViewAvatarClass::Unknown_7896B0(int a)
 
 // 0x7897D0
 // (the teardown written in both branches)
-void CharacterViewAvatarClass::Unknown_7897D0()
+void AvatarClass::Unknown_7897D0()
 {
 	if (Unknown380 == 0) {
 		return;
@@ -3890,13 +3890,13 @@ void CharacterViewAvatarClass::Unknown_7897D0()
 
 // 0x7899F0: the personality's body animation by tag played as the gesture, from frame with flags (0x789C10 inlined;
 // the UI's 0x53CD60 calls it; FAIL_IFs on the client's lines 3895 / 3898 / 3901: '!anim' tests the tag, not the result)
-void CharacterViewAvatarClass::Unknown_7899F0(const char *anim, float frame, int flags)
+void AvatarClass::Unknown_7899F0(const char *anim, float frame, int flags)
 {
 	FAIL_IF(!Get_NLP()) return;
-	Unknown_78F700Class *personality = Get_NLP()->Personality;
+	PersonalityClass *personality = Get_NLP()->Personality;
 
 	FAIL_IF(!personality) return;
-	Unknown_78F700Class::BAnimStruct *body_anim = personality->Find_BAnim(anim);
+	PersonalityClass::BAnimStruct *body_anim = personality->Find_BAnim(anim);
 
 	FAIL_IF(!anim) return;
 	std::string name = Unknown_781D10(body_anim->AnimNumber);
@@ -3912,7 +3912,7 @@ void CharacterViewAvatarClass::Unknown_7899F0(const char *anim, float frame, int
 
 // 0x789C10: the gesture's frame to stop at (below 0: its frame now, flags | 1)
 // (one store of flags after the if: the client's write-back of flags | 1 into the parameter)
-void CharacterViewAvatarClass::Unknown_789C10(float frame, int flags)
+void AvatarClass::Unknown_789C10(float frame, int flags)
 {
 	int i;
 	if (Unknown0C0[1]) i = 1;
@@ -3930,7 +3930,7 @@ void CharacterViewAvatarClass::Unknown_789C10(float frame, int flags)
 }
 
 // 0x789CD0
-void CharacterViewAvatarClass::Unknown_789CD0(int a)
+void AvatarClass::Unknown_789CD0(int a)
 {
 	Unknown0C0[a] = NULL;
 	Unknown0C8[a] = false;
@@ -3940,7 +3940,7 @@ void CharacterViewAvatarClass::Unknown_789CD0(int a)
 }
 
 // 0x789D40
-bool CharacterViewAvatarClass::Unknown_789D40()
+bool AvatarClass::Unknown_789D40()
 {
 	if (Unknown0C0[1]) {
 		return Unknown0DC[1] != -1;
@@ -3951,7 +3951,7 @@ bool CharacterViewAvatarClass::Unknown_789D40()
 // 0x789D80: the accessory's meshes '<part>0'..'<part>4' copied into the head prototype as LOD models,
 // each into the LOD that holds it in the accessory
 // (the sub-object and its clone RefCountPtr locals, Create_Get 0x474080)
-void CharacterViewAvatarClass::Unknown_789D80(RefCountPtr<RenderObjClass> *slot, const char *part)
+void AvatarClass::Unknown_789D80(RefCountPtr<RenderObjClass> *slot, const char *part)
 {
 	if (HeadSource == NULL || *slot == NULL || part == NULL) {
 		return;
@@ -3981,7 +3981,7 @@ void CharacterViewAvatarClass::Unknown_789D80(RefCountPtr<RenderObjClass> *slot,
 }
 
 // 0x789FE0
-void CharacterViewAvatarClass::Unknown_789FE0(const char *part)
+void AvatarClass::Unknown_789FE0(const char *part)
 {
 	if (HeadSource && part) {
 		char name[64];
@@ -3997,7 +3997,7 @@ void CharacterViewAvatarClass::Unknown_789FE0(const char *part)
 }
 
 // 0x78A080
-void CharacterViewAvatarClass::Unknown_78A080()
+void AvatarClass::Unknown_78A080()
 {
 	if (Unknown318.size() != 0) {
 		Unknown_7885D0(true);
@@ -4017,7 +4017,7 @@ void CharacterViewAvatarClass::Unknown_78A080()
 }
 
 // 0x78A200
-void CharacterViewAvatarClass::Unknown_78A200()
+void AvatarClass::Unknown_78A200()
 {
 	if (Unknown324.size() != 0) {
 		Unknown_7885D0(false);

@@ -38,12 +38,12 @@ struct ExprLexerMatchNodeStruct	// NAME 3 [ExprLexerMatchNodeStruct]
 };
 
 // 8 bytes, vtable 0xAEBBD0.
-class ExprLexerMatchListClass : public ExprLexerMatchClass	// NAME 3 [ExprLexerMatchListClass]: class-from-file (D24)
+class ExprLexerMatchList : public ExprLexerMatch  // NAME 5: thunk order, binary.md 5.11; NAME 3 [ExprLexerMatchList]: class-from-file (D24)
 {
 public:
-	ExprLexerMatchListClass();									// 0x4C5930
-	ExprLexerMatchListClass(const char *tokens);				// 0x4C5C20: 'tokens' from Add's assert
-	virtual ~ExprLexerMatchListClass();							// 0x4C5EC0
+	ExprLexerMatchList();									// 0x4C5930
+	ExprLexerMatchList(const char *tokens);				// 0x4C5C20: 'tokens' from Add's assert
+	virtual ~ExprLexerMatchList();							// 0x4C5EC0
 	virtual int Match(const char *text);						// 0x4C6530
 
 	void Add(const char *tokens);								// 0x4C6160  // NAME 3 [Add]: the tokens, separated by spaces

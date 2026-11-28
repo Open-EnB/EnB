@@ -7,7 +7,7 @@
 **	The projector support of the render-state tracks (RsTrackClass): a projector caster that casts
 **	its track's current model as a shadow, and a projector receiver the projectors land on, which
 **	pushes their material passes around the track's render. Both are declared in rs_proj_sup.h
-**	(PROVISIONAL name, D137); their bases are proj_man.h's ProjectorCasterClass / ProjectorReceiverClass.
+**	(PROVISIONAL name, D137); their bases are proj_man.h's ProjectionSourceClass / ProjectionTargetClass.
 */
 #include "rs_track.h"
 #include "rinfo.h"
@@ -16,7 +16,7 @@
 
 // @0x45D9E0
 Unknown45D9E0Class::Unknown45D9E0Class(RsTrackClass *owner, ProjectionDefClass *def, ProjectorManagerClass *manager) :
-	ProjectorCasterClass((owner->Unknown8C & 0x80) != 0, def, manager),
+	ProjectionSourceClass((owner->Unknown8C & 0x80) != 0, def, manager),
 	Owner(owner)
 {
 	Create_Projection();
@@ -42,7 +42,7 @@ uint32 Unknown45D9E0Class::Get_Type_ID(void)
 
 // @0x45DC80
 Unknown45DC80Class::Unknown45DC80Class(RsTrackClass *owner, CullableClass *cull, int a) :
-	ProjectorReceiverClass(cull, a),
+	ProjectionTargetClass(cull, a),
 	Owner(owner)
 {
 }
@@ -95,7 +95,7 @@ void *Unknown45DC80Class::Get_Projection_Object_ID(void)
 **
 **	client.exe 0x45D9E0-0x45E0B6, appfile.py match 11 of 11 exact, with the compiler's copies after it:
 **	the deleting destructors 0x45DAB0 / 0x45DD90, the caster's implicit destructor 0x45DAE0 (the same
-**	bytes as ProjectorCasterClass's 0x45E200), RefMultiListClass<TexProjectClass>'s 0x45DDC0 / 0x45E0D0,
+**	bytes as ProjectionSourceClass's 0x45E200), RefMultiListClass<TexProjectClass>'s 0x45DDC0 / 0x45E0D0,
 **	the bases' destructors 0x45E200 / 0x45E300 (deleting 0x45E2D0 / 0x45E3A0) and the MultiListObjectClass
 **	adjustor thunks 0x45E190 / 0x45E1A0 / 0x45E3D0 / 0x45E3E0.
 **	The bases' inline constructors live in proj_man.h; the receiver's asserts there at line 207 (the client's

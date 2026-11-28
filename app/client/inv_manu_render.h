@@ -20,11 +20,11 @@
 class FontSys;
 class InvDataClass;
 
-class InvManuRenderClass : public SlotDataRenderClass	// NAME 3: class-from-file (D24) for app\Client\inv_manu_render.cpp
+class InventoryManuRenderClass : public SlotDataRenderClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	InvManuRenderClass();													// 0x68B370
-	virtual ~InvManuRenderClass();											// +0x04 0x68B540 (deleting 0x68B510)
+	InventoryManuRenderClass();													// 0x68B370
+	virtual ~InventoryManuRenderClass();											// +0x04 0x68B540 (deleting 0x68B510)
 	virtual void *Unknown_1C() { return(this); }							// +0x1C 0x68B4F0
 	virtual const char *Unknown_28(std::string *string);					// +0x28 0x68B980
 	virtual void Unknown_2C(bool force);									// +0x2C 0x68B5E0

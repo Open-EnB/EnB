@@ -230,14 +230,14 @@ bool UnknownB02C6CClass::Execute(SClient *client)
 	Time = RandomClass()(8000, 10000) + client->Unknown10BC;
 	int move = (rand() % 12) - 1;
 	if (move == -1) {
-		client->Send_Packet(&MovePacketClass(client->Get_Avatar_ID(), 1));
+		client->Send_Packet(&MovementPacketClass(client->Get_Avatar_ID(), 1));
 		client->Unknown_745E40(-1, false);
 	} else if (move == 0) {
 		return(true);
 	} else if (move == 1) {
 		return(true);
 	} else {
-		client->Send_Packet(&MovePacketClass(client->Get_Avatar_ID(), 0));
+		client->Send_Packet(&MovementPacketClass(client->Get_Avatar_ID(), 0));
 		client->Unknown_745E40(1, false);
 	}
 	return(true);
@@ -269,7 +269,7 @@ bool UnknownB02C58Class::Execute(SClient *client)
 	Time = RandomClass()(5000, 10000) + client->Unknown10BC;
 	if ((rand() % 5) == 0) {
 		int slot = rand() % 3;
-		client->Send_Packet(&InventoryMovePacketClass(client->Get_Avatar_ID(), (InventoryEnum)1, slot, (InventoryEnum)2, -1, -1));
+		client->Send_Packet(&InvPacketClass(client->Get_Avatar_ID(), (InventoryEnum)1, slot, (InventoryEnum)2, -1, -1));
 	}
 	return(true);
 }
@@ -313,7 +313,7 @@ bool UnknownB02C68Class::Execute(SClient *client)
 	if (to == from) {
 		to = (to + 1) % 3;
 	}
-	client->Send_Packet(&InventoryMovePacketClass(client->Get_Avatar_ID(), (InventoryEnum)1, from + bank, (InventoryEnum)1, to + bank, -1));
+	client->Send_Packet(&InvPacketClass(client->Get_Avatar_ID(), (InventoryEnum)1, from + bank, (InventoryEnum)1, to + bank, -1));
 	return(true);
 }
 

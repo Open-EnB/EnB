@@ -95,7 +95,7 @@ GutterRadarClass::~GutterRadarClass()
 
 
 // @0x7B6E40
-void GutterRadarClass::Set_Targets(ClientObjectClass *first, ClientObjectClass *second, MouseTargetClass *mouse_target)
+void GutterRadarClass::Set_Targets(ClientObjectClass *first, ClientObjectClass *second, MouseTargeting *mouse_target)
 {
 	FAIL_IF(!Client) return;
 	FAIL_IF(!Client->MainView) return;
@@ -230,9 +230,9 @@ bool GutterRadarClass::Project(const Vector3 &pos, float radius)
 // NOT EXACT: tail merge (the client keeps the first return(1.0f)'s own epilogue; ours jumps to the last one)
 float GutterRadarClass::Get_Icon_Scale(const Vector3 &pos, float radius)
 {
-	float min_distance = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Distance");
-	float max_distance = OptionClass::Instance->Get_Float("Gutter_Icon_Max_Distance");
-	float min_scale = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Scale");
+	float min_distance = OptionManagerClass::Instance->Get_Float("Gutter_Icon_Min_Distance");
+	float max_distance = OptionManagerClass::Instance->Get_Float("Gutter_Icon_Max_Distance");
+	float min_scale = OptionManagerClass::Instance->Get_Float("Gutter_Icon_Min_Scale");
 	if ((min_scale >= 0.0f) && (min_distance > 0.0f) && (max_distance > 0.0f) && (max_distance > min_distance)) {
 		CameraClass *camera = (CameraClass *)Client->MainView->Unknown_7C();
 		if (camera) {

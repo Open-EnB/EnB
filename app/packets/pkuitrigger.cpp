@@ -3,17 +3,17 @@
 #include <stdio.h>
 
 
-UiTriggerPacketClass::UiTriggerPacketClass(int id, int action) : ID(id), Action(action)
+UITriggerPacketClass::UITriggerPacketClass(int id, int action) : ID(id), Action(action)
 {
 }
 
-UiTriggerPacketClass::UiTriggerPacketClass(RawPacketClass *raw)
+UITriggerPacketClass::UITriggerPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&ID, sizeof(ID));
 	raw->Get(&Action, sizeof(Action));
 }
 
-RawPacketClass *UiTriggerPacketClass::Build()
+RawPacketClass *UITriggerPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(101, Get_Data_Size());
 	raw->Add(&ID, sizeof(ID));
@@ -21,12 +21,12 @@ RawPacketClass *UiTriggerPacketClass::Build()
 	return(raw);
 }
 
-int UiTriggerPacketClass::Get_Data_Size()
+int UITriggerPacketClass::Get_Data_Size()
 {
 	return(sizeof(ID) + sizeof(Action));
 }
 
-int UiTriggerPacketClass::Print(char *buffer, int)
+int UITriggerPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {ID=%d Action=%d }", "UITrigger", ID, Action));
 }

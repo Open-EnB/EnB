@@ -105,8 +105,8 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
-template<class C> inline C *UIShipCust_Find_Valid(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
-template<class C> inline C *UIShipCust_Find_Changed(DeltaCompoundClass *root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
+template<class C> inline C *UIShipCust_Find_Valid(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
+template<class C> inline C *UIShipCust_Find_Changed(DeltaContainer *root, const char *name) { AuxDataName n(name); C *t = Unknown_Find_Field<C>(root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_avatar_cust.cpp's
 // 0xBB9654 is WW3D::ThumbnailEnabled (ww3d.cpp, initial true): WW3D::Set_Thumbnail_Enabled (the constructor clears it, the destructor sets it)
 
 // The pages' font styles and string files (0xB894A0)
@@ -122,7 +122,7 @@ typedef SignalBaseClass::MemberCallback<GadgetClass, StarbaseShipCustomizeInterf
 // @0x6181B0
 StarbaseShipCustomizeInterface::StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass &layer) :	// a reference: retail's ...@PAVUIViewClass@@AAVLayerClass@@@Z (thunk order, IM3 / N1)
 	Unknown5BB320Class(new UIMeshClass("BUY_SHIP01", 1), view, layer),
-	SBaseView((SBaseViewClass *)view->Unknown_30()),
+	SBaseView((StarbaseViewClass *)view->Unknown_30()),
 	Unknown234(false),
 	Unknown235(false),
 	Unknown236(false),
@@ -196,7 +196,7 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	d->Reset_Parts();
 	d->Set_Profession(SBaseView->Client->Unknown_74C960(SBaseView->Client->Get_Avatar_ID())[5]);
 	Unknown318 = (d->Selected_Decal == 0x7FFFFFF) ? 0 : d->Selected_Decal + 1;
-	Unknown2E0 = new ShipPipClass(0);
+	Unknown2E0 = new ShipPIPClass(0);
 	Unknown2E0->Unknown_80C220((ViewClass *)SBaseView);
 	Unknown2E0->Unknown_74(0);
 	Unknown2E0->Set_Last_Sort_Group(1);
@@ -861,7 +861,7 @@ void StarbaseShipCustomizeInterface::Unknown_61B170()
 		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		Vector3 *color = (Page == 1) ? &Desc.Parts[Unknown30C].Settings[Unknown310].Color : &Desc.Ship_Name_Color;
-		RObjGadgetClass *robj = (RObjGadgetClass *)Unknown300->Gadget->As_RObjGadget(); Unknown_496C00(robj->RObj, u, 1.0f - v, color);
+		RenderObjGadgetClass *robj = (RenderObjGadgetClass *)Unknown300->Gadget->As_RObjGadget(); Unknown_496C00(robj->RObj, u, 1.0f - v, color);
 		Unknown_61B510(Vector2(u, v));
 		if (Page == 1) {
 			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());
@@ -1241,9 +1241,9 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			Unknown_61ADA0(0x11, "METAL00", NULL, 0, 0);
 			Unknown_61ADA0(0x12, "METAL01", NULL, 0, 0);
 			Unknown_61ADA0(0x13, "METAL02", NULL, 0, 0);
-			Unknown2D4 = ((RObjGadgetClass *)Gadgets[0x11].Gadget)->Peek_Render_Obj();
-			Unknown2D8 = ((RObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
-			Unknown2DC = ((RObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
+			Unknown2D4 = ((RenderObjGadgetClass *)Gadgets[0x11].Gadget)->Peek_Render_Obj();
+			Unknown2D8 = ((RenderObjGadgetClass *)Gadgets[0x12].Gadget)->Peek_Render_Obj();
+			Unknown2DC = ((RenderObjGadgetClass *)Gadgets[0x13].Gadget)->Peek_Render_Obj();
 			Unknown_61ADA0(0x14, "PRIMARY", "primary_buy_ship02", 0, 3);
 			Unknown_61ADA0(0x15, "SECONDARY", "secondary_buy_ship02", 0, 3);
 			Unknown_61ADA0(0x16, "HULL", "hull_buy_ship02", 0, 1);
@@ -2043,7 +2043,7 @@ void StarbaseShipCustomizeInterface::Unknown_61E8B0() {
 // @0x61E8E0
 void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 {
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<MoneyClass> *money;
 	if (any) {
 		money = UIShipCust_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, "Money");
@@ -2137,7 +2137,7 @@ void StarbaseShipCustomizeInterface::Unknown_61F1D0()
 {
 	SClient *client = Client->As_Space_Client();
 	int id = client->Unknown1138;
-	client->Send_Packet(&StarbaseRequestPacketClass(id, 11, 0));
+	client->Send_Packet(&StarbaseReqPacketClass(id, 11, 0));
 }
 
 // NOT EXACT: functional (D64)

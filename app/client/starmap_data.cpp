@@ -221,10 +221,10 @@ Vector3 StarmapDataClass::Get_Position()
 	return(Get_Icon_RObj()->Get_Position());
 }
 
-class StarmapMeshClass : public DynamicMeshClass  // NAME 1: neutral (0xF4 bytes; vtable 0xB069B8)
+class StarmapRenderObject : public DynamicMeshClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StarmapMeshClass(int max_polys, int max_verts) : DynamicMeshClass(max_polys, max_verts) {}
+	StarmapRenderObject(int max_polys, int max_verts) : DynamicMeshClass(max_polys, max_verts) {}
 	virtual bool Cast_Ray(RayCollisionTestClass &raytest) { return(false); }	// +0xD0 0x7BF450 (not hit by the mouse)
 };
 
@@ -279,7 +279,7 @@ void StarmapDataClass::Create_Mesh()
 	r2t.Orthographic = true;
 	r2t.Format = WW3D_FORMAT_R5G6B5;
 	Texture = Create_Get(r2t.Render_TextureMap(robj, &sphere));
-	Mesh = Create_NEW((DynamicMeshClass *)new StarmapMeshClass(Unknown_B9F38C, Unknown_B9F390));
+	Mesh = Create_NEW((DynamicMeshClass *)new StarmapRenderObject(Unknown_B9F38C, Unknown_B9F390));
 	Mesh->Disable_Sort();
 	Mesh->Set_Sort_Level(4);
 	MeshSize = -1.0f;

@@ -101,7 +101,7 @@ void UIOptionChannelClass::Unknown_54()
 			Checks[i] = Add_Check_Button(i + 5, name, NULL);
 			if (!Unknown_B82CAC[i]) {
 				Checks[i]->Unknown_40(false);
-				((RObjGadgetClass *)Checks[i])->Unknown_8C(true);
+				((RenderObjGadgetClass *)Checks[i])->Unknown_8C(true);
 			}
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
@@ -184,7 +184,7 @@ void UIOptionChannelClass::Unknown_5C92D0(bool on)
 // 0x5C9340
 void UIOptionChannelClass::Unknown_5C9340()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	for (int i = 0; i < 21; i++) {
 		if (Unknown_B82CAC[i]) {
 			BoolOptionStruct *option = options->Find_Bool(Unknown_B82CAC[i]);	// NAME 1: neutral (D10)
@@ -198,7 +198,7 @@ void UIOptionChannelClass::Unknown_5C9340()
 // 0x5C93B0
 void UIOptionChannelClass::Unknown_5C93B0()
 {
-	OptionClass *options = OptionClass::Instance;	// NAME 1: neutral (D10)
+	OptionManagerClass *options = OptionManagerClass::Instance;	// NAME 1: neutral (D10)
 	for (int i = 0; i < 21; i++) {
 		if (Unknown_B82CAC[i]) {
 			bool on = Checks[i]->Checked;	// NAME 1: neutral (D10)

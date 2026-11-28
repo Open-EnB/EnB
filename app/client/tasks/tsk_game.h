@@ -26,7 +26,7 @@
 class ConnectionClass;
 class SClient;
 
-class ClientTaskClass : public TaskClass		// NAME 3: the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24)
+class ClientTaskClass : public KernelTaskClass		// NAME 3: the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24)
 {
 public:
 	enum {

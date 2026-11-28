@@ -23,7 +23,7 @@
 #include "ref_ptr.h"
 #include "name.h"
 
-class DeltaCompoundClass;
+class DeltaContainer;
 class PolicyClass;
 class PolicyRuleSetClass;
 class PolicyStateClass;
@@ -68,7 +68,7 @@ public:
 class PolicyRuleClass  // NAME 2: describes what it does
 {
 public:
-	PolicyRuleClass(const NameClass &pattern, int action, unsigned int value, bool *enabled, PolicyRuleSetClass *rule_set) :
+	PolicyRuleClass(const AuxDataName &pattern, int action, unsigned int value, bool *enabled, PolicyRuleSetClass *rule_set) :
 		Pattern(pattern),
 		Action(action),
 		Value(value),
@@ -77,7 +77,7 @@ public:
 	{
 	}
 
-	NameClass Pattern;					// +0x00  // NAME 2: describes what it does
+	AuxDataName Pattern;					// +0x00  // NAME 2: describes what it does
 	int Action;								// +0x34 (DESCEND: the rule belongs to its node)  // NAME 3: after the assert's parameter action (policy.cpp)
 	unsigned int Value;					// +0x38 the value Get_Action hands back  // NAME 2: describes what it does
 	bool *Enabled;							// +0x3C the rule applies while its set is enabled  // NAME 2: describes what it does
@@ -100,7 +100,7 @@ public:
 	PolicyRuleSetClass() : Enabled(true) {}
 	virtual ~PolicyRuleSetClass();																	// 0x4AE400
 	virtual RefCountPtr<PolicyConditionClass> Get_Condition(int a, int b) = 0;		// +0x04  // NAME 2: describes what it does
-	void Add_Rule(const NameClass &pattern, int action, int value);						// 0x4AE490 (lines 32, 45)  // NAME 2: describes what it does
+	void Add_Rule(const AuxDataName &pattern, int action, int value);						// 0x4AE490 (lines 32, 45)  // NAME 2: describes what it does
 
 	bool Enabled;									// +0x04  // NAME 2: describes what it does
 	std::vector<PolicyRuleClass *> Rules;	// +0x08  // NAME 2: describes what it does
@@ -110,11 +110,11 @@ public:
 class CompiledPolicyClass  // NAME 2: after the asserts' Compiled
 {
 public:
-	CompiledPolicyClass(PolicyClass *policy, DeltaCompoundClass *c, CompiledPolicyClass *next);	// 0x4AE760 (line 110)
+	CompiledPolicyClass(PolicyClass *policy, DeltaContainer *c, CompiledPolicyClass *next);	// 0x4AE760 (line 110)
 	~CompiledPolicyClass();											// 0x4AE850
 	// the compile (members that use nothing of the object): per field id the rule of one set
-	PolicyRuleClass **Compile_Rules(const std::vector<PolicyRuleClass *> &rules, DeltaCompoundClass *c);	// 0x4AE8D0  // NAME 2: describes what it does
-	PolicyRuleClass *Find_Rule(const std::vector<PolicyRuleClass *> &rules, const NameClass &name);	// 0x4AEA00 (inlined in Compile_Rules)  // NAME 2: describes what it does
+	PolicyRuleClass **Compile_Rules(const std::vector<PolicyRuleClass *> &rules, DeltaContainer *c);	// 0x4AE8D0  // NAME 2: describes what it does
+	PolicyRuleClass *Find_Rule(const std::vector<PolicyRuleClass *> &rules, const AuxDataName &name);	// 0x4AEA00 (inlined in Compile_Rules)  // NAME 2: describes what it does
 	PolicyRuleClass *Merge_Rules(PolicyRuleClass *current, PolicyRuleClass *mod);	// 0x4AEA50 (line 256)  // NAME 2: describes what it does
 	void Insert(PolicyRuleClass **rules);							// 0x4AEC70 (each field's rule into its list, in order)  // NAME 2: describes what it does
 	int Get_Action(int id, int *value) const;					// 0x4AED50 (the first rule that applies; 1 if none)  // NAME 2: describes what it does
@@ -148,7 +148,7 @@ public:
 	~PolicyClass();														// 0x4AEDD0
 	void Add(PolicyRuleSetClass *rule_set);							// 0x4AEF40 (line 378)  // NAME 2: describes what it does
 	PolicyStateClass *Make_State(int a, int b);					// 0x4AF190  // NAME 2: describes what it does
-	void Bind(PolicyStateClass *state, DeltaCompoundClass *root);	// 0x4AF3A0 (the sets' state, the root's compiled rules)  // NAME 2: describes what it does
+	void Bind(PolicyStateClass *state, DeltaContainer *root);	// 0x4AF3A0 (the sets' state, the root's compiled rules)  // NAME 2: describes what it does
 	int Get_Action(int id, int *value) const;					// 0x4AF490  // NAME 2: describes what it does
 
 	std::vector<PolicyRuleSetClass *> Sets;		// +0x00  // NAME 2: describes what it does

@@ -111,7 +111,7 @@ bool DragSlotDataClass::Update(float x, float y)
 
 
 			FAIL_IF(!scene) return(moved);
-			InterfaceSortClass sort(scene, true);
+			LocalInterfaceSort sort(scene, true);
 			SlotRender->Unknown_6A8B60(scene);
 		}
 		Vector3 position(x * 640.0f - 320.0f, y * -480.0f, -1.0f); position.Y += 240.0f;

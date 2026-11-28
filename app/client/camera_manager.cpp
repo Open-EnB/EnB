@@ -17,7 +17,7 @@
 #include "scene.h"
 #include "emote_data.h"
 // the main view's scene (mainview.cpp's 0x75ECF0, its +0x10C), as far as 0x7998B0 calls it
-class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10): mainview.cpp's
+class ENBSceneClass : public SimpleSceneClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	void Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship);	// 0x75FB00 (sweeps the box through the scene; camctrl 0x796920 calls it too)  // NAME 1 [to, from, move, result, ignore, ship]: what 0x7998B0 passes
@@ -61,17 +61,17 @@ CameraManagerClass::CameraManagerClass(SClient *client) :
 {
 	Module = new ChaseCameraModuleClass(Client);
 	CameraControllerClass *controller;
-	controller = new CameraController00Class(Client); Controllers.push_back(controller);
+	controller = new NullCameraControllerClass(Client); Controllers.push_back(controller);
 	controller = new CameraController01Class(Client); Controllers.push_back(controller);
 	controller = new CameraController02Class(Client); Controllers.push_back(controller);
-	controller = new CameraController03Class(Client); Controllers.push_back(controller);
+	controller = new StargateCameraControllerClass(Client); Controllers.push_back(controller);
 	controller = new CameraController04Class(Client); Controllers.push_back(controller);
-	controller = new CameraController05Class(Client); Controllers.push_back(controller);
-	controller = new CameraController06Class(Client); Controllers.push_back(controller);
-	controller = new CameraController07Class(Client); Controllers.push_back(controller);
+	controller = new LandCameraControllerClass(Client); Controllers.push_back(controller);
+	controller = new DockCameraControllerClass(Client); Controllers.push_back(controller);
+	controller = new PLandCameraControllerClass(Client); Controllers.push_back(controller);
 	controller = new CameraController08Class(Client); Controllers.push_back(controller);
-	controller = new CameraController09Class(Client); Controllers.push_back(controller);
-	controller = new CameraController10Class(Client); Controllers.push_back(controller);
+	controller = new TakeoffCameraControllerClass(Client); Controllers.push_back(controller);
+	controller = new EmoteCameraControllerClass(Client); Controllers.push_back(controller);
 	controller = new CameraController11Class(Client); Controllers.push_back(controller);
 	G_ASSERT(Controllers.size() == STATE_LAST_CONTROLLER);
 	Controllers[State]->Set_Flag(0);
@@ -191,7 +191,7 @@ void CameraManagerClass::Unknown_7998B0(int id)
 		Matrix3D tm = Build_Matrix3D(Orientation);
 		tm.Set_Translation(Position);
 		cam->Set_Transform(tm);
-		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+		ENBSceneClass *scene = (ENBSceneClass *)Client->MainView->Unknown_64();
 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
 		OBBoxClass moved;
 		Vector3 delta = Position - object->Unknown_24();
@@ -200,7 +200,7 @@ void CameraManagerClass::Unknown_7998B0(int id)
 		shift.Set_Translation(-delta);
 		OBBoxClass::Transform(shift, box, &moved);
 		CastResultStruct result;
-		bool ship = OptionClass::Instance->Get_Bool("Camera_Ship");
+		bool ship = OptionManagerClass::Instance->Get_Bool("Camera_Ship");
 		scene->Unknown_75FB00(moved, box, delta, &result, object->RenderObject, ship);
 		if (result.Fraction < 1.0f) {
 			float fraction = result.Fraction;
@@ -656,19 +656,19 @@ bool CameraManagerClass::Unknown_79B4F0(int state)
 	bool result;
 	switch (state) {
 		case 2:
-			result = OptionClass::Instance->Get_Bool("Camera_Warp");
+			result = OptionManagerClass::Instance->Get_Bool("Camera_Warp");
 			break;
 		case 3:
-			result = OptionClass::Instance->Get_Bool("Camera_Gate");
+			result = OptionManagerClass::Instance->Get_Bool("Camera_Gate");
 			break;
 		case 5: case 7: case 9:
-			result = OptionClass::Instance->Get_Bool("Camera_Land");
+			result = OptionManagerClass::Instance->Get_Bool("Camera_Land");
 			break;
 		case 8:
-			result = OptionClass::Instance->Get_Bool("Camera_Loot");
+			result = OptionManagerClass::Instance->Get_Bool("Camera_Loot");
 			break;
 		case 6:
-			result = OptionClass::Instance->Get_Bool("Camera_Dock");
+			result = OptionManagerClass::Instance->Get_Bool("Camera_Dock");
 			break;
 		case 0: case 1: case 10: case 11:
 			result = true;

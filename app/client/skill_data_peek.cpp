@@ -32,12 +32,12 @@ SkillDataPeekClass::~SkillDataPeekClass()
 }
 
 // 0x6A53A0
-void SkillDataPeekClass::Attach(DeltaCompoundClass *root)
+void SkillDataPeekClass::Attach(DeltaContainer *root)
 {
 	List = 0;
 	Count = 0;
 	if (root && Name.Get_String()[0]) {
-		const NameClass &name = Name;
+		const AuxDataName &name = Name;
 		LookupClass *lookup = root->Get_Lookup();
 		DeltaClass *d = lookup->Find(name);
 		if (d) {
@@ -62,7 +62,7 @@ bool SkillDataPeekClass::Unknown_6A5440()
 // 0x6A5470
 bool SkillDataPeekClass::Unknown_6A5470(int skill)
 {
-	DeltaCompoundClass *d = Get_Skill(skill);
+	DeltaContainer *d = Get_Skill(skill);
 	if (!d) {
 		return(false);
 	}
@@ -152,7 +152,7 @@ std::string SkillDataPeekClass::Get_Affiliations(int skill)
 {
 	DeltaClass *d = Get_Field(skill, 4);
 	if (d) {
-		if (d->Unknown04 == DeltaStringClass::UnknownGlobal) return(std::string(((DeltaStringClass *)d)->Get()));
+		if (d->Unknown04 == DeltaString::UnknownGlobal) return(std::string(((DeltaString *)d)->Get()));
 		G_ASSERT(false);
 	}
 	Status = 2;
@@ -174,7 +174,7 @@ int SkillDataPeekClass::Get_Max_Skill_Levels(int skill)
 
 #pragma auto_inline(off)
 // 0x6A5A50
-DeltaCompoundClass *SkillDataPeekClass::Get_Skill(int skill)
+DeltaContainer *SkillDataPeekClass::Get_Skill(int skill)
 {
 	Status = 2;
 	if (!List) return(0);
@@ -184,7 +184,7 @@ DeltaCompoundClass *SkillDataPeekClass::Get_Skill(int skill)
 
 
 	FAIL_IF(!dskill) return(0);
-	DeltaCompoundClass *dcont = dskill->As_Compound();
+	DeltaContainer *dcont = dskill->As_Compound();
 
 	FAIL_IF(!dcont) return(0);
 	if (dcont->Unknown70) {
@@ -201,7 +201,7 @@ DeltaClass *SkillDataPeekClass::Get_Field(int skill, int field)
 	if (index == -1) {
 		return(0);
 	}
-	DeltaCompoundClass *dcont = Get_Skill(skill);
+	DeltaContainer *dcont = Get_Skill(skill);
 	if (!dcont) {
 		return(0);
 	}
@@ -234,7 +234,7 @@ void SkillDataPeekClass::Update_Fields()
 
 
 		FAIL_IF(!dskill) return;
-		DeltaCompoundClass *dcont = dskill->As_Compound();
+		DeltaContainer *dcont = dskill->As_Compound();
 
 		FAIL_IF(!dcont) return;
 		int count = dcont->Children.size();

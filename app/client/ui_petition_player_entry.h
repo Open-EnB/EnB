@@ -24,7 +24,7 @@ public:
 };
 
 // The players page (0xBC bytes, tables 0xAF53A8 / 0xAF539C / 0xAF5390): the entry window with the name box; its submit
-// sends a PetitionStuckPacketClass with the names as the player list
+// sends a PetitionPacketClass with the names as the player list
 class UIPetitionPlayerEntryClass : public UIPetitionEntryClass	// NAME 1: neutral, after the file and its tooltips' section 'UI_PETITION_PLAYER_ENTRY'
 {
 public:

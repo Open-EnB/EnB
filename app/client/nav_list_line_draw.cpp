@@ -60,7 +60,7 @@ void NavListLineDrawClass::Unknown_7B9CD0()
 
 // NOT EXACT: (0.91, attempts.py 0x7B99C0): two dead Lines.end() after the inlined 0x7B9CD0 send Scene = NULL (0x7BA340) out of line as the client (D272); left: the client threads the size test's begin == 0 path to the exit
 // @0x7B99C0
-void NavListLineDrawClass::Unknown_7B99C0(ClientObjectClass *avatar, NavListBuilderClass *path, const RefCountPtr<SceneClass> &scene, bool arg)
+void NavListLineDrawClass::Unknown_7B99C0(ClientObjectClass *avatar, NavigationListBuilder *path, const RefCountPtr<SceneClass> &scene, bool arg)
 {
 	Unknown_7B9CD0(); Lines.end(); Lines.end();
 	Unknown04 = avatar;

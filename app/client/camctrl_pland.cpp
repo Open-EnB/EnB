@@ -17,14 +17,14 @@
 #include <stdio.h>
 #include "..\shared\auth_product.h"
 struct LandClassAccessor : public LandClass {
-	HeightFieldClass *Get_Field() const { return Field; }
+	HeightMapClass *Get_Field() const { return Field; }
 };
 inline Vector3 Unknown_Rotate(const Matrix3D &tm, const Vector3 &v) { return Vector3(tm[0][0]*v.X + tm[0][1]*v.Y + tm[0][2]*v.Z, tm[1][0]*v.X + tm[1][1]*v.Y + tm[1][2]*v.Z, tm[2][0]*v.X + tm[2][1]*v.Y + tm[2][2]*v.Z); } // NAME 1: 794D5E..E8A inline rotation, matching dock helper
 extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
 static int Unknown_B9E3B0 = 0;					// NAME 1: neutral (D10): 0x794A90's section id
 
 // @0x7946D0
-CameraController07Class::CameraController07Class(SClient *client) :
+PLandCameraControllerClass::PLandCameraControllerClass(SClient *client) :
 	CameraControllerClass(client),
 	Unknown0C(NULL),
 	Unknown10(0),
@@ -34,7 +34,7 @@ CameraController07Class::CameraController07Class(SClient *client) :
 }
 
 // @0x7947C0
-CameraController07Class::~CameraController07Class()
+PLandCameraControllerClass::~PLandCameraControllerClass()
 {
 	if (Unknown0C) {
 		delete Unknown0C;
@@ -43,7 +43,7 @@ CameraController07Class::~CameraController07Class()
 }
 
 // @0x794840
-void CameraController07Class::Unknown_04()
+void PLandCameraControllerClass::Unknown_04()
 {
 	Unknown_794A90();
 	Unknown10 = Client->Unknown10BC;
@@ -70,7 +70,7 @@ void CameraController07Class::Unknown_04()
 
 	FAIL_IF(!effect) return;
 
-	UnknownB00060EffectClass *source = effect->Unknown_10();
+	UnaryEffectClass *source = effect->Unknown_10();
 	if (source) {
 		source->Set_Source_Object_ID(Client->AvatarID);
 	} else {
@@ -81,7 +81,7 @@ void CameraController07Class::Unknown_04()
 }
 
 // @0x794970
-void CameraController07Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
+void PLandCameraControllerClass::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	Unknown0C->Unknown_08(pos, rot);
 	if (Client->Unknown10BC - Unknown10 > 4000) {
@@ -93,7 +93,7 @@ void CameraController07Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 }
 
 // @0x7949F0
-void CameraController07Class::Unknown_0C()
+void PLandCameraControllerClass::Unknown_0C()
 {
 	Unknown0C->Unknown_0C();
 	ClientObjectClass *ship = Client->Get_Avatar();
@@ -113,7 +113,7 @@ void CameraController07Class::Unknown_0C()
 
 // @0x794A90
 // NOT EXACT: register-only: one moved copy and five tail registers; every call, literal and member offset is the client's; functional
-void CameraController07Class::Unknown_794A90()
+void PLandCameraControllerClass::Unknown_794A90()
 {
 	ClientObjectClass *ship = Client->Get_Avatar();
 	FAIL_IF(!ship) return;
@@ -121,7 +121,7 @@ void CameraController07Class::Unknown_794A90()
 	LandClass *land = Client->MainView->Land;
 	FAIL_IF(!land) return;
 
-	HeightFieldClass *hm = ((LandClassAccessor *)land)->Get_Field();
+	HeightMapClass *hm = ((LandClassAccessor *)land)->Get_Field();
 	FAIL_IF(!hm) return;
 
 	INIClass ini;

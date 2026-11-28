@@ -54,7 +54,7 @@ bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a key down: input.c
 
 
 
-GadgetGalaxyMapClass::GadgetGalaxyMapClass(GalaxyMapPipClass *pip) :
+GadgetGalaxyMapClass::GadgetGalaxyMapClass(GalaxyMapPIPClass *pip) :
 	GadgetPipSceneClass(pip),
 	GalaxyMap(pip)
 {

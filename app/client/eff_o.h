@@ -36,8 +36,8 @@ class SceneClass;
 class CameraClass;
 class AudibleSoundClass;
 class INIClass;
-class UnknownB00060EffectClass;
-class UnknownB0009CEffectClass;
+class UnaryEffectClass;
+class BinaryEffectClass;
 
 #ifndef CLIENT_H	// client.h, included first, declares it
 // An object watcher: the base with only a virtual destructor (vtable 0xAF0DD0, its deleting destructor 0x57DBC0 first emitted
@@ -58,8 +58,8 @@ public:
 	virtual void Unknown_04(int arg);					// +0x04 0x6E6850 (empty)  // NAME 1 [arg]: unused
 	virtual Vector3 Unknown_08(const Vector3 &position);	// +0x08 0x6E6870 (zero; the sound's position from the camera's)  // NAME 1 [position]: what 0x6E6AD0 passes
 	virtual void Unknown_0C(unsigned duration);		// +0x0C 0x6E6F10 (Unknown_6E6F90, then the start link's with flag 0x20)  // NAME 1 [duration]: what it sets
-	virtual UnknownB00060EffectClass *Unknown_10() { return(NULL); }	// +0x10 0x6E5420 (the unary end)
-	virtual UnknownB0009CEffectClass *Unknown_14() { return(NULL); }	// +0x14 0x6E4860 (the binary end)
+	virtual UnaryEffectClass *Unknown_10() { return(NULL); }	// +0x10 0x6E5420 (the unary end)
+	virtual BinaryEffectClass *Unknown_14() { return(NULL); }	// +0x14 0x6E4860 (the binary end)
 	virtual void Unknown_18();							// +0x18 0x6E68A0 (empty; called when the effect starts)
 	virtual void Unknown_1C();							// +0x1C 0x6E68C0 (empty; called every frame while it runs)
 	virtual void Unknown_20();							// +0x20 0x6E68E0 (empty; called when it ends)
@@ -145,12 +145,12 @@ public:
 // The unary end (vtable 0xB00060, 12 slots, 0xD8 bytes, constructor 0x6E7540; its destructor is the implicit one,
 // first emitted in eff_attach.cpp at 0x6E4970): an effect on one object or point. The object is SourceObject,
 // watched through SourceNode (slot +0x04 is the object's notice that it goes); Transform is where it plays.
-class UnknownB00060EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+class UnaryEffectClass : public EffectObjectClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UnknownB00060EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7540  // NAME 1 [client .. cycle_time]: the base's
+	UnaryEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7540  // NAME 1 [client .. cycle_time]: the base's
 	virtual void Unknown_04(int arg);					// +0x04 0x6E7690 (arg the node that goes: the source's, then flag 0x100 ends it)  // NAME 1 [arg]: the base's
-	virtual UnknownB00060EffectClass *Unknown_10() { return(this); }	// +0x10 0x6E4880
+	virtual UnaryEffectClass *Unknown_10() { return(this); }	// +0x10 0x6E4880
 	virtual void Unknown_18();							// +0x18 0x6E7850
 	virtual void Unknown_1C();							// +0x1C 0x6E7870 (with flag 0x80)
 	virtual void Unknown_24(int next);					// +0x24 0x6E78A0 (StartLink or NextLink takes this effect's render object, camera, end and source; G_ASSERT l.553)  // NAME 1 [next]: 0x6E6AD0 passes 1 for NextLink
@@ -169,12 +169,12 @@ public:
 // The binary end (vtable 0xB0009C, 16 slots, 0xE0 bytes, constructor 0x6E7D70; its destructor is the implicit one,
 // first emitted in eff_line.cpp at 0x6E5510): an effect from SourceObject (or SourcePosition) to TargetObject
 // (TargetPosition, TargetOffset from the target's position). Slot +0x04 is an object's notice that it goes.
-class UnknownB0009CEffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
+class BinaryEffectClass : public EffectObjectClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UnknownB0009CEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7D70  // NAME 1 [client .. cycle_time]: the base's
+	BinaryEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E7D70  // NAME 1 [client .. cycle_time]: the base's
 	virtual void Unknown_04(int arg);					// +0x04 0x6E7ED0 (the source's or the target's node goes: flags 0x200 / 0x400 end it)  // NAME 1 [arg]: the base's
-	virtual UnknownB0009CEffectClass *Unknown_14() { return(this); }	// +0x14 0x6E5440
+	virtual BinaryEffectClass *Unknown_14() { return(this); }	// +0x14 0x6E5440
 	virtual void Unknown_18();							// +0x18 0x6E8800
 	virtual void Unknown_1C();							// +0x1C 0x6E8890
 	virtual void Unknown_24(int next);					// +0x24 0x6E8B60 (as the unary end's, both ends; a unary link through slot +0x3C; G_ASSERT l.815)  // NAME 1 [next]: 0x6E6AD0 passes 1 for NextLink
@@ -183,7 +183,7 @@ public:
 	virtual void Unknown_30(const Vector3 &position) { SourcePosition = position; }	// +0x30 0x6E5460  // NAME 1 [position]: what it sets
 	virtual void Set_Target_Object_ID(int game_id);		// +0x34 0x6E81B0 (the client's "Set_Target_Object_ID couldn't find the object!", 0xB93054)  // NAME 1 [game_id]: the packets' TargetGameID
 	virtual void Unknown_38(const Vector3 &position) { TargetPosition = position; }	// +0x38 0x6E54A0  // NAME 1 [position]: what it sets
-	virtual void Unknown_3C(UnknownB00060EffectClass *unary, int next);	// +0x3C 0x6E8DD0 (slot +0x24's link to a unary effect)  // NAME 1 [unary, next]: what slot +0x24 passes
+	virtual void Unknown_3C(UnaryEffectClass *unary, int next);	// +0x3C 0x6E8DD0 (slot +0x24's link to a unary effect)  // NAME 1 [unary, next]: what slot +0x24 passes
 
 	void Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset);	// 0x6E82A0 (the effect packets' offset)  // NAME 1 [unknown36 .. target_offset]: the packets' fields
 	void Unknown_6E87C0(const Vector3 &offset);			// 0x6E87C0 (no caller)  // NAME 1 [offset]: what it sets
@@ -202,7 +202,7 @@ public:
 
 // A unary end that tracks its source from the start (vtable 0xB000F0, 0xD8 bytes, constructor 0x6E9230; a
 // factory helper 0x6EB850 makes one too): slot +0x08 gives its transform's translation
-class UnknownB000F0EffectClass : public UnknownB00060EffectClass	// NAME 1: neutral (D10)
+class UnknownB000F0EffectClass : public UnaryEffectClass	// NAME 1: neutral (D10)
 {
 public:
 	UnknownB000F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time);	// 0x6E9230 (flag 0x80 set)  // NAME 1 [client .. cycle_time]: the base's

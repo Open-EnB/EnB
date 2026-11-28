@@ -179,10 +179,10 @@ ClientObjectClass *TargetFindClass::Select_Group_Member(unsigned idx)
 
 
 	FAIL_IF(idx >= MAX_VISIBLE_GROUP_MEMBERS) return(NULL);
-	NameClass name("GroupInfo");
-	DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(Client->AuxData, name);
+	AuxDataName name("GroupInfo");
+	DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaContainer>(Client->AuxData, name);
 	if (group && group->Unknown70) {
-		int id = ((DeltaGroupMemberClass *)group->Members.Children[idx])->GameID.Value;
+		int id = ((DeltaGroupMember *)group->Members.Children[idx])->GameID.Value;
 		if (id) {
 			return(Select(Client->Find_Object(id)));
 		}
@@ -294,7 +294,7 @@ unsigned TargetFindClass::Get_Flags(ClientObjectClass *co)
 **	0xB07008; 0x7C3F60 is the scalar deleting destructor (objmatch: 'multiple').
 **	Its end: its own <string> initialiser is 0x7C4DE0 ($E136), then the COMDATs of std::sort:
 **	0x7C4E30 _Sort, 0x7C4FF0 _Unguarded_insert, 0x7C5040 _Unguarded_partition. 0x7C50B0 / 0x7C50E0 (a PermStringInitClass at
-**	0xBE87E0 and its atexit) open the next object, target_reticle.cpp. TargetingClass (targeting.cpp, 0x7C6120, table
+**	0xBE87E0 and its atexit) open the next object, target_reticle.cpp. TargetSelectClass (targeting.cpp, 0x7C6120, table
 **	0xB07134, SClient +0x12A4) derives from this class.
 **
 **	Forms the bytes decide (Build_List 0x7C4530): 'Filter ? Match_Filter(co) : true' keeps the

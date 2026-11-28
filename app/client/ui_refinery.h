@@ -11,8 +11,8 @@
 class GadgetSlider;				// gd_slider.h's slider (+0xB0)
 class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xBC, +0xCC)
 class FontSys;					// fontmanager.h's text objects (+0xF4)
-class SBaseViewClass;			// sbaseview.cpp's starbase view (+0xAC)
-class DeltaCompoundClass;
+class StarbaseViewClass;			// sbaseview.cpp's starbase view (+0xAC)
+class DeltaContainer;
 class UIManuListClass;			// ui_manu.cpp's formula list ('KnownFormula')
 
 // ui_refinery.cpp's refinery window (0xB08 bytes, tables 0xAF6DBC / 0xAF6DB0 / 0xAF6DA4; made by 0x69F8F0, sbaseview.cpp,
@@ -20,7 +20,7 @@ class UIManuListClass;			// ui_manu.cpp's formula list ('KnownFormula')
 class UIRefineryClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_refinery.cpp
 {
 public:
-	UIRefineryClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5EB810 (0xB08 bytes: 0x69F8F0's new)  // NAME 1 [view, layer]: what 0x69F8F0 passes (as ui_manu.h's)
+	UIRefineryClass(StarbaseViewClass *view, const LayerClass &layer);	// 0x5EB810 (0xB08 bytes: 0x69F8F0's new)  // NAME 1 [view, layer]: what 0x69F8F0 passes (as ui_manu.h's)
 	virtual ~UIRefineryClass();							// 0x5EBA50 (G_ASSERT 'State == UI_CLOSED', l.94; deleting 0x5EBA20)
 	virtual void Unknown_54();							// 0x5EBC30
 	virtual void Unknown_58();							// 0x5EC270
@@ -46,7 +46,7 @@ public:
 	void Unknown_5EDCC0();								// 0x5EDCC0: the credits and cost texts (0x5ECBB0 inlined twice)
 	void Unknown_5EDFD0();								// 0x5EDFD0: the target's texts and the failure message
 
-	SBaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
+	StarbaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
 	GadgetSlider *Unknown0B0;							// +0x0B0 (the list's slider: its +0xD4 the first row)
 	RefCountPtr<UIInvRobjStripClass> Unknown0B4;			// +0x0B4 'TSM03A.E%02d'
 	RefCountPtr<UIInvRobjStripClass> Unknown0B8;			// +0x0B8 'TSM03A.RESULT'
@@ -58,7 +58,7 @@ public:
 	int Unknown0AE0;									// +0xAE0 the first row shown
 	int Unknown0AE4;									// +0xAE4 the entries in the list
 	int State;											// +0xAE8 (UI_CLOSED when shut)  // NAME 3: the assert's
-	DeltaCompoundClass *Unknown0AEC;					// +0xAEC: the target item's aux data
+	DeltaContainer *Unknown0AEC;					// +0xAEC: the target item's aux data
 	int Unknown0AF0;									// +0xAF0: what is pending (1 an item id, 2 a refresh, 3 an attempt)
 	float Unknown0AF4;									// +0xAF4 (counted down by slot +0x60)
 	int Unknown0AF8;									// +0xAF8 the pick (-1 for none)

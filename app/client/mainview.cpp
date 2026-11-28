@@ -21,7 +21,7 @@
 #include <stdio.h>
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 #include "enbscene.h"	// the +0x10C scene (0x75ECF0, 0xF4 bytes)
-class UIStarmapClass { public: StarmapPipClass *Unknown_7C8DB0(bool on); };	// ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
+class StarmapInterface { public: StarmapPIPClass *Unknown_7C8DB0(bool on); };  // NAME 5: thunk order, binary.md 5.11; ui_starmap.h's, as far as 0x512A00 calls it (the PDA's +0xA8 object)
 #include "..\shared\auth_product.h"
 
 
@@ -188,7 +188,7 @@ void MainViewClass::Unknown_04()
 	Unknown1C->Set_Fog_Enable(false);
 	Unknown110 = new SimpleSceneClass;
 	Unknown114 = new SimpleSceneClass;
-	Scene = new MainViewSceneClass;
+	Scene = new ENBSceneClass;
 	Unknown118 = new SimpleSceneClass;
 	Unknown11C = new SimpleSceneClass;
 	Unknown120 = new SimpleSceneClass;
@@ -310,16 +310,16 @@ void MainViewClass::Unknown_08()
 	object->Unknown_58();
 	Unknown_6B4940(object);
 	REF_PTR_RELEASE(object);
-	Cpit = new UICpitClass(this, LayerClass(Unknown1C, Unknown20.Peek()));
+	Cpit = new CockpitInterface(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Cpit->Unknown_54();
 	Unknown_6B4940(Cpit);
-	Unknown1D4 = new UIBuffClass(this, LayerClass(Unknown1C, Unknown20.Peek()));
+	Unknown1D4 = new BuffInterface(this, LayerClass(Unknown1C, Unknown20.Peek()));
 	Unknown1D4->Unknown_54();
 	Unknown_6B4940(Unknown1D4);
-	Group = new UIGroupClass(Client);
+	Group = new GroupInterface(Client);
 	Group->Unknown_54();
 	Group->Unknown_7C(this, 0);
-	Unknown1E4 = new UIPTradeClass(Client);
+	Unknown1E4 = new PlayerTradeInterface(Client);
 	Unknown1E4->Unknown_54();
 	Unknown1E4->Unknown_7C(this, 0);
 	Unknown1DC = new BackInterfaceClass(this, Unknown110);
@@ -916,7 +916,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 		{
 			WWPROFILE("AdjustDayNight");
 			const Vector3 &sundir = Orbitals->Unknown20;		// (the client takes it before the camera position: Orbitals in edi across Get_Position)
-			((MainViewSceneClass *)Scene)->Unknown_75F690(sundir, camera->Get_Position());
+			((ENBSceneClass *)Scene)->Unknown_75F690(sundir, camera->Get_Position());
 			Scene->Set_Ambient_Light(Orbitals->Unknown58);
 			Scene->Set_Fog_Enable(false);
 			if (Get_Client()->Unknown10F8) {
@@ -958,7 +958,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 			Lighting.LightColor = sun;
 			Lighting.SunDirection = Orbitals->Unknown20;
 			Lighting.ShadowBias = Orbitals->Unknown30;
-			((MainViewSceneClass *)Scene)->Unknown_75F700(sun * 0.5f);
+			((ENBSceneClass *)Scene)->Unknown_75F700(sun * 0.5f);
 			const LandLightingStruct &lighting = Lighting;
 
 			static bool was_under;		// the client's 0xBE59E4
@@ -1090,8 +1090,8 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	}
 	if (Orbitals->Unknown4C) {
 		Scene->Add_Render_Object(Unknown144[0].Peek());
-		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectorManagerClass *projectors = ((MainViewSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
-		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
+		Vector3 shadow_dir = -Orbitals->Unknown20;	ProjectorManagerClass *projectors = ((ENBSceneClass *)Scene)->ProjectorManager;	projectors->Set_Shadow_Light_Direction(shadow_dir);
+		((ENBSceneClass *)Scene)->Apply_Projectors(Camera);
 		if (Get_Client()->Unknown10F8) {
 			Vector3 dir;		// one vector for both (the client: one slot, its X kept in st(0) across Get_Diffuse's null test)
 			Unknown144[0]->Get_Spot_Direction(dir);
@@ -1415,13 +1415,13 @@ void MainViewClass::Unknown_512400()
 	if (!client) return;
 	ClientObjectClass *avatar = client->Get_Avatar();
 	if (!avatar || !avatar->AuxData) return;
-	NameClass target_name("TargetGameID");
-	DeltaTemplateClass<int> *target = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, target_name);
+	AuxDataName target_name("TargetGameID");
+	DeltaTemplateClass<int> *target = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, target_name);
 	if (!target || !target->Unknown70) return;
-	NameClass set_name("TargetGameID");
-	DeltaTemplateClass<int> *set = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, set_name);
+	AuxDataName set_name("TargetGameID");
+	DeltaTemplateClass<int> *set = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, set_name);
 	if (set && set->Unknown70 > 1 && Client) {
-		TargetingClass *targeting = Client->Targeting;
+		TargetSelectClass *targeting = Client->Targeting;
 		if (targeting) {
 			targeting->Unknown10 = false;
 		} else {
@@ -1429,12 +1429,12 @@ void MainViewClass::Unknown_512400()
 		}
 	}
 	if (current_id == (unsigned)target->Value) return;
-	NameClass threat_name("TargetThreat");
-	DeltaStringClass *threat_data_assessment = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, threat_name); if (!threat_data_assessment || !threat_data_assessment->Unknown70) threat_data_assessment = NULL;
-	NameClass sound_name("TargetThreatSound");
-	DeltaStringClass *threat_data_sound = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)avatar->AuxData, sound_name); if (!threat_data_sound || !threat_data_sound->Unknown70) threat_data_sound = NULL;
-	NameClass level_name("TargetThreatLevel");
-	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, level_name); if (!threat_mob_level || !threat_mob_level->Unknown70) threat_mob_level = NULL;
+	AuxDataName threat_name("TargetThreat");
+	DeltaString *threat_data_assessment = Unknown_Find_Field<DeltaString>((DeltaContainer *)avatar->AuxData, threat_name); if (!threat_data_assessment || !threat_data_assessment->Unknown70) threat_data_assessment = NULL;
+	AuxDataName sound_name("TargetThreatSound");
+	DeltaString *threat_data_sound = Unknown_Find_Field<DeltaString>((DeltaContainer *)avatar->AuxData, sound_name); if (!threat_data_sound || !threat_data_sound->Unknown70) threat_data_sound = NULL;
+	AuxDataName level_name("TargetThreatLevel");
+	DeltaTemplateClass<int> *threat_mob_level = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, level_name); if (!threat_mob_level || !threat_mob_level->Unknown70) threat_mob_level = NULL;
 
 
 
@@ -1610,8 +1610,8 @@ void MainViewClass::Unknown_512A00()
 {
 	SClient *sclient = (SClient *)Client->As_Space_Client();
 	PDAInterfaceClass *pda = sclient->PDAInterface;
-	InterfaceSortClass sort(this, 0);
-	Radar->Unknown_7BCA70(Unknown84, ((UIStarmapClass *)pda->UnknownA8)->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
+	LocalInterfaceSort sort(this, 0);
+	Radar->Unknown_7BCA70(Unknown84, ((StarmapInterface *)pda->UnknownA8)->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
 }
 
 
@@ -2281,12 +2281,12 @@ void MainViewClass::Unknown_514450()
 
 void MainViewClass::Unknown_514480()
 {
-	bool graphics_default = OptionClass::Instance->Get_Bool("Graphics_Default");
-	float gamma = OptionClass::Instance->Get_Float("Graphics_Gamma");
-	float land_poly = OptionClass::Instance->Get_Float("Graphics_Land_Poly");
-	float land_detail = OptionClass::Instance->Get_Float("Graphics_Land_Detail");
-	float space_poly = OptionClass::Instance->Get_Float("Graphics_Space_Poly");
-	float texture_size = OptionClass::Instance->Get_Float("Graphics_Texture_Size");
+	bool graphics_default = OptionManagerClass::Instance->Get_Bool("Graphics_Default");
+	float gamma = OptionManagerClass::Instance->Get_Float("Graphics_Gamma");
+	float land_poly = OptionManagerClass::Instance->Get_Float("Graphics_Land_Poly");
+	float land_detail = OptionManagerClass::Instance->Get_Float("Graphics_Land_Detail");
+	float space_poly = OptionManagerClass::Instance->Get_Float("Graphics_Space_Poly");
+	float texture_size = OptionManagerClass::Instance->Get_Float("Graphics_Texture_Size");
 	DefaultChanged = false;
 	GraphicsChanged = false;
 	if (graphics_default != GraphicsDefault) {
@@ -2313,7 +2313,7 @@ void MainViewClass::Unknown_514480()
 		GraphicsTextureSize = texture_size;
 		GraphicsChanged = true;
 	}
-	Unknown_C404F8 = OptionClass::Instance->Get_Bool("Doppler_Enabled");
+	Unknown_C404F8 = OptionManagerClass::Instance->Get_Bool("Doppler_Enabled");
 }
 
 // 0x5146A0: reloads the Graphics_* options, marks both flags dirty and applies them
@@ -2388,7 +2388,7 @@ void MainViewClass::Unknown_18(bool arg)
 **	
 **	S2 (run 2026-11-18): the CRT table ends this object with 0x514B30 (entry 148), <string>'s guard batched with
 **	the Elements array's numbering 0x514C40 (149) and the base array's 0x514C90 (150), as ui_buff.cpp's
-**	object: so this file includes aux_buff.h (on aux_roots.h's line). Unknown514CC0ViewClass (0x514CC0-
+**	object: so this file includes aux_buff.h (on aux_roots.h's line). MenuViewClass (0x514CC0-
 **	0x514F80, closed by the plain guard 0x514F60, entry 151) is an object of its own: unknown_514cc0.cpp.
 **
 **	BG7 (run 2026-11-19), Update 0x50F1B0 (0.37 -> 0.87, frame 0xCC as the client's): DurationClass::operator+

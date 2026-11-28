@@ -107,7 +107,7 @@ bool HtmlImageClass::Create_Surface(int width, int height)
 	return(true);
 }
 
-HtmlFileLoaderClass::HtmlFileLoaderClass(HtmlViewClass *view, char *path) :
+HtmlFileLoaderClass::HtmlFileLoaderClass(HTMLViewer *view, char *path) :
 	View(view),
 	Loaded(false)
 {

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-AvatarEmotePacketClass::AvatarEmotePacketClass(int game_id, Unknown_ChatStreamClass *stream, char type, char *target_name) :
+ChatstreamPacketClass::ChatstreamPacketClass(int game_id, Unknown_ChatStreamClass *stream, char type, char *target_name) :
 	GameID(game_id),
 	Type(type),
 	ChatString(NULL),
@@ -20,7 +20,7 @@ AvatarEmotePacketClass::AvatarEmotePacketClass(int game_id, Unknown_ChatStreamCl
 	}
 }
 
-AvatarEmotePacketClass::AvatarEmotePacketClass(RawPacketClass *raw) :
+ChatstreamPacketClass::ChatstreamPacketClass(RawPacketClass *raw) :
 	TargetName(NULL),
 	Owned(true)
 {
@@ -36,7 +36,7 @@ AvatarEmotePacketClass::AvatarEmotePacketClass(RawPacketClass *raw) :
 	}
 }
 
-AvatarEmotePacketClass::~AvatarEmotePacketClass()
+ChatstreamPacketClass::~ChatstreamPacketClass()
 {
 	if (Owned) {
 		if (ChatString != NULL) {
@@ -50,7 +50,7 @@ AvatarEmotePacketClass::~AvatarEmotePacketClass()
 	}
 }
 
-RawPacketClass *AvatarEmotePacketClass::Build()
+RawPacketClass *ChatstreamPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(94, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -64,12 +64,12 @@ RawPacketClass *AvatarEmotePacketClass::Build()
 	return(raw);
 }
 
-int AvatarEmotePacketClass::Get_Data_Size()
+int ChatstreamPacketClass::Get_Data_Size()
 {
 	return(TargetNameSize + sizeof(GameID) + sizeof(Type) + sizeof(ChatSize) + sizeof(TargetNameSize) + ChatSize);
 }
 
-int AvatarEmotePacketClass::Print(char *buffer, int)
+int ChatstreamPacketClass::Print(char *buffer, int)
 {
 	Unknown_ChatStreamClass stream(ChatString, ChatSize);
 	char text[512] = "";

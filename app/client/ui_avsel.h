@@ -13,7 +13,7 @@ class LoginTaskClass;
 class RenderObjClass;
 class FlashingGadgetEvent;
 class CharacterViewClass;
-class CharacterViewAvatarClass;
+class AvatarClass;
 class TextGadgetClass;
 
 // The character select window (ui_avsel.cpp's __FILE__; the client's RTTI: the type name of its FlashingGadgetEvent
@@ -52,7 +52,7 @@ public:
 	bool Unknown097;									// +0x97
 	bool Unknown098;									// +0x98
 	GadgetClass *Unknown09C[8];							// +0x9C (Unknown_B7B8E0's buttons)
-	CharacterViewAvatarClass *Unknown0BC[5];					// +0xBC (the five avatars)
+	AvatarClass *Unknown0BC[5];					// +0xBC (the five avatars)
 	GadgetClass *Unknown0D0[5];							// +0xD0
 	bool Unknown0E4[5];									// +0xE4
 	float Unknown0EC;									// +0xEC (slot +0x60: a countdown, then +0xF4 is selected)

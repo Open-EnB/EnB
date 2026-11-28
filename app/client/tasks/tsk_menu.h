@@ -20,10 +20,10 @@
 
 #include "..\..\kernel\kernel.h"
 
-class MenuTaskClass : public TaskClass		// NAME 3: the client's 'MenuTask' (its log) in LoginTaskClass's form (D24)
+class MainMenuTaskClass : public KernelTaskClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	MenuTaskClass();									// 0x76BC50 (the implicit destructor 0x76BCF0, scalar deleting 0x76BCC0)
+	MainMenuTaskClass();									// 0x76BC50 (the implicit destructor 0x76BCF0, scalar deleting 0x76BCC0)
 	virtual bool Accept_Focus();						// +0x28 0x76BD10
 	virtual bool Yield_Focus();							// +0x2C 0x76BD30: only once the login task is started
 	virtual int Get_Interval() { return 0; }			// +0x34 0x76BCA0

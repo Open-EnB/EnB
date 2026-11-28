@@ -75,7 +75,7 @@ void UIGuildListClass::Unknown_58()
 		Slider->Unknown_A4(0.0f, false);
 		Unknown_81EC50(true);
 		if (Unknown0BC[0]) {
-			((RObjGadgetClass *)Unknown0BC[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Unknown0BC[0])->Unknown_66C360();
 		}
 		Unknown0A8 = 0;
 	}

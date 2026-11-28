@@ -55,7 +55,7 @@ void UIRadioEntryClass::Unknown_54()
 			ConfirmGadget->Unknown5C = true;
 			Unknown64.Unknown_6870E0(ConfirmGadget, 8, View, 1, 0);
 		} else {
-			((RObjGadgetClass *)Buttons[2])->Unknown_8C(true);
+			((RenderObjGadgetClass *)Buttons[2])->Unknown_8C(true);
 			Buttons[2]->Unknown_40(false);
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
@@ -70,7 +70,7 @@ void UIRadioEntryClass::Unknown_58()
 		InterfaceSortScopeClass sort(this);	// NAME 1: neutral (D10)
 		ChatPanelUIBase::Unknown_58();
 		if (Buttons[0]) {
-			((RObjGadgetClass *)Buttons[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Buttons[0])->Unknown_66C360();
 		}
 		PasswordGadget->Unknown_74(true);
 		PasswordGadget->Set_Text("", 0);

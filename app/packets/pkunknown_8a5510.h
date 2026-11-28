@@ -19,12 +19,12 @@
 #include "pk.h"
 
 // opcode 232 (0x00E8, ?): vtable 0xB0BB08, constructor 0x8A55A0, 0x14 bytes
-class Packet_00E8Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x00E8
+class SpendReferralPointPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00E8Class(int unknown0_c);	// 0x8A5510
-	Packet_00E8Class(RawPacketClass *raw);	// 0x8A55A0
-	virtual ~Packet_00E8Class();	// +0x00 0x8A5580 / 0x8A5550 (out of line: SClient 0x751660 calls it after Send_Packet)
+	SpendReferralPointPacketClass(int unknown0_c);	// 0x8A5510
+	SpendReferralPointPacketClass(RawPacketClass *raw);	// 0x8A55A0
+	virtual ~SpendReferralPointPacketClass();	// +0x00 0x8A5580 / 0x8A5550 (out of line: SClient 0x751660 calls it after Send_Packet)
 	virtual RawPacketClass *Build();	// +0x04 0x8A5630
 	virtual bool Process_Packet(void *client);	// +0x08 0x869600 (clientstub.cpp l.452)
 	virtual int Get_Data_Size();	// +0x0C 0x8A5720

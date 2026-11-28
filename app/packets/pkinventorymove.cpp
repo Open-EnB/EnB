@@ -2,7 +2,7 @@
 #include "pkinventorymove.h"
 #include <stdio.h>
 
-InventoryMovePacketClass::InventoryMovePacketClass(int id, InventoryEnum from_inv, int from_slot, InventoryEnum to_inv, int to_slot, int num) :
+InvPacketClass::InvPacketClass(int id, InventoryEnum from_inv, int from_slot, InventoryEnum to_inv, int to_slot, int num) :
 	ID(id),
 	FromInv(from_inv),
 	FromSlot(from_slot),
@@ -12,7 +12,7 @@ InventoryMovePacketClass::InventoryMovePacketClass(int id, InventoryEnum from_in
 {
 }
 
-InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw)
+InvPacketClass::InvPacketClass(RawPacketClass *raw)
 {
 	raw->Get(ID);
 	int value;
@@ -25,7 +25,7 @@ InventoryMovePacketClass::InventoryMovePacketClass(RawPacketClass *raw)
 	raw->Get(Num);
 }
 
-RawPacketClass *InventoryMovePacketClass::Build()
+RawPacketClass *InvPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(39, Get_Data_Size());
 	raw->Add(ID);
@@ -39,18 +39,18 @@ RawPacketClass *InventoryMovePacketClass::Build()
 	return(raw);
 }
 
-int InventoryMovePacketClass::Get_Data_Size()
+int InvPacketClass::Get_Data_Size()
 {
 	return(sizeof(ID) + sizeof(int) + sizeof(FromSlot) + sizeof(int) + sizeof(ToSlot) + sizeof(Num));
 }
 
-int InventoryMovePacketClass::Print(char *buffer, int)
+int InvPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {ID=%d FromInv=%d FromSlot=%d ToInv=%d ToSlot=%d Num=%d}", "Inventory", ID, FromInv, FromSlot, ToInv, ToSlot, Num));
 }
 
 
-InventorySortPacketClass::InventorySortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse) :
+InvSortPacketClass::InvSortPacketClass(int id, InventoryEnum target_inv, int sort1, int sort2, int sort3, bool reverse) :
 	ID(id),
 	TargetInv(target_inv),
 	Sort1(sort1),
@@ -60,7 +60,7 @@ InventorySortPacketClass::InventorySortPacketClass(int id, InventoryEnum target_
 {
 }
 
-InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw)
+InvSortPacketClass::InvSortPacketClass(RawPacketClass *raw)
 {
 	raw->Get(ID);
 	int value;
@@ -72,7 +72,7 @@ InventorySortPacketClass::InventorySortPacketClass(RawPacketClass *raw)
 	raw->Get(Reverse);
 }
 
-RawPacketClass *InventorySortPacketClass::Build()
+RawPacketClass *InvSortPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(40, Get_Data_Size());
 	raw->Add(ID);
@@ -85,12 +85,12 @@ RawPacketClass *InventorySortPacketClass::Build()
 	return(raw);
 }
 
-int InventorySortPacketClass::Get_Data_Size()
+int InvSortPacketClass::Get_Data_Size()
 {
 	return(sizeof(ID) + sizeof(int) + sizeof(Sort1) + sizeof(Sort2) + sizeof(Sort3) + sizeof(Reverse));
 }
 
-int InventorySortPacketClass::Print(char *buffer, int)
+int InvSortPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {ID=%d TargetInv=%d Sort1=%d Sort2=%d Sort3=%d Reverse=%d}", "InventorySort", ID, TargetInv, Sort1, Sort2, Sort3, Reverse));
 }

@@ -21,7 +21,7 @@
 #include "wwstring.h"
 
 class LoginCharacterClass;
-class AvatarDescClass;
+class AvatarDescriptionClass;
 class ShipCustDescClass;
 
 // The serialisable name (vtable 0xB04160: Write 0x78E0E0 writes its 0x80 bytes; 0x84 bytes)
@@ -29,8 +29,8 @@ class LoginNameDataClass : public Unknown_PacketDataClass	// NAME 1: neutral (D1
 {
 public:
 	LoginNameDataClass() { Name[0] = 0; }
-	virtual bool Write(LinearBufferClass *buffer);		// +0x00 0x78E0E0
-	virtual bool Read(LinearBufferClass *buffer);		// +0x04 0x78E110
+	virtual bool Write(LinearBuffer *buffer);		// +0x00 0x78E0E0
+	virtual bool Read(LinearBuffer *buffer);		// +0x04 0x78E110
 	virtual int Get_Size();								// +0x08 0x78E140
 	void Set_Name(const char *name);					// 0x78E0A0 (no caller)  // NAME 2: what it does
 
@@ -38,12 +38,12 @@ public:
 };
 
 // What 0x7683F0 and 0x768CB0 make on the stack (its destructor is StringClass's, 0x7689C0)
-class CharacterCreatorClass	// NAME 2: its folder and registry key, 'Character and Starship Creator'
+class AvatarFileClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	CharacterCreatorClass();							// 0x78CEE0: the folder, made if needed
-	void Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name);	// 0x78D480: reads 'Avatar<slot>.dat'  // NAME 1 [avatar, ship]: their classes
-	void Unknown_78D8A0(int slot, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name);	// 0x78D8A0 (no caller): writes 'Avatar<slot>.dat'
+	AvatarFileClass();							// 0x78CEE0: the folder, made if needed
+	void Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescriptionClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name);	// 0x78D480: reads 'Avatar<slot>.dat'  // NAME 1 [avatar, ship]: their classes
+	void Unknown_78D8A0(int slot, AvatarDescriptionClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name);	// 0x78D8A0 (no caller): writes 'Avatar<slot>.dat'
 	void Unknown_78DAF0(int slot);						// 0x78DAF0 (Unknown_50 passes the selected slot): deletes the slot's file when it checks
 
 	bool Get_File_Name(int slot, StringClass &name);		// 0x78DE40 (no caller): 'Avatar<slot + 1>.dat' in the folder  // NAME 2: what it does

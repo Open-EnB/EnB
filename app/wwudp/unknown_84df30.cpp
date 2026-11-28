@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	CordCon's channel (CordChannelClass) and its pool: the client's object before cordcon.obj
+**	CordCon's channel (CordChannel) and its pool: the client's object before cordcon.obj
 **	(client 0x84DF30-0x84F640). The file's name is not in the client (no assert, no string): provisional
 **	(interim, D137). Notes at the end.
 */
@@ -10,11 +10,11 @@
 #include <time.h>
 // The channels come from a pool of 1024 (0xBF40D8; ObjectPoolClass::Allocate_Object_Memory 0x8563E0
 // with blocks of 4 + 1024 x 0x78 bytes).
-DEFINE_AUTO_POOL(CordChannelClass, 1024)
+DEFINE_AUTO_POOL(CordChannel, 1024)
 
 // Reset's body, inlined into the constructor and the destructor as the client does (Reset itself is kept
 // out of line below, where the CordCon constructor and openc call it).
-static inline void Reset_Channel(CordChannelClass *c)	// NAME 2: Reset's body
+static inline void Reset_Channel(CordChannel *c)	// NAME 2: Reset's body
 {
 	c->Mode = 0;
 	c->IsClosed = true;
@@ -32,7 +32,7 @@ static inline void Reset_Channel(CordChannelClass *c)	// NAME 2: Reset's body
 	c->Missing.clear();
 }
 
-CordChannelClass::CordChannelClass()	// 0x84DFC0
+CordChannel::CordChannel()	// 0x84DFC0
 {
 	NextSeq = 0;
 	Index = -1;
@@ -40,13 +40,13 @@ CordChannelClass::CordChannelClass()	// 0x84DFC0
 }
 
 // 0x84E170: the members' constructors, then the copy.
-CordChannelClass::CordChannelClass(const CordChannelClass &other)
+CordChannel::CordChannel(const CordChannel &other)
 {
 	Copy(other);
 }
 
 // 0x84E230
-CordChannelClass &CordChannelClass::operator=(const CordChannelClass &other)
+CordChannel &CordChannel::operator=(const CordChannel &other)
 {
 	Copy(other);
 	return *this;
@@ -56,12 +56,12 @@ CordChannelClass &CordChannelClass::operator=(const CordChannelClass &other)
 // arrays through wlib's operator=, Incoming through Clear / getPointer / Add, the vectors by clear /
 // push_back, their erase / insert out of line as the client); the client calls Sent's
 // size() out of line, ours inlines it.
-void CordChannelClass::Copy(const CordChannelClass &other)
+void CordChannel::Copy(const CordChannel &other)
 {
 	if (this == &other) {
 		return;
 	}
-	CordChannelClass &from = (CordChannelClass &)other;
+	CordChannel &from = (CordChannel &)other;
 	Mode = from.Mode;
 	LastWrite = from.LastWrite;
 	NextSeq = from.NextSeq;
@@ -74,7 +74,7 @@ void CordChannelClass::Copy(const CordChannelClass &other)
 	ToAck = from.ToAck;
 	Missing = from.Missing;
 	IsClosed = from.IsClosed;
-	CordMessageClass *p; int j; Incoming.Clear();
+	CordMessage *p; int j; Incoming.Clear();
 	for (j = 0; j < from.Incoming.Entries; j++) { from.Incoming.getPointer(&p, j); Incoming.Add_Tail(*p); }
 	unsigned int i;
 	Queue.clear();
@@ -88,20 +88,20 @@ void CordChannelClass::Copy(const CordChannelClass &other)
 	Index = from.Index;
 }
 
-// 0x84E570: Reset only, as the client (the records' buffers are not freed: CordMessageClass's
+// 0x84E570: Reset only, as the client (the records' buffers are not freed: CordMessage's
 // destructor leaves them; Free 0x85BEC0 is called where a record is dropped). Out of line, as
 // ~CordCon 0x84F8C0 calls it.
 #pragma auto_inline(off)
-CordChannelClass::~CordChannelClass()
+CordChannel::~CordChannel()
 {
 	Reset_Channel(this);
 }
 #pragma auto_inline(on)
 
-// 0x84E770: out of line in CordCon's constructor and openc, as the client calls it (CordChannelClass's
+// 0x84E770: out of line in CordCon's constructor and openc, as the client calls it (CordChannel's
 // constructor and destructor inline Reset_Channel).
 #pragma auto_inline(off)
-void CordChannelClass::Reset()
+void CordChannel::Reset()
 {
 	Mode = 0;
 	IsClosed = true;
@@ -129,8 +129,8 @@ void CordChannelClass::Reset()
 **    (rounded up to 4), so an 8-byte contribution (one object with both) gets one zero (nav_list_builder.obj's
 **    allocator and guard, the same code forms, keep theirs at 0xB6CD10). Two 4-byte contributions get none:
 **    two objects, the pool's and cordcon.cpp's (which ends with the guard);
-**  - the template instantiations this code needs (vector<CordMessageClass> 0x84E8A0-0x84EDB0, CordListClass's
-**    destructor 0x84EDF0, ArrayList<unsigned>, std::copy / fill / copy_backward, CordMessageClass's
+**  - the template instantiations this code needs (vector<CordMessage> 0x84E8A0-0x84EDB0, CordListClass's
+**    destructor 0x84EDF0, ArrayList<unsigned>, std::copy / fill / copy_backward, CordMessage's
 **    operator= 0x84F150, CordListClass::Add 0x84F220, ArrayList::get / add 0x84F440 / 0x84F480) sit between
 **    Reset 0x84E770 and CordCon's constructor 0x84F640: VC6 emits a translation unit's instantiations after
 **    its own functions (one cordcon.obj put them after CordCon's code, 0x855D20 in the all trial), so the

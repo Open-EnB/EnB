@@ -4,11 +4,11 @@
 **	Original location: e:\build\beta\G\app\shared\attrib_dir.h (name assumed from attrib_dir.cpp,
 **	whose __FILE__ is 'e:\build\beta\G\app\shared\attrib_dir.cpp')
 **
-**	A directory of named attributes (the client's AttribDir, AttributeInfo): each attribute has a
+**	A directory of named attributes (the client's AttributeDirectory, AttributeInfo): each attribute has a
 **	list of mods (raise or lower the base's bounds, add, add a percentage, raise or lower the
 **	result's bounds), a value computed from them, callbacks told when the value changes and other
 **	attributes recalculated with it. Names are kept upper-case in an SGI hash_map (libs/sgistl,
-**	D87). The client names AttribDir's methods ('AttribDir::Attach_Mod', ...) and
+**	D87). The client names AttributeDirectory's methods ('AttributeDirectory::Attach_Mod', ...) and
 **	AttributeInfo::Apply_Mod through its strings; the rest is named by what it does.
 */
 
@@ -28,7 +28,7 @@
 #include <hash_map.h>
 
 class AttributeInfo;
-class AttribDir;
+class AttributeDirectory;
 
 // A mod of an attribute's value (vtable 0xAEC1D4)
 class AttribModClass  // NAME 2: what it is
@@ -78,7 +78,7 @@ struct AttribModValuesStruct  // NAME 2: what it holds
 };
 
 // The iterators walking one of an attribute's lists, moved on when their element is removed. Advance and Invalidate
-// walk with while loops: as for loops VC6 inlines Advance less in AttribDir::Detach_Callback 0x4D5000 and Invalidate
+// walk with while loops: as for loops VC6 inlines Advance less in AttributeDirectory::Detach_Callback 0x4D5000 and Invalidate
 // less in ~AttributeInfo 0x4D6620 than the client (HL1, 2026-10-29)
 template <class IT>
 class AttribIteratorListClass : public std::vector<IT *>  // NAME 2: what it holds
@@ -139,16 +139,16 @@ public:
 	AttributeInfo(const char *name);												// 0x4D6360
 	~AttributeInfo();																	// 0x4D6620
 
-	bool Attach_Mod(AttribModClass *mod);										// 0x4D6820  // NAME 2: as AttribDir's
-	bool Detach_Mod(AttribModClass *mod);										// 0x4D6960  // NAME 2: as AttribDir's
-	bool Attach_Callback(AttribCallbackClass *cb);							// 0x4D6B30  // NAME 2: as AttribDir's
-	bool Detach_Callback(AttribCallbackClass *cb);							// 0x4D6BA0  // NAME 2: as AttribDir's
-	bool Attach_Update(AttributeInfo *dst);									// 0x4D6C40  // NAME 2: as AttribDir's
-	bool Detach_Update(AttributeInfo *dst);									// 0x4D6D10  // NAME 2: as AttribDir's
+	bool Attach_Mod(AttribModClass *mod);										// 0x4D6820  // NAME 2: as AttributeDirectory's
+	bool Detach_Mod(AttribModClass *mod);										// 0x4D6960  // NAME 2: as AttributeDirectory's
+	bool Attach_Callback(AttribCallbackClass *cb);							// 0x4D6B30  // NAME 2: as AttributeDirectory's
+	bool Detach_Callback(AttribCallbackClass *cb);							// 0x4D6BA0  // NAME 2: as AttributeDirectory's
+	bool Attach_Update(AttributeInfo *dst);									// 0x4D6C40  // NAME 2: as AttributeDirectory's
+	bool Detach_Update(AttributeInfo *dst);									// 0x4D6D10  // NAME 2: as AttributeDirectory's
 	void Apply_Mod(AttribModClass *mod);										// 0x4D6DF0
-	float Get_Base();																	// 0x4D6F70  // NAME 2: as AttribDir's
+	float Get_Base();																	// 0x4D6F70  // NAME 2: as AttributeDirectory's
 	float Calculate();																// 0x4D6FC0  // NAME 2: what it does
-	int Recalculate();																// 0x4D7060  // NAME 2: as AttribDir's
+	int Recalculate();																// 0x4D7060  // NAME 2: as AttributeDirectory's
 	void Notify();																		// 0x4D71D0  // NAME 2: what it does
 	int Update_Value();																// inline: Calculate, Notify when it changed  // NAME 2: what it does
 
@@ -162,15 +162,15 @@ public:
 	float Value;																		// +0x78  // NAME 2: what it holds
 };
 
-// What AttribDir::Get_Shadow returns: an attribute to read (4 bytes)
-class AttribShadowClass  // NAME 2: from AttribDir::Get_Shadow
+// What AttributeDirectory::Get_Shadow returns: an attribute to read (4 bytes)
+class AttribShadowClass  // NAME 2: from AttributeDirectory::Get_Shadow
 {
 public:
 	AttribShadowClass();																				// 0x4D7510
 	AttribShadowClass(AttributeInfo *info);																// 0x4D7530
 
-	float Get_Value();																// 0x4D7550  // NAME 2: as AttribDir's
-	float Get_Base();																	// 0x4D7590  // NAME 2: as AttribDir's
+	float Get_Value();																// 0x4D7550  // NAME 2: as AttributeDirectory's
+	float Get_Base();																	// 0x4D7590  // NAME 2: as AttributeDirectory's
 
 	AttributeInfo *Info;																// +0x00 (the FAIL_IF's '!Info')
 };
@@ -210,7 +210,7 @@ public:
 class AttribDirModIteratorClass : public AttribModIteratorClass  // NAME 2: what it does
 {
 public:
-	AttribDirModIteratorClass(AttribDir *dir);										// 0x4D8120
+	AttribDirModIteratorClass(AttributeDirectory *dir);										// 0x4D8120
 	virtual AttribModClass *Get_Mod() { return *ModCur; }						// 0x4D7930
 	virtual const char *Get_Name() { return (*MapCur).first.c_str(); }		// 0x4D7950
 	virtual bool Is_Done() { return ModCur == ModEnd && MapCur == MapEnd; }	// 0x4D7980
@@ -227,7 +227,7 @@ public:
 	AttributeInfo::ModList::iterator ModEnd;									// +0x18  // NAME 2: as MapEnd
 };
 
-// What AttribDir's mod walks return: owns an iterator (4 bytes)
+// What AttributeDirectory's mod walks return: owns an iterator (4 bytes)
 class AttribModIterator  // NAME 2: what it is
 {
 public:
@@ -241,31 +241,31 @@ public:
 	const char *Get_Name();																// 0x4D7DC0  // NAME 2: as the iterator's
 	bool Is_Done();																		// 0x4D7DE0 (the FAIL_IF's 'iter.Is_Done()')
 	void Next();																			// 0x4D7E00  // NAME 2: as the iterator's
-	void Lock_Next() { Iterator->Lock_Next(); }								// inline only (AttribDir::Detach_Mod by iterator)  // NAME 2: as the iterator's
+	void Lock_Next() { Iterator->Lock_Next(); }								// inline only (AttributeDirectory::Detach_Mod by iterator)  // NAME 2: as the iterator's
 
 	AttribModIteratorClass *Iterator;												// +0x00  // NAME 2: what it holds
 };
 
-// Walks the attributes (0x10 bytes; its members out of line with no callers, AttribDir::Get_Attributes 0x4D5BE0)
+// Walks the attributes (0x10 bytes; its members out of line with no callers, AttributeDirectory::Get_Attributes 0x4D5BE0)
 class AttribIterator  // NAME 2: what it does
 {
 public:
 	AttribIterator(std::hash_map<std::string, AttributeInfo *>::iterator cur, std::hash_map<std::string, AttributeInfo *>::iterator end);	// 0x4D7750
 	const char *Get_Name();															// 0x4D7780: the attribute's  // NAME 2: as AttribModIterator's
-	float Get_Value();																// 0x4D77B0  // NAME 2: as AttribDir's
+	float Get_Value();																// 0x4D77B0  // NAME 2: as AttributeDirectory's
 
 	std::hash_map<std::string, AttributeInfo *>::iterator Cur;			// +0x00  // NAME 2: as AttribDirModIteratorClass's MapCur
 	std::hash_map<std::string, AttributeInfo *>::iterator End;			// +0x08  // NAME 2: as AttribDirModIteratorClass's MapEnd
 };
 
 // The directory (0x18 bytes)
-class AttribDir
+class AttributeDirectory  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	typedef std::hash_map<std::string, AttributeInfo *> AttributeMap;
 
-	AttribDir();																		// 0x4D42C0
-	~AttribDir();																		// 0x4D4490
+	AttributeDirectory();																		// 0x4D42C0
+	~AttributeDirectory();																		// 0x4D4490
 
 	bool Attach_Mod(const char *name, AttribModClass *mod);				// 0x4D4810
 	bool Detach_Mod(const char *name, AttribModClass *mod);				// 0x4D4A10

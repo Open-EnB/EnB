@@ -4,7 +4,7 @@
 #include "unknown_font_split_string.h"
 
 
-FontSplitStringClass::FontSplitStringClass(const RefCountPtr<Font32Class> &font, const char *text, float width, int cursor) :
+FontSplitStringClass::FontSplitStringClass(const RefCountPtr<Font32Bit> &font, const char *text, float width, int cursor) :
 	SplitStringClass(NULL, 0, 0)
 {
 	Set_Font(font);
@@ -21,7 +21,7 @@ FontSplitStringClass::~FontSplitStringClass()
 }
 
 
-void FontSplitStringClass::Set_Font(const RefCountPtr<Font32Class> &font)
+void FontSplitStringClass::Set_Font(const RefCountPtr<Font32Bit> &font)
 {
 	Font = font;
 }
@@ -50,7 +50,7 @@ float FontSplitStringClass::Get_Char_Width(char c)
 **
 **	client.exe 0x4FA8F0-0x4FAC0F: the constructor 0x4FA8F0 (deleting destructor 0x4FA9C0), the
 **	destructor 0x4FA9F0, Set_Font 0x4FAAC0 (inlined in both: the destructor's Set_Font(NULL) is the
-**	stack temporary of EH state 2), the width virtuals 0x4FAB30 / 0x4FAB70, RefCountPtr<Font32Class>'s
+**	stack temporary of EH state 2), the width virtuals 0x4FAB30 / 0x4FAB70, RefCountPtr<Font32Bit>'s
 **	destructor 0x4FABB0 (the instance this object emits) and the static initialiser 0x4FABF0 that
 **	ends the object (the same as split_string.cpp's 0x4FA8C0).
 */

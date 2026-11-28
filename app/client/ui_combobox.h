@@ -23,7 +23,7 @@ class UIComboBoxTextClass;
 // and each row of its list. Declared where the includer has the gadgets (unknown_675120.h before this header:
 // ui_chat_panel.cpp and cpacket.cpp still have their own views of GadgetClass, so this header cannot include it).
 #ifdef UNKNOWN_675120_H
-class UIComboBoxTextClass : public Unknown_675120Class	// NAME 1: neutral (D10): what the box makes of it
+class UIComboBoxTextClass : public UIMeshGadgetClass	// NAME 1: neutral (D10): what the box makes of it
 {
 public:
 	UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, LayerClass *layer, int width);	// 0x578120  // NAME 1 [mesh, bone, layer, width]: the members they set

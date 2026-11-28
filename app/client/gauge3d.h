@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\Client\gauge3d.h (PROVISIONAL, after gauge3d.cpp's __FILE__
 **	'e:\build\beta\G\app\Client\gauge3d.cpp' 0xB928A4; the client holds no string of this header)
 **
-**	gauge3d.cpp's Gauge3DClass: a flat four-vertex DynamicMeshClass (as Rect3DClass) whose filled part
+**	gauge3d.cpp's Gauge3DClass: a flat four-vertex DynamicMeshClass (as Rectangle3DClass) whose filled part
 **	follows an AccelClass value 0..1 from one edge, in a color that can fade from one color to another.
 **	0x154 bytes, vtable 0xAFEF20 (0xAFEF08 / 0xAFEF04 for the other bases). Nothing in the client
 **	makes one (no callers of 0x6D9360).
@@ -25,7 +25,7 @@
 class SceneClass;
 class RenderInfoClass;
 
-class Gauge3DClass : public DynamicMeshClass  // NAME 2 [Gauge3DClass]: gauge3d.cpp's class (the file name, Westwood's Class suffix, as Rect3DClass)
+class Gauge3DClass : public DynamicMeshClass  // NAME 2 [Gauge3DClass]: gauge3d.cpp's class (the file name, Westwood's Class suffix, as Rectangle3DClass)
 {
 public:
 	// rect is x, y, width, height (y down by the height); value 0..1; speed per second; direction

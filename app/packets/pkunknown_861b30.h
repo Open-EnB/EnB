@@ -18,11 +18,11 @@
 #include "pk.h"
 
 // 0x7534 (30004, not in the packet switch: sent only): vtable 0xB09278, constructor 0x861BC0, 0x10 bytes
-class Packet_7534Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7534 (Print 'GameEditorRemove')
+class GameEditorRemovePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_7534Class(int game_id);	// 0x861B30
-	Packet_7534Class(RawPacketClass *raw);	// 0x861BC0
+	GameEditorRemovePacketClass(int game_id);	// 0x861B30
+	GameEditorRemovePacketClass(RawPacketClass *raw);	// 0x861BC0
 	virtual RawPacketClass *Build();	// +0x04 0x861C50
 	virtual bool Process_Packet(void *client);	// +0x08 0x861D60
 	virtual int Get_Data_Size();	// +0x0C 0x861D10

@@ -88,7 +88,7 @@ BridgeInterface::~BridgeInterface()
 // The mesh's processes report here: a transition started (1: the camera rides the main bone while it plays), ended (3:
 // the camera is at the view asked for), anything else clears the mesh's flag bit 0 (Set_View sets it)
 // 0x53B500
-void BridgeInterface::Unknown_00(SubjectClass *subject, void *event)
+void BridgeInterface::Unknown_00(ObserverSubjectClass *subject, void *event)
 {
 	if (subject != Mesh) return;
 	if (((int *)event)[1] == 1) {
@@ -204,7 +204,7 @@ void BridgeInterface::Lose_Control()
 // The player's own avatar arrived: the race's bridge model, and a second avatar of that description (personality 8, or
 // 9 when its gender is not 0) for the chair. The bridge leaves its scene meanwhile.
 // 0x53B7A0
-void BridgeInterface::Set_Avatar(AvatarDescClass *desc)
+void BridgeInterface::Set_Avatar(AvatarDescriptionClass *desc)
 {
 	RefCountPtr<RefCountClass> scene = Scene;
 	if (Scene) {
@@ -225,9 +225,9 @@ void BridgeInterface::Set_Avatar(AvatarDescClass *desc)
 	}
 	Mesh->Unknown_5B8850(BridgeName, 1);
 	if (Mesh->InterfaceMesh) {
-		AvatarDescClass pilot(*desc);
+		AvatarDescriptionClass pilot(*desc);
 		pilot.Personality = pilot.Gender ? 9 : 8;
-		Avatar = Create_NEW(new CharacterViewAvatarClass(&pilot, false, false, NULL));
+		Avatar = Create_NEW(new AvatarClass(&pilot, false, false, NULL));
 		Avatar->Unknown_77E610();
 		EnvironmentMapManagerClass *env_maps = ((SClient *)Peek_Client()->As_Space_Client())->EnvironmentMapManager;
 		Avatar->Unknown_780810(env_maps);
@@ -411,7 +411,7 @@ bool BridgeInterface::Set_View(int view)
 {
 	if (ViewReached != View) return(false);
 	if (View == view) return(false);
-	if (Scene && OptionClass::Instance->Get_Bool("Camera_Bridge")) {
+	if (Scene && OptionManagerClass::Instance->Get_Bool("Camera_Bridge")) {
 		BridgeTransitionStruct &anim = Transitions[View + view * NUM_VIEWS];
 		FAIL_IF(!anim.AnimName) return(false);
 		std::string name = std::string(BridgeName) + "." + BridgeName + anim.AnimName;
@@ -460,7 +460,7 @@ void BridgeInterface::Update_Camera_Bone()
 {
 	RenderObjClass *bridge = Mesh->InterfaceMesh;
 	FAIL_IF(!bridge) return;
-	if (OptionClass::Instance->Get_Bool("Camera_Bridge")) {
+	if (OptionManagerClass::Instance->Get_Bool("Camera_Bridge")) {
 		if (InTransition) {
 			CameraBone = bridge->Get_Bone_Index("cam_main");
 		} else {
@@ -597,8 +597,8 @@ void BridgeInterface::Reset_Sounds(int time)
 **	221 / 250, FAIL_IFs '!camera' 315, '!bridge' 318, '!pship' 332, 'Client == NULL' 404, '!anim.AnimName' 416,
 **	'!bridge' 462, '!event' 521, '!gadget' 525). Client 0x53B040-0x53D23E: the constructor, the observer's slot +0x04
 **	(0x53B310, observer.h's inline, first emitted here), the destructor, the functions above in the client's order,
-**	AvatarDescClass's destructor 0x53BB50, then the instances this file is the first to use: Create_NEW 0x53CF50 and
-**	~RefCountPtr 0x53CF80 of CharacterViewAvatarClass, the signal map's disconnect 0x53CFB0 and Add 0x53D030 for
+**	AvatarDescriptionClass's destructor 0x53BB50, then the instances this file is the first to use: Create_NEW 0x53CF50 and
+**	~RefCountPtr 0x53CF80 of AvatarClass, the signal map's disconnect 0x53CFB0 and Add 0x53D030 for
 **	MemberCallback<GadgetClass, BridgeInterface, ..., FlashingGadgetEvent>, that callback's members 0x53D0D0-0x53D1C0,
 **	<string>'s guarded initialiser 0x53D1F0 and the callback's deleting destructor 0x53D220.
 **	The class name is the client's (the callback's RTTI, type descriptor 0xB78F28); the member and function names

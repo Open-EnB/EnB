@@ -14,7 +14,7 @@
 #include "tri.h"
 #include "obbox.h"
 
-HeightFieldClass::HeightFieldClass(void) :
+HeightMapClass::HeightMapClass(void) :
 	Heights(NULL),
 	Buffer(NULL),
 	MaxValue(0),
@@ -31,13 +31,13 @@ HeightFieldClass::HeightFieldClass(void) :
 {
 }
 
-HeightFieldClass *HeightFieldClass::Load(const char *ini_name, unsigned int max_size)
+HeightMapClass *HeightMapClass::Load(const char *ini_name, unsigned int max_size)
 {
 	INIClass ini;
 	if (!ini.Load(ini_name)) {
 		return NULL;
 	}
-	HeightFieldClass *field = new HeightFieldClass;
+	HeightMapClass *field = new HeightMapClass;
 	ini.Get_String("HEIGHTMAP", "HEIGHT_MAP", "", field->Name, 100);
 	float hscale = ini.Get_Float("HEIGHTMAP", "HSCALE", 1.0f);
 	float vscale = ini.Get_Float("HEIGHTMAP", "VSCALE", 1.0f);
@@ -59,7 +59,7 @@ HeightFieldClass *HeightFieldClass::Load(const char *ini_name, unsigned int max_
 	return field;
 }
 
-HeightFieldClass::~HeightFieldClass(void)
+HeightMapClass::~HeightMapClass(void)
 {
 	if (Buffer != NULL) {
 		delete [] Buffer;
@@ -68,7 +68,7 @@ HeightFieldClass::~HeightFieldClass(void)
 }
 
 // The PGM reader 0x4637C0 (the same as VIDTEST's 0x4026B0): every token through one variable
-bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int max_size)
+bool HeightMapClass::Load_PGM(const char *filename, bool flip, unsigned int max_size)
 {
 	char delimiters[] = " \r\n\t";
 	FileClass *file = _TheFileFactory->Get_File(filename);
@@ -148,7 +148,7 @@ bool HeightFieldClass::Load_PGM(const char *filename, bool flip, unsigned int ma
 	return true;
 }
 
-Vector3 HeightFieldClass::Sample(const Vector2 &uv)
+Vector3 HeightMapClass::Sample(const Vector2 &uv)
 {
 	Vector3 pos;
 	pos.X = (float)((uv.X - 0.5) * XSpacing * Size);
@@ -157,17 +157,17 @@ Vector3 HeightFieldClass::Sample(const Vector2 &uv)
 	return pos;
 }
 
-float HeightFieldClass::Get_Height(unsigned int i, unsigned int j)
+float HeightMapClass::Get_Height(unsigned int i, unsigned int j)
 {
 	return (float)Heights[((j & Mask) << Log2) + (i & Mask)] * VScale;
 }
 
-float HeightFieldClass::Get_Height_2(unsigned int i, unsigned int j)
+float HeightMapClass::Get_Height_2(unsigned int i, unsigned int j)
 {
 	return (float)Heights[((j & Mask) << Log2) + (i & Mask)] * VScale;
 }
 
-void HeightFieldClass::Set_Height(float height, unsigned int i, unsigned int j)
+void HeightMapClass::Set_Height(float height, unsigned int i, unsigned int j)
 {
 	float value = height / VScale;
 	if (value > 65535.0f) {
@@ -176,7 +176,7 @@ void HeightFieldClass::Set_Height(float height, unsigned int i, unsigned int j)
 	Heights[((j & Mask) << Log2) + (i & Mask)] = (unsigned short)value;
 }
 
-void HeightFieldClass::Set_Height_2(float height, unsigned int i, unsigned int j)
+void HeightMapClass::Set_Height_2(float height, unsigned int i, unsigned int j)
 {
 	float value = height / VScale;
 	if (value > 65535.0f) {
@@ -185,13 +185,13 @@ void HeightFieldClass::Set_Height_2(float height, unsigned int i, unsigned int j
 	Heights[((j & Mask) << Log2) + (i & Mask)] = (unsigned short)value;
 }
 
-void HeightFieldClass::World_To_Grid(const Vector2 &pos, float *i, float *j)
+void HeightMapClass::World_To_Grid(const Vector2 &pos, float *i, float *j)
 {
 	*i = HalfSize + (pos.X / XSpacing);
 	*j = HalfSize + (pos.Y / YSpacing);
 }
 
-void HeightFieldClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)
+void HeightMapClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)
 {
 	out->X = (float)(int)(i - HalfSize) * XSpacing;
 	out->Y = (float)(int)(j - HalfSize) * YSpacing;
@@ -199,7 +199,7 @@ void HeightFieldClass::Get_Vertex(unsigned int i, unsigned int j, Vector3 *out)
 }
 
 // NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv)
-void HeightFieldClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
+void HeightMapClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
@@ -260,7 +260,7 @@ void HeightFieldClass::Get_Downhill(Vector3 *direction, const Vector2 &pos)
 }
 
 // NOT EXACT: frame (0x464290: 0x34, the client 0x40; it keeps h10 on the FPU, spills h01 and copies one edge component; attempts.csv)
-void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
+void HeightMapClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
@@ -286,7 +286,7 @@ void HeightFieldClass::Get_Normal(Vector3 *normal, const Vector2 &pos)
 }
 
 // 0x464600: the cell's two triangles, the heights through the inlined Get_Height(i, j)
-float HeightFieldClass::Get_Height(const Vector3 &pos)
+float HeightMapClass::Get_Height(const Vector3 &pos)
 {
 	float fx = pos.X / XSpacing + HalfSize;
 	float fy = pos.Y / YSpacing + HalfSize;
@@ -308,7 +308,7 @@ float HeightFieldClass::Get_Height(const Vector3 &pos)
 ** Ours (VIDTEST's land, functional): the grid clamped at the edges (the client's accessors wrap with
 ** Mask), the vertex at world coordinates centred on the origin, the normal from central differences.
 */
-float HeightFieldClass::Get_Vertex_Height(int i, int j) const
+float HeightMapClass::Get_Vertex_Height(int i, int j) const
 {
 	if (Wrapping) {
 		i &= Size - 1;
@@ -322,12 +322,12 @@ float HeightFieldClass::Get_Vertex_Height(int i, int j) const
 	return (float)Heights[j * Size + i] * VScale;
 }
 
-Vector3 HeightFieldClass::Get_Vertex(int i, int j) const
+Vector3 HeightMapClass::Get_Vertex(int i, int j) const
 {
 	return Vector3((i - (int)Size / 2) * XSpacing, (j - (int)Size / 2) * XSpacing, Get_Vertex_Height(i, j));
 }
 
-Vector3 HeightFieldClass::Get_Normal(int i, int j) const
+Vector3 HeightMapClass::Get_Normal(int i, int j) const
 {
 	float dx = Get_Vertex_Height(i + 1, j) - Get_Vertex_Height(i - 1, j);
 	float dy = Get_Vertex_Height(i, j + 1) - Get_Vertex_Height(i, j - 1);
@@ -336,7 +336,7 @@ Vector3 HeightFieldClass::Get_Normal(int i, int j) const
 	return n;
 }
 
-bool HeightFieldClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
+bool HeightMapClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
 {
 	const Vector3 &min = boxtest.SweepMin;
 	const Vector3 &max = boxtest.SweepMax;
@@ -384,7 +384,7 @@ bool HeightFieldClass::Cast_AABox(AABoxCollisionTestClass &boxtest)
 }
 
 // NOT EXACT: frame (0xAC, the client 0xB0: it keeps tmax and the second slab's values on the FPU and swaps through a register; 90 masked rows; attempts.csv 0x4647C0)
-bool HeightFieldClass::Cast_Ray(RayCollisionTestClass &raytest)
+bool HeightMapClass::Cast_Ray(RayCollisionTestClass &raytest)
 {
 	bool hit = false;
 	Vector3 start = raytest.Ray.Get_P0();
@@ -531,7 +531,7 @@ bool HeightFieldClass::Cast_Ray(RayCollisionTestClass &raytest)
 }
 
 // NOT EXACT: frame (0x168, the client 0x164: a 4-byte local too many; 12 masked rows; attempts.csv 0x4654E0)
-bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
+bool HeightMapClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 {
 	bool hit = false;
 	Vector3 corners[16];
@@ -596,7 +596,7 @@ bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return hit;
 }
 
-void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts)
+void HeightMapClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3> &verts)
 {
 	Vector3 extent;
 	box.Compute_Axis_Aligned_Extent(&extent);
@@ -645,12 +645,12 @@ void HeightFieldClass::Get_Triangles(const OBBoxClass &box, std::vector<Vector3>
 	}
 }
 
-unsigned char HeightFieldClass::Get_Height_Byte(int x, int y)
+unsigned char HeightMapClass::Get_Height_Byte(int x, int y)
 {
 	return (unsigned char)Heights[((y & Mask) << Log2) + (x & Mask)];
 }
 
-float HeightFieldClass::Get_Height(float x, float y) const
+float HeightMapClass::Get_Height(float x, float y) const
 {
 	float fx = x / XSpacing + (int)Size / 2;
 	float fy = y / XSpacing + (int)Size / 2;
@@ -665,7 +665,7 @@ float HeightFieldClass::Get_Height(float x, float y) const
 	return (h00 * (1.0f - tx) + h10 * tx) * (1.0f - ty) + (h01 * (1.0f - tx) + h11 * tx) * ty;
 }
 
-void HeightFieldClass::Sample(Vector3 *out, float u, float v) const
+void HeightMapClass::Sample(Vector3 *out, float u, float v) const
 {
 	out->X = (u - 0.5f) * XSpacing * Size;
 	out->Y = (v - 0.5f) * XSpacing * Size;

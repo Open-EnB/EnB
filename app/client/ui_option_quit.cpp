@@ -98,21 +98,21 @@ bool UIOptionQuitClass::Unknown_68(int key)
 			}
 			return(true);
 		case 3:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			sclient->Unknown_74BB50(1);
 			Unknown_5C();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 4:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			sclient->Unknown_74BB50(3);
 			Unknown_5C();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
 		case 5:
-			OptionClass::Instance->Save();
+			OptionManagerClass::Instance->Save();
 			sclient->Unknown_74BB50(2);
 			Unknown_5C();
 			Unknown_5C();

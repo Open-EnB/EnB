@@ -18,7 +18,7 @@ struct FontStruct  // NAME 2: one of the fonts in use (0xC bytes)
 {
 	FontStruct() { font32Ptr = NULL; Name = ""; Scale = 1.0f; }			// 0x6BE7C0 (destructor 0x6BEB60)
 
-	RefCountPtr<Font32Class> font32Ptr;														// +0x00, the client's name (its assert)
+	RefCountPtr<Font32Bit> font32Ptr;														// +0x00, the client's name (its assert)
 	StringClass Name;														// +0x04  // NAME 2: what Find_Font compares
 	float Scale;															// +0x08  // NAME 2: Scale%d is copied in
 };
@@ -31,13 +31,13 @@ struct FontSoundStruct  // NAME 2 [FontSoundStruct]: a string template's sound: 
 	StringClass ID;														// +0x00  // NAME 2: the ini key
 	float Vol;															// +0x04  // NAME 2: the ini key
 	float Dur;															// +0x08  // NAME 2: the ini key
-	void Reset() { ID = ""; Vol = 1.0f; Dur = -1.0f; }		// inlined in FontStringStruct::Reset 0x6BE0E0  // NAME 2: what it does
+	void Reset() { ID = ""; Vol = 1.0f; Dur = -1.0f; }		// inlined in StringInfo::Reset 0x6BE0E0  // NAME 2: what it does
 };
 
-struct FontStringStruct  // NAME 2: one string template of a string file (Template%d / String%d keys; 0xEC bytes; "NewStringInfo" by default)
+struct StringInfo  // NAME 5: thunk order, binary.md 5.11
 {
-	FontStringStruct();													// 0x6BDA40
-	FontStringStruct(const char *string_id, const char *text);				// 0x6BDD30
+	StringInfo();													// 0x6BDA40
+	StringInfo(const char *string_id, const char *text);				// 0x6BDD30
 	// operator=: the implicit one, inlined in 0x6D0A70 and 0x6D47C0 (a loop per array member, the points and
 	// scalars copied, the sounds' 0x6D0F70 called); written out, it costs 0x6D0A70 the inline budget its key needs
 

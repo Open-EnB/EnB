@@ -7,7 +7,7 @@
 #include "ui_petition_entry.h"
 
 // The stuck page (0xB8 bytes, tables 0xAF55F4 / 0xAF55E8 / 0xAF55DC): the entry window whose submit sends a
-// PetitionStuckPacketClass with the subject and the details
+// PetitionPacketClass with the subject and the details
 class UIPetitionStuckClass : public UIPetitionEntryClass	// NAME 1: neutral, after the file
 {
 public:

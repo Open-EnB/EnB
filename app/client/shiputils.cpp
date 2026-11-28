@@ -471,7 +471,7 @@ void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SCl
 void Unknown_80FF20(RenderObjClass *robj, const char *name, float *rgb)
 {
 
-	RefCountPtr<Font32Class> font_32bit = Create_NEW(new Font32Class("ship_font.tga", 1, 1.0f));
+	RefCountPtr<Font32Bit> font_32bit = Create_NEW(new Font32Bit("ship_font.tga", 1, 1.0f));
 
 
 	FAIL_IF(font_32bit.Peek()->Get_Height() != 16) return;

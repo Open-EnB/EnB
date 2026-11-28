@@ -102,7 +102,7 @@ static void Sync(DeltaClass *d)
 {
 	std::map<DeltaClass *, unsigned int>::iterator i = Version.find(d);
 	d->Unknown70 = i == Version.end() ? 0 : i->second;
-	DeltaCompoundClass *c = d->As_Compound();
+	DeltaContainer *c = d->As_Compound();
 	if (c != 0) {
 		for (size_t j = 0; j < c->Children.size(); j++) {
 			Sync(c->Children[j]);
@@ -211,7 +211,7 @@ static void Lists(FILE *f)
 
 static void Leaves(FILE *f, int k, DeltaClass *d)
 {
-	DeltaCompoundClass *c = d->As_Compound();
+	DeltaContainer *c = d->As_Compound();
 	if (c != 0) {
 		for (size_t i = 0; i < c->Children.size(); i++) {
 			Leaves(f, k, c->Children[i]);
@@ -221,7 +221,7 @@ static void Leaves(FILE *f, int k, DeltaClass *d)
 	std::string path;
 	Path(d, path);
 	if (k == 0) {
-		LinearBufferClass buf(0x100, 0x100);
+		LinearBuffer buf(0x100, 0x100);
 		d->Write(buf);
 		fprintf(f, "U %d %s ", d->Unknown7C, path.c_str());
 		Hex(f, buf.Buffer, buf.Size);
@@ -259,15 +259,15 @@ class HarnessIncludeAllClass : public PolicyRuleSetClass
 public:
 	HarnessIncludeAllClass() : Condition(Create_NEW((PolicyConditionClass *)new HarnessAlwaysClass))
 	{
-		Add_Rule(NameClass("*"), INCLUDE, -1);
+		Add_Rule(AuxDataName("*"), INCLUDE, -1);
 	}
 	HarnessIncludeAllClass(int) : Condition(Create_NEW((PolicyConditionClass *)new HarnessAlwaysClass))
 	{
 		// the factory's roots: the captures never update a whole root, so the fields below it get a
 		// rule of their own (value 1, which the harness clock always passes); the compile then gives
 		// the root DESCEND
-		Add_Rule(NameClass("*.*"), INCLUDE, 1);
-		Add_Rule(NameClass("*"), INCLUDE, -1);
+		Add_Rule(AuxDataName("*.*"), INCLUDE, 1);
+		Add_Rule(AuxDataName("*"), INCLUDE, -1);
 	}
 	virtual RefCountPtr<PolicyConditionClass> Get_Condition(int, int) { return Condition; }
 
@@ -288,7 +288,7 @@ static void Encoder_State(Object &o)
 }
 
 // UnknownSendRootClass::Encode_Changes (0x4A4660) for a root with its policy and change table
-static LinearBufferClass *Encode_Changes(UnknownRootClass *root, PolicyClass *policy, ChangeTableClass *changes, unsigned int time)
+static LinearBuffer *Encode_Changes(UnknownRootClass *root, PolicyClass *policy, ChangeTableClass *changes, unsigned int time)
 {
 	changes->Time = time;
 	if (changes->Root->Dirty || changes->Delta->Unknown70 != changes->Root->Stamp) {
@@ -409,7 +409,7 @@ int main(int argc, char **argv)
 
 		// the packet entry 0x7364C0's body: the data after the game id and the length
 		Touched.Clear();
-		LinearBufferClass buf(&payload[6], payload.size() - 6, 0x400, false);
+		LinearBuffer buf(&payload[6], payload.size() - 6, 0x400, false);
 		DurationClass base(0);
 		bool result = root->Decode(buf, base);
 		bool decoded = form ? !result : result;
@@ -426,13 +426,13 @@ int main(int argc, char **argv)
 				lists[k].Add(Touched.List[k][j]);
 			}
 		}
-		LinearBufferClass w(0x400, 0x400);
+		LinearBuffer w(0x400, 0x400);
 		w.Write(&payload[0], 4);
 		unsigned short len = 0;
 		w.Write(&len, 2);
 		unsigned char f = payload[6];
 		w.Write(&f, 1);
-		LinearBufferClass *ok;
+		LinearBuffer *ok;
 		if (form) {
 			RecordTableClass table(root->Unknown98, &lists[0], &lists[1], &lists[2]);
 			ok = table.Unknown_All(&w);
@@ -468,7 +468,7 @@ int main(int argc, char **argv)
 			changes = ((UnknownSendRootClass *)root)->Changes;
 		}
 		std::vector<ChangeEntryClass> before = changes->Entries;
-		LinearBufferClass *e;
+		LinearBuffer *e;
 		if (id == 0) {
 			e = ((UnknownSendRootClass *)root)->Encode_Changes(n);
 		} else {

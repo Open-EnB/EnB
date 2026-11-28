@@ -18,9 +18,9 @@ class SClient;
 class RenderObjClass;		// ww3d2's
 class ButtonGadgetClass;	// unknown_675120.h's
 class ControlKeysManager;	// control_keys_manager.h's
-class UICinfoClass;			// ui_cinfo.h's character window (0x5734D0)
-class UIStarmapClass;		// ui_starmap.h's star map window (0x7C63D0)
-class UIPingClass;			// ui_ping.h's ping window (0x5D7630)
+class CharacterInfoInterface;			// ui_cinfo.h's character window (0x5734D0)
+class StarmapInterface;		// ui_starmap.h's star map window (0x7C63D0)
+class PingInterface;			// ui_ping.h's ping window (0x5D7630)
 
 class UIExperienceClass;	// ui_experience.h's experience bars (0x58C450)
 
@@ -69,7 +69,7 @@ public:
 	void Unknown_695E10(int type, int *num_items, int *num_slots);	// 0x695E10 (the three inventories' sums)  // NAME 3 [num_items, num_slots]: the FAIL_IFs'; NAME 1 [type]: neutral
 	void Unknown_695F40();								// 0x695F40 (SClient 0x742530, ui_chat_panel.cpp, on every change of view: all closed)
 	void Unknown_695FE0(bool on);						// 0x695FE0 (+0xBC; the starbase view's 0x69CDE0 passes true)  // NAME 1 [on]: neutral
-	RefCountPtr<UICinfoClass> Get_Character();	// 0x6384D0 (inline in ui_starbase.cpp, out of line after UIStarbaseClass::Unknown_60)  // NAME 1: its member's
+	RefCountPtr<CharacterInfoInterface> Get_Character();	// 0x6384D0 (inline in ui_starbase.cpp, out of line after StarbaseInterface::Unknown_60)  // NAME 1: its member's
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the FAIL_IFs '!Get_Client()')  // NAME 3: the FAIL_IFs'
 
 	ButtonGadgetClass *Buttons[NUM_BUTTONS];			// +0x84 ('MAP_BUT', 'CHARACTER_BUT', 'SHIP_BUT', 'OPTIONS_BUT': gadgets 1..4)  // NAME 1: neutral
@@ -77,12 +77,12 @@ public:
 	RefCountPtr<UIPdaEquipClass> Equipment;			// +0x98 (window 1)  // NAME 2: its key's
 	RefCountPtr<UIPdaCargoClass> Cargo;				// +0x9C (window 0)  // NAME 2: its key's
 	RefCountPtr<UIVaultClass> Vault;				// +0xA0 (window 3)  // NAME 2: its key's
-	RefCountPtr<UICinfoClass> Character;				// +0xA4 (window 2)  // NAME 2: its key's
-	RefCountPtr<UIStarmapClass> Starmap;				// +0xA8 (window 4; the main view's 0x512A00 calls its 0x7C8DB0)  // NAME 1: its class's
+	RefCountPtr<CharacterInfoInterface> Character;				// +0xA4 (window 2)  // NAME 2: its key's
+	RefCountPtr<StarmapInterface> Starmap;				// +0xA8 (window 4; the main view's 0x512A00 calls its 0x7C8DB0)  // NAME 1: its class's
 	RefCountPtr<InterfaceClass> OpenedCargoInterface;	// +0xAC (the equipment or vault window opened with the cargo window)  // NAME 3: the assert's
 	RefCountPtr<InterfaceClass> UnknownB0;				// +0xB0 (the window asked for: Active on the next frame without a bridge request)
 	UIExperienceClass *Experience;						// +0xB4 (0x58C450)  // NAME 1: its file's
-	RefCountPtr<UIPingClass> Ping;						// +0xB8 (the key 'Toggle Ping')  // NAME 2: its key's
+	RefCountPtr<PingInterface> Ping;						// +0xB8 (the key 'Toggle Ping')  // NAME 2: its key's
 	bool UnknownBC;										// +0xBC (the keys taken; the constructor: true)
 };
 

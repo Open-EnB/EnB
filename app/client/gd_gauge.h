@@ -74,7 +74,7 @@ struct GaugeBarStruct  // NAME 1: neutral (D10): what it holds
 };
 
 // A gauge (0x6C bytes, table 0xAFA1AC): ui_faction.cpp's love / hate bars, skill_render.cpp's 'REACTOR_BAR1'
-class GaugeGadgetClass : public Unknown_675120Class	// NAME 3: class-from-file (D24) for app\Client\gd_gauge.cpp
+class GaugeGadgetClass : public UIMeshGadgetClass	// NAME 3: class-from-file (D24) for app\Client\gd_gauge.cpp
 {
 public:
 	GaugeGadgetClass(RenderObjClass *mesh, const char *format);	// 0x669570 (the sub-object sprintf(format, 0), or the mesh itself without a format)  // NAME 1 [mesh, format]: what it does with them

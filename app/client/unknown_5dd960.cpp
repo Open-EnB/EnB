@@ -31,13 +31,13 @@ Unknown5DD960Class::~Unknown5DD960Class()
 // @0x5DDB20
 void Unknown5DD960Class::Unknown_58()
 {
-	UIMFDClass::Unknown_58();
+	MFDInterface::Unknown_58();
 }
 
 // @0x5DDB40
 void Unknown5DD960Class::Unknown_5C()
 {
-	UIMFDClass::Unknown_5C();
+	MFDInterface::Unknown_5C();
 }
 
 // @0x5DDB60
@@ -58,13 +58,13 @@ bool Unknown5DD960Class::Unknown_68(int key)
 			sclient->Unknown_74D990(0x13, "Orient not implemented.", 0);
 			return(true);
 	}
-	return(UIMFDClass::Unknown_68(key));
+	return(MFDInterface::Unknown_68(key));
 }
 
 // @0x5DDC20
 void Unknown5DD960Class::Unknown_60()
 {
-	UIMFDClass::Unknown_60();
+	MFDInterface::Unknown_60();
 }
 
 /*
@@ -81,5 +81,5 @@ void Unknown5DD960Class::Unknown_60()
 **   0x5DDC90).
 ** - Unknown_68's switch is on key - 5 (cases 1 to 3): the client's lea eax, [edx - 5] before the decrements; on the
 **   key itself (cases 6 to 8) VC6 subtracts 6 at once.
-** - Unknown_58 / 5C / 60 only call UIMFDClass's (Unknown5BE4F0Class has none of its own); VC6 makes each a jmp.
+** - Unknown_58 / 5C / 60 only call MFDInterface's (Unknown5BE4F0Class has none of its own); VC6 makes each a jmp.
 */

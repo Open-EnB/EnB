@@ -61,11 +61,11 @@ public:
 };
 
 // opcode 159 (0x009F, STARBASE_ROOM_CHANGE): vtable 0xB0B958, constructor 0x8A3D60, 0x18 bytes
-class Starbase_Room_ChangePacketClass : public PacketClass  // NAME 3: the client's Print text 'Starbase_Room_Change {' and the PacketClass convention
+class StarbaseAvatarRoomChangePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Starbase_Room_ChangePacketClass(int avatar_id, int new_room, int old_room);	// 0x8A3CE0
-	Starbase_Room_ChangePacketClass(RawPacketClass *raw);	// 0x8A3D60
+	StarbaseAvatarRoomChangePacketClass(int avatar_id, int new_room, int old_room);	// 0x8A3CE0
+	StarbaseAvatarRoomChangePacketClass(RawPacketClass *raw);	// 0x8A3D60
 	virtual RawPacketClass *Build();	// +0x04 0x8A3E20
 	virtual bool Process_Packet(void *client);	// +0x08 0x868B80 (clientstub.cpp l.284)
 	virtual int Get_Data_Size();	// +0x0C 0x8A3F00

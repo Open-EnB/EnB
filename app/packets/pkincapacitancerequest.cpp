@@ -4,44 +4,44 @@
 #include <stdio.h>
 
 
-IncapacitanceRequestPacketClass::IncapacitanceRequestPacketClass(int game_id) : GameID(game_id)
+IncapacitanceDetailsRequestPacket::IncapacitanceDetailsRequestPacket(int game_id) : GameID(game_id)
 {
 }
 
-IncapacitanceRequestPacketClass::IncapacitanceRequestPacketClass(RawPacketClass *raw)
+IncapacitanceDetailsRequestPacket::IncapacitanceDetailsRequestPacket(RawPacketClass *raw)
 {
 	GameID = -1;
 	raw->Get(GameID);
 }
 
-RawPacketClass *IncapacitanceRequestPacketClass::Build()
+RawPacketClass *IncapacitanceDetailsRequestPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(141, Get_Data_Size());
 	raw->Add(GameID);
 	return(raw);
 }
 
-int IncapacitanceRequestPacketClass::Get_Data_Size()
+int IncapacitanceDetailsRequestPacket::Get_Data_Size()
 {
 	return(sizeof(GameID));
 }
 
-int IncapacitanceRequestPacketClass::Print(char *buffer, int len)
+int IncapacitanceDetailsRequestPacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "Incapacitance Details Request {GameID=%d}", GameID));
 }
 
-IncapacitanceDistressBeaconPacketClass::IncapacitanceDistressBeaconPacketClass(int game_id, bool on) : GameID(game_id), On(on)
+IncapacitanceDistressBeaconPacket::IncapacitanceDistressBeaconPacket(int game_id, bool on) : GameID(game_id), On(on)
 {
 }
 
-IncapacitanceDistressBeaconPacketClass::IncapacitanceDistressBeaconPacketClass(RawPacketClass *raw) : GameID(-1), On(true)
+IncapacitanceDistressBeaconPacket::IncapacitanceDistressBeaconPacket(RawPacketClass *raw) : GameID(-1), On(true)
 {
 	raw->Get(GameID);
 	raw->Get(&On, sizeof(On));
 }
 
-RawPacketClass *IncapacitanceDistressBeaconPacketClass::Build()
+RawPacketClass *IncapacitanceDistressBeaconPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(142, Get_Data_Size());
 	raw->Add(GameID);
@@ -49,12 +49,12 @@ RawPacketClass *IncapacitanceDistressBeaconPacketClass::Build()
 	return(raw);
 }
 
-int IncapacitanceDistressBeaconPacketClass::Get_Data_Size()
+int IncapacitanceDistressBeaconPacket::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(On));
 }
 
-int IncapacitanceDistressBeaconPacketClass::Print(char *buffer, int len)
+int IncapacitanceDistressBeaconPacket::Print(char *buffer, int len)
 {
 	char on[16];
 	Value_To_String(on, sizeof(on), On);
@@ -88,7 +88,7 @@ int Packet_008FClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "Request Rescue {GameID=%d}", GameID));
 }
 
-IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(const std::string &unknown0C, const AvatarDescClass &desc, const std::string &unknown128, const std::string &unknown138, const std::string &unknown148, const std::string &unknown158, const std::string &unknown168, const std::string &unknown178, const std::string &unknown188) :
+IncapacitanceDetailsPacket::IncapacitanceDetailsPacket(const std::string &unknown0C, const AvatarDescriptionClass &desc, const std::string &unknown128, const std::string &unknown138, const std::string &unknown148, const std::string &unknown158, const std::string &unknown168, const std::string &unknown178, const std::string &unknown188) :
 	Unknown0C(unknown0C),
 	Desc(desc),
 	Unknown128(unknown128),
@@ -188,5 +188,5 @@ int IncapacitanceRescueConfirmationPacket::Print(char *buffer, int len)
 **	  pkemit.py): members from the raw message's Get / Build's Add (sizes) and Print (types,
 **	  names: 'Name=%d'), the constructors' stores in the initialiser list.
 **	* The file name is provisional (provisional, pk + its first named class's name).
-**	* 144 written by hand (builder P7, 2026-10-27): eight strings and an AvatarDescClass.
+**	* 144 written by hand (builder P7, 2026-10-27): eight strings and an AvatarDescriptionClass.
 */

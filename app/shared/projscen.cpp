@@ -6,7 +6,7 @@
 #include "..\shared\g_assert.h"
 
 // @0x494EE0
-ProjSceneClass::ProjSceneClass(void) :
+ProjectionSceneClass::ProjectionSceneClass(void) :
 	ProjectorManager(NULL),
 	ProjectionDef(NULL),
 	StaticCullingSystem(NULL),
@@ -15,16 +15,16 @@ ProjSceneClass::ProjSceneClass(void) :
 }
 
 // @0x494F50
-ProjSceneClass::~ProjSceneClass(void)
+ProjectionSceneClass::~ProjectionSceneClass(void)
 {
-	ProjSceneClass::Remove_All_Render_Objects();
+	ProjectionSceneClass::Remove_All_Render_Objects();
 	Delete_Projector_Manager();
 	Delete_Static_Culling_System();
 	Delete_Dynamic_Culling_System();
 }
 
 // @0x495070
-void ProjSceneClass::Add_Render_Object(RenderObjClass * obj)
+void ProjectionSceneClass::Add_Render_Object(RenderObjClass * obj)
 {
 	Create_Projectors(obj);
 	SimpleSceneClass::Add_Render_Object(obj);
@@ -99,7 +99,7 @@ void ProjSceneClass::Add_Render_Object(RenderObjClass * obj)
 }
 
 // @0x495160
-void ProjSceneClass::Remove_Render_Object(RenderObjClass * obj)
+void ProjectionSceneClass::Remove_Render_Object(RenderObjClass * obj)
 {
 	SimpleSceneClass::Remove_Render_Object(obj);
 
@@ -129,7 +129,7 @@ void ProjSceneClass::Remove_Render_Object(RenderObjClass * obj)
 }
 
 // @0x495230
-void ProjSceneClass::Remove_All_Render_Objects(void)
+void ProjectionSceneClass::Remove_All_Render_Objects(void)
 {
 	RenderObjClass * obj;
 	while ((obj = RenderList.Remove_Head()) != NULL) {
@@ -139,7 +139,7 @@ void ProjSceneClass::Remove_All_Render_Objects(void)
 }
 
 // @0x495280
-void ProjSceneClass::Create_Projector_Manager(void)
+void ProjectionSceneClass::Create_Projector_Manager(void)
 {
 	if (ProjectorManager == NULL) {
 		ArgvClass args(false, true);
@@ -156,7 +156,7 @@ void ProjSceneClass::Create_Projector_Manager(void)
 }
 
 // @0x4953E0
-void ProjSceneClass::Delete_Projector_Manager(void)
+void ProjectionSceneClass::Delete_Projector_Manager(void)
 {
 	if (ProjectorManager != NULL) {
 		delete ProjectorManager;
@@ -167,7 +167,7 @@ void ProjSceneClass::Delete_Projector_Manager(void)
 }
 
 // @0x495430
-void ProjSceneClass::Create_Projectors(RenderObjClass * obj)
+void ProjectionSceneClass::Create_Projectors(RenderObjClass * obj)
 {
 	if (ProjectorManager == NULL) {
 		return;
@@ -244,7 +244,7 @@ void ProjSceneClass::Create_Projectors(RenderObjClass * obj)
 }
 
 // @0x495560
-void ProjSceneClass::Create_Static_Culling_System(void)
+void ProjectionSceneClass::Create_Static_Culling_System(void)
 {
 	if (StaticCullingSystem == NULL) {
 		StaticCullingSystem = new ReceiverAABTreeCullSystemClass;
@@ -257,7 +257,7 @@ void ProjSceneClass::Create_Static_Culling_System(void)
 }
 
 // @0x495680
-void ProjSceneClass::Create_Dynamic_Culling_System(const Vector3 & min,const Vector3 & max,float objdim)
+void ProjectionSceneClass::Create_Dynamic_Culling_System(const Vector3 & min,const Vector3 & max,float objdim)
 {
 	if (DynamicCullingSystem == NULL) {
 		DynamicCullingSystem = new ReceiverGridCullSystemClass;
@@ -271,7 +271,7 @@ void ProjSceneClass::Create_Dynamic_Culling_System(const Vector3 & min,const Vec
 
 #pragma auto_inline(off)
 // @0x4957A0
-void ProjSceneClass::Add_Static_Receiver(RenderObjClass * obj)
+void ProjectionSceneClass::Add_Static_Receiver(RenderObjClass * obj)
 {
 
 
@@ -309,7 +309,7 @@ void ProjSceneClass::Add_Static_Receiver(RenderObjClass * obj)
 	}
 }
 // @0x495870
-void ProjSceneClass::Add_Dynamic_Receiver(RenderObjClass * obj)
+void ProjectionSceneClass::Add_Dynamic_Receiver(RenderObjClass * obj)
 {
 	G_ASSERT(DynamicCullingSystem);
 	if ((obj != NULL) && (obj->Class_ID() == 0x10001)) {
@@ -331,7 +331,7 @@ void ProjSceneClass::Add_Dynamic_Receiver(RenderObjClass * obj)
 #pragma auto_inline(on)
 
 // @0x495930
-void ProjSceneClass::Delete_Static_Culling_System(void)
+void ProjectionSceneClass::Delete_Static_Culling_System(void)
 {
 	if (StaticCullingSystem != NULL) {
 		delete StaticCullingSystem;
@@ -340,7 +340,7 @@ void ProjSceneClass::Delete_Static_Culling_System(void)
 }
 
 // @0x495960
-void ProjSceneClass::Delete_Dynamic_Culling_System(void)
+void ProjectionSceneClass::Delete_Dynamic_Culling_System(void)
 {
 	if (DynamicCullingSystem != NULL) {
 		delete DynamicCullingSystem;
@@ -349,7 +349,7 @@ void ProjSceneClass::Delete_Dynamic_Culling_System(void)
 }
 
 // @0x495990
-void ProjSceneClass::Apply_Projectors(CameraClass * camera)
+void ProjectionSceneClass::Apply_Projectors(CameraClass * camera)
 {
 	if (ProjectorManager == NULL) return;
 	ProjectorReceiverListClass dynamic_receivers;
@@ -360,7 +360,7 @@ void ProjSceneClass::Apply_Projectors(CameraClass * camera)
 		for (ProjectorReceiverCullClass * obj = DynamicCullingSystem->Get_First_Collected_Object();
 			obj != NULL;
 			obj = DynamicCullingSystem->Get_Next_Collected_Object(obj)) {
-			ProjectorReceiverClass * receiver = obj->Receiver;
+			ProjectionTargetClass * receiver = obj->Receiver;
 			if (receiver != NULL) {
 				dynamic_receivers.Add(receiver);
 			}
@@ -373,7 +373,7 @@ void ProjSceneClass::Apply_Projectors(CameraClass * camera)
 		for (ProjectorReceiverCullClass * obj = StaticCullingSystem->Get_First_Collected_Object();
 			obj != NULL;
 			obj = StaticCullingSystem->Get_Next_Collected_Object(obj)) {
-			ProjectorReceiverClass * receiver = obj->Receiver;
+			ProjectionTargetClass * receiver = obj->Receiver;
 			if (receiver != NULL) {
 				static_receivers.Add(receiver);
 			}

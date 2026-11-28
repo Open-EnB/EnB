@@ -31,17 +31,17 @@ int RequestTargetPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {GameID=%d TargetID=%d}", "Request_Target", GameID, TargetID));
 }
 
-RequestTargetsTargetPacketClass::RequestTargetsTargetPacketClass(int game_id, int target_id) : GameID(game_id), TargetID(target_id)
+RequestTargetTargetPacketClass::RequestTargetTargetPacketClass(int game_id, int target_id) : GameID(game_id), TargetID(target_id)
 {
 }
 
-RequestTargetsTargetPacketClass::RequestTargetsTargetPacketClass(RawPacketClass *raw)
+RequestTargetTargetPacketClass::RequestTargetTargetPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&TargetID, sizeof(TargetID));
 }
 
-RawPacketClass *RequestTargetsTargetPacketClass::Build()
+RawPacketClass *RequestTargetTargetPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(24, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -49,12 +49,12 @@ RawPacketClass *RequestTargetsTargetPacketClass::Build()
 	return(raw);
 }
 
-int RequestTargetsTargetPacketClass::Get_Data_Size()
+int RequestTargetTargetPacketClass::Get_Data_Size()
 {
 	return(sizeof(GameID) + sizeof(TargetID));
 }
 
-int RequestTargetsTargetPacketClass::Print(char *buffer, int)
+int RequestTargetTargetPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {GameID=%d TargetID=%d}", "Request_Target_Target", GameID, TargetID));
 }

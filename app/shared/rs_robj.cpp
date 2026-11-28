@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\shared\rs_robj.cpp (its asserts, lines 92-416); client
 **	0x45E550-0x45F343. Notes at the end.
 **
-**	The render-object state (Unknown45E850Class, declared in rs_track.h for now): a render state that
+**	The render-object state (RenderStateRenderObjClass, declared in rs_track.h for now): a render state that
 **	shows a model, made by name from the asset manager or handed in, and moves on to the next state.
 */
 #include <string.h>
@@ -26,7 +26,7 @@
 
 
 // the copy constructor's read of the source's time (its fld / fstp)
-static inline float Unknown_Duration(const Unknown45E850Class &state) { return(state.Unknown34); }	// NAME 1 [Unknown_Duration, state]: neutral (D10)
+static inline float Unknown_Duration(const RenderStateRenderObjClass &state) { return(state.Unknown34); }	// NAME 1 [Unknown_Duration, state]: neutral (D10)
 
 // 0x45E550: marks the meshes of a model and its sub-objects
 static void Unknown_45E550(RenderObjClass *robj)	// NAME 1 [Unknown_45E550, robj]: neutral (D10)
@@ -75,7 +75,7 @@ static void Unknown_45E550(RenderObjClass *robj)	// NAME 1 [Unknown_45E550, robj
 
 
 // 0x45E5F0 (deleting destructor 0x45E850)
-Unknown45E850Class::Unknown45E850Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration) :
+RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *name, int next_id, float duration) :
 	RenderStateClass(list, id, link_id, flags),
 	RenderObjName(NULL),
 	RenderObj(NULL),
@@ -135,7 +135,7 @@ Unknown45E850Class::Unknown45E850Class(RenderStateListClass *list, int id, int l
 
 
 // 0x45E880
-Unknown45E850Class::Unknown45E850Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration) :
+RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list, int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration) :
 	RenderStateClass(list, id, link_id, flags),
 	RenderObjName(NULL),
 	RenderObj(NULL),
@@ -171,7 +171,7 @@ Unknown45E850Class::Unknown45E850Class(RenderStateListClass *list, int id, int l
 	}
 }
 // 0x45E9F0
-Unknown45E850Class::Unknown45E850Class(RenderStateListClass *list, const Unknown45E850Class &source) :
+RenderStateRenderObjClass::RenderStateRenderObjClass(RenderStateListClass *list, const RenderStateRenderObjClass &source) :
 	RenderStateClass(list, source),
 	RenderObjName(NULL),
 	RenderObj(NULL),
@@ -182,13 +182,13 @@ Unknown45E850Class::Unknown45E850Class(RenderStateListClass *list, const Unknown
 {
 	RenderObjName = nstrdup(source.RenderObjName);
 	if (!Test_Flag(8) || Test_Flag(10)) {
-		RenderObj = ((Unknown45E850Class &)source).Peek_Render_Object();
+		RenderObj = ((RenderStateRenderObjClass &)source).Peek_Render_Object();
 		if (RenderObj != NULL) {
 			RenderObj->Add_Ref();
 			Flags |= (1 << RS_DATA_PRESENT);
 		}
 	} else {
-		RenderObjClass *robj = ((Unknown45E850Class &)source).Peek_Render_Object();
+		RenderObjClass *robj = ((RenderStateRenderObjClass &)source).Peek_Render_Object();
 		if (robj != NULL) {
 			RenderObj = robj->Clone();
 			if (RenderObj->Class_ID() == RSTRACK_CLASSID) {
@@ -219,13 +219,13 @@ Unknown45E850Class::Unknown45E850Class(RenderStateListClass *list, const Unknown
 }
 
 // 0x45EB70: the copy into another list
-RenderStateClass *Unknown45E850Class::Unknown_04(RenderStateListClass *list)
+RenderStateClass *RenderStateRenderObjClass::Unknown_04(RenderStateListClass *list)
 {
-	return(new Unknown45E850Class(list, *this));
+	return(new RenderStateRenderObjClass(list, *this));
 }
 
 // 0x45EC00
-Unknown45E850Class::~Unknown45E850Class()
+RenderStateRenderObjClass::~RenderStateRenderObjClass()
 {
 	if (RenderObj != NULL) {
 		RenderObj->Release_Ref();
@@ -236,7 +236,7 @@ Unknown45E850Class::~Unknown45E850Class()
 }
 
 // 0x45EC90
-void Unknown45E850Class::Unknown_24(void *value, bool recursive)
+void RenderStateRenderObjClass::Unknown_24(void *value, bool recursive)
 {
 	if (Test_Flag(8) && RenderObj != NULL) {
 		RenderObj->Set_User_Data(value, recursive);
@@ -244,7 +244,7 @@ void Unknown45E850Class::Unknown_24(void *value, bool recursive)
 }
 
 // 0x45ECD0: the time, and on to the next state when it is up
-void Unknown45E850Class::Unknown_30(RsTrackClass *owner, float seconds)
+void RenderStateRenderObjClass::Unknown_30(RsTrackClass *owner, float seconds)
 {
 	seconds += Unknown38;
 	Unknown38 = seconds;
@@ -256,7 +256,7 @@ void Unknown45E850Class::Unknown_30(RsTrackClass *owner, float seconds)
 
 
 // 0x45ED70
-RenderStateClass *Unknown45E850Class::Get_Next_Render_State()
+RenderStateClass *RenderStateRenderObjClass::Get_Next_Render_State()
 {
 	if (NextRenderState == NULL) {
 		RenderStateListClass *list = List;
@@ -274,7 +274,7 @@ RenderStateClass *Unknown45E850Class::Get_Next_Render_State()
 
 
 // 0x45EDC0: the model (loaded; a copy of its own unless flag 8 or 10)
-RenderObjClass *Unknown45E850Class::Peek_Render_Object()
+RenderObjClass *RenderStateRenderObjClass::Peek_Render_Object()
 {
 	Unknown_10();
 	if (!Test_Flag(8) && !Test_Flag(10)) {
@@ -291,7 +291,7 @@ RenderObjClass *Unknown45E850Class::Peek_Render_Object()
 }
 
 // 0x45EE50: activation: the model shown, its animation reset, the owner switched to it
-void Unknown45E850Class::Unknown_14(RsTrackClass *owner)
+void RenderStateRenderObjClass::Unknown_14(RsTrackClass *owner)
 {
 	Unknown_457E10();
 	RenderObjClass *robj = Peek_Render_Object();
@@ -305,7 +305,7 @@ void Unknown45E850Class::Unknown_14(RsTrackClass *owner)
 }
 
 // 0x45EED0: deactivation: the model hidden
-void Unknown45E850Class::Unknown_18(RsTrackClass *owner)
+void RenderStateRenderObjClass::Unknown_18(RsTrackClass *owner)
 {
 	Unknown_457E90();
 	RenderObjClass *robj = Peek_Render_Object();
@@ -315,7 +315,7 @@ void Unknown45E850Class::Unknown_18(RsTrackClass *owner)
 }
 
 // 0x45EF10: drops a model it can make again (from the source list, or by name from its file)
-void Unknown45E850Class::Unknown_0C()
+void RenderStateRenderObjClass::Unknown_0C()
 {
 	if (Test_Flag(RS_DATA_PRESENT) && RenderObj != NULL && (List->Source != NULL || (Get_Source_Filename() != NULL && RenderObjName != NULL))) {
 		RenderObj->Release_Ref();
@@ -345,7 +345,7 @@ void Unknown45E850Class::Unknown_0C()
 
 
 // 0x45EF80: loads the model (the source list's state's, or by name, loading its file when needed)
-bool Unknown45E850Class::Unknown_10()
+bool RenderStateRenderObjClass::Unknown_10()
 {
 	if (Test_Flag(RS_DATA_PRESENT)) {
 		return(true);
@@ -410,7 +410,7 @@ bool Unknown45E850Class::Unknown_10()
 
 
 // 0x45F280: the model made again at a scale and HSV shift
-void Unknown45E850Class::Unknown_40(float scale, float *hsv)
+void RenderStateRenderObjClass::Unknown_40(float scale, float *hsv)
 {
 	RenderObjClass *newrobj = ((ENBAssetManager *)WW3DAssetManager::Get_Instance())->Create_Render_Obj(RenderObjName, scale, *(Vector3 *)hsv);
 	FAIL_IF(!newrobj) {

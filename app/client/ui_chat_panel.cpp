@@ -24,11 +24,11 @@
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // What the avatar pip's +0x2C holds (a render object), as far as 0x563C50 reads it
-class CharacterViewAvatarClass : public RenderObjClass	// avatar.h's (avatar_pip.h's +0x2C), as far as this file uses it
+class AvatarClass : public RenderObjClass  // NAME 5: thunk order, binary.md 5.11; avatar.h's (avatar_pip.h's +0x2C), as far as this file uses it
 {
 public:
 	void Unknown_77E3D0(int arg); void Unknown_781760(const char *text); class Unknown_ChatStreamClass *Unknown_7817E0();	// 0x77E3D0 (avatar.cpp; 0x563910 passes 1 or 2); 0x781760, 0x7817E0 (avatar.h's: 0x569A00's emotes)  // NAME 1 [arg, text]: neutral
-	struct UnknownF8Struct { char Unknown00[0x18]; int Gender; char Unknown1C[0xD4 - 0x1C]; char Name[0x10C - 0xD4]; };	// NAME 1: neutral (D10): +0xD4 the name 0x563910 copies; +0x18 AvatarDescClass's Gender (0x5689D0, 0x569A00)  // NAME 2 [Gender]: avatar_desc.h's
+	struct UnknownF8Struct { char Unknown00[0x18]; int Gender; char Unknown1C[0xD4 - 0x1C]; char Name[0x10C - 0xD4]; };	// NAME 1: neutral (D10): +0xD4 the name 0x563910 copies; +0x18 AvatarDescriptionClass's Gender (0x5689D0, 0x569A00)  // NAME 2 [Gender]: avatar_desc.h's
 	UnknownF8Struct *Get_UnknownF8() { return(&UnknownF8); }	// NAME 1: neutral (D10): the client tests the address
 
 	char Unknown_Pad[0xF8 - sizeof(RenderObjClass)];
@@ -82,7 +82,7 @@ extern char *Unknown_BA8C20, *Unknown_BA8C24, *Unknown_BA8C28, *Unknown_BA8C2C, 
 struct ChatChannelStruct	// NAME 1: neutral (D10)
 {
 	const char *Name;									// NAME 2: what it holds
-	const char *Option;									// NAME 2: the option tested (OptionClass::Get_Bool)
+	const char *Option;									// NAME 2: the option tested (OptionManagerClass::Get_Bool)
 	const char *Number;									// NAME 2: what 0x565390 passes to atoi
 };
 static ChatChannelStruct Unknown_B7C530[18] = {	// NAME 1: neutral (D10): 17 entries and a NULL one (0x56B700 walks to 0xB7C5FC); entries 4-17 by the initialiser 0x568700 (the channels' names from 0xBA8C20, each "5")
@@ -488,8 +488,8 @@ void ChatPanelInterface::Unknown_54()
 	Unknown13C = (int)new Unknown67D430Class(200);
 	Unknown140 = (int)new ChatGadgetClass(Client);
 	Unknown_56C0C0();
-	Unknown144 = OptionClass::Instance->Get_Int("Chat_Default_Channel");
-	Unknown1F4 = OptionClass::Instance->Get_String("Channel_Label");
+	Unknown144 = OptionManagerClass::Instance->Get_Int("Chat_Default_Channel");
+	Unknown1F4 = OptionManagerClass::Instance->Get_String("Channel_Label");
 	Unknown_5689D0(0);
 	Unknown_5689D0(1);
 	Unknown_5689D0(2);
@@ -592,7 +592,7 @@ bool ChatPanelInterface::Unknown_68(int key)
 		case 16:
 			if (!Unknown_7CA2D0()->Get_Unknown34()) {
 				Unknown_5685C0();
-				UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 6, "Online Manual", 0));
+				UnknownF8 = Create_Get((ChatPanelUIBase *)new PopupBrowserInterface(Client->As_Space_Client(), 6, "Online Manual", 0));
 				UnknownF8->Unknown_54();
 				UnknownF8->Unknown_7C(View, 1);
 				UnknownEC = UnknownF8.Peek();
@@ -656,7 +656,7 @@ void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 			Unknown110->Unknown_7E3A20(0, Unknown118, 0);
 		}
 		Unknown11C = id;
-		RefCountPtr<CharacterViewAvatarClass> avatar = Unknown110->Unknown02C;
+		RefCountPtr<AvatarClass> avatar = Unknown110->Unknown02C;
 		if (avatar) {
 			avatar->Unknown_77E3D0(1);
 			if (avatar->Get_UnknownF8()) Unknown124 = avatar->Get_UnknownF8()->Name;
@@ -668,7 +668,7 @@ void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 			Unknown118 = id;
 			if (Unknown11C) Unknown110->Unknown_7E4350();
 			Unknown110->Unknown_7E3A20(0, Unknown118, 0);
-			RefCountPtr<CharacterViewAvatarClass> avatar = Unknown110->Unknown02C;
+			RefCountPtr<AvatarClass> avatar = Unknown110->Unknown02C;
 			if (avatar) {
 				avatar->Unknown_77E3D0(2);
 				if (avatar->Get_UnknownF8()) Unknown124 = avatar->Get_UnknownF8()->Name;
@@ -682,7 +682,7 @@ void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 void ChatPanelInterface::Unknown_563C50()
 {
 	SClient *sclient = Client->As_Space_Client();
-	RefCountPtr<CharacterViewAvatarClass> object = Unknown110->Unknown02C;
+	RefCountPtr<AvatarClass> object = Unknown110->Unknown02C;
 	if (Unknown118) {
 		if (!sclient->Find_Object(Unknown118) || (object && !object->Unknown204)) {
 			Unknown110->Unknown_7E4350();
@@ -934,7 +934,7 @@ void ChatPanelInterface::Unknown_565120()
 	SClient *sclient = Client->As_Space_Client();
 	Unknown228.clear();
 	for (int i = 0; Unknown_B7C530[i].Name; i++) {
-		if (OptionClass::Instance->Get_Bool(Unknown_B7C530[i].Option)) {
+		if (OptionManagerClass::Instance->Get_Bool(Unknown_B7C530[i].Option)) {
 			if (strcmp(Unknown_B7C530[i].Name, "Guild") || sclient->Unknown_728300()) {
 				if (strcmp(Unknown_B7C530[i].Name, "Group") || sclient->Unknown_74D570()) {
 					Unknown228.push_back(std::string(Unknown_B7C530[i].Name));
@@ -1002,7 +1002,7 @@ found:
 			} else {
 				Unknown1F4 = Unknown238;
 			}
-			Unknown238.size(); Unknown238.size(); Unknown238.size(); StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+			Unknown238.size(); Unknown238.size(); Unknown238.size(); StringOptionStruct *label = OptionManagerClass::Instance->Find_String("Channel_Label");
 			if (label) label->Value = Unknown1F4.c_str();
 			Unknown_5689D0(0);
 		}
@@ -1142,7 +1142,7 @@ void ChatPanelInterface::Unknown_565F80()
 			break;
 		case 11:
 			if (!Unknown_7CA2D0()->Get_Unknown34()) {
-				Unknown104 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
+				Unknown104 = Create_Get((ChatPanelUIBase *)new PopupBrowserInterface(Client->As_Space_Client(), 5, "Credits", 0));
 				UnknownEC = Unknown104.Peek();
 			}
 			break;
@@ -1271,7 +1271,7 @@ void ChatPanelInterface::Unknown_567760()
 void ChatPanelInterface::Unknown_567930(int channel)
 {
 	Unknown144 = channel;
-	IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
+	IntOptionStruct *option = OptionManagerClass::Instance->Find_Int("Chat_Default_Channel");
 	if (option) option->Value = channel;
 }
 
@@ -1426,7 +1426,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 {
 	SClient *sclient = Client->As_Space_Client();
 	if (!sclient) return;
-	int id = ((ClientClass *)Client)->AvatarID; CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(id);
+	int id = ((ClientClass *)Client)->AvatarID; AvatarClass *avatar = sclient->Unknown_74C840(id);
 	int gender = 0;
 	if (avatar) gender = avatar->Get_UnknownF8()->Gender;
 	InterfaceSortScopeClass sort(this);
@@ -1449,7 +1449,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 			bool chosen = false;
 			std::string name("");
 			int channel = -1;
-			OptionClass *options = OptionClass::Instance;
+			OptionManagerClass *options = OptionManagerClass::Instance;
 			char buffer[64];
 			for (int i = 0; i < 17; i++) { ChatChannelStruct *entry = &Unknown_B7C530[i];
 				if (entry->Name) {
@@ -1493,7 +1493,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 
 
 				}
-				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+				StringOptionStruct *label = OptionManagerClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str(); Get_View(); Get_View(); Get_View();
 			} else if (chosen && !strcmp(Unknown1F4.c_str(), "")) {
 				_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
@@ -1502,7 +1502,7 @@ void ChatPanelInterface::Unknown_5689D0(int index)
 
 
 				Unknown1F4 = name;
-				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+				StringOptionStruct *label = OptionManagerClass::Instance->Find_String("Channel_Label");
 				if (label) label->Value = Unknown1F4.c_str();
 			}
 			Combo[0]->Unknown_7C(Get_View(), 1);
@@ -1989,7 +1989,7 @@ void ChatPanelInterface::Unknown_569A00()
 {
 	if (!UnknownD4) return;
 	SClient *sclient = Client->As_Space_Client(); int id = ((ClientClass *)Client)->AvatarID;
-	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(id);
+	AvatarClass *avatar = sclient->Unknown_74C840(id);
 	std::string text(UnknownD4->Get_Selected_Text());
 	int gender = 0;
 	if (avatar) gender = avatar->Get_UnknownF8()->Gender;
@@ -2009,10 +2009,10 @@ void ChatPanelInterface::Unknown_569A00()
 	}
 	if (!strcmp(text.c_str(), "Ignore List")) {
 		Unknown_5685C0();
-		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPlayerOptClass(Client->As_Space_Client()));
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new PlayerOptionsInterface(Client->As_Space_Client()));
 		UnknownF8->Unknown_54();
 		UnknownF8->Unknown_7C(View, 1);
-		UnknownD8 = (UIPlayerOptClass *)UnknownF8.Peek();
+		UnknownD8 = (PlayerOptionsInterface *)UnknownF8.Peek();
 		return;
 	}
 	if (!strcmp(text.c_str(), "Reply List")) {
@@ -2088,7 +2088,7 @@ void ChatPanelInterface::Unknown_569A00()
 	} else if (!strcmp(text.c_str(), "Credits")) {
 		if (!Unknown_7CA2D0()->Get_Unknown34()) {
 			Unknown_5685C0();
-			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new PopupBrowserInterface(Client->As_Space_Client(), 5, "Credits", 0));
 			UnknownF8->Unknown_54();
 			UnknownF8->Unknown_7C(View, 1);
 			UnknownEC = UnknownF8.Peek();
@@ -2097,7 +2097,7 @@ void ChatPanelInterface::Unknown_569A00()
 	} else if (!strcmp(text.c_str(), "Self Help")) {
 		if (!Unknown_7CA2D0()->Get_Unknown34()) {
 			Unknown_5685C0();
-			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 0, "Knowledgebase", 0));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new PopupBrowserInterface(Client->As_Space_Client(), 0, "Knowledgebase", 0));
 			UnknownF8->Unknown_54();
 			UnknownF8->Unknown_7C(View, 1);
 			UnknownEC = UnknownF8.Peek();
@@ -2126,7 +2126,7 @@ void ChatPanelInterface::Unknown_569A00()
 	for (i = 0; i < 17; i++) {
 		if (!strcmp(Unknown_B7C530[i].Name, text.c_str())) {
 			Unknown1F4 = Unknown_B7C530[i].Name;
-			StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+			StringOptionStruct *label = OptionManagerClass::Instance->Find_String("Channel_Label");
 			if (label) label->Value = Unknown1F4.c_str();
 			int channel = atoi(Unknown_B7C530[i].Number);
 			Unknown_567930(channel);
@@ -2155,7 +2155,7 @@ void ChatPanelInterface::Unknown_569A00()
 			if (!strcmp(Unknown_B7C398[i][gender], text.c_str()) && avatar) {
 				avatar->Unknown_781760(Unknown_B7C398[i][2]);
 				int id = ((ClientClass *)Client)->AvatarID;
-				((ClientClass *)Client)->Send_Packet(&AvatarEmotePacketClass(id, avatar->Unknown_7817E0(), 1, NULL));
+				((ClientClass *)Client)->Send_Packet(&ChatstreamPacketClass(id, avatar->Unknown_7817E0(), 1, NULL));
 				return;
 			}
 		}
@@ -2254,7 +2254,7 @@ void ChatPanelInterface::Unknown_569A00()
 // 0x56B700
 void ChatPanelInterface::Unknown_56B700()
 {
-	OptionClass *options = OptionClass::Instance;
+	OptionManagerClass *options = OptionManagerClass::Instance;
 	if (options) {
 		for (int i = 0; i < 17; i++) { ChatChannelStruct *channel = &Unknown_B7C530[i];
 			if (channel->Name && atoi(channel->Number) == 5 && options->Get_Bool(channel->Option)) {
@@ -2361,17 +2361,17 @@ void ChatPanelInterface::Unknown_56C0C0()
 {
 	unsigned int window = Unknown134;
 	if (window == 0) {
-		window = OptionClass::Instance->Get_Int("DefaultChatWindow");
+		window = OptionManagerClass::Instance->Get_Int("DefaultChatWindow");
 	} else {
 		window++;
 		if (Unknown10D) Unknown_5685C0();
 	}
 	if (window >= 4) window = 1;
 	Unknown_56C180(window);
-	IntOptionStruct *option = OptionClass::Instance->Find_Int("DefaultChatWindow");
+	IntOptionStruct *option = OptionManagerClass::Instance->Find_Int("DefaultChatWindow");
 	if (option) {
 		option->Value = Unknown134;
-		OptionClass::Instance->Save();
+		OptionManagerClass::Instance->Save();
 		return;
 	}
 	G_ASSERT(false);
@@ -2392,13 +2392,13 @@ void ChatPanelInterface::Unknown_56C180(int window)
 	Unknown134 = window;
 	switch (window) {
 		case 1:
-			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 0));
+			ChatInt = Create_Get(new ChatWindowSplitInterface(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 0));
 			break;
 		case 2:
-			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 1));
+			ChatInt = Create_Get(new ChatWindowSplitInterface(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 1));
 			break;
 		case 3:
-			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 2));
+			ChatInt = Create_Get(new ChatWindowSplitInterface(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 2));
 			break;
 		default:
 			G_ASSERT(false);

@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction)
 // udpreplay --conn: CordCon's delivered messages through the game's connection layer (docs/kernel-map.md
-// 4, 5): app\common\udpconn.cpp's UDPConnection::Receive (CordCon::read into the message buffer, then
+// 4, 5): app\common\udpconn.cpp's UDPConnectionClass::Receive (CordCon::read into the message buffer, then
 // the packet factory), then each packet through app\common\connect.cpp's stream connection over a
 // memory transport (Send_Packet: the {size, opcode} header and the payload; Receive: the ring, the
 // header, the whole message, the factory again), read back in chunks of varying size so that messages
@@ -114,9 +114,9 @@ static RawPacketClass *Build_Raw(const std::vector<unsigned char> &bytes)
 	memset(raw, 0, sizeof(RawPacketClass));
 	memcpy(&raw->Header, &bytes[0], sizeof(PacketHeaderClass));
 	if (bytes.size() > 4) {
-		new (&raw->Data) LinearBufferClass(&bytes[4], (int)bytes.size() - 4, 0x400, true);
+		new (&raw->Data) LinearBuffer(&bytes[4], (int)bytes.size() - 4, 0x400, true);
 	} else {
-		new (&raw->Data) LinearBufferClass(0x10, 0x400);
+		new (&raw->Data) LinearBuffer(0x10, 0x400);
 	}
 	raw->Channel = -1;
 	raw->Reliable = true;
@@ -151,7 +151,7 @@ static bool Packet_Bytes(PacketClass *p, std::vector<unsigned char> &bytes)
 // D95(a): the rebuilt classes whose client Build writes a size field larger than the payload it adds
 // (AVATAR_DESCRIPTION 97: Get_Data_Size 0x110 for 0x108 bytes; 183: an entry sized 0x4C for 0x49 bytes),
 // so their Build can't give the received message back: the harness sends the message as received
-// instead (UDPConnection::Receive's buffer; the stream side: the bytes its transport read). Counted as
+// instead (UDPConnectionClass::Receive's buffer; the stream side: the bytes its transport read). Counted as
 // "sent as received".
 static const unsigned short Recorded_Opcodes[] = { 97, 183 };
 int Conn_Recorded = 0;
@@ -228,21 +228,21 @@ public:
 };
 
 static MemoryStreamClass Stream;
-static std::map<CordCon *, UDPConnection *> Connections;
+static std::map<CordCon *, UDPConnectionClass *> Connections;
 
-// The UDPConnection over a side's CordCon (the constructor for an accepted CordCon, 0x82CBF0). Its
+// The UDPConnectionClass over a side's CordCon (the constructor for an accepted CordCon, 0x82CBF0). Its
 // constructor opens a default channel (openc mode 3); the replay's sides open the capture's own
 // channels, so that one is taken back (as Write_Side does for a channel openc gave wrongly).
-static UDPConnection *Get_Connection(CordCon *con, CordMgr *mgr)
+static UDPConnectionClass *Get_Connection(CordCon *con, CordMgr *mgr)
 {
-	std::map<CordCon *, UDPConnection *>::iterator it = Connections.find(con);
+	std::map<CordCon *, UDPConnectionClass *>::iterator it = Connections.find(con);
 	if (it != Connections.end()) {
 		return it->second;
 	}
 	int active = (int)con->Active_.size();
-	UDPConnection *c = new UDPConnection(con, mgr);
+	UDPConnectionClass *c = new UDPConnectionClass(con, mgr);
 	if ((int)con->Active_.size() == active + 1) {
-		CordChannelClass *ch = con->Channels_[c->Default];
+		CordChannel *ch = con->Channels_[c->Default];
 		ch->Mode = 0;
 		ch->IsClosed = true;
 		con->Active_.pop_back();
@@ -251,7 +251,7 @@ static UDPConnection *Get_Connection(CordCon *con, CordMgr *mgr)
 	return c;
 }
 
-// Every message the CordCon has for its reader: UDPConnection::Receive, then the stream framing.
+// Every message the CordCon has for its reader: UDPConnectionClass::Receive, then the stream framing.
 // A message under 4 bytes (the replay's 1-byte fillers) has no header: the client's factory would
 // read the previous message's from the shared buffer; the harness tells them by the CordCon's
 // BytesRead_ (read adds each message's length) and counts them instead (Conn_Short). Once the CordCon is closed (state
@@ -261,7 +261,7 @@ static UDPConnection *Get_Connection(CordCon *con, CordMgr *mgr)
 int Conn_Deliver(FILE *out, int n, const char *dir, const char *name, CordCon *con, CordMgr *mgr)
 {
 	static unsigned char peek[0x10000];
-	UDPConnection *udp = Get_Connection(con, mgr);
+	UDPConnectionClass *udp = Get_Connection(con, mgr);
 	int delivered = 0;
 	for (;;) {
 		int read_before = con->BytesRead_;

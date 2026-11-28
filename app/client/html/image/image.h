@@ -4,7 +4,7 @@
 
 #include "..\..\..\..\wwlib\dsurface.h"
 
-class HtmlViewClass;
+class HTMLViewer;
 
 // An image of an html page: its surface and the name the page links it by. vtable 0xB043D4 (6 slots); the
 // gif image (gifload.h) is the only kind the view makes.
@@ -40,13 +40,13 @@ public:
 class HtmlFileLoaderClass : public HtmlLoaderClass  // NAME 1: sprintf('%s\\%s', Path, url) and fopen 'rb'
 {
 public:
-	HtmlFileLoaderClass(HtmlViewClass *view, char *path);  // 0x76E8A0
+	HtmlFileLoaderClass(HTMLViewer *view, char *path);  // 0x76E8A0
 	virtual ~HtmlFileLoaderClass(void);  // 0x76E940 (its deleting destructor 0x76E910)
 
 	virtual bool Open(char *url);  // slot +4, 0x76E9D0  // NAME 2: the file's data to the view's Add_Data, 256 bytes at a time
 	virtual bool Update(void);  // slot +8, 0x76E990  // NAME 2: after an Open, the view's Add_Data(NULL, ..., true) (Layout and Render)
 
-	HtmlViewClass *View;  // +0x004  // NAME 2: Add_Data's this
+	HTMLViewer *View;  // +0x004  // NAME 2: Add_Data's this
 	bool Loaded;  // +0x008  // NAME 2: set by Open, cleared by Update
 	char Path[256];  // +0x009  // NAME 2: the directory sprintf puts before the url (size not settled: nothing after it)
 };

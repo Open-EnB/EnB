@@ -25,11 +25,11 @@ struct KernelEventClass;
 // std::string, declared only: <string> would change the code of textgadg.cpp, which includes this one; stredit.cpp includes it itself
 namespace std { template<class _E> struct char_traits; template<class _Ty> class allocator; template<class _E, class _Tr, class _A> class basic_string; }
 
-class StrEditClass  // NAME 3: class-from-file (D24) for app\common\stredit.cpp
+class StringEditClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	StrEditClass(int maxlen, const char *string, unsigned int flags, const char *chars);	// 0x84AA10 (String gets maxlen + 2 bytes)  // NAME 3 [maxlen]: the asserts' MaxLen; NAME 1 [string, flags, chars]: neutral
-	~StrEditClass();													// 0x84AAB0
+	StringEditClass(int maxlen, const char *string, unsigned int flags, const char *chars);	// 0x84AA10 (String gets maxlen + 2 bytes)  // NAME 3 [maxlen]: the asserts' MaxLen; NAME 1 [string, flags, chars]: neutral
+	~StringEditClass();													// 0x84AAB0
 	bool Process_Key(KernelEventClass *event);							// 0x84AAD0 (G_ASSERT 'String[MaxLen + 1] == STRING_CHECK_VALUE': true when the key was taken)  // NAME 2: what it does
 	bool Insert(const char *text);										// 0x84B020 (G_ASSERT 'StrLen == (int)strlen(String)': at the cursor)  // NAME 2: what it does
 	char *Get_String(int length = -1, char *buffer = NULL);				// 0x84B1B0 (-1: StrLen + 1; no buffer: a new one the caller deletes)  // NAME 2: what it does; NAME 1 [length, buffer]: neutral

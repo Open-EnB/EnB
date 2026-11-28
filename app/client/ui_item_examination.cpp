@@ -68,7 +68,7 @@ static Vector2 CloseButtonSize(16.0f, 16.0f);	// 0xBE5A50 (0x531630)  // NAME 1:
 
 
 
-UIItemExaminationClass::UIItemExaminationClass(LineDisplayClientClass *client, const RefCountPtr<InvDataClass> &item) :
+ItemExaminationInterface::ItemExaminationInterface(LineDisplayClientClass *client, const RefCountPtr<InvDataClass> &item) :
 	UISlotInfoClass(client, "ITEM_EXAMINATION_MAIN"),
 	Item(item),
 	State(UI_CLOSED)
@@ -76,8 +76,8 @@ UIItemExaminationClass::UIItemExaminationClass(LineDisplayClientClass *client, c
 	UnknownA8 = false;
 	UnknownA9 = false;
 	Unknown_BE67BC->Load("FA_IEI00.INI");
-	RefCountPtr<DynamicWindowVerticalClass> left = Create_NEW(new DynamicWindowVerticalClass(6));	// NAME 1 [left, right]: neutral
-	RefCountPtr<DynamicWindowVerticalClass> right = Create_NEW(new DynamicWindowVerticalClass(6));
+	RefCountPtr<VerticalDynamicWindow> left = Create_NEW(new VerticalDynamicWindow(6));	// NAME 1 [left, right]: neutral
+	RefCountPtr<VerticalDynamicWindow> right = Create_NEW(new VerticalDynamicWindow(6));
 	GadgetClass *main_gadget = Unknown84_04();
 	FAIL_IF(!main_gadget) return;
 
@@ -113,26 +113,26 @@ UIItemExaminationClass::UIItemExaminationClass(LineDisplayClientClass *client, c
 	mover->Unknown_65FFC0(-1, main_gadget);
 }
 
-UIItemExaminationClass::~UIItemExaminationClass()
+ItemExaminationInterface::~ItemExaminationInterface()
 {
-	UIItemExaminationClass::Unknown_5C();
+	ItemExaminationInterface::Unknown_5C();
 	Remove_All(true);
 	Unknown_58ADA0();
 	Unknown_BE67BC->Unload("FA_IEI00.INI");
 }
 
-SlotDataClass *UIItemExaminationClass::Unknown_90()
+SlotDataClass *ItemExaminationInterface::Unknown_90()
 {
 	return(Item.Peek());
 }
 
-void UIItemExaminationClass::Unknown_54()
+void ItemExaminationInterface::Unknown_54()
 {
 	Keys.Add(KernelEventClass(0x1B, 0), (void *)1);
 	InterfaceClass::Unknown_54();
 }
 
-void UIItemExaminationClass::Unknown_58()
+void ItemExaminationInterface::Unknown_58()
 {
 	if (State == UI_CLOSED) {
 		State = 2;
@@ -158,7 +158,7 @@ void UIItemExaminationClass::Unknown_58()
 
 
 
-void UIItemExaminationClass::Unknown_5C()
+void ItemExaminationInterface::Unknown_5C()
 {
 	switch (State) {
 		case 0:
@@ -179,12 +179,12 @@ void UIItemExaminationClass::Unknown_5C()
 	}
 }
 
-void UIItemExaminationClass::Unknown_60()
+void ItemExaminationInterface::Unknown_60()
 {
 	UISlotInfoClass::Unknown_60();
 }
 
-bool UIItemExaminationClass::Unknown_68(int key)
+bool ItemExaminationInterface::Unknown_68(int key)
 {
 	switch (key) {
 		case 1:
@@ -194,7 +194,7 @@ bool UIItemExaminationClass::Unknown_68(int key)
 	return(UISlotInfoClass::Unknown_68(key));
 }
 
-void UIItemExaminationClass::Unknown_7C(UIViewClass *view, bool arg)
+void ItemExaminationInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	InterfaceClass::Unknown_7C(view, arg);
 }
@@ -216,7 +216,7 @@ public:
 
 
 
-bool UIItemExaminationClass::Unknown_94()
+bool ItemExaminationInterface::Unknown_94()
 {
 	FAIL_IF(State != UI_CLOSED) return(false);
 	InvDataPeekClass *holder = Item->Unknown_688830();	// NAME 1 [holder, slot, entry]: neutral

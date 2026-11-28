@@ -8,7 +8,7 @@
 #include "matrix3d.h"
 #include <d3dx8.h>
 
-LandUnknown466BE0Class *Unknown_BDC0D8;
+DisplacementMapLandClass *Unknown_BDC0D8;
 
 // NAME 1: unknown; a vertex shader constant with an empty destructor (the client's function-local static registers 0x4676B0
 // through atexit)
@@ -77,7 +77,7 @@ static const char Unknown_B71650[] =
 	"";
 
 
-LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float detail_u, float detail_v) :
+DisplacementMapLandClass::DisplacementMapLandClass(HeightMapClass *field, float detail_u, float detail_v) :
 	Unknown04(NULL),
 	Enabled(false),
 	Unknown11(true),
@@ -102,7 +102,7 @@ LandUnknown466BE0Class::LandUnknown466BE0Class(HeightFieldClass *field, float de
 	Unknown11 = false;
 }
 
-LandUnknown466BE0Class::~LandUnknown466BE0Class(void)
+DisplacementMapLandClass::~DisplacementMapLandClass(void)
 {
 	if (Enabled) {
 		Release_Displacement_Map();
@@ -112,9 +112,9 @@ LandUnknown466BE0Class::~LandUnknown466BE0Class(void)
 	}
 }
 
-void Unknown_466E70(HeightFieldClass *field, float detail_u, float detail_v)
+void Unknown_466E70(HeightMapClass *field, float detail_u, float detail_v)
 {
-	Unknown_BDC0D8 = new LandUnknown466BE0Class(field, detail_u, detail_v);
+	Unknown_BDC0D8 = new DisplacementMapLandClass(field, detail_u, detail_v);
 }
 
 void Unknown_466F10(void)
@@ -125,11 +125,11 @@ void Unknown_466F10(void)
 	Unknown_BDC0D8 = NULL;
 }
 
-void LandUnknown466BE0Class::Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale)
+void DisplacementMapLandClass::Unknown_466F40(CameraClass &camera, int lod, const Matrix4 &scale)
 {
 }
 
-void LandUnknown466BE0Class::Read_Registry(void)
+void DisplacementMapLandClass::Read_Registry(void)
 {
 	RegistryClass registry("Software\\Westwood Studios\\Earth and Beyond\\Render\\DMap");
 	if (registry.Is_Valid()) {
@@ -149,7 +149,7 @@ void LandUnknown466BE0Class::Read_Registry(void)
 // NOT EXACT: frame (0x466F60: 0x21C, the client 0x220; 21 masked rows in the scaling: the client copies X / Y spacing into stack
 // temporaries with integer moves before the multiplies, ours loads the spacing array onto the x87; the DWORD one read as constant
 // 4's float bits gives the client's second store of 1 (+0x4C); docs/attempts/466F60/, attempts.csv)
-void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
+void DisplacementMapLandClass::Unknown_466F60(RenderInfoClass &rinfo)
 {
 	if (!Unknown11) {
 		return;
@@ -244,17 +244,17 @@ void LandUnknown466BE0Class::Unknown_466F60(RenderInfoClass &rinfo)
 	DX8Wrapper::_Get_D3D_Device8()->SetTransform(D3DTS_WORLD, &world);
 }
 
-void LandUnknown466BE0Class::Create_Displacement_Map(void)
+void DisplacementMapLandClass::Create_Displacement_Map(void)
 {
 	DX8CALL(CreateTexture(DisplacementMapSize, DisplacementMapSize, 0, 0, (D3DFORMAT)0x102B0001, D3DPOOL_DEFAULT, &DisplacementMap));
 }
 
-void LandUnknown466BE0Class::Create_Height_Texture(void)
+void DisplacementMapLandClass::Create_Height_Texture(void)
 {
 	DX8_ErrorCode(D3DXCreateTexture(DX8Wrapper::_Get_D3D_Device8(), DisplacementMapSize, DisplacementMapSize, 0, 0, D3DFMT_L8, D3DPOOL_MANAGED, &HeightTexture));
 }
 
-void LandUnknown466BE0Class::Release_Displacement_Map(void)
+void DisplacementMapLandClass::Release_Displacement_Map(void)
 {
 	if (DisplacementMap != NULL) {
 		DisplacementMap->Release();
@@ -262,7 +262,7 @@ void LandUnknown466BE0Class::Release_Displacement_Map(void)
 	}
 }
 
-void LandUnknown466BE0Class::Release_Height_Texture(void)
+void DisplacementMapLandClass::Release_Height_Texture(void)
 {
 	if (HeightTexture != NULL) {
 		HeightTexture->Release();
@@ -270,7 +270,7 @@ void LandUnknown466BE0Class::Release_Height_Texture(void)
 	}
 }
 
-void LandUnknown466BE0Class::Unknown_4677B0(HeightFieldClass *field)
+void DisplacementMapLandClass::Unknown_4677B0(HeightMapClass *field)
 {
 	int size = field->Get_Size();
 	D3DSURFACE_DESC desc;
@@ -289,7 +289,7 @@ void LandUnknown466BE0Class::Unknown_4677B0(HeightFieldClass *field)
 	DX8_ErrorCode(D3DXFilterTexture(HeightTexture, NULL, 0, D3DX_FILTER_BOX));
 }
 
-void LandUnknown466BE0Class::Unknown_467910(void)
+void DisplacementMapLandClass::Unknown_467910(void)
 {
 	int levels = HeightTexture->GetLevelCount();
 	for (int level = 0; level < levels; level++) {
@@ -320,7 +320,7 @@ struct LandDMapVertexStruct
 	D3DXVECTOR2	Detail;		// NAME 1: +0x2C, (u, v) times the detail scales
 };
 
-void LandUnknown466BE0Class::Unknown_467A50(float detail_u, float detail_v)
+void DisplacementMapLandClass::Unknown_467A50(float detail_u, float detail_v)
 {
 	int size = BaseTessellationSize;
 	IndexCount = (size * 6 - 6) * (size - 1);
@@ -367,15 +367,15 @@ void LandUnknown466BE0Class::Unknown_467A50(float detail_u, float detail_v)
 	Unknown_468920();
 }
 
-void LandUnknown466BE0Class::Unknown_467E00(void)
+void DisplacementMapLandClass::Unknown_467E00(void)
 {
 }
 
-void LandUnknown466BE0Class::Unknown_467E20(void)
+void DisplacementMapLandClass::Unknown_467E20(void)
 {
 }
 
-void LandUnknown466BE0Class::Unknown_467E40(void)
+void DisplacementMapLandClass::Unknown_467E40(void)
 {
 	// .rdata 0xB71650: the vertex shader's source (read with strlen; the text itself is in the client, not copied here)
 	DWORD decl[] = {
@@ -402,7 +402,7 @@ void LandUnknown466BE0Class::Unknown_467E40(void)
 	}
 }
 
-void LandUnknown466BE0Class::Release_Vertex_Shader(void)
+void DisplacementMapLandClass::Release_Vertex_Shader(void)
 {
 	if (VertexShader != 0) {
 		DX8CALL(DeleteVertexShader(VertexShader));
@@ -410,7 +410,7 @@ void LandUnknown466BE0Class::Release_Vertex_Shader(void)
 	}
 }
 
-DWORD LandUnknown466BE0Class::Create_Vertex_Shader(const char *source, DWORD *declaration)
+DWORD DisplacementMapLandClass::Create_Vertex_Shader(const char *source, DWORD *declaration)
 {
 	LPD3DXBUFFER shader = NULL;
 	LPD3DXBUFFER errors = NULL;
@@ -424,7 +424,7 @@ DWORD LandUnknown466BE0Class::Create_Vertex_Shader(const char *source, DWORD *de
 	return VertexShader;
 }
 
-void LandUnknown466BE0Class::Check_Hardware(void)
+void DisplacementMapLandClass::Check_Hardware(void)
 {
 	if (Enabled && DX8Wrapper::Get_Current_Adapter_Identifier().VendorId == 0x102B
 		&& DX8Wrapper::Get_Current_Caps()->Get_Pixel_Shader_Major_Version() == 1
@@ -436,7 +436,7 @@ void LandUnknown466BE0Class::Check_Hardware(void)
 }
 
 // NOT EXACT: inline budget (the client inlines the unary operator- at all four sites, ours sends its ctor 0x468730 out; attempts.py show 0x468240)
-void LandUnknown466BE0Class::Unknown_468240(CameraClass &camera, const D3DXMATRIX &scale)
+void DisplacementMapLandClass::Unknown_468240(CameraClass &camera, const D3DXMATRIX &scale)
 {
 	D3DXMATRIX proj;
 	D3DXMATRIX view;
@@ -459,7 +459,7 @@ void LandUnknown466BE0Class::Unknown_468240(CameraClass &camera, const D3DXMATRI
 }
 
 // 0x468760: the box against the four side planes: 0 outside one, 1 crossing one, 2 inside all (the client's form)
-int LandUnknown466BE0Class::Unknown_468760(const Vector3 &center, const Vector3 &extent)
+int DisplacementMapLandClass::Unknown_468760(const Vector3 &center, const Vector3 &extent)
 {
 	float lox = center.X - extent.X;
 	float loy = center.Y - extent.Y;
@@ -482,7 +482,7 @@ int LandUnknown466BE0Class::Unknown_468760(const Vector3 &center, const Vector3 
 	return 2;
 }
 
-void LandUnknown466BE0Class::Release_Cells(void)
+void DisplacementMapLandClass::Release_Cells(void)
 {
 	delete [] Unknown04;
 	Unknown04 = NULL;
@@ -498,7 +498,7 @@ static inline void Set_Pair(Vector3 &lo, Vector3 &hi, const Vector3 &v)
 // instead of reloading them, and holds the cell counter in memory; masked residue 138 -> 45 rows, 20 with registers
 // masked). The corner indices are 16-bit products (imul bx, di); the position is copied as a POD (integer moves)
 // and the corner picked through an if-chain on k (an inlined accessor, the client's own shape)
-void LandUnknown466BE0Class::Unknown_468920(void)
+void DisplacementMapLandClass::Unknown_468920(void)
 {
 	Release_Cells();
 	Unknown08 = (BaseTessellationSize - 1) * (BaseTessellationSize - 1);
@@ -531,7 +531,7 @@ void LandUnknown466BE0Class::Unknown_468920(void)
 	VertexBuffer->Unlock();
 }
 
-void LandUnknown466BE0Class::Unknown_468BE0(AABoxClass &box, const Vector3 *points)
+void DisplacementMapLandClass::Unknown_468BE0(AABoxClass &box, const Vector3 *points)
 {
 	float minx = points[0].X;
 	float maxx = points[0].X;
@@ -558,7 +558,7 @@ void LandUnknown466BE0Class::Unknown_468BE0(AABoxClass &box, const Vector3 *poin
 	box.Extent.Z = (float)fabs(cz - minz);
 }
 
-void LandUnknown466BE0Class::Unknown_468D50(void)
+void DisplacementMapLandClass::Unknown_468D50(void)
 {
 	float *verts;
 	VertexBuffer->Lock(0, VertexCount * 0x34, (BYTE **)&verts, 0);

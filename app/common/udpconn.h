@@ -3,7 +3,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\common\udpconn.h (name assumed from udpconn.cpp)
 **
-**	The game's connection over EA-UDP (docs/kernel-map.md 4): UDPConnection (vtable 0xB088F4,
+**	The game's connection over EA-UDP (docs/kernel-map.md 4): UDPConnectionClass (vtable 0xB088F4,
 **	0xD0 bytes) sends packets on a CordCon's channels and receives whole messages from it, each
 **	{s16 size, s16 opcode, payload} as CordCon::read delivers it; the one CordMgr of the process
 **	is pumped by a kernel task every 100 ms ('CordMgr::Run'). PARTIAL: UDPConnectionManager
@@ -49,14 +49,14 @@ struct UDPChannelClass		// NAME 1: describes what it is
 // The connection (0xD0 bytes; constructors 0x82C680 by name, 0x82C980 by address, 0x82CBF0 over
 // an accepted CordCon).
 class CritSec;
-class UDPConnection : public ConnectionClass	// NAME 1: after the file udpconn.cpp (no RTTI or string)
+class UDPConnectionClass : public ConnectionClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	UDPConnection(const char *host, unsigned short port, bool encrypt);	// 0x82C680
-	UDPConnection(unsigned int ip, unsigned short port, bool encrypt);	// 0x82C980 (host order)
+	UDPConnectionClass(const char *host, unsigned short port, bool encrypt);	// 0x82C680
+	UDPConnectionClass(unsigned int ip, unsigned short port, bool encrypt);	// 0x82C980 (host order)
 	static CritSec Lock;	// 0xBE96A0 (atexit 0x82C630, guarded: a static member)  // NAME 2: what it guards
-	UDPConnection(CordCon *con, CordMgr *mgr);							// 0x82CBF0
-	virtual ~UDPConnection();											// +0x00 0x82C950 / 0x82CDC0
+	UDPConnectionClass(CordCon *con, CordMgr *mgr);							// 0x82CBF0
+	virtual ~UDPConnectionClass();											// +0x00 0x82C950 / 0x82CDC0
 	virtual bool Send_Message(RawPacketClass *packet);					// +0x04 0x82D980
 	virtual bool Send_Packet(PacketClass *packet);						// +0x08 0x82DA20
 	virtual PacketClass *Receive();										// +0x0C 0x82DB30
@@ -103,7 +103,7 @@ public:
 int Unknown_82E1D0();	// NAME 1 [Unknown_82E1D0]: the CordMgr's pending messages (ClientTask::Run; tsk_game.h)
 
 // The UDP listener (vtable 0xB08958, constructor 0x82E200, 0x0C bytes): handshakes on a port
-class UDPListenerClass : public ConnectionListenerClass	// NAME 1: after the file udpconn.cpp
+class UDPListenerClass : public ConnectionSourceClass	// NAME 1: after the file udpconn.cpp
 {
 public:
 	UDPListenerClass();												// 0x82E200
@@ -119,20 +119,20 @@ public:
 };
 
 // The task that pumps the CordMgr (12 bytes, vtable 0xB0889C; constructor 0x82DCE0).
-class CordMgrTaskClass : public TaskClass	// NAME 1: after its profile label 'CordMgr::Run'
+class CordMgrTask : public KernelTaskClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	CordMgrTaskClass();					// 0x82DCE0: makes the CordMgr
-	virtual ~CordMgrTaskClass();		// +0x04 0x82DD70 / 0x82DDA0: deletes it
+	CordMgrTask();					// 0x82DCE0: makes the CordMgr
+	virtual ~CordMgrTask();		// +0x04 0x82DD70 / 0x82DDA0: deletes it
 	virtual void Run();					// +0x30 0x82DF90 ('CordMgr::Run')
 	virtual int Get_Interval();			// +0x34 0x82E020 (100 ms)
 	virtual bool Delete_On_Remove();	// +0x44 0x82DE30 (false)
 
-	static CordMgrTaskClass *Init();	// 0x82DE50: the task (added to the kernel) and the CordMgr, once  // NAME 2: what it does
+	static CordMgrTask *Init();	// 0x82DE50: the task (added to the kernel) and the CordMgr, once  // NAME 2: what it does
 	static CordMgr *Get_Mgr();			// 0x82DF40  // NAME 2: what it returns
 	static void Shutdown_Task();		// 0x82DF60: deletes the task  // NAME 2: what it does
 
-	static CordMgrTaskClass *Task;		// 0xBF16C4  // NAME 2: what it holds
+	static CordMgrTask *Task;		// 0xBF16C4  // NAME 2: what it holds
 	static CordMgr *Mgr;				// 0xBF16C0  // NAME 2: what it holds
 };
 

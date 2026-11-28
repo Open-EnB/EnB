@@ -18,12 +18,12 @@
 #ifndef __LINEARBU_H  // NAME 3 [linearbu.h]: header name assumed from the client's linearbu.cpp
 #define __LINEARBU_H
 
-class LinearBufferClass  // NAME 3: by convention (D24) from the client's file linearbu.cpp ("linear buffer", D37)
+class LinearBuffer  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	LinearBufferClass(int capacity, int grow_by);								// 0x4AAB60
-	LinearBufferClass(const void *data, int size, int grow_by, bool copy);	// 0x4AABE0 (copy: own a copy)
-	~LinearBufferClass();																// 0x4AACB0
+	LinearBuffer(int capacity, int grow_by);								// 0x4AAB60
+	LinearBuffer(const void *data, int size, int grow_by, bool copy);	// 0x4AABE0 (copy: own a copy)
+	~LinearBuffer();																// 0x4AACB0
 
 	int Read(void *buf, int len);						// 0x4AACE0, returns the bytes read  // NAME 2: describes what it does
 	int Read(int pos, void *buf, int len);			// 0x4AADA0

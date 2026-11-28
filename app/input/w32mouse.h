@@ -20,7 +20,7 @@
 
 #include "input.h"
 
-class Win32MouseHandlerClass : public MouseClass
+class Win32MouseHandlerClass : public MouseHandlerClass
 {
 public:
 	Win32MouseHandlerClass(KeyQueueClass *queue);									// 0x430D90

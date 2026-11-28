@@ -65,16 +65,16 @@ public:
 };
 
 /*
-** ProjectorCasterClass: an object that casts a projector (the asserts' "Projection") built from its ProjectionDef.
+** ProjectionSourceClass: an object that casts a projector (the asserts' "Projection") built from its ProjectionDef.
 ** rs_proj_sup.cpp derives its casters from it (0x45D9E0 makes one, 0x20 bytes here); the receivers (0x45DC80)
 ** share its RefCountClass + MultiListObjectClass start
 */
-class ProjectorCasterClass : public RefCountClass, public MultiListObjectClass	// NAME 2: what it holds
+class ProjectionSourceClass : public RefCountClass, public MultiListObjectClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
 	// rs_proj_sup.cpp's casters make these (inline; the destructor's out-of-line copy 0x45E200)
-	ProjectorCasterClass(bool use_blob,ProjectionDefClass * def,ProjectorManagerClass * manager);	// inline, below  // NAME 2 [use_blob, def, manager]: the members they set
-	virtual ~ProjectorCasterClass(void)							{ if (Projection != NULL) Projection->Release_Ref(); if (ProjectionDef != NULL) ProjectionDef->Release_Ref(); }
+	ProjectionSourceClass(bool use_blob,ProjectionDefClass * def,ProjectorManagerClass * manager);	// inline, below  // NAME 2 [use_blob, def, manager]: the members they set
+	virtual ~ProjectionSourceClass(void)							{ if (Projection != NULL) Projection->Release_Ref(); if (ProjectionDef != NULL) ProjectionDef->Release_Ref(); }
 
 	virtual RenderObjClass *	Peek_Render_Obj(void) = 0;		// slot 2: the model projected / rendered  // NAME 2: its use
 	virtual Matrix3D				Get_Transform(void) = 0;		// slot 3  // NAME 2: Build_Quaternion's argument
@@ -92,14 +92,14 @@ public:
 };
 
 /*
-** ProjectorReceiverClass: an object projectors land on (rs_proj_sup.cpp's 0x45DC80 derives from it: its CullObject
+** ProjectionTargetClass: an object projectors land on (rs_proj_sup.cpp's 0x45DC80 derives from it: its CullObject
 ** at +0x10 points back at it through +0x2C); Apply_Projectors calls these three slots
 */
-class ProjectorReceiverClass : public RefCountClass, public MultiListObjectClass	// NAME 2: what Apply_Projectors does with it
+class ProjectionTargetClass : public RefCountClass, public MultiListObjectClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	ProjectorReceiverClass(CullableClass * cull_obj,int unknown14);		// inline, below (the client's assert: proj_man.h line 207)  // NAME 2 [cull_obj]: CullObject's; NAME 1 [unknown14]: neutral
-	virtual ~ProjectorReceiverClass(void)							{ if (CullObject != NULL) CullObject->Release_Ref(); }	// out-of-line copy 0x45E300
+	ProjectionTargetClass(CullableClass * cull_obj,int unknown14);		// inline, below (the client's assert: proj_man.h line 207)  // NAME 2 [cull_obj]: CullObject's; NAME 1 [unknown14]: neutral
+	virtual ~ProjectionTargetClass(void)							{ if (CullObject != NULL) CullObject->Release_Ref(); }	// out-of-line copy 0x45E300
 
 	virtual void					Add_Projector(TexProjectClass * projector) = 0;		// slot 2  // NAME 2: its use
 	virtual bool					Intersects(const OBBoxClass & box) = 0;				// slot 3: the projector's bounding volume  // NAME 2: its use
@@ -114,10 +114,10 @@ class ProjectorReceiverCullClass : public CullableClass	// NAME 2: what it holds
 {
 public:
 	int								Unknown28;					// +0x28  // NAME 1: neutral (D10)
-	ProjectorReceiverClass *	Receiver;					// +0x2C  // NAME 2: 0x45DC80 stores the receiver here
+	ProjectionTargetClass *	Receiver;					// +0x2C  // NAME 2: 0x45DC80 stores the receiver here
 };
 
-typedef RefMultiListClass<ProjectorReceiverClass>						ProjectorReceiverListClass;		// NAME 2: as TexProjListClass
+typedef RefMultiListClass<ProjectionTargetClass>						ProjectorReceiverListClass;		// NAME 2: as TexProjListClass
 typedef TypedAABTreeCullSystemClass<ProjectorReceiverCullClass>	ReceiverAABTreeCullSystemClass;	// NAME 2: interim, the static objects' system
 typedef TypedGridCullSystemClass<ProjectorReceiverCullClass>		ReceiverGridCullSystemClass;		// NAME 2: interim, the dynamic objects' system
 
@@ -156,8 +156,8 @@ public:
 									ReceiverAABTreeCullSystemClass * static_objs,ReceiverGridCullSystemClass * dynamic_objs);	// 0x492C70 (profile label pscene::Apply_Projectors)
 
 	StaticShadowTexMgrClass *	Get_Static_Shadow_Tex_Mgr(void);				// 0x493260  // NAME 2: StaticShadowTexMgr's getter
-	void							Generate_Static_Shadow_Projectors(RefMultiListClass<ProjectorCasterClass> & list);	// 0x493340  // NAME 2: Renegade's
-	void							Setup_Static_Directional_Shadow(ProjectorCasterClass * caster,const Vector3 & light_dir);	// 0x493620  // NAME 2: Renegade's
+	void							Generate_Static_Shadow_Projectors(RefMultiListClass<ProjectionSourceClass> & list);	// 0x493340  // NAME 2: Renegade's
+	void							Setup_Static_Directional_Shadow(ProjectionSourceClass * caster,const Vector3 & light_dir);	// 0x493620  // NAME 2: Renegade's
 	void							Get_Shadow_Light_Direction(Vector3 * set_vector);	// 0x493CB0  // NAME 2: set_vector; the sun (mainview passes minus its direction)
 	void							Set_Shadow_Light_Direction(const Vector3 & dir);	// 0x493D00  // NAME 2: as the getter
 
@@ -181,7 +181,7 @@ public:
 };
 
 /*
-** ProjectorReceiverClass's constructor (inlined into rs_proj_sup.cpp's receiver 0x45DC80): the client's assert
+** ProjectionTargetClass's constructor (inlined into rs_proj_sup.cpp's receiver 0x45DC80): the client's assert
 ** names this header at line 207, so its body sits here, after the manager (interim placement, D137: the
 ** original header's order is unknown; the manager was moved up from after StaticShadowTexMgrClass for it).
 **
@@ -193,14 +193,14 @@ public:
 **
 **
 */
-inline ProjectorCasterClass::ProjectorCasterClass(bool use_blob,ProjectionDefClass * def,ProjectorManagerClass * manager) :
+inline ProjectionSourceClass::ProjectionSourceClass(bool use_blob,ProjectionDefClass * def,ProjectorManagerClass * manager) :
 	UseBlob(use_blob), Projection(NULL), ProjectionDef(NULL), Manager(manager)
 {
 	if (ProjectionDef != NULL) ProjectionDef->Release_Ref();
 	if (def != NULL) def->Add_Ref();
 	ProjectionDef = def;
 }
-inline ProjectorReceiverClass::ProjectorReceiverClass(CullableClass * cull_obj,int unknown14) :
+inline ProjectionTargetClass::ProjectionTargetClass(CullableClass * cull_obj,int unknown14) :
 	CullObject(cull_obj),
 	Unknown14(unknown14)
 {
@@ -210,18 +210,18 @@ inline ProjectorReceiverClass::ProjectorReceiverClass(CullableClass * cull_obj,i
 }
 
 /*
-** CasterTexProjectClass: the dynamic projector Create_Projection makes (0x144 bytes, vtables 0xAEA764 / 0xAEA758
+** ShadowTexProjectClass: the dynamic projector Create_Projection makes (0x144 bytes, vtables 0xAEA764 / 0xAEA758
 ** / 0xAEA754): it renders its caster's model before each use
 */
-class CasterTexProjectClass : public TexProjectClass	// NAME 2: what it is
+class ShadowTexProjectClass : public TexProjectClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	CasterTexProjectClass(ProjectorCasterClass * owner);	// 0x494100
+	ShadowTexProjectClass(ProjectionSourceClass * owner);	// 0x494100
 	// the destructor (0x494180, a jump to TexProjectClass's) is the compiler's
 	virtual void			Pre_Render_Update(const Matrix3D & camera);	// 0x4941A0
 	virtual void *			Get_Projection_Object_ID(void) const;			// 0x494410
 
-	ProjectorCasterClass *	Owner;							// +0x13C  // NAME 2: what it points at
+	ProjectionSourceClass *	Owner;							// +0x13C  // NAME 2: what it points at
 	bool							Unknown140;						// +0x140  // NAME 1: neutral (D10)
 };
 

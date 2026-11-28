@@ -5,7 +5,7 @@
 #include <string.h>
 
 ChatWindowClass::ChatWindowClass(GadgetSlider *owner, int unknown, int index) :
-	ChatWindowHistoryClass(unknown),
+	ChatWindowHistory(unknown),
 	Rect(0.0f, 0.0f, 0.0f, 0.0f),
 	Unknown74(owner),
 	LineHeight(0.0f),
@@ -153,12 +153,12 @@ void ChatWindowClass::Unknown_67E180(const RefCountPtr<SceneClass> &scene)
 void ChatWindowClass::Unknown_0C(const Vector3 &color, const std::string &text)
 {
 	Unknown9D = true;
-	ChatWindowHistoryClass::Unknown_0C(color, text);
+	ChatWindowHistory::Unknown_0C(color, text);
 }
 
 int ChatWindowClass::Unknown_08(const Vector3 &color, const std::string &text)
 {
-	int count = ChatWindowHistoryClass::Unknown_08(color, text);
+	int count = ChatWindowHistory::Unknown_08(color, text);
 	if (count == 0) {
 		return 0;
 	}
@@ -172,7 +172,7 @@ int ChatWindowClass::Unknown_08(const Vector3 &color, const std::string &text)
 		return count;
 	}
 	for (int i = 0; i < count; i++) {
-		const RefCountPtr<ChatLineClass> &chat_line = Unknown_682770(i);
+		const RefCountPtr<ChatLineData> &chat_line = Unknown_682770(i);
 
 
 
@@ -205,7 +205,7 @@ int ChatWindowClass::Unknown_08(const Vector3 &color, const std::string &text)
 
 int ChatWindowClass::Unknown_10(int unknown)
 {
-	int result = ChatWindowHistoryClass::Unknown_10(unknown);
+	int result = ChatWindowHistory::Unknown_10(unknown);
 	if (result != 0) {
 		Unknown_67FC60();
 		Unknown_680790();
@@ -236,7 +236,7 @@ bool ChatWindowClass::Unknown_14(const char *command)
 
 bool ChatWindowClass::Unknown_04(unsigned int max_lines, unsigned int width)
 {
-	bool changed = ChatWindowHistoryClass::Unknown_04(max_lines, width);
+	bool changed = ChatWindowHistory::Unknown_04(max_lines, width);
 	if (Unknown_67F7F0(max_lines)) {
 		changed = true;
 	}
@@ -291,7 +291,7 @@ void ChatWindowClass::Clear_Fonts()
 
 
 		FAIL_IF(!font_ptr) continue;
-		font_ptr->Set_Line(RefCountPtr<ChatLineClass>());
+		font_ptr->Set_Line(RefCountPtr<ChatLineData>());
 	}
 	Fonts.erase(Fonts.begin(), Fonts.end());
 }
@@ -323,7 +323,7 @@ bool ChatWindowClass::Unknown_67F7F0(unsigned int max_lines)
 				if (!Fonts[index].Peek()) {
 					Fonts[index] = font;
 				} else {
-					font->Set_Line(RefCountPtr<ChatLineClass>());
+					font->Set_Line(RefCountPtr<ChatLineData>());
 				}
 			}
 			font = NULL;
@@ -351,7 +351,7 @@ void ChatWindowClass::Unknown_67FC60()
 		unsigned int id = 0;
 		int i = 0;
 		for (; i < count; i++, line++) {
-			const RefCountPtr<ChatLineClass> &chat_line = Unknown_682730(line);
+			const RefCountPtr<ChatLineData> &chat_line = Unknown_682730(line);
 			if (chat_line->Is_Null()) {
 				break;
 			}
@@ -419,7 +419,7 @@ void ChatWindowClass::Unknown_67FC60()
 
 
 			FAIL_IF(!line_ptr) continue;
-			line_ptr->Set_Line(RefCountPtr<ChatLineClass>());
+			line_ptr->Set_Line(RefCountPtr<ChatLineData>());
 		}
 		Unknown_6809B0();
 		Unknown9C = true;

@@ -8,7 +8,7 @@
 #include "..\shared\auxdata\bitset.h"
 #include "..\shared\g_assert.h"
 // 0x7A4830
-GalaxyMapClientClass::GalaxyMapClientClass() :
+GalaxyMapClient::GalaxyMapClient() :
 	Version(0),
 	Unknown7C(0),
 	Unknown80(NULL),
@@ -18,17 +18,17 @@ GalaxyMapClientClass::GalaxyMapClientClass() :
 	GalaxyShift(0, 0),
 	ShowAll(false)
 {
-	ShowAll = OptionClass::Instance->Get_Bool("Galaxymap_Show_All");
+	ShowAll = OptionManagerClass::Instance->Get_Bool("Galaxymap_Show_All");
 	Load_Ini();
 }
 // 0x7A49A0
-GalaxyMapClientClass::~GalaxyMapClientClass()
+GalaxyMapClient::~GalaxyMapClient()
 {
-	BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Galaxymap_Show_All");
+	BoolOptionStruct *option = OptionManagerClass::Instance->Find_Bool("Galaxymap_Show_All");
 	if (option) option->Set_Value(ShowAll);
 }
 // 0x7A4B10
-void GalaxyMapClientClass::Load_Ini()
+void GalaxyMapClient::Load_Ini()
 {
 	INIClass ini("galaxy_map_c.ini");
 	Size = ini.Get_Int("GalaxyMap", "Size", Size);
@@ -80,7 +80,7 @@ void GalaxyMapClientClass::Load_Ini()
 
 
 // 0x7A4C50
-void GalaxyMapClientClass::Unknown_7A4C50(SClient *sclient, LinearBufferClass &buffer)
+void GalaxyMapClient::Unknown_7A4C50(SClient *sclient, LinearBuffer &buffer)
 {
 	FAIL_IF(!sclient) return;
 
@@ -98,14 +98,14 @@ void GalaxyMapClientClass::Unknown_7A4C50(SClient *sclient, LinearBufferClass &b
 	Read(&buffer);
 
 	int count = MaxDataObjects;
-	BitSetClass bits(count);
+	BitSet bits(count);
 	for (int i = 0; i < count; i++) {
 		if (Get_Data(i)) {
 			bits.Set(i);
 		}
 	}
 
-	LinearBufferClass request(0x400, 0x400);
+	LinearBuffer request(0x400, 0x400);
 	int size = bits.NumBytes;
 	request.Write(&size, 4);
 	request.Write(bits.Buffer, size);
@@ -130,7 +130,7 @@ void GalaxyMapClientClass::Unknown_7A4C50(SClient *sclient, LinearBufferClass &b
 
 
 // 0x7A4FC0
-void GalaxyMapClientClass::Unknown_7A4FC0(LinearBufferClass &buffer)
+void GalaxyMapClient::Unknown_7A4FC0(LinearBuffer &buffer)
 {
 	RefCountPtr<GalaxyMapSystemClass> system = GalaxyMapSystemClass::Create();
 	system->Read(&buffer);
@@ -140,7 +140,7 @@ void GalaxyMapClientClass::Unknown_7A4FC0(LinearBufferClass &buffer)
 	Version++;
 }
 // 0x7A50A0
-void GalaxyMapClientClass::Unknown_7A50A0(LinearBufferClass &buffer)
+void GalaxyMapClient::Unknown_7A50A0(LinearBuffer &buffer)
 {
 	RefCountPtr<GalaxyMapSectorClass> sector = GalaxyMapSectorClass::Create();
 	sector->Read(&buffer);
@@ -150,7 +150,7 @@ void GalaxyMapClientClass::Unknown_7A50A0(LinearBufferClass &buffer)
 	Version++;
 }
 // 0x7A5180
-void GalaxyMapClientClass::Unknown_7A5180(LinearBufferClass &buffer)
+void GalaxyMapClient::Unknown_7A5180(LinearBuffer &buffer)
 {
 	RefCountPtr<GalaxyMapGateClass> gate = GalaxyMapGateClass::Create();
 	gate->Read(&buffer);
@@ -160,7 +160,7 @@ void GalaxyMapClientClass::Unknown_7A5180(LinearBufferClass &buffer)
 	Version++;
 }
 // 0x7A5260
-void GalaxyMapClientClass::Unknown_7A5260(LinearBufferClass &buffer)
+void GalaxyMapClient::Unknown_7A5260(LinearBuffer &buffer)
 {
 	unsigned int count = buffer.Get_Size() / sizeof(unsigned int);
 	while (count--) {
@@ -174,14 +174,14 @@ void GalaxyMapClientClass::Unknown_7A5260(LinearBufferClass &buffer)
 }
 
 // 0x7A52F0  NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0)
-void GalaxyMapClientClass::Unknown_7A52F0(LinearBufferClass &buffer)
+void GalaxyMapClient::Unknown_7A52F0(LinearBuffer &buffer)
 {
 	if (Unknown80 != NULL) {
 		delete Unknown80;
 		Unknown80 = NULL;
 	}
 	char *data = buffer.Buffer;
-	Unknown80 = new BitSetClass(data, buffer.Get_Size());
+	Unknown80 = new BitSet(data, buffer.Get_Size());
 	buffer.Skip(buffer.Get_Size());
 
 
@@ -191,7 +191,7 @@ void GalaxyMapClientClass::Unknown_7A52F0(LinearBufferClass &buffer)
 }
 
 // 0x7A5400
-bool GalaxyMapClientClass::Unknown_7A5400(const RefCountPtr<GalaxyMapSectorClass> &sector)
+bool GalaxyMapClient::Unknown_7A5400(const RefCountPtr<GalaxyMapSectorClass> &sector)
 {
 
 
@@ -201,7 +201,7 @@ bool GalaxyMapClientClass::Unknown_7A5400(const RefCountPtr<GalaxyMapSectorClass
 }
 
 // 0x7A5470
-Vector3 GalaxyMapClientClass::Unknown_7A5470(const Vector3 &position)
+Vector3 GalaxyMapClient::Unknown_7A5470(const Vector3 &position)
 {
 	Vector3 result = position;
 	result.X *= SystemPosScale; result.Y *= SystemPosScale;
@@ -210,7 +210,7 @@ Vector3 GalaxyMapClientClass::Unknown_7A5470(const Vector3 &position)
 }
 
 // 0x7A54F0
-Vector3 GalaxyMapClientClass::Unknown_7A54F0(const Vector3 &position)
+Vector3 GalaxyMapClient::Unknown_7A54F0(const Vector3 &position)
 {
 	Vector3 result = position;
 	result.X = result.X * SectorPosScale;
@@ -219,11 +219,11 @@ Vector3 GalaxyMapClientClass::Unknown_7A54F0(const Vector3 &position)
 }
 
 // 0x7A5540
-bool GalaxyMapClientClass::Unknown_7A5540(SClient *client)
+bool GalaxyMapClient::Unknown_7A5540(SClient *client)
 {
 	FAIL_IF(!client) return(ShowAll);
 	ShowAll = !ShowAll;
-	LinearBufferClass request(0x400, 0x400);
+	LinearBuffer request(0x400, 0x400);
 	int channel = client->Unknown1138;
 	client->Send_Packet(&GalaxyMapRequestPacketClass(1, request, channel, ShowAll));
 	return(ShowAll);

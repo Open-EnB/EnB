@@ -19,11 +19,11 @@
 #include "pk.h"
 
 // opcode 73 (0x0049, ?): vtable 0xB08D98, constructor 0x85D270, 0x68 bytes
-class Packet_0049Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x0049
+class DeleteCharacterPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_0049Class(__int64 unknown10, int unknown18, const char *unknown1c, __int64 unknown60);	// 0x85D1A0 (Unknown1C strcpy'd)
-	Packet_0049Class(RawPacketClass *raw);	// 0x85D270
+	DeleteCharacterPacketClass(__int64 unknown10, int unknown18, const char *unknown1c, __int64 unknown60);	// 0x85D1A0 (Unknown1C strcpy'd)
+	DeleteCharacterPacketClass(RawPacketClass *raw);	// 0x85D270
 	virtual RawPacketClass *Build();	// +0x04 0x85D350
 	virtual bool Process_Packet(void *client);	// +0x08 0x8680A0 (clientstub.cpp l.110)
 	virtual int Get_Data_Size();	// +0x0C 0x85D430

@@ -9,7 +9,7 @@
 
 
 
-LinearBufferClass::LinearBufferClass(int capacity, int grow_by) :
+LinearBuffer::LinearBuffer(int capacity, int grow_by) :
 	Buffer(0),
 	Size(0),
 	Capacity(0),
@@ -31,7 +31,7 @@ LinearBufferClass::LinearBufferClass(int capacity, int grow_by) :
 
 
 
-LinearBufferClass::LinearBufferClass(const void *data, int size, int grow_by, bool copy) :
+LinearBuffer::LinearBuffer(const void *data, int size, int grow_by, bool copy) :
 	Buffer(0),
 	Size(0),
 	Capacity(0),
@@ -55,7 +55,7 @@ LinearBufferClass::LinearBufferClass(const void *data, int size, int grow_by, bo
 	}
 }
 
-LinearBufferClass::~LinearBufferClass()
+LinearBuffer::~LinearBuffer()
 {
 	if (OwnsBuffer) {
 		delete [] Buffer;
@@ -70,7 +70,7 @@ LinearBufferClass::~LinearBufferClass()
 
 
 
-int LinearBufferClass::Read(void *buf, int len)
+int LinearBuffer::Read(void *buf, int len)
 {
 	G_ASSERT(buf != 0 && len >= 0);
 	if (buf == 0 || len < 0) {
@@ -91,7 +91,7 @@ int LinearBufferClass::Read(void *buf, int len)
 	return count;
 }
 
-int LinearBufferClass::Read(int pos, void *buf, int len)
+int LinearBuffer::Read(int pos, void *buf, int len)
 {
 	if (Seek(pos) == -1) {
 		return -1;
@@ -108,7 +108,7 @@ int LinearBufferClass::Read(int pos, void *buf, int len)
 
 
 
-char *LinearBufferClass::Read_String()
+char *LinearBuffer::Read_String()
 {
 	int end = Pos;
 	if (end <= Size) {
@@ -137,7 +137,7 @@ char *LinearBufferClass::Read_String()
 
 
 
-int LinearBufferClass::Write(const void *buf, int len)
+int LinearBuffer::Write(const void *buf, int len)
 {
 	G_ASSERT(buf != 0 && len >= 0);
 	if (buf == 0 || len < 0) {
@@ -158,7 +158,7 @@ int LinearBufferClass::Write(const void *buf, int len)
 	return len;
 }
 
-int LinearBufferClass::Write(int pos, const void *buf, int len)
+int LinearBuffer::Write(int pos, const void *buf, int len)
 {
 	if (Seek(pos) == -1) {
 		return -1;
@@ -166,12 +166,12 @@ int LinearBufferClass::Write(int pos, const void *buf, int len)
 	return Write(buf, len);
 }
 
-int LinearBufferClass::Write_String(const char *string)
+int LinearBuffer::Write_String(const char *string)
 {
 	return Write(string, strlen(string) + 1);
 }
 
-int LinearBufferClass::Append(const void *buf, int len)
+int LinearBuffer::Append(const void *buf, int len)
 {
 	if (Seek(Size) == -1) {
 		return -1;
@@ -179,7 +179,7 @@ int LinearBufferClass::Append(const void *buf, int len)
 	return Write(buf, len);
 }
 
-int LinearBufferClass::Seek_Relative(int offset)
+int LinearBuffer::Seek_Relative(int offset)
 {
 	return Seek(Pos + offset);
 }
@@ -194,7 +194,7 @@ int LinearBufferClass::Seek_Relative(int offset)
 
 
 
-int LinearBufferClass::Truncate(int len)
+int LinearBuffer::Truncate(int len)
 {
 	if (len < 0) {
 		G_ASSERT(len >= 0);
@@ -207,7 +207,7 @@ int LinearBufferClass::Truncate(int len)
 	return Pos;
 }
 
-int LinearBufferClass::Get_Pos() const
+int LinearBuffer::Get_Pos() const
 {
 	return Pos;
 }
@@ -217,7 +217,7 @@ int LinearBufferClass::Get_Pos() const
 
 
 
-int LinearBufferClass::Seek(int pos)
+int LinearBuffer::Seek(int pos)
 {
 	if (pos < 0) {
 		G_ASSERT(pos >= 0);
@@ -227,7 +227,7 @@ int LinearBufferClass::Seek(int pos)
 	return pos;
 }
 
-int LinearBufferClass::Skip(int offset)
+int LinearBuffer::Skip(int offset)
 {
 	Seek(Pos + offset);
 	return Pos;
@@ -237,7 +237,7 @@ int LinearBufferClass::Skip(int offset)
 
 
 
-int LinearBufferClass::Grow(int len)
+int LinearBuffer::Grow(int len)
 {
 	G_ASSERT(len > Capacity);
 	if (len <= Capacity) {
@@ -250,7 +250,7 @@ int LinearBufferClass::Grow(int len)
 	return Set_Capacity(capacity);
 }
 
-int LinearBufferClass::Get_Size() const
+int LinearBuffer::Get_Size() const
 {
 	return Size;
 }
@@ -258,7 +258,7 @@ int LinearBufferClass::Get_Size() const
 
 
 
-int LinearBufferClass::Set_Size(int size)
+int LinearBuffer::Set_Size(int size)
 {
 	if (size < 0) {
 		G_ASSERT(size >= 0);
@@ -271,12 +271,12 @@ int LinearBufferClass::Set_Size(int size)
 	return size;
 }
 
-int LinearBufferClass::Get_Capacity() const
+int LinearBuffer::Get_Capacity() const
 {
 	return Capacity;
 }
 
-int LinearBufferClass::Unknown_Set_Size(int size)
+int LinearBuffer::Unknown_Set_Size(int size)
 {
 	Capacity = size;
 	Size = size;
@@ -293,7 +293,7 @@ int LinearBufferClass::Unknown_Set_Size(int size)
 
 
 
-int LinearBufferClass::Set_Capacity(int capacity)
+int LinearBuffer::Set_Capacity(int capacity)
 {
 	if (capacity < 0) {
 		G_ASSERT(capacity >= 0);
@@ -333,7 +333,7 @@ int LinearBufferClass::Set_Capacity(int capacity)
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4AAB60-0x4AB536: LinearBufferClass (D24), 21 functions, asserts on the client's
+**	client.exe 0x4AAB60-0x4AB536: LinearBuffer (D24), 21 functions, asserts on the client's
 **	lines 22-310 (D25). Seek (line 223) and Read (line 75) are inlined where the client inlines them,
 **	Grow (line 242) in Write, although each is defined after its callers. The forms the bytes
 **	decide: GrowBy is assigned in the constructors' bodies (stored after the members set to 0), the

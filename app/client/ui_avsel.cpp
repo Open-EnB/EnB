@@ -112,7 +112,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 
-// charview.h's CharacterViewClass (the view's slot +0x28), avatar.h's CharacterViewAvatarClass (the five avatars)
+// charview.h's CharacterViewClass (the view's slot +0x28), avatar.h's AvatarClass (the five avatars)
 // and env_map_manager.h's EnvironmentMapManagerClass (the view's +0x3A4)
 #include "charview.h"
 #include "env_map_manager.h"
@@ -260,7 +260,7 @@ class LoginTaskClass;
 
 
 // The edit box (the referral's name): textgadg.cpp's TextGadgetClass (0x80 bytes, constructor 0x6AA810); its cursor
-// +0x4C is fontsys_cursor.h's TextCursorClass (Rect3DClass::Set_Color 0x6E2A20)
+// +0x4C is fontsys_cursor.h's FontSysCursor (Rectangle3DClass::Set_Color 0x6E2A20)
 #include "textgadg.h"
 #include "fontsys_cursor.h"
 
@@ -778,7 +778,7 @@ void AvatarSelectionInterface::Unknown_55E2E0(int text, const char *string, bool
 void AvatarSelectionInterface::Unknown_55E370(bool active)
 {
 	LoginCharacterClass *chars = Unknown088->Characters;
-	AvatarDescClass *descs = Unknown088->Unknown0350;
+	AvatarDescriptionClass *descs = Unknown088->Unknown0350;
 	G_ASSERT(chars);
 	TheDX8MeshRenderer.Invalidate();
 	if (!active) {
@@ -799,8 +799,8 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 			if (chars[i].ID != 0) {
 				Unknown_55E2E0(i, descs[i].Get_Full_Name().c_str(), i == Unknown090);
 				Unknown0E4[i] = true;
-				AvatarDescClass *desc = new AvatarDescClass(descs[i]);
-				Unknown0BC[i] = new CharacterViewAvatarClass(desc, true, false, Unknown084->Get_Unknown3A4());
+				AvatarDescriptionClass *desc = new AvatarDescriptionClass(descs[i]);
+				Unknown0BC[i] = new AvatarClass(desc, true, false, Unknown084->Get_Unknown3A4());
 				if (Unknown0BC[i]) {
 					char name[64];
 					sprintf(name, "DUDE%02d", i);
@@ -826,7 +826,7 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 // 0x55E8E0
 void AvatarSelectionInterface::Unknown_55E8E0()
 {
-	AvatarDescClass *descs = Unknown088->Unknown0350;
+	AvatarDescriptionClass *descs = Unknown088->Unknown0350;
 	Unknown_55ED20();
 	for (int i = 0; i < 5; i++) {
 		if (Unknown0E4[i]) {

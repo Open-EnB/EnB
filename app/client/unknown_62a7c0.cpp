@@ -10,7 +10,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_interpolator.h"
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
 // @0x62A7C0
 Unknown62A7C0Class::Unknown62A7C0Class(RenderObjClass *robj) :
@@ -54,11 +54,11 @@ void Unknown62A7C0Class::Unknown_00()
 {
 	ClientObjectClass *co = Object;
 	if (co != NULL) {
-		DeltaCompoundClass *aux = (DeltaCompoundClass *)co->AuxData;
+		DeltaContainer *aux = (DeltaContainer *)co->AuxData;
 		if (aux != NULL) {
 			DurationClass now((unsigned)co->Client->Unknown10BC);
-			NameClass name("ShieldPercent");
-			DeltaInterpolatorClass *percent = Unknown_Find_Valid<DeltaInterpolatorClass>(aux, name);
+			AuxDataName name("ShieldPercent");
+			DeltaInterpolator *percent = Unknown_Find_Valid<DeltaInterpolator>(aux, name);
 			if (percent) {
 				Unknown_62ADE0(percent->Get_Value(now));
 			}

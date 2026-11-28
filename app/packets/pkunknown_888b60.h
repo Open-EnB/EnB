@@ -82,11 +82,11 @@ public:
 };
 
 // opcode 175 (0x00AF, ?): vtable 0xB0A7F4, constructor 0x889BE0, 0x14 bytes
-class Packet_00AFClass : public PacketClass  // NAME 1: neutral (D10): opcode 0x00AF
+class GroupServerResponsePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_00AFClass(int unknown0_c, int unknown10);	// 0x889B40
-	Packet_00AFClass(RawPacketClass *raw);	// 0x889BE0
+	GroupServerResponsePacketClass(int unknown0_c, int unknown10);	// 0x889B40
+	GroupServerResponsePacketClass(RawPacketClass *raw);	// 0x889BE0
 	virtual RawPacketClass *Build();	// +0x04 0x889C80
 	virtual bool Process_Packet(void *client);	// +0x08 0x868EB0 (clientstub.cpp l.335)
 	virtual int Get_Data_Size();	// +0x0C 0x889D50

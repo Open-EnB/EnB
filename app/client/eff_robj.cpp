@@ -35,7 +35,7 @@
 
 // 0x6EEEA0
 RObjEffectClass::RObjEffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj) :
-	UnknownB00060EffectClass(client, id, start_time, duration, cycle_time)
+	UnaryEffectClass(client, id, start_time, duration, cycle_time)
 {
 	RObj = robj; FAIL_IF(!RObj) return;
 	RObj->Add_Ref();
@@ -62,7 +62,7 @@ void RObjEffectClass::Set_Source_Object_ID(int game_id)
 	if (Get_Flag(9) && SourceObject) {
 		RObj->Scale(1.0f / SourceObject->Unknown_30());
 	}
-	UnknownB00060EffectClass::Set_Source_Object_ID(game_id);
+	UnaryEffectClass::Set_Source_Object_ID(game_id);
 	if (Get_Flag(9) && SourceObject) {
 		RObj->Scale(SourceObject->Unknown_30());
 	}
@@ -71,7 +71,7 @@ void RObjEffectClass::Set_Source_Object_ID(int game_id)
 // 0x6EF200
 void RObjEffectClass::Unknown_18()
 {
-	UnknownB00060EffectClass::Unknown_18();
+	UnaryEffectClass::Unknown_18();
 	if (Get_Flag(12)) {
 		Reset_All_Texture_Mappers(RObj, false);
 	}
@@ -90,7 +90,7 @@ void RObjEffectClass::Unknown_18()
 // 0x6EF250
 void RObjEffectClass::Unknown_1C()
 {
-	UnknownB00060EffectClass::Unknown_1C();
+	UnaryEffectClass::Unknown_1C();
 	FAIL_IF(!Camera) return;
 	if (Get_Flag(10) && SourceObject) {
 		Vector3 dir = Camera->Get_Position();
@@ -178,7 +178,7 @@ void Unknown6EF4C0EffectClass::Unknown_1C()
 
 // 0x6EF910
 Unknown6EF910EffectClass::Unknown6EF910EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj) :
-	UnknownB0009CEffectClass(client, id, start_time, duration, cycle_time),
+	BinaryEffectClass(client, id, start_time, duration, cycle_time),
 	RObj(robj)
 {
 	RObj->Add_Ref();
@@ -212,7 +212,7 @@ Unknown6EF910EffectClass::~Unknown6EF910EffectClass()
 // 0x6EFBB0
 void Unknown6EF910EffectClass::Unknown_18()
 {
-	UnknownB0009CEffectClass::Unknown_18();
+	BinaryEffectClass::Unknown_18();
 	if (Get_Flag(15)) {
 		Reset_All_Texture_Mappers(RObj, false);
 	}
@@ -226,12 +226,12 @@ void Unknown6EF910EffectClass::Unknown_20()
 }
 
 // 0x6EFC20
-void Unknown6EF910EffectClass::Unknown_3C(UnknownB00060EffectClass *unary, int next)
+void Unknown6EF910EffectClass::Unknown_3C(UnaryEffectClass *unary, int next)
 {
 	if (next == 1 && Get_Flag(14)) {
 		unary->Unknown_2C(RObj->Get_Transform());
 	} else {
-		UnknownB0009CEffectClass::Unknown_3C(unary, next);
+		BinaryEffectClass::Unknown_3C(unary, next);
 	}
 }
 
@@ -258,7 +258,7 @@ void RObjLookAtEffectClass::Set_Source_Object_ID(int game_id)
 	if (Get_Flag(16) && Get_Flag(17) && SourceObject) {
 		RObj->Scale(1.0f / SourceObject->Unknown_30());
 	}
-	UnknownB0009CEffectClass::Set_Source_Object_ID(game_id);
+	BinaryEffectClass::Set_Source_Object_ID(game_id);
 	if (Get_Flag(16) && Get_Flag(17) && SourceObject) {
 		RObj->Scale(SourceObject->Unknown_30());
 	}
@@ -270,7 +270,7 @@ void RObjLookAtEffectClass::Set_Target_Object_ID(int game_id)
 	if (Get_Flag(16) && !Get_Flag(17) && TargetObject) {
 		RObj->Scale(1.0f / TargetObject->Unknown_30());
 	}
-	UnknownB0009CEffectClass::Set_Target_Object_ID(game_id);
+	BinaryEffectClass::Set_Target_Object_ID(game_id);
 	if (Get_Flag(16) && !Get_Flag(17) && TargetObject) {
 		RObj->Scale(TargetObject->Unknown_30());
 	}
@@ -279,7 +279,7 @@ void RObjLookAtEffectClass::Set_Target_Object_ID(int game_id)
 // 0x6F0130
 void RObjLookAtEffectClass::Unknown_1C()
 {
-	UnknownB0009CEffectClass::Unknown_1C();
+	BinaryEffectClass::Unknown_1C();
 	Matrix3D tm;
 	if (Get_Flag(17)) {
 		tm.Obj_Look_At(SourcePosition, TargetPosition, 0);

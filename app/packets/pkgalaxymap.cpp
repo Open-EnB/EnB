@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-GalaxyMapPacketClass::GalaxyMapPacketClass(int type, LinearBufferClass &buffer, int channel) : Type(type), Data(0), Size(buffer.Get_Size()), Channel(channel)
+GalaxyMapPacketClass::GalaxyMapPacketClass(int type, LinearBuffer &buffer, int channel) : Type(type), Data(0), Size(buffer.Get_Size()), Channel(channel)
 {
 	Data = new char[Size];
 	memcpy(Data, buffer.Buffer, Size);
@@ -42,7 +42,7 @@ int GalaxyMapPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s {Type=%d Size=%d Channel(PlayerID)=%d Data=%0.40s}", "GalaxyMapPacketClass", Type, Size, Channel, Data));
 }
 
-GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(int type, LinearBufferClass &buffer, int channel, bool b) : GalaxyMapPacketClass(type, buffer, channel), Unknown1C(b)
+GalaxyMapRequestPacketClass::GalaxyMapRequestPacketClass(int type, LinearBuffer &buffer, int channel, bool b) : GalaxyMapPacketClass(type, buffer, channel), Unknown1C(b)
 {
 }
 

@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\shared\auxdata\delta.h (name assumed from delta.cpp)
 **
 **	The aux-data field model: a tree of named fields. DeltaClass is one field (leaf types derive
-**	from it: float 0xAEAEB0, string 0xAEB0E4, time 0xAEB1EC...), DeltaCompoundClass a field with
+**	from it: float 0xAEAEB0, string 0xAEB0E4, time 0xAEB1EC...), DeltaContainer a field with
 **	children. The client names neither class (D24); the roles follow earlier research notes
 **	(earlier protocol research: DeltaBase, DeltaCompound), checked against the code here.
 **	Virtuals whose purpose isn't known are named after their vtable offset (D10).
@@ -22,28 +22,28 @@
 #include <vector>
 #include "name.h"
 
-class LinearBufferClass;
+class LinearBuffer;
 class DurationClass;
 
 class DeltaClass;
 class DeltaInterfaceClass;
 class Vector3;
-class DeltaCompoundClass;
+class DeltaContainer;
 class LookupClass;
 class KVEncoderClass;
 
-// Double dispatch (DeltaClass::Accept 0x4A4FE0 calls slot 0, DeltaCompoundClass::Accept 0x4A5650
+// Double dispatch (DeltaClass::Accept 0x4A4FE0 calls slot 0, DeltaContainer::Accept 0x4A5650
 // slot 1). VC6 lays out overloaded virtuals in reverse declaration order, so this order gives
 // Visit(DeltaClass *) slot 0.
 class DeltaVisitorClass  // NAME 2: describes what it does
 {
 public:
-	virtual void Visit(DeltaCompoundClass *delta) = 0;		// +0x04  // NAME 2: describes what it does
+	virtual void Visit(DeltaContainer *delta) = 0;		// +0x04  // NAME 2: describes what it does
 	virtual void Visit(DeltaClass *delta) = 0;				// +0x00
 
 	// 0x4B0860 (in an object not attributed yet; called from encode.cpp, lookup.cpp and
 	// 0x4AB7D0/0x4ABA70): each child's Accept(*this), in order
-	void Visit_Children(DeltaCompoundClass *delta);  // NAME 2: describes what it does
+	void Visit_Children(DeltaContainer *delta);  // NAME 2: describes what it does
 };
 
 // KVEncoderClass, the argument of DeltaClass's slot 0, is kv_encoder.h's: this header does not reach <string>
@@ -58,7 +58,7 @@ public:
 
 
 // Per-class globals stored at +0x04 (E&B's own type information, rtti.h?): DeltaClass 0xBE3A78,
-// DeltaCompoundClass 0xBE3A74 (its static UnknownGlobal: rtti.h's cast 0x598D80 compares it).
+// DeltaContainer 0xBE3A74 (its static UnknownGlobal: rtti.h's cast 0x598D80 compares it).
 extern int DeltaUnknownGlobal; extern int DeltaUnknownCounter;  // NAME 1: neutral (D10); the counter (0xBE3B44) numbers them
 
 // vtable 0xAEAD70, size 0x84
@@ -69,17 +69,17 @@ public:
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A4E10
 	virtual ~DeltaClass() {}															// +0x04 0x4A5150
 	virtual void Accept(DeltaVisitorClass &visitor);								// +0x08 0x4A4FE0  // NAME 2: describes what it does
-	virtual bool Unknown_0C(LinearBufferClass &buf);							// +0x0C 0x4A4EC0, Unknown_38 then Write
-	virtual bool Unknown_10(LinearBufferClass &buf, const DurationClass &base);	// +0x10 0x4A4E80, Read then Unknown_3C
+	virtual bool Unknown_0C(LinearBuffer &buf);							// +0x0C 0x4A4EC0, Unknown_38 then Write
+	virtual bool Unknown_10(LinearBuffer &buf, const DurationClass &base);	// +0x10 0x4A4E80, Read then Unknown_3C
 	virtual void Set_Parent(DeltaClass *parent, int slot, int &index);		// +0x14 0x4A5000  // NAME 2: describes what it does
 	virtual void Unknown_18();															// +0x18 0x4A4DB0
 	virtual void Unknown_1C();															// +0x1C 0x4A4DD0
 	virtual void Unknown_20();															// +0x20 0x4A4DF0
 	virtual DeltaClass *As_Delta() { return this; }								// +0x24 0x4A3C50  // NAME 2: describes what it does
-	virtual DeltaCompoundClass *As_Compound();									// +0x28 0x4A4E30  // NAME 2: describes what it does
-	virtual bool Read(LinearBufferClass &, const DurationClass &) { return true; }	// +0x2C 0x4A3C70 (the leaves read their value;
+	virtual DeltaContainer *As_Compound();									// +0x28 0x4A4E30  // NAME 2: describes what it does
+	virtual bool Read(LinearBuffer &, const DurationClass &) { return true; }	// +0x2C 0x4A3C70 (the leaves read their value;
 																								// the time field subtracts the 8-byte base from its value, 0x4A81D0)
-	virtual bool Write(LinearBufferClass &) { return true; }				// +0x30 0x4A3C90 (the leaves write it)  // NAME 2: describes what it does
+	virtual bool Write(LinearBuffer &) { return true; }				// +0x30 0x4A3C90 (the leaves write it)  // NAME 2: describes what it does
 	virtual void Unknown_34(DeltaClass *delta);									// +0x34 0x4A4EF0
 	virtual void Unknown_38(DeltaClass *delta);									// +0x38 0x4A4FB0
 	virtual void Unknown_3C(DeltaClass *delta);									// +0x3C 0x4A4F20
@@ -87,8 +87,8 @@ public:
 	virtual void Unknown_44(DeltaClass *delta);									// +0x44 0x4A4F80
 
 	int Unknown04;					// +0x04 the class's global (see above)
-	NameClass Name;					// +0x08 the constructor's name  // NAME 2: describes what it does
-	NameClass FullName;				// +0x3C the parent's FullName, then Name (Set_Parent)  // NAME 2: describes what it does
+	AuxDataName Name;					// +0x08 the constructor's name  // NAME 2: describes what it does
+	AuxDataName FullName;				// +0x3C the parent's FullName, then Name (Set_Parent)  // NAME 2: describes what it does
 	unsigned int Unknown70;		// +0x70 0, 1 or 2 (Unknown_18 sets 2, Unknown_1C 0, Unknown_20 caps at 1)
 	DeltaClass *Parent;				// +0x74  // NAME 2: describes what it does
 	int Unknown78;					// +0x78 the position in the parent's Children
@@ -97,24 +97,24 @@ public:
 };
 
 // vtable 0xAEABE4, size 0x9C
-class DeltaCompoundClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound)
+class DeltaContainer : public DeltaClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	DeltaCompoundClass(const char *name) : DeltaClass(name), Lookup(0), Unknown98(0)
+	DeltaContainer(const char *name) : DeltaClass(name), Lookup(0), Unknown98(0)
 	{
 		Unknown04 = UnknownGlobal;
 	}
 	static int UnknownGlobal;	// the per-class global at +0x04 (0xBE3A74)
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A55D0
-	virtual ~DeltaCompoundClass();													// +0x04 0x4A5070
+	virtual ~DeltaContainer();													// +0x04 0x4A5070
 	virtual void Accept(DeltaVisitorClass &visitor);								// +0x08 0x4A5650
-	virtual bool Unknown_0C(LinearBufferClass &buf);							// +0x0C 0x4A5270
-	virtual bool Unknown_10(LinearBufferClass &buf, const DurationClass &base);	// +0x10 0x4A5300
+	virtual bool Unknown_0C(LinearBuffer &buf);							// +0x0C 0x4A5270
+	virtual bool Unknown_10(LinearBuffer &buf, const DurationClass &base);	// +0x10 0x4A5300
 	virtual void Set_Parent(DeltaClass *parent, int slot, int &index);		// +0x14 0x4A51A0
 	virtual void Unknown_18();															// +0x18 0x4A5410
 	virtual void Unknown_1C();															// +0x1C 0x4A5490
 	virtual void Unknown_20();															// +0x20 0x4A53A0
-	virtual DeltaCompoundClass *As_Compound() { return this; }				// +0x28 0x4A3CB0
+	virtual DeltaContainer *As_Compound() { return this; }				// +0x28 0x4A3CB0
 	virtual void Unknown_48();															// +0x48 0x4A5170
 
 	void Add(DeltaClass *child);														// 0x4A5670  // NAME 2: describes what it does
@@ -122,7 +122,7 @@ public:
 	// 0x4A3FA0: one byte picks the decoder (0 the record form, else the tree form, encode.cpp).
 	// Defined in the root's object 0x4A3B40-0x4A4780 (unknown_root.cpp, UnknownRootClass's, derived
 	// from this one); which class the client declared it in isn't known
-	bool Decode(LinearBufferClass &buf, const DurationClass &base);  // NAME 2: describes what it does
+	bool Decode(LinearBuffer &buf, const DurationClass &base);  // NAME 2: describes what it does
 	unsigned int Get_Size() const { return Children.size(); }	// the client's FAIL_IF texts 0xB784AC, 0xB95290 (on item arrays)
 
 	std::vector<DeltaClass *> Children;		// +0x84  // NAME 2 [Children]: describes what it does

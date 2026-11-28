@@ -34,11 +34,11 @@ public:
 };
 
 // opcode 135 (0x0087, MISSION_DISMISSAL): vtable 0xB0B2B4, constructor 0x89C900, 0x14 bytes
-class MissionDismissalPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MISSION_DISMISSAL (the Net-7 opcode table; no structure check)
+class MissionDismissPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	MissionDismissalPacketClass(int playerid, int id);	// 0x89C880
-	MissionDismissalPacketClass(RawPacketClass *raw);	// 0x89C900
+	MissionDismissPacketClass(int playerid, int id);	// 0x89C880
+	MissionDismissPacketClass(RawPacketClass *raw);	// 0x89C900
 	virtual RawPacketClass *Build();	// +0x04 0x89C9A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x8687F0 (clientstub.cpp l.227)
 	virtual int Get_Data_Size();	// +0x0C 0x89CA70

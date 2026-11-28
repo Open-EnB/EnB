@@ -25,7 +25,7 @@
 #include "..\shared\unknown_4fac20.h"	// String_Get_Token 0x4FB810 (0x81D290)
 #include "..\shared\auth_product.h"
 // One member of the list (0x20 bytes; the window's +0xCC and +0xDC hold them)
-class UIGuildMemberClass	// NAME 1: neutral, after ui_friends.h's UIFriendsPlayerInfoClass
+class UIGuildMemberClass	// NAME 1: neutral, after ui_friends.h's FriendsInfoClass
 {
 public:
 	UIGuildMemberClass() : Name(""), Location("") {}	// (inline: 0x81AEB0, 0x81C380)
@@ -205,7 +205,7 @@ void UIGuildClass::Unknown_58()
 		Unknown_81AAD0(0);
 		Unknown0AC = "";
 		if (Unknown0E8[0]) {
-			((RObjGadgetClass *)Unknown0E8[0])->Unknown_66C360();
+			((RenderObjGadgetClass *)Unknown0E8[0])->Unknown_66C360();
 		}
 		if (!Client->As_Space_Client()->Unknown_728300()) {
 			Unknown0C0->Unknown_64A270("Create a new Guild");
@@ -567,7 +567,7 @@ void UIGuildClass::Unknown_81BF40()
 // 0x81BFD0
 void UIGuildClass::Unknown_81BFD0()
 {
-	((ClientClass *)Client)->Send_Packet(&GuildRankNamesRequestClientPacketClass(((ClientClass *)Client)->Get_Avatar_ID()));
+	((ClientClass *)Client)->Send_Packet(&GuildRankNamesRequestClientPacket(((ClientClass *)Client)->Get_Avatar_ID()));
 }
 
 // 0x81C060

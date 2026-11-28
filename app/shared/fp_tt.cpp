@@ -318,14 +318,14 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 
 // 0x449EA0
 // NOT EXACT: register (195 masked rows, 94 with registers masked; frame 0x94 and 785 rows as the client): the pitch turns through Vector2::Rotate_Towards_Vector as the yaw does; this sits in esi (spilled) where the client keeps it in ebp, and the registers shift with it (forms in attempts.csv)
-int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims)
+int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynamicObjectClass *self, Vector3 *aims)
 {
 	G_ASSERT(proxim.Get_Avoidance());
 	Vector3 pos = transforms[Unknown_BE350C ^ 1].Get_Translation();
 	Vector3 delta = target - pos;
-	std::vector<DynObj *> &list = proxim.Unknown_4568E0();
+	std::vector<DynamicObjectClass *> &list = proxim.Unknown_4568E0();
 	int count = list.size();
-	DynObj *nearest = NULL;
+	DynamicObjectClass *nearest = NULL;
 	bool inside = false;
 	Vector3 away;
 	if (count != 0) {
@@ -333,7 +333,7 @@ int FpTTClass::Unknown_08(const Vector3 &target, Matrix3D *transforms, float dis
 		float best_ahead = FLT_MAX;
 		float best_inside = FLT_MAX;
 		for (int i = 0; i < count; i++) {
-			DynObj *obj = list[i];
+			DynamicObjectClass *obj = list[i];
 			float reach = obj->Unknown04 + radius;
 			float reach2 = reach * reach;
 			Vector3 d = obj->Unknown_Dyn48() - pos;

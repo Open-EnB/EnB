@@ -18,11 +18,11 @@ class CharacterViewClass;
 // (int)SortedGalaxies.size()'; layout fa_fe02a.ini on the model FE02A), 0xEC bytes, tables 0xAF76A0 / 0xAF7694 /
 // 0xAF7688. The character view's mode 5 (LoginTaskClass step 5): after the ship, or for a character not yet
 // registered; its Accept names the character and sends the creation (LoginTaskClass slot +0x48).
-class Unknown615A50InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10), as charview.cpp's (no RTTI: the window has no gadget callback)
+class ShardInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown615A50InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x615A50 (charview.cpp's 0x679160, mode 5)  // NAME 1 [view, layer]: as LoginInterface's
-	virtual ~Unknown615A50InterfaceClass();			// 0x616090 (0x616060 the deleting one)
+	ShardInterface(UIViewClass *view, LayerClass *layer);	// 0x615A50 (charview.cpp's 0x679160, mode 5)  // NAME 1 [view, layer]: as LoginInterface's
+	virtual ~ShardInterface();			// 0x616090 (0x616060 the deleting one)
 	virtual void Unknown_60();						// +0x60 0x616220 (every frame)
 	virtual bool Unknown_68(int key);				// +0x68 0x6164E0 (the events)  // NAME 1 [key]: InterfaceClass's
 

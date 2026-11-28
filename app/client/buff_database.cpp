@@ -11,7 +11,7 @@ void Message_Error(const char *sender, const char *category, const char *file, i
 
 BuffDatabaseClass *BuffDatabaseClass::Instance;
 
-BuffDefStruct::BuffDefStruct(const char *type, const char *asset, const char *tool_tip, const char *alt_tool_tip, bool is_good)
+BuffInfoClass::BuffInfoClass(const char *type, const char *asset, const char *tool_tip, const char *alt_tool_tip, bool is_good)
 {
 	Type = nstrdup(type);
 	Asset = nstrdup(asset);
@@ -20,7 +20,7 @@ BuffDefStruct::BuffDefStruct(const char *type, const char *asset, const char *to
 	IsGoodBuff = is_good;
 }
 
-BuffDefStruct::~BuffDefStruct()
+BuffInfoClass::~BuffInfoClass()
 {
 	delete [] Type;
 	Type = 0;
@@ -72,7 +72,7 @@ BuffDatabaseClass::BuffDatabaseClass() : Buffs(0)
 			StringClass alt_tool_tip;
 			ini.Get_String(alt_tool_tip, section, "BuffAltToolTip", "");
 			bool is_good = ini.Get_Bool(section, "IsGoodBuff", false);
-			BuffDefStruct *def = new BuffDefStruct(type, asset, tool_tip, alt_tool_tip, is_good);
+			BuffInfoClass *def = new BuffInfoClass(type, asset, tool_tip, alt_tool_tip, is_good);
 			if (Find(def->Type) != 0) {
 				delete def;
 				Message_Info("Buff Database", "", __FILE__, __LINE__, "Duplicate buff type definition encountered");
@@ -86,7 +86,7 @@ BuffDatabaseClass::BuffDatabaseClass() : Buffs(0)
 // The hash_map iterator declared before the loop and assigned from begin() keeps it in registers as the client (0x5A7E80, 0x5A8100, 0x677410, 0x6ACD10)
 BuffDatabaseClass::~BuffDatabaseClass()
 {
-	std::hash_map<std::string, BuffDefStruct *>::iterator i;
+	std::hash_map<std::string, BuffInfoClass *>::iterator i;
 	for (i = Buffs.begin(); i != Buffs.end(); ++i) {
 		delete (*i).second;
 	}
@@ -98,9 +98,9 @@ void BuffDatabaseClass::Set_Instance(BuffDatabaseClass *database)
 	Instance = database;
 }
 
-BuffDefStruct *BuffDatabaseClass::Find(const char *type)
+BuffInfoClass *BuffDatabaseClass::Find(const char *type)
 {
-	std::hash_map<std::string, BuffDefStruct *>::iterator i = Buffs.find(type);
+	std::hash_map<std::string, BuffInfoClass *>::iterator i = Buffs.find(type);
 	if (i == Buffs.end()) return 0;
 	return (*i).second;
 }
@@ -108,7 +108,7 @@ BuffDefStruct *BuffDatabaseClass::Find(const char *type)
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x676CD0-0x677660 (then the table's instances to 0x678420): BuffDefStruct's constructor
+**	client.exe 0x676CD0-0x677660 (then the table's instances to 0x678420): BuffInfoClass's constructor
 **	0x676CD0 (nstrdup of the four strings) and destructor 0x676D40, the database's constructor 0x676DB0
 **	(the table built as Buffs(0): the client pushes 0 to the out-of-line three-argument table
 **	constructor, the identical copies 0x450DB0 / 0x4E5B90 / 0x502200 / 0x6778A0), the destructor 0x677410,

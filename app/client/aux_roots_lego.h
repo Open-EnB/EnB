@@ -16,12 +16,12 @@
 
 // vtable 0xB01680 (e.g. Ship.Legos.Attachments.N)
 // NAME 4: Net-7 AuxAttachment confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours); C# LegoAttachment
-class DeltaAttachmentClass : public DeltaCompoundClass
+class DeltaAttachmentClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_LEGO)
 	DeltaAttachmentClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		BoneName("BoneName", ""),
 		Type("Type"),
 		Assets("Assets"),
@@ -36,20 +36,20 @@ public:
 	DeltaAttachmentClass(const char *name);
 #endif
 
-	DeltaStringClass BoneName;	// +0x9C
+	DeltaString BoneName;	// +0x9C
 	DeltaTemplateClass<int> Type;	// +0x124
 	DeltaTemplateClass<int> Assets;	// +0x1AC
-	DeltaStringClass Data;	// +0x234
+	DeltaString Data;	// +0x234
 };
 
 // vtable 0xB00B68 (e.g. Ship.Legos)
 // NAME 4: Net-7 AuxLego confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 2 children = ours); C# ShipLegos
-class DeltaLegoClass : public DeltaCompoundClass
+class DeltaLegoClass : public DeltaContainer
 {
 public:
 #if defined(AUX_ROOTS_ALL) || defined(AUX_CTORS_LEGO)
 	DeltaLegoClass(const char *name) :
-		DeltaCompoundClass(name),
+		DeltaContainer(name),
 		Scale("Scale", 1.0f),
 		Attachments("Attachments", 18)
 	{

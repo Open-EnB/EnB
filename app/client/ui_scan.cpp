@@ -190,7 +190,7 @@ void ScannerInterface::Unknown_54()
 	}
 	AABoxClass box;
 	RObj->Get_Obj_Space_Bounding_Box(box);
-	Verb = new UIVerbClass(View->Unknown_20(), Layer, UIMesh, 0);
+	Verb = new VerbInterface(View->Unknown_20(), Layer, UIMesh, 0);
 	Verb->Unknown_54();
 	View->Unknown_6B4940(Verb);
 	InterruptInfo = new UIScanThreatClass(this);
@@ -287,7 +287,7 @@ void ScannerInterface::Unknown_58()
 		if (RObj->Peek_Scene() == NULL && scene != NULL) {
 			RObj->Add(scene);
 		}
-		UIMFDClass::Unknown_58();
+		MFDInterface::Unknown_58();
 	}
 }
 
@@ -298,7 +298,7 @@ void ScannerInterface::Unknown_5C()
 		if (RObj->Peek_Scene() != NULL) {
 			RObj->Remove();
 		}
-		UIMFDClass::Unknown_5C();
+		MFDInterface::Unknown_5C();
 	}
 }
 
@@ -316,12 +316,12 @@ bool ScannerInterface::Unknown_68(int key)
 		default:
 			if (Unknown_BE5EB0.Key == 0x101) { next = true; plain = !control; }
 			else if (Unknown_BE5EB0.Key == 0x102) { next = false; plain = !control; }
-			else return(UIMFDClass::Unknown_68(key));
+			else return(MFDInterface::Unknown_68(key));
 	}
 
 
 
-	TargetingClass *ts = Get_Targeting();
+	TargetSelectClass *ts = Get_Targeting();
 	if (ts != NULL) {
 		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
 		if (next) {
@@ -487,7 +487,7 @@ void ScannerInterface::Unknown_60()
 	}
 	Unknown_60F1A0(false);
 	UIMesh->Unknown_5B9410();
-	UIMFDClass::Unknown_60();
+	MFDInterface::Unknown_60();
 }
 
 // @0x60E540
@@ -508,7 +508,7 @@ void ScannerInterface::Unknown_88(ClientObjectClass *object)
 			Unknown_4F7EF0().Remove(old, this, &ScannerInterface::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
 			InterruptInfo->Unknown_60FEE0();
 		}
-		UIMFDClass::Unknown_88(object);
+		MFDInterface::Unknown_88(object);
 		if (object != NULL) {
 			Unknown_4F7EF0().Add(object, this, &ScannerInterface::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
 		}
@@ -539,17 +539,17 @@ UIScanThreatClass::~UIScanThreatClass()
 #include "cfaction_database.h"
 #include <stdio.h>
 #include "co_player_relationship.h"
-template<class C> inline C *Unknown_Scan_Find_Field(char *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(char *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Find_Field(DeltaCompoundClass *const &root, const NameClass &n) { DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return(t); } template<class C> inline C *Unknown_Scan_Find(DeltaCompoundClass *const &root, const NameClass &name) { C *t = Unknown_Scan_Find_Field<C>(root, name); if (!t || !t->Unknown70) return(NULL); return(t); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaCompoundClass *const &root, const NameClass &n) { DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return(t); } template<class C> inline C *Unknown_Scan_Changed(DeltaCompoundClass *const &root, const NameClass &name) { C *t = Unknown_Scan_Changed_Field<C>(root, name); if (!t || t->Unknown70 <= 1) return(NULL); return(t); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send the finds out of line as the client (0x60E6A0, the char * root: 0x610290 / 0x514BD0; 0x60F1A0: 0x610370); auxdata.h's Unknown_Find_Set_Field, and one changed since (+0x70 above 1): ui_faction.cpp's
+template<class C> inline C *Unknown_Scan_Find_Field(char *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = (DeltaContainer *)root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(char *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Find_Field(DeltaContainer *const &root, const AuxDataName &n) { DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); return(t); } template<class C> inline C *Unknown_Scan_Find(DeltaContainer *const &root, const AuxDataName &name) { C *t = Unknown_Scan_Find_Field<C>(root, name); if (!t || !t->Unknown70) return(NULL); return(t); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaContainer *const &root, const AuxDataName &n) { DeltaContainer *r = root; C *t = Unknown_Find_Field<C>(r, n); return(t); } template<class C> inline C *Unknown_Scan_Changed(DeltaContainer *const &root, const AuxDataName &name) { C *t = Unknown_Scan_Changed_Field<C>(root, name); if (!t || t->Unknown70 <= 1) return(NULL); return(t); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send the finds out of line as the client (0x60E6A0, the char * root: 0x610290 / 0x514BD0; 0x60F1A0: 0x610370); auxdata.h's Unknown_Find_Set_Field, and one changed since (+0x70 above 1): ui_faction.cpp's
 
 
-template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaContainer *root, const AuxDataName &name)	// NAME 1: neutral (D10)
 { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }
 #include "..\..\ww3d2\assetmgr.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: avatar.cpp's)
 void Unknown_496730(RenderObjClass *robj, int sort_level, bool dec_if_match);	// 0x496730 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, sort_level, dec_if_match]: ui_cpit.cpp's
 
-template DeltaTemplateClass<DurationClass> *Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x610290)
-template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x514BD0)
+template DeltaTemplateClass<DurationClass> *Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(DeltaContainer *root, const AuxDataName &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x610290)
+template DeltaString *Unknown_Find_Field<DeltaString>(DeltaContainer *root, const AuxDataName &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x514BD0)
 // The interrupt display: the 'tsi08c' model on the scanner's 'BONE_INTER' bone, its progress display (+0x2C) and
 // the ability's name on 'MFD_INTERRUPT'; the faction line hidden meanwhile
 // NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline
@@ -610,7 +610,7 @@ void ScannerInterface::Unknown_60E6A0(ClientObjectClass *object)
 
 
 		G_ASSERT(robj);
-		DeltaStringClass *name = Unknown_Scan_Find<DeltaStringClass>(object->AuxData, "InterruptibleAbilityName");
+		DeltaString *name = Unknown_Scan_Find<DeltaString>(object->AuxData, "InterruptibleAbilityName");
 		if (name) {
 			InterruptInfo->AbilityName = name->String;
 		} else {
@@ -726,7 +726,7 @@ void ScannerInterface::Unknown_60EFE0(ClientObjectClass *object)
 	ConFont->Set_Color(color.Color1);
 }
 
-TargetingClass *ScannerInterface::Get_Targeting()	// @0x60F110 (out of line, no caller; inline in 0x60E300): the cockpit's targeting, through the client
+TargetSelectClass *ScannerInterface::Get_Targeting()	// @0x60F110 (out of line, no caller; inline in 0x60E300): the cockpit's targeting, through the client
 {
 
 
@@ -734,7 +734,7 @@ TargetingClass *ScannerInterface::Get_Targeting()	// @0x60F110 (out of line, no 
 	SClient *sclient = Client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(NULL);
-	TargetingClass *ts = sclient->Targeting;
+	TargetSelectClass *ts = sclient->Targeting;
 
 	FAIL_IF(!ts) return(NULL);
 	return(ts);
@@ -753,7 +753,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 	ClientObjectClass *object = Object;
 	if (!object || !object->AuxData) return;
 	bool expired = false;
-	DeltaTemplateClass<InterruptStateType> *state = Unknown_Find_Set_Field<DeltaTemplateClass<InterruptStateType> >((DeltaCompoundClass *)object->AuxData, "InterruptState");
+	DeltaTemplateClass<InterruptStateType> *state = Unknown_Find_Set_Field<DeltaTemplateClass<InterruptStateType> >((DeltaContainer *)object->AuxData, "InterruptState");
 	if (state) {
 		switch (state->Value) {
 			case 0:
@@ -815,7 +815,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 			expired = true;
 		}
 		if (InterruptInfo->Unknown2C) {
-			DeltaTemplateClass<float> *progress = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)object->AuxData, "InterruptProgress");
+			DeltaTemplateClass<float> *progress = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaContainer *)object->AuxData, "InterruptProgress");
 			InterruptInfo->Unknown2C->Unknown40 = progress ? progress->Value : 0.0f;
 			InterruptInfo->Unknown_Update();
 
@@ -825,7 +825,7 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 		}
 	}
 
-	DeltaStringClass *faction = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)object->AuxData, "FactionIdentifier");
+	DeltaString *faction = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)object->AuxData, "FactionIdentifier");
 	if (faction) {
 
 
@@ -838,8 +838,8 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 		FAIL_IF(!aux_data) return;
 
 		DeltaReputationClass *reputation = (!arg && !expired) ?
-			Unknown_Scan_Changed<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation") :
-			Unknown_Scan_Find<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+			Unknown_Scan_Changed<DeltaReputationClass>((DeltaContainer *)aux_data, "Reputation") :
+			Unknown_Scan_Find<DeltaReputationClass>((DeltaContainer *)aux_data, "Reputation");
 
 
 		if (reputation) {
@@ -849,9 +849,9 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 			const std::string &name = CFactionDatabaseClass::Get_Name(std::string(faction->String));
 			FactionFont->Set_Color(Vector3(0.7f, 0.7f, 0.7f));
 			for (int i = 0; i < count; i++) {
-				const char *entry_name = ((DeltaFactionClass *)reputation->Faction.Children[i])->Name.Get(); // NAME 2: the faction entry string used by the null check and comparison
+				const char *entry_name = ((DeltaFaction *)reputation->Faction.Children[i])->Name.Get(); // NAME 2: the faction entry string used by the null check and comparison
 				if (entry_name && strcmp(entry_name, faction->String) == 0) {
-					int reaction = (int)((DeltaFactionClass *)reputation->Faction.Children[i])->Reaction.Value;
+					int reaction = (int)((DeltaFaction *)reputation->Faction.Children[i])->Reaction.Value;
 					if (reaction >= 2000) {
 						FactionFont->Set_Color(Vector3(0.1f, 1.0f, 0.1f));
 					} else if (reaction >= -2000) {
@@ -867,8 +867,8 @@ void ScannerInterface::Unknown_60F1A0(bool arg)
 	}
 
 	DeltaTemplateClass<int> *tech = (!arg && !expired) ?
-		Unknown_Find_Changed_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel") :
-		Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel");
+		Unknown_Find_Changed_Field<DeltaTemplateClass<int> >((DeltaContainer *)object->AuxData, "TechLevel") :
+		Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaContainer *)object->AuxData, "TechLevel");
 
 
 	if (tech && tech->Value) {

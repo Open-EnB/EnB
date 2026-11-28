@@ -5,7 +5,7 @@
 **
 **	The model gadgets that stay out of the scene (their model is part of a screen's model already): slots
 **	+0x74 / +0x78 inline, the model not put into the layer's scene, only the flash stopped.
-**	Unknown_675120Class over RObjGadgetClass (table 0xAFB870, 0x60 bytes; gd_resize.cpp's drag handle derives
+**	UIMeshGadgetClass over RenderObjGadgetClass (table 0xAFB870, 0x60 bytes; gd_resize.cpp's drag handle derives
 **	from it) and ButtonGadgetClass over unknown_66b770.h's gadget with modes (table 0xAFB934, 0x64 bytes): the
 **	UI's buttons (ui_login.cpp's, ui_manu.cpp's, ui_scut.cpp's, ui_avsel.cpp's, ui_group.cpp's 0x675240 /
 **	0x675170 / 0x675310). Both over a model, or over a UIMeshClass's sub-object by name.
@@ -24,14 +24,14 @@
 class UIMeshClass;
 
 // The model gadget without a scene (0x60 bytes; its slots +0x74 / +0x78 the inline 0x51ADC0 / 0x51ADE0)
-class Unknown_675120Class : public RObjGadgetClass  // NAME 1: neutral (D10)
+class UIMeshGadgetClass : public RenderObjGadgetClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Unknown_675120Class(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask);	// 0x674F90 (the mesh's sub-object 0x5B8B40)  // NAME 1 [mesh, name, layer, mask]: the base's and what it does
-	Unknown_675120Class(RenderObjClass *robj, const LayerClass &layer, unsigned int mask);	// 0x675050 (RObjGadgetClass 0x66BDF0)  // NAME 1 [robj, layer, mask]: the base's
-	Unknown_675120Class(UIMeshClass *mesh, const char *name, unsigned int mask);	// 0x675090  // NAME 1 [mesh, name, mask]: the base's and what it does
-	Unknown_675120Class(RenderObjClass *robj, unsigned int mask);		// 0x675120 (RObjGadgetClass 0x66BEC0)  // NAME 1 [robj, mask]: the base's
-	virtual ~Unknown_675120Class();										// +0x00 0x675150 (deleting 0x675020)
+	UIMeshGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask);	// 0x674F90 (the mesh's sub-object 0x5B8B40)  // NAME 1 [mesh, name, layer, mask]: the base's and what it does
+	UIMeshGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask);	// 0x675050 (RenderObjGadgetClass 0x66BDF0)  // NAME 1 [robj, layer, mask]: the base's
+	UIMeshGadgetClass(UIMeshClass *mesh, const char *name, unsigned int mask);	// 0x675090  // NAME 1 [mesh, name, mask]: the base's and what it does
+	UIMeshGadgetClass(RenderObjClass *robj, unsigned int mask);		// 0x675120 (RenderObjGadgetClass 0x66BEC0)  // NAME 1 [robj, mask]: the base's
+	virtual ~UIMeshGadgetClass();										// +0x00 0x675150 (deleting 0x675020)
 	virtual void Unknown_74() {}										// +0x74 0x51ADC0 (no scene to enter)
 	virtual void Unknown_78() { Unknown_6607D0(); }						// +0x78 0x51ADE0 (only the flash stopped)
 };

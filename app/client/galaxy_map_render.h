@@ -2,7 +2,7 @@
 /*
 **	The galaxy map's renderer and the items it draws: one per system, sector and gate of the
 **	map (galaxy_map.h's data objects), each holding its render object. galaxy_map_render.cpp's
-**	classes; GalaxyMapRObjClass and GalaxyMapLineRObjClass are galaxy_map_robj.cpp's, declared
+**	classes; GalaxyMapSystemRObj and GalaxyMapLineRObj are galaxy_map_robj.cpp's, declared
 **	in galaxy_map_robj.h.
 */
 
@@ -30,7 +30,7 @@ class CameraClass;
 class LineSegClass;
 class FontSys;
 class INIClass;
-class GalaxyMapClientClass;
+class GalaxyMapClient;
 class GalaxyMapSystemIteratorClass;
 
 #include "galaxy_map_robj.h"	// GalaxyMapRObjClass, GalaxyMapLineRObjClass (galaxy_map_robj.cpp's)
@@ -229,7 +229,7 @@ public:
 
 	void Unknown_7AA8C0();									// 0x7AA8C0
 	void Unknown_7AA950(const RefCountPtr<GalaxyMapRenderSectorClass> &sector);	// 0x7AA950  // NAME 1 [sector]: what it stores
-	const SphereClass &Unknown_7AAB60(GalaxyMapClientClass *map);	// 0x7AAB60 (FAIL_IF '!map')  // NAME 3 [map]: the FAIL_IF's
+	const SphereClass &Unknown_7AAB60(GalaxyMapClient *map);	// 0x7AAB60 (FAIL_IF '!map')  // NAME 3 [map]: the FAIL_IF's
 	void Unknown_7AADA0();									// 0x7AADA0
 	void Unknown_7AAE10(RefCountPtr<GalaxyMapRenderSectorClass> &result, const LineSegClass &ray, const Vector3 &pos);	// 0x7AAE10  // NAME 1 [result, ray, pos]: neutral
 	void Unknown_7AAE90();									// 0x7AAE90
@@ -256,7 +256,7 @@ public:
 	virtual SceneClass *Remove_From_Scene();				// +0x20 0x7ABC10
 
 	bool Unknown_7AB6D0(std::hash_map<int, RefCountPtr<GalaxyMapRenderSystemClass> > &systems, bool explored);	// 0x7AB6D0  // NAME 1 [systems, explored]: what it finds; 0x7A5400's
-	void Unknown_7AB8B0(GalaxyMapClientClass *map, const Vector3 &offset, Vector3 *position);	// 0x7AB8B0  // NAME 1 [map, offset, position]: neutral
+	void Unknown_7AB8B0(GalaxyMapClient *map, const Vector3 &offset, Vector3 *position);	// 0x7AB8B0  // NAME 1 [map, offset, position]: neutral
 	Vector3 &Unknown_7ABA70(Vector3 &color, bool invert);	// 0x7ABA70 (FAIL_IF '!sys_data': the colour)  // NAME 1 [invert]: 1 - colour
 	void Unknown_7ABDD0(const RefCountPtr<GalaxyMapRenderGateClass> &gate);	// 0x7ABDD0  // NAME 1 [gate]: what it stores
 	void Unknown_7ABFE0();									// 0x7ABFE0
@@ -282,8 +282,8 @@ public:
 	virtual void Release_Item() { Remove_From_Scene(); Line = NULL; }	// +0x08 0x7AA3C0
 	virtual RenderObjClass *Peek_RObj() { return(Line.Peek()); }	// +0x0C 0x7AA400
 
-	RefCountPtr<GalaxyMapLineRObjClass> Line;				// +0x08  // NAME 3: the FAIL_IF's '!line'
-	RefCountPtr<GalaxyMapLineRObjClass> &Get_Line();			// 0x7AD070 (out of line in the client)
+	RefCountPtr<GalaxyMapLineRObj> Line;				// +0x08  // NAME 3: the FAIL_IF's '!line'
+	RefCountPtr<GalaxyMapLineRObj> &Get_Line();			// 0x7AD070 (out of line in the client)
 };
 
 // A gate (table 0xB05974; 0x1C bytes)
@@ -310,11 +310,11 @@ public:
 	bool Flipped;											// +0x19  // NAME 1: which end is the near one
 };
 
-// The renderer (GalaxyMapPipClass's, 0xC0 bytes)
+// The renderer (GalaxyMapPIPClass's, 0xC0 bytes)
 class GalaxyMapRenderClass  // NAME 3: class-from-file (D24) for app\Client\galaxy_map_render.cpp
 {
 public:
-	GalaxyMapRenderClass(GalaxyMapClientClass *map);	// 0x7A6020 (G_ASSERT 'GalaxyMap')  // NAME 2 [map]: the assert's
+	GalaxyMapRenderClass(GalaxyMapClient *map);	// 0x7A6020 (G_ASSERT 'GalaxyMap')  // NAME 2 [map]: the assert's
 	~GalaxyMapRenderClass();							// 0x7A64F0
 
 	void Unknown_7A6750();								// 0x7A6750
@@ -335,14 +335,14 @@ public:
 	void Unknown_7A97A0(const SphereClass &sphere);		// 0x7A97A0  // NAME 1 [sphere]: what it reads
 	bool Unknown_7A9840();								// 0x7A9840
 
-	GalaxyMapClientClass *GalaxyMap;					// +0x00  // NAME 3: the FAIL_IF's
+	GalaxyMapClient *GalaxyMap;					// +0x00  // NAME 3: the FAIL_IF's
 	int SectorNum;										// +0x04  // NAME 2: the aux data's, 0x7A8770
 	RefCountPtr<RenderObjClass> HomeSectorRObj;			// +0x08  // NAME 3: the FAIL_IF's
 	RefCountPtr<SceneClass> Scene;						// +0x0C  // NAME 2: the FAIL_IF's '!scene'
 	RefCountPtr<CameraClass> Camera;					// +0x10  // NAME 3: the FAIL_IF's
 	Vector2 Unknown14;									// +0x14 (0x53FD10)
 	Vector2 Unknown1C;									// +0x1C (0x53FD10)
-	int Version;										// +0x24  // NAME 1: GalaxyMapClientClass's Version, last seen
+	int Version;										// +0x24  // NAME 1: GalaxyMapClient's Version, last seen
 	unsigned int Unknown28;								// +0x28: the time of the next update
 	std::hash_map<int, RefCountPtr<GalaxyMapRenderSystemClass> > Systems;	// +0x2C  // NAME 2: what it holds
 	std::hash_map<int, RefCountPtr<GalaxyMapRenderSectorClass> > Sectors;	// +0x44  // NAME 2: what it holds
@@ -370,7 +370,7 @@ public:
 **	the deleting destructor, Release_Item, two pure slots, Needs_Update, Update, Add_To_Scene,
 **	Remove_From_Scene), 0xB0588C (mesh), 0xB058B8 (line), 0xB058E4 (system), 0xB05910 (sector),
 **	0xB05974 (gate). The item base's destructor 0x7A9CC0 stores only RefCountClass's table: implicit.
-**	GalaxyMapRObjClass / GalaxyMapLineRObjClass are galaxy_map_robj.h's (the line's include keeps the
-**	lines of the stand-ins it replaced); the line is held as RefCountPtr<GalaxyMapLineRObjClass>
+**	GalaxyMapSystemRObj / GalaxyMapLineRObj are galaxy_map_robj.h's (the line's include keeps the
+**	lines of the stand-ins it replaced); the line is held as RefCountPtr<GalaxyMapLineRObj>
 **	(Create_NEW 0x692680 and ~RefCountPtr 0x6926F0 are loadingview.cpp's +0x64 instance; segline_create.cpp's RefCountPtr<SegmentedLineClass> has its own, ~ 0x498BC0).
 */

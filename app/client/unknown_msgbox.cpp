@@ -200,7 +200,7 @@ void ViewUnknown34Class::Unknown_588340()
 void ViewUnknown34Class::Unknown_58()
 {
 	if (!Active && HasOptions) {
-		InterfaceSortClass sort(Layer.Peek_Scene(), true);
+		LocalInterfaceSort sort(Layer.Peek_Scene(), true);
 		if (FollowMouse) {
 			float x;
 			float y;
@@ -338,7 +338,7 @@ RefCountPtr<FontSys> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj)	// 
 void ViewUnknown34Class::Unknown_588DC0(const char *text, int width)
 {
 	RefCountPtr<FontSys> first = Unknown_589CA0(((DynamicWindowRenderObjectClass *)Headers[0])->Get_Render_Object());
-	RefCountPtr<Font32Class> *font = &first->Font;	// (FontSys::Font held as a RefCountPtr: the client loads the font before the text through a local)
+	RefCountPtr<Font32Bit> *font = &first->Font;	// (FontSys::Font held as a RefCountPtr: the client loads the font before the text through a local)
 	FontSplitStringClass split(*font, text, (float)width, 0);
 	INIClass ini("dialogbox.ini");
 	unsigned int count = min(split.Count(), (unsigned int)MaxLines);

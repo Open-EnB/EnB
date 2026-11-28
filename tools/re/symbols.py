@@ -236,7 +236,7 @@ def main(argv=None):
                 put(target, s, 'function', 'vtable')
 
     # D88's self name assumes one address per symbol: a symbol exact at several addresses (a class two
-    # files define, aux_roots' DeltaCompoundClass 0x7058C0 and 0x4A3CD0; template callbacks whose bytes
+    # files define, aux_roots' DeltaContainer 0x7058C0 and 0x4A3CD0; template callbacks whose bytes
     # are alike) gives no self name, so a vtable slot's proof on one copy is not kept
     where = {}
     for addr, e in syms.items():

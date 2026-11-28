@@ -23,10 +23,10 @@
 class ClientObjectClass;
 class RadarIconDataClass;
 
-class MouseTargetClass	// NAME 2: gutter_radar.cpp's and starmap_pip.cpp's G_ASSERT name their member MouseTarget
+class MouseTargeting  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	MouseTargetClass(ClientObjectClass *self);					// 0x7B77C0 (radar_system.cpp's 0x7BCA70)  // NAME 2 [self]: 0x7B7880 keeps its result apart
+	MouseTargeting(ClientObjectClass *self);					// 0x7B77C0 (radar_system.cpp's 0x7BCA70)  // NAME 2 [self]: 0x7B7880 keeps its result apart
 
 	void Set(float x, float y, float width, float height, const LayerClass &layer);	// 0x7B7810  // NAME 2 [Set, x, y, width, height, layer]: what it stores
 	const Vector2 &Get_Half_Size() { return(HalfSize); }			// (inline: starmap_pip.cpp's 0x7C0620)  // NAME 1: what it returns

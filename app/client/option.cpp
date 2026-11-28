@@ -10,7 +10,7 @@
 #include "..\shared\auth_product.h"
 void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 
-OptionClass *OptionClass::Instance;
+OptionManagerClass *OptionManagerClass::Instance;
 
 template <class K, class T, class H, class E, class A> T Find_Option(std::hash_map<K, T, H, E, A> &options, const char *name)	// 0x7FCBF0, 0x7FCD10, 0x7FCE30, 0x7FCF50, 0x7FD070  // NAME 2: what it does
 {
@@ -28,21 +28,21 @@ template <class K, class T, class H, class E, class A> void Free_Option_Map(std:
 	options.clear();
 }
 
-OptionClass::OptionClass() : CharacterID(0)
+OptionManagerClass::OptionManagerClass() : CharacterID(0)
 {
 }
 
-OptionClass::~OptionClass()
+OptionManagerClass::~OptionManagerClass()
 {
 	Free_Options();
 }
 
-void OptionClass::Set_Instance(OptionClass *options)
+void OptionManagerClass::Set_Instance(OptionManagerClass *options)
 {
 	Instance = options;
 }
 
-void OptionClass::Free_Options()
+void OptionManagerClass::Free_Options()
 {
 	Free_Option_Map(Bools);
 	Free_Option_Map(Ints);
@@ -51,7 +51,7 @@ void OptionClass::Free_Options()
 	Free_Option_Map(Strings);
 }
 
-void OptionClass::Set_Defaults(SClient *client)
+void OptionManagerClass::Set_Defaults(SClient *client)
 {
 	Free_Options();
 
@@ -318,7 +318,7 @@ void OptionClass::Set_Defaults(SClient *client)
 	Strings[string_option->Get_Name()] = string_option;
 }
 
-void OptionClass::Load(__int64 character_id, SClient *client)
+void OptionManagerClass::Load(__int64 character_id, SClient *client)
 {
 	Set_Defaults(client);
 	CharacterID = character_id % 1000000000;
@@ -674,7 +674,7 @@ void OptionClass::Load(__int64 character_id, SClient *client)
 	}
 }
 
-void OptionClass::Save()
+void OptionManagerClass::Save()
 {
 	char filename[64];
 	_snprintf(filename, 64, "player%d_%s", CharacterID, "options.ini");
@@ -746,32 +746,32 @@ void OptionClass::Save()
 	ini.Save(filename);
 }
 
-BoolOptionStruct *OptionClass::Find_Bool(const char *name)
+BoolOptionStruct *OptionManagerClass::Find_Bool(const char *name)
 {
 	return(Find_Option(Bools, name));
 }
 
-IntOptionStruct *OptionClass::Find_Int(const char *name)
+IntOptionStruct *OptionManagerClass::Find_Int(const char *name)
 {
 	return(Find_Option(Ints, name));
 }
 
-FloatOptionStruct *OptionClass::Find_Float(const char *name)
+FloatOptionStruct *OptionManagerClass::Find_Float(const char *name)
 {
 	return(Find_Option(Floats, name));
 }
 
-Vector3OptionStruct *OptionClass::Find_Vector3(const char *name)
+Vector3OptionStruct *OptionManagerClass::Find_Vector3(const char *name)
 {
 	return(Find_Option(Vector3s, name));
 }
 
-StringOptionStruct *OptionClass::Find_String(const char *name)
+StringOptionStruct *OptionManagerClass::Find_String(const char *name)
 {
 	return(Find_Option(Strings, name));
 }
 
-bool OptionClass::Get_Bool(const char *name)
+bool OptionManagerClass::Get_Bool(const char *name)
 {
 	BoolOptionStruct *option = Find_Bool(name);
 	if (option != NULL) {
@@ -780,7 +780,7 @@ bool OptionClass::Get_Bool(const char *name)
 	return(false);
 }
 
-int OptionClass::Get_Int(const char *name)
+int OptionManagerClass::Get_Int(const char *name)
 {
 	IntOptionStruct *option = Find_Int(name);
 	if (option != NULL) {
@@ -789,7 +789,7 @@ int OptionClass::Get_Int(const char *name)
 	return(0);
 }
 
-float OptionClass::Get_Float(const char *name)
+float OptionManagerClass::Get_Float(const char *name)
 {
 	FloatOptionStruct *option = Find_Float(name);
 	if (option != NULL) {
@@ -798,7 +798,7 @@ float OptionClass::Get_Float(const char *name)
 	return(0.0f);
 }
 
-Vector3 OptionClass::Get_Vector3(const char *name)
+Vector3 OptionManagerClass::Get_Vector3(const char *name)
 {
 	Vector3OptionStruct *option = Find_Vector3(name);
 	if (option != NULL) {
@@ -808,7 +808,7 @@ Vector3 OptionClass::Get_Vector3(const char *name)
 }
 
 // NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first
-std::string OptionClass::Get_String(const char *name)
+std::string OptionManagerClass::Get_String(const char *name)
 {
 	StringOptionStruct *option = Find_String(name);
 	if (option == NULL) {
@@ -817,7 +817,7 @@ std::string OptionClass::Get_String(const char *name)
 	return(option->Value);
 }
 
-bool OptionClass::Get_Default_Bool(const char *name)
+bool OptionManagerClass::Get_Default_Bool(const char *name)
 {
 	BoolOptionStruct *option = Find_Bool(name);
 	if (option != NULL) {
@@ -826,7 +826,7 @@ bool OptionClass::Get_Default_Bool(const char *name)
 	return(false);
 }
 
-int OptionClass::Get_Default_Int(const char *name)
+int OptionManagerClass::Get_Default_Int(const char *name)
 {
 	IntOptionStruct *option = Find_Int(name);
 	if (option != NULL) {
@@ -835,7 +835,7 @@ int OptionClass::Get_Default_Int(const char *name)
 	return(0);
 }
 
-float OptionClass::Get_Default_Float(const char *name)
+float OptionManagerClass::Get_Default_Float(const char *name)
 {
 	FloatOptionStruct *option = Find_Float(name);
 	if (option != NULL) {
@@ -844,7 +844,7 @@ float OptionClass::Get_Default_Float(const char *name)
 	return(0.0f);
 }
 
-Vector3 OptionClass::Get_Default_Vector3(const char *name)
+Vector3 OptionManagerClass::Get_Default_Vector3(const char *name)
 {
 	Vector3OptionStruct *option = Find_Vector3(name);
 	if (option != NULL) {
@@ -854,7 +854,7 @@ Vector3 OptionClass::Get_Default_Vector3(const char *name)
 }
 
 // NOT EXACT: shape, as Get_String
-std::string OptionClass::Get_Default_String(const char *name)
+std::string OptionManagerClass::Get_Default_String(const char *name)
 {
 	StringOptionStruct *option = Find_String(name);
 	if (option == NULL) {

@@ -20,13 +20,13 @@ GalaxyMapClass::~GalaxyMapClass()
 }
 
 // 0x836590
-void GalaxyMapClass::Write(LinearBufferClass *buffer)
+void GalaxyMapClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(&MaxDataObjects, 4);
 }
 
 // 0x8365C0
-void GalaxyMapClass::Read(LinearBufferClass *buffer)
+void GalaxyMapClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&MaxDataObjects, 4);
 	if ((int)AllData.size() < MaxDataObjects) {
@@ -236,13 +236,13 @@ const RefCountPtr<GalaxyMapStarbaseClass> &GalaxyMapClass::Get_Starbase(int hash
 }
 
 // 0x837C10
-void GalaxyMapDataClass::Read(LinearBufferClass *buffer)
+void GalaxyMapDataClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&GalaxyMapID, 4);
 }
 
 // 0x837C40
-void GalaxyMapDataClass::Write(LinearBufferClass *buffer)
+void GalaxyMapDataClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(&GalaxyMapID, 4);
 }
@@ -273,7 +273,7 @@ void GalaxyMapSystemClass::Set(int hash_id, const std::string &name, const Vecto
 }
 
 // 0x8381B0
-void GalaxyMapSystemClass::Read(LinearBufferClass *buffer)
+void GalaxyMapSystemClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&GalaxyMapID, 4);
 	buffer->Read(&HashID, 4);
@@ -287,7 +287,7 @@ void GalaxyMapSystemClass::Read(LinearBufferClass *buffer)
 }
 
 // 0x838320
-void GalaxyMapSystemClass::Write(LinearBufferClass *buffer)
+void GalaxyMapSystemClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(&GalaxyMapID, 4);
 	buffer->Write(&HashID, 4);
@@ -323,7 +323,7 @@ void GalaxyMapSectorClass::Set(int hash_id, int unknown10, const std::string &na
 }
 
 // 0x838780
-void GalaxyMapSectorClass::Read(LinearBufferClass *buffer)
+void GalaxyMapSectorClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&GalaxyMapID, 4);
 	buffer->Read(&HashID, 4);
@@ -336,7 +336,7 @@ void GalaxyMapSectorClass::Read(LinearBufferClass *buffer)
 }
 
 // 0x8388E0
-void GalaxyMapSectorClass::Write(LinearBufferClass *buffer)
+void GalaxyMapSectorClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(&GalaxyMapID, 4);
 	buffer->Write(&HashID, 4);
@@ -369,7 +369,7 @@ void GalaxyMapGateClass::Set(int unknown0c, int unknown10, int unknown14)
 }
 
 // 0x838B80
-void GalaxyMapGateClass::Read(LinearBufferClass *buffer)
+void GalaxyMapGateClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&GalaxyMapID, 4);
 	buffer->Read(&Unknown0C, 4);
@@ -378,7 +378,7 @@ void GalaxyMapGateClass::Read(LinearBufferClass *buffer)
 }
 
 // 0x838BD0
-void GalaxyMapGateClass::Write(LinearBufferClass *buffer)
+void GalaxyMapGateClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(&GalaxyMapID, 4);
 	buffer->Write(&Unknown0C, 4);
@@ -407,7 +407,7 @@ void GalaxyMapStarbaseClass::Set(int hash_id, int unknown10, const char *name, i
 }
 
 // 0x838F80
-void GalaxyMapStarbaseClass::Read(LinearBufferClass *buffer)
+void GalaxyMapStarbaseClass::Read(LinearBuffer *buffer)
 {
 	buffer->Read(&GalaxyMapID, 4);
 	buffer->Read(&HashID, 4);
@@ -419,7 +419,7 @@ void GalaxyMapStarbaseClass::Read(LinearBufferClass *buffer)
 }
 
 // 0x8390C0
-void GalaxyMapStarbaseClass::Write(LinearBufferClass *buffer)
+void GalaxyMapStarbaseClass::Write(LinearBuffer *buffer)
 {
 	buffer->Write(&GalaxyMapID, 4);
 	buffer->Write(&HashID, 4);

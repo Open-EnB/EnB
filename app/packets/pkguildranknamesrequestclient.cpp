@@ -71,23 +71,23 @@ int GuildSimpleClientSectorPacketClass::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildSimpleClientSectorPacket {Type=%d PlayerID=%d OptionalParam=%s}", Type, PlayerID, OptionalParam.c_str()));
 }
 
-GuildLeaderAcceptClientPacketClass::GuildLeaderAcceptClientPacketClass(int player_id, const char *guild_name, bool accept) : PlayerID(player_id), GuildName(guild_name)
+GuildLeaderAcceptClientPacket::GuildLeaderAcceptClientPacket(int player_id, const char *guild_name, bool accept) : PlayerID(player_id), GuildName(guild_name)
 {
 	Accept = accept;
 }
 
-GuildLeaderAcceptClientPacketClass::GuildLeaderAcceptClientPacketClass(RawPacketClass *raw)
+GuildLeaderAcceptClientPacket::GuildLeaderAcceptClientPacket(RawPacketClass *raw)
 {
 	raw->Get(PlayerID);
 	raw->Get(&GuildName);
 	raw->Get(&Accept, sizeof(Accept));
 }
 
-GuildLeaderAcceptClientPacketClass::~GuildLeaderAcceptClientPacketClass()
+GuildLeaderAcceptClientPacket::~GuildLeaderAcceptClientPacket()
 {
 }
 
-RawPacketClass *GuildLeaderAcceptClientPacketClass::Build()
+RawPacketClass *GuildLeaderAcceptClientPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(197, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -96,12 +96,12 @@ RawPacketClass *GuildLeaderAcceptClientPacketClass::Build()
 	return(raw);
 }
 
-int GuildLeaderAcceptClientPacketClass::Get_Data_Size()
+int GuildLeaderAcceptClientPacket::Get_Data_Size()
 {
 	return(RawPacketClass::Get_Size(GuildName) + sizeof(PlayerID) + sizeof(Accept));
 }
 
-int GuildLeaderAcceptClientPacketClass::Print(char *buffer, int len)
+int GuildLeaderAcceptClientPacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "GuildLeaderAcceptClient {PlayerID=%d GuildName=%s Accept=%s}", PlayerID, GuildName.c_str(), Accept ? "true" : "false"));
 }
@@ -138,21 +138,21 @@ int GuildRecruitConfirmSectorPacket::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildRecruitConfirmSector {InviterName=%s GuildName=%s}", InviterName.c_str(), GuildName.c_str()));
 }
 
-GuildRecruitAcceptClientPacketClass::GuildRecruitAcceptClientPacketClass(int player_id, bool accept) : PlayerID(player_id), Accept(accept)
+GuildRecruitAcceptClientPacket::GuildRecruitAcceptClientPacket(int player_id, bool accept) : PlayerID(player_id), Accept(accept)
 {
 }
 
-GuildRecruitAcceptClientPacketClass::GuildRecruitAcceptClientPacketClass(RawPacketClass *raw)
+GuildRecruitAcceptClientPacket::GuildRecruitAcceptClientPacket(RawPacketClass *raw)
 {
 	raw->Get(PlayerID);
 	raw->Get(&Accept, sizeof(Accept));
 }
 
-GuildRecruitAcceptClientPacketClass::~GuildRecruitAcceptClientPacketClass()
+GuildRecruitAcceptClientPacket::~GuildRecruitAcceptClientPacket()
 {
 }
 
-RawPacketClass *GuildRecruitAcceptClientPacketClass::Build()
+RawPacketClass *GuildRecruitAcceptClientPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(201, Get_Data_Size());
 	raw->Add(PlayerID);
@@ -160,12 +160,12 @@ RawPacketClass *GuildRecruitAcceptClientPacketClass::Build()
 	return(raw);
 }
 
-int GuildRecruitAcceptClientPacketClass::Get_Data_Size()
+int GuildRecruitAcceptClientPacket::Get_Data_Size()
 {
 	return(sizeof(PlayerID) + sizeof(Accept));
 }
 
-int GuildRecruitAcceptClientPacketClass::Print(char *buffer, int len)
+int GuildRecruitAcceptClientPacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "GuildRecruitAcceptClient {PlayerID=%d Accept=%s}", PlayerID, Accept ? "true" : "false"));
 }
@@ -239,28 +239,28 @@ int GuildPlayerPermissionsPacket::Print(char *buffer, int len)
 	return(_snprintf(buffer, len, "GuildPlayerPermissionsPacket {Permissions}"));
 }
 
-GuildRankNamesRequestClientPacketClass::GuildRankNamesRequestClientPacketClass(int player_id) : PlayerID(player_id)
+GuildRankNamesRequestClientPacket::GuildRankNamesRequestClientPacket(int player_id) : PlayerID(player_id)
 {
 }
 
-GuildRankNamesRequestClientPacketClass::GuildRankNamesRequestClientPacketClass(RawPacketClass *raw)
+GuildRankNamesRequestClientPacket::GuildRankNamesRequestClientPacket(RawPacketClass *raw)
 {
 	raw->Get(PlayerID);
 }
 
-RawPacketClass *GuildRankNamesRequestClientPacketClass::Build()
+RawPacketClass *GuildRankNamesRequestClientPacket::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(212, Get_Data_Size());
 	raw->Add(PlayerID);
 	return(raw);
 }
 
-int GuildRankNamesRequestClientPacketClass::Get_Data_Size()
+int GuildRankNamesRequestClientPacket::Get_Data_Size()
 {
 	return(sizeof(PlayerID));
 }
 
-int GuildRankNamesRequestClientPacketClass::Print(char *buffer, int len)
+int GuildRankNamesRequestClientPacket::Print(char *buffer, int len)
 {
 	return(_snprintf(buffer, len, "GuildRankNamesRequestClient {PlayerID=%d}", PlayerID));
 }

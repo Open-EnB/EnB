@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-PetitionStuckPacketClass::PetitionStuckPacketClass(int game_id, int game_id2, const char *subject, const char *complaint, const char *player_list) :
+PetitionPacketClass::PetitionPacketClass(int game_id, int game_id2, const char *subject, const char *complaint, const char *player_list) :
 	GameID(game_id),
 	GameID2(game_id2),
 	Subject(NULL),
@@ -16,7 +16,7 @@ PetitionStuckPacketClass::PetitionStuckPacketClass(int game_id, int game_id2, co
 	PlayerList = nstrdup(player_list != NULL ? player_list : "");
 }
 
-PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw)
+PetitionPacketClass::PetitionPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&GameID, sizeof(GameID));
 	raw->Get(&GameID2, sizeof(GameID2));
@@ -25,7 +25,7 @@ PetitionStuckPacketClass::PetitionStuckPacketClass(RawPacketClass *raw)
 	PlayerList = raw->Get_String();
 }
 
-PetitionStuckPacketClass::~PetitionStuckPacketClass()
+PetitionPacketClass::~PetitionPacketClass()
 {
 	delete [] Subject;
 	Subject = NULL;
@@ -35,7 +35,7 @@ PetitionStuckPacketClass::~PetitionStuckPacketClass()
 	PlayerList = NULL;
 }
 
-RawPacketClass *PetitionStuckPacketClass::Build()
+RawPacketClass *PetitionPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(136, Get_Data_Size());
 	raw->Add(&GameID, sizeof(GameID));
@@ -46,12 +46,12 @@ RawPacketClass *PetitionStuckPacketClass::Build()
 	return(raw);
 }
 
-int PetitionStuckPacketClass::Get_Data_Size()
+int PetitionPacketClass::Get_Data_Size()
 {
 	return(strlen(PlayerList) + strlen(Complaint) + strlen(Subject) + 3 + sizeof(GameID) + sizeof(GameID2));
 }
 
-int PetitionStuckPacketClass::Print(char *buffer, int)
+int PetitionPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "PetitionStuck {GameID=%d GameID=%d Subject = %0.20s Complaint = %0.20s PlayerList = %0.20s}", GameID, GameID2, Subject, Complaint, PlayerList));
 }

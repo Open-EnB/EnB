@@ -457,7 +457,7 @@ SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, Ren
 				switch (item->Unknown_BC) {
 					case 0:
 					case 10:
-						render = new Unknown68D870Class;
+						render = new InvItemRenderClass;
 						break;
 					case 1:
 					case 11:
@@ -475,17 +475,17 @@ SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, Ren
 				switch (item->Unknown_BC) {
 					case 12:
 					case 13:
-						render = new InvManuRenderClass;
+						render = new InventoryManuRenderClass;
 						break;
 					case 7:
 						if (kind == 0) {
 							render = new InvTradeRenderClass;
 						} else {
-							render = new InvRenderClass(true);
+							render = new InventoryRenderClass(true);
 						}
 						break;
 					default:
-						render = new InvRenderClass(true);
+						render = new InventoryRenderClass(true);
 						break;
 				}
 			} else if (skill) {

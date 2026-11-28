@@ -38,11 +38,11 @@ public:
 };
 
 // ui_talkt_space.cpp's talk tree window (SClient +0x1298), as far as this file reads it
-class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
+class SpaceTalkTreeInterface : public InterfaceClass  // NAME 5: thunk order, binary.md 5.11
 {
 };
 
-// (the current missions are aux_roots.h's DeltaMissionClass: ID +0x120, IsForfeitable +0x5F4, IsComplete +0x67C, IsFailed +0x704, IsExpired +0x78C)
+// (the current missions are aux_roots.h's DeltaMission: ID +0x120, IsForfeitable +0x5F4, IsComplete +0x67C, IsFailed +0x704, IsExpired +0x78C)
 
 
 
@@ -51,7 +51,7 @@ class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D
 
 
 // 0x5C4170
-UIMissnClass::UIMissnClass(SClient *client) :
+MissionInterface::MissionInterface(SClient *client) :
 	Unknown5BB320Class(new UIMeshClass("TSI22A", 2), client),
 	DescriptionPanel(NULL),
 	StandardBttnTexture(NULL),
@@ -68,7 +68,7 @@ UIMissnClass::UIMissnClass(SClient *client) :
 }
 
 // 0x5C42E0
-UIMissnClass::~UIMissnClass()
+MissionInterface::~MissionInterface()
 {
 	REF_PTR_RELEASE(StandardBttnTexture);
 	REF_PTR_RELEASE(SelectedBttnTexture);
@@ -83,7 +83,7 @@ UIMissnClass::~UIMissnClass()
 }
 
 // 0x5C4490
-void UIMissnClass::Unknown_7C(UIViewClass *view, bool arg)
+void MissionInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (UnknownC4) {
 		UnknownC4->Unknown_7C(NULL, false);
@@ -117,7 +117,7 @@ void UIMissnClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 // 0x5C4610
-void UIMissnClass::Unknown_54()
+void MissionInterface::Unknown_54()
 {
 	DescriptionPanel = WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi23a");
 	FAIL_IF(!DescriptionPanel) return;
@@ -179,13 +179,13 @@ void UIMissnClass::Unknown_54()
 }
 
 // auxdata.h's find through a wrapper whose six dead size() reads (no code) spend the inline budget: 0x5C4C90 then calls the find out of line (0x5AA9D0), as the client does
-template<class C> inline C *Unknown_Find_Field_Outlined(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Field_Outlined(DeltaContainer *root, const AuxDataName &name) { root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }	// NAME 1: neutral (D10)
 
 
 
 
 // 0x5C4BB0
-void UIMissnClass::Unknown_58()
+void MissionInterface::Unknown_58()
 {
 	if (!Active) {
 		InterfaceSortScopeClass sort(this);
@@ -196,7 +196,7 @@ void UIMissnClass::Unknown_58()
 }
 
 // 0x5C4C40
-void UIMissnClass::Unknown_5C()
+void MissionInterface::Unknown_5C()
 {
 	if (Active) {
 		if (UnknownC4 && UnknownC4->Active) {
@@ -208,7 +208,7 @@ void UIMissnClass::Unknown_5C()
 }
 
 // 0x5C4C90
-void UIMissnClass::Unknown_60()
+void MissionInterface::Unknown_60()
 {
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
@@ -216,8 +216,8 @@ void UIMissnClass::Unknown_60()
 	DeltaPlayerClass *ad_player = sclient->AuxData;
 	FAIL_IF(!ad_player) return;
 
-	NameClass name("Missions");
-	DeltaItemArrayClass<DeltaMissionClass> *missions = Unknown_Find_Field_Outlined<DeltaItemArrayClass<DeltaMissionClass> >((DeltaCompoundClass *)ad_player, name);
+	AuxDataName name("Missions");
+	DeltaItemArrayClass<DeltaMission> *missions = Unknown_Find_Field_Outlined<DeltaItemArrayClass<DeltaMission> >((DeltaContainer *)ad_player, name);
 	if (missions && missions->Unknown70 > 1) {
 		Unknown_5C5330(false);
 	} else {
@@ -229,7 +229,7 @@ void UIMissnClass::Unknown_60()
 	bool on = false;
 	if (!sclient->Unknown1298 || !sclient->Unknown1298->Active || !UnknownC0) {
 		if (CurrentMission != NO_CURRENT_MISSION) {
-			DeltaMissionClass *mission = CurrentMissions[CurrentMission];
+			DeltaMission *mission = CurrentMissions[CurrentMission];
 			if (mission && (mission->IsComplete.Value || mission->IsFailed.Value || mission->IsExpired.Value || mission->IsForfeitable.Value)) {
 				on = true;
 			}
@@ -257,7 +257,7 @@ void UIMissnClass::Unknown_60()
 }
 
 // 0x5C4EA0
-bool UIMissnClass::Unknown_68(int key)
+bool MissionInterface::Unknown_68(int key)
 {
 	if (key >= 1 && key <= MISSIONS_PER_PAGE) {
 		int index = key - 1;
@@ -301,11 +301,11 @@ bool UIMissnClass::Unknown_68(int key)
 // 0x5C4FC0's sort: the newest mission first (StartTime +0x56C)
 struct MissionStartTimeGreater	// NAME 2: describes what it does
 {
-	bool operator()(DeltaMissionClass *a, DeltaMissionClass *b) const { return(a->StartTime.Value > b->StartTime.Value); }
+	bool operator()(DeltaMission *a, DeltaMission *b) const { return(a->StartTime.Value > b->StartTime.Value); }
 };
 
 // 0x5C4FC0
-void UIMissnClass::Unknown_5C4FC0(std::vector<DeltaMissionClass *> &missions)
+void MissionInterface::Unknown_5C4FC0(std::vector<DeltaMission *> &missions)
 {
 	missions.clear(); missions.size(); missions.size();	// (two dead reads: they spend the inline budget so copy / _Destroy stay out of line, as the client's)
 
@@ -315,15 +315,15 @@ void UIMissnClass::Unknown_5C4FC0(std::vector<DeltaMissionClass *> &missions)
 	DeltaPlayerClass *ad_player = sclient->AuxData;
 	FAIL_IF(!ad_player) return;
 
-	DeltaItemArrayClass<DeltaMissionClass> *ad_missions = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaMissionClass> >((DeltaCompoundClass *)ad_player, "Missions");
+	DeltaItemArrayClass<DeltaMission> *ad_missions = Unknown_Find_Set_Field<DeltaItemArrayClass<DeltaMission> >((DeltaContainer *)ad_player, "Missions");
 	FAIL_IF(!ad_missions) return;
 
 	missions.reserve(12);
 	for (int i = 0; i < 12; i++) {
-		DeltaMissionClass *delta_item = (DeltaMissionClass *)ad_missions->Children[i];
+		DeltaMission *delta_item = (DeltaMission *)ad_missions->Children[i];
 
 		FAIL_IF(!delta_item) continue;
-		DeltaMissionClass *mission = delta_item; const char *name = mission->Name.Get();
+		DeltaMission *mission = delta_item; const char *name = mission->Name.Get();
 		if (name && *name) {
 			missions.push_back(mission);
 		}
@@ -333,9 +333,9 @@ void UIMissnClass::Unknown_5C4FC0(std::vector<DeltaMissionClass *> &missions)
 
 
 // 0x5C5330
-void UIMissnClass::Unknown_5C5330(bool arg)
+void MissionInterface::Unknown_5C5330(bool arg)
 {
-	std::vector<DeltaMissionClass *> missions;
+	std::vector<DeltaMission *> missions;
 	Unknown_5C4FC0(missions);
 	int count = missions.size();
 	while (UnknownBC && UnknownBC + MISSIONS_PER_PAGE > count) {
@@ -344,7 +344,7 @@ void UIMissnClass::Unknown_5C5330(bool arg)
 	}
 	int index = UnknownBC;
 	for (int i = 0; i < MISSIONS_PER_PAGE; i++) {
-		DeltaMissionClass *mission = (index < count) ? missions[index] : NULL;
+		DeltaMission *mission = (index < count) ? missions[index] : NULL;
 		index++;
 		bool update = false;
 		if (mission == CurrentMissions[i]) {
@@ -391,7 +391,7 @@ void UIMissnClass::Unknown_5C5330(bool arg)
 
 
 // 0x5C5500
-void UIMissnClass::Unknown_5C5500(unsigned int cur_mission_idx)
+void MissionInterface::Unknown_5C5500(unsigned int cur_mission_idx)
 {
 
 	FAIL_IF(cur_mission_idx >= MISSIONS_PER_PAGE) return;
@@ -411,7 +411,7 @@ void UIMissnClass::Unknown_5C5500(unsigned int cur_mission_idx)
 
 	FAIL_IF(!textgrp) return;
 
-	DeltaMissionClass *mission = CurrentMissions[cur_mission_idx];
+	DeltaMission *mission = CurrentMissions[cur_mission_idx];
 	const char *name = mission ? mission->Name.Get() : NULL;
 	if (!name || !*name) {
 		CurrentMissions[cur_mission_idx] = NULL;
@@ -449,7 +449,7 @@ void UIMissnClass::Unknown_5C5500(unsigned int cur_mission_idx)
 
 		G_ASSERT(stage_idx >= 0);
 		if (stage_idx >= 0) {
-			text += ((DeltaMissionStageClass *)mission->Stages.Children[stage_idx])->Text.Get();
+			text += ((DeltaMissionStage *)mission->Stages.Children[stage_idx])->Text.Get();
 		}
 	}
 	Unknown_Strip_Tags(text);
@@ -468,10 +468,10 @@ void UIMissnClass::Unknown_5C5500(unsigned int cur_mission_idx)
 
 
 // 0x5C5AC0
-void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
+void MissionInterface::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
 {
 	FAIL_IF(cur_mission_idx >= MISSIONS_PER_PAGE) return;
-	DeltaMissionClass *mission = CurrentMissions[cur_mission_idx];
+	DeltaMission *mission = CurrentMissions[cur_mission_idx];
 	if (!mission && !arg) return;
 
 	char name[64];
@@ -487,7 +487,7 @@ void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
 		int stage_idx = mission->Stage.Value - 1;
 
 		G_ASSERT(stage_idx >= 0);
-		if (stage_idx >= 0 && ((DeltaMissionStageClass *)mission->Stages.Children[stage_idx])->IsTimed.Value) {
+		if (stage_idx >= 0 && ((DeltaMissionStage *)mission->Stages.Children[stage_idx])->IsTimed.Value) {
 			time = mission->StageExpirationTime.Value.Get();
 		} else if (mission->IsTimed.Value) {
 			time = mission->ExpirationTime.Value.Get();
@@ -512,7 +512,7 @@ void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
 
 // 0x5C5DB0
 // Two devices without bytes, neither known to be the client's text (measured 2026-11-25, attempts.py show 0x5C5DB0): (1) the summary load is written at the end of both branches of the failure test: VC6 counts both as uses of the mission, then merges the equal tails into the one load the client has; with the reward local the client's code shows (Reward held in esi across the 'Reward: ' append) that one use keeps the mission in ebx and this in ebp (without it this takes ebx for the whole function); (2) the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline
-void UIMissnClass::Unknown_5C5DB0(int new_mission)
+void MissionInterface::Unknown_5C5DB0(int new_mission)
 {
 	if (UnknownC4 && UnknownC4->Active) {
 		UnknownC4->Unknown_5C();
@@ -542,7 +542,7 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 		sclient->Unknown_744560(9);
 		return;
 	}
-	DeltaMissionClass *mission = CurrentMissions[CurrentMission];
+	DeltaMission *mission = CurrentMissions[CurrentMission];
 	if (!mission) {
 		Unknown_5C5DB0(NO_CURRENT_MISSION);
 		return;
@@ -575,7 +575,7 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 	text += "Mission Steps:\n";
 	int count = mission->StageCount.Value;
 	for (int i = 0; i < count; i++) {
-		const char *step = (i < 20) ? ((DeltaMissionStageClass *)mission->Stages.Children[i])->Text.Get() : "Error: Designer exceeded MAX_STAGES";
+		const char *step = (i < 20) ? ((DeltaMissionStage *)mission->Stages.Children[i])->Text.Get() : "Error: Designer exceeded MAX_STAGES";
 		if (!step || !*step) break;
 		char num[8];
 		sprintf(num, "%d. ", i + 1);
@@ -656,7 +656,7 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 
 
 // 0x5C6610
-void UIMissnClass::Unknown_5C6610()
+void MissionInterface::Unknown_5C6610()
 {
 	if (UnknownC4 && UnknownC4->Active) {
 		SClient *sclient = Client->As_Space_Client();
@@ -683,7 +683,7 @@ void UIMissnClass::Unknown_5C6610()
 
 // 0x5C66D0
 // NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer)
-void UIMissnClass::Unknown_5C66D0()
+void MissionInterface::Unknown_5C66D0()
 {
 	FAIL_IF(NO_CURRENT_MISSION == CurrentMission) return;
 	FAIL_IF(!CurrentMissions[CurrentMission]) return;
@@ -695,7 +695,7 @@ void UIMissnClass::Unknown_5C66D0()
 		((ClientClass *)Client)->Send_Packet(&MissionForfeitPacketClass(playerid, id));
 		SoundLibraryClass::Play_2D_Sound("Mission_Forfeited", 2);
 	} else {
-		((ClientClass *)Client)->Send_Packet(&MissionDismissalPacketClass(playerid, id));
+		((ClientClass *)Client)->Send_Packet(&MissionDismissPacketClass(playerid, id));
 	}
 	Unknown_5C5DB0(-1);
 }

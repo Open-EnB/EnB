@@ -4,7 +4,7 @@
 #include "unknown_6b6050.h"
 
 // @0x6B6050
-UIStarbaseGadget6B6050Class::UIStarbaseGadget6B6050Class(int x, int y, int width, int height, SBaseViewClass *view) :
+UIStarbaseGadget6B6050Class::UIStarbaseGadget6B6050Class(int x, int y, int width, int height, StarbaseViewClass *view) :
 	RectangleGadgetClass(x, y, width, height, 0xFF),
 	Unknown40(view)
 {

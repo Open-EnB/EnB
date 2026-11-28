@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-CircBuffClass::CircBuffClass(int size, void *buffer)
+CircularBufferClass::CircularBufferClass(int size, void *buffer)
 {
 	Buffer = (char *)buffer;
 	BufferSize = size;
@@ -21,7 +21,7 @@ CircBuffClass::CircBuffClass(int size, void *buffer)
 }
 
 
-CircBuffClass::~CircBuffClass()
+CircularBufferClass::~CircularBufferClass()
 {
 	if (!IsExternal) {
 		delete Buffer;
@@ -92,7 +92,7 @@ CircBuffClass::~CircBuffClass()
 
 
 
-int CircBuffClass::Read(void *buffer, int len)
+int CircularBufferClass::Read(void *buffer, int len)
 {
 	if (len > BytesUsed) {
 		len = BytesUsed;
@@ -148,7 +148,7 @@ int CircBuffClass::Read(void *buffer, int len)
 
 
 
-int CircBuffClass::Write(const void *buffer, int len)
+int CircularBufferClass::Write(const void *buffer, int len)
 {
 	int space = BufferSize - BytesUsed;
 	if (len > space) {
@@ -177,19 +177,19 @@ int CircBuffClass::Write(const void *buffer, int len)
 }
 
 
-int CircBuffClass::Get_Free() const
+int CircularBufferClass::Get_Free() const
 {
 	return(BufferSize - BytesUsed);
 }
 
 
-int CircBuffClass::Get_Used() const
+int CircularBufferClass::Get_Used() const
 {
 	return(BytesUsed);
 }
 
 
-bool CircBuffClass::Unread(int len)
+bool CircularBufferClass::Unread(int len)
 {
 	if (len > Get_Free()) {
 		return(false);
@@ -209,7 +209,7 @@ bool CircBuffClass::Unread(int len)
 
 
 // 0x830F60
-int CircBuffClass::Get_Contiguous_Used() const
+int CircularBufferClass::Get_Contiguous_Used() const
 {
 	if (BytesUsed == 0) {
 		return(0);
@@ -222,7 +222,7 @@ int CircBuffClass::Get_Contiguous_Used() const
 
 
 // 0x830F90
-int CircBuffClass::Get_Contiguous_Free() const
+int CircularBufferClass::Get_Contiguous_Free() const
 {
 	int space = BufferSize - BytesUsed;
 	if (space == 0) {
@@ -236,7 +236,7 @@ int CircBuffClass::Get_Contiguous_Free() const
 
 
 // 0x830FD0
-char *CircBuffClass::Peek(int offset, int *len)
+char *CircularBufferClass::Peek(int offset, int *len)
 {
 	if (offset >= BytesUsed) {
 		*len = 0;
@@ -253,7 +253,7 @@ char *CircBuffClass::Peek(int offset, int *len)
 
 
 // 0x831060
-bool CircBuffClass::Is_Valid() const
+bool CircularBufferClass::Is_Valid() const
 {
 	if (WritePtr == ReadPtr) {
 		return(BytesUsed == 0 || BytesUsed == BufferSize);
@@ -266,7 +266,7 @@ bool CircBuffClass::Is_Valid() const
 
 
 // 0x8310D0
-void CircBuffClass::Dump(const char *title, int row)
+void CircularBufferClass::Dump(const char *title, int row)
 {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD pos;

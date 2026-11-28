@@ -16,7 +16,7 @@
 class CameraClass;
 class SimpleSceneClass;
 class LightClass;
-class ProxyRObj;
+class ProxyRenderObjClass;
 class UIMeshClass;
 class RenderObjClass;
 struct ScriptedMovieViewerSettingsStruct;
@@ -110,7 +110,7 @@ public:
 	virtual void Unknown_18(bool arg);					// +0x18 0x7EFA40: shown (the client's camera is the movie's; the movie starts) or hidden  // NAME 1 [arg]: the base's
 	virtual int Unknown_34() { return((int)this); }		// +0x34 0x7EF170
 	virtual SimpleSceneClass *Unknown_5C() { return(Scene); }	// +0x5C 0x7EF190
-	virtual void Unknown_00(SubjectClass *subject, void *event);	// ObserverClass +0x00 0x7EF850: a mesh's process moved, started or ended: its sound  // NAME 1 [subject, event]: the base's
+	virtual void Unknown_00(ObserverSubjectClass *subject, void *event);	// ObserverClass +0x00 0x7EF850: a mesh's process moved, started or ended: its sound  // NAME 1 [subject, event]: the base's
 
 	bool Unknown_7EFCC0();								// 0x7EFCC0 (SClient::Do_Frame in view mode 3: true ends the movie, 0x74BD10)
 	bool Unknown_7EFD00();								// 0x7EFD00 (G_ASSERT '!Started' l.472): the movie's meshes and their channels' animations; false without a 'Movie%d' entry
@@ -128,7 +128,7 @@ public:
 	Movie3DSoundClass *Sounds;							// +0x74 (Unknown_04 makes it from the section's 'SFX')  // NAME 1: what it holds
 	ScriptedMovieViewerSettingsStruct *Settings;		// +0x78: the scene light and the background colour  // NAME 1: after the struct
 	LightClass *Light;									// +0x7C: the light that follows the camera  // NAME 1: what it holds
-	ProxyRObj *Ship;									// +0x80: the avatar's model, on the 'Ship' mesh's bone  // NAME 2: the INI entry's
+	ProxyRenderObjClass *Ship;									// +0x80: the avatar's model, on the 'Ship' mesh's bone  // NAME 2: the INI entry's
 	int CameraMesh;										// +0x84: the mesh whose 'camera' bone carries the camera (-1: none)  // NAME 2: the INI entry 'Camera'
 	INIClass INI;										// +0x88: movie3d.ini  // NAME 1: what it holds
 	int Frames;											// +0x98: frames rendered (the fifth clears the meshes' flag 1)  // NAME 1: what it counts

@@ -300,7 +300,7 @@ bool PxCollision::Unknown_454730(MeshGeometryClass *aobj_coll_rep, MeshGeometryC
 }
 
 // 0x4557F0
-PxObject::PxObject(DynObj *owner) :
+PxObject::PxObject(DynamicObjectClass *owner) :
 	Owner(owner),
 	Pos(0.0f, 0.0f, 0.0f),
 	Radius(0.0f)
@@ -308,7 +308,7 @@ PxObject::PxObject(DynObj *owner) :
 }
 
 // 0x455820
-PxObject::PxObject(DynObj *owner, const PxObject &src) :
+PxObject::PxObject(DynamicObjectClass *owner, const PxObject &src) :
 	Owner(owner),
 	Pos(src.Pos),
 	Radius(src.Radius)
@@ -329,7 +329,7 @@ PxObject::~PxObject()
 ** first test and the response 0x453C20 are rebuilt (PX3: each object with slot +0x88 set gets an impulse along
 ** Unknown08 through slot +0xA0; with both, the closing speed, clamped at -0.25 and halved when negative, times the
 ** reduced mass and the mean of slot +0x94 plus one). 0x454730 (PX4; exact with B1's dead copies, 2026-11-25) tests the objects' world OBBoxes
-** (each DynObj's slot +0x7C box turned by its slot +0x3C transform) against the meshes: with both meshes an
+** (each DynamicObjectClass's slot +0x7C box turned by its slot +0x3C transform) against the meshes: with both meshes an
 ** OBBoxIntersectionTestClass each way (Unknown08 set to (1, 0, 0)); with one, the other object's box swept by its
 ** slot +0x40 velocity (OBBoxCollisionTestClass) cast in the mesh's space, the hit normal turned back into
 ** Unknown08 (negated when the mesh is B's). Its frame (0x588) needs the B-only case's locals at function scope.
@@ -343,6 +343,6 @@ PxObject::~PxObject()
 ** whose file they are (px_collision.cpp's tail or an object of their own), so they sit here provisionally.
 **
 ** Live or dormant: Process is called only by px_wrapper.cpp's _Collision_Callback, which only the loose box's
-** PxPollCallback::Process calls, which only PxProcessClass::Process (no reference in the client) would call: the
+** PxPollCallback::Process calls, which only PxProcessList::Process (no reference in the client) would call: the
 ** collision code never runs in the retail client.
 */

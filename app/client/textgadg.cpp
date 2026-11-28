@@ -34,14 +34,14 @@ TextBaseGadgetClass *TextBaseGadgetClass::_ActiveUI = NULL;
 **	Reconstruction notes (textgadg.cpp, client 0x6AA000-0x6AB310; __FILE__ 0xB91874, asserts on the client's lines
 **	194-564, D25: blank lines keep them there).
 **
-**	TextBaseGadgetClass (0x6AA000-0x6AA810): the text in StrEditClass Edit (stredit.cpp: the edit buffer, the cursor,
+**	TextBaseGadgetClass (0x6AA000-0x6AA810): the text in StringEditClass Edit (stredit.cpp: the edit buffer, the cursor,
 **	the keys); Hidden holds a star per character for
 **	the password box. Slot +0x74 moves the input focus ('_ActiveUI', 0xBE66C0) and the keyboard's text mode
 **	(input.cpp's 0x42EE00, a bool here). Slot +0x2C takes the key events (mask 0x100) while active: tab to Next (or
 **	Unknown39 when none), enter, escape (Unknown3A), the rest to Edit (Unknown3B, Changed).
 **	TextGadgetClass (0x6AA810-0x6AB190): a FontSys (fontmanager.h, 0x4E8 bytes) named string_name on the model
 **	(or its top container), the box of the model's sub-object named by the style's Attach, a cursor
-**	(fontsys_cursor.cpp's TextCursorClass, 0x685680). 0x6AAD10 runs every frame: on Changed the text redrawn
+**	(fontsys_cursor.cpp's FontSysCursor, 0x685680). 0x6AAD10 runs every frame: on Changed the text redrawn
 **	(clipped to the box around the cursor, 0x6AB190; with flag 0x400 scrolled to fit the screen-scaled box), the
 **	cursor moved; while active the cursor blinks at GetCaretBlinkTime (flag 0x1000).
 **	The flags are extern constants in .rdata 0xB08C90-0xB08CC4 (1 ... 0x1000, 0x2C0): their file is not known; the tree
@@ -61,8 +61,8 @@ TextBaseGadgetClass::TextBaseGadgetClass(int length, unsigned int flags, const c
 	Active(false),
 	Next(NULL)
 {
-	Edit = new StrEditClass(length, NULL, flags, chars);
-	Hidden = new StrEditClass(length, NULL, Unknown_B08CC4, NULL);
+	Edit = new StringEditClass(length, NULL, flags, chars);
+	Hidden = new StringEditClass(length, NULL, Unknown_B08CC4, NULL);
 }
 
 TextBaseGadgetClass::~TextBaseGadgetClass()
@@ -393,7 +393,7 @@ void TextGadgetClass::Unknown_6AAD10()
 	bool changed = Changed;
 	Changed = false;
 	if (changed) {
-		RefCountPtr<Font32Class> &font = Text->Font;
+		RefCountPtr<Font32Bit> &font = Text->Font;
 		G_ASSERT(font);
 		if (font == NULL) {
 			return;
@@ -536,7 +536,7 @@ void TextGadgetClass::Unknown_28(LayerClass *layer)
 
 
 
-char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Class> &font, int &cp)
+char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Bit> &font, int &cp)
 {
 	FAIL_IF(pwidth <= 0.0f) {
 		pwidth = 1.0f;

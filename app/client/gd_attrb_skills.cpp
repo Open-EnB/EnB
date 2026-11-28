@@ -49,7 +49,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// ro_func
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int index);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
 
 // 0x662DC0
-Unknown664500Class::Unknown664500Class() :
+AttributeSkillsGadget::AttributeSkillsGadget() :
 	ButtonGadgetClass((RenderObjClass *)NULL, 5, 3),
 	Unknown6C(-1),
 	Unknown88(-1),
@@ -103,20 +103,20 @@ Unknown664500Class::Unknown664500Class() :
 
 		G_ASSERT(AbilityIcons[lp]);
 	}
-	RObjGadgetClass::Set_Render_Obj(SmallBttn.Peek());
+	RenderObjGadgetClass::Set_Render_Obj(SmallBttn.Peek());
 }
 
 // 0x6636E0
-Unknown664500Class::~Unknown664500Class()
+AttributeSkillsGadget::~AttributeSkillsGadget()
 {
-	RObjGadgetClass::Set_Render_Obj(NULL);
+	RenderObjGadgetClass::Set_Render_Obj(NULL);
 	Unknown100->Remove();
 }
 
 // 0x663950
-bool Unknown664500Class::Unknown_30(float x, float y)
+bool AttributeSkillsGadget::Unknown_30(float x, float y)
 {
-	if (RObjGadgetClass::Unknown_30(x, y)) {
+	if (RenderObjGadgetClass::Unknown_30(x, y)) {
 	bool changed = false;
 	if (Unknown88 != -1) {
 		if (Unknown_496960(Unknown8C[Unknown88].Peek(), x, y, Layer)) {
@@ -155,17 +155,17 @@ bool Unknown664500Class::Unknown_30(float x, float y)
 }
 
 // 0x663B50
-RenderObjClass *Unknown664500Class::Unknown_24(Vector3 *position, float *frame, bool indicator)
+RenderObjClass *AttributeSkillsGadget::Unknown_24(Vector3 *position, float *frame, bool indicator)
 {
 	if (Unknown88 != -1) {
 		*position = Unknown8C[Unknown88]->Get_Position();
 		return(Unknown8C[Unknown88].Peek());
 	}
-	return(RObjGadgetClass::Unknown_24(position, frame, indicator));
+	return(RenderObjGadgetClass::Unknown_24(position, frame, indicator));
 }
 
 // 0x663BE0
-void Unknown664500Class::Unknown_A4(bool arg)
+void AttributeSkillsGadget::Unknown_A4(bool arg)
 {
 
 	FAIL_IF(!AttachTo) return;
@@ -199,16 +199,16 @@ void Unknown664500Class::Unknown_A4(bool arg)
 }
 
 // 0x663DA0
-void Unknown664500Class::Unknown_28(LayerClass *layer)
+void AttributeSkillsGadget::Unknown_28(LayerClass *layer)
 {
-	for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+	for (std::vector<SlotDataGadget *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
 		(*it)->Unknown_28(layer);
 	}
-	RObjGadgetClass::Unknown_28(layer);
+	RenderObjGadgetClass::Unknown_28(layer);
 }
 
 // 0x663DF0
-int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int index)
+int AttributeSkillsGadget::Unknown_663DF0(AttributeSkillsInterface *ui, int skill, int index)
 {
 
 
@@ -267,7 +267,7 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 		Unknown815320Struct *ability = *it;
 		if (ability) {
 			if (ability->Unknown1C && ability->Unknown18 <= SkillNamesDatabase::Unknown_8185C0(Unknown6C, index)) {
-				SlotDataGadgetClass *gadget = ui->Unknown_AC(a_robj.Peek(), &Unknown6C);
+				SlotDataGadget *gadget = ui->Unknown_AC(a_robj.Peek(), &Unknown6C);
 				if (gadget) {
 					UnknownF0.push_back(gadget);
 					count++;
@@ -309,7 +309,7 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 }
 
 // 0x664430
-void Unknown664500Class::Unknown_664430()
+void AttributeSkillsGadget::Unknown_664430()
 {
 	Unknown_6647F0();
 	AttachTo = NULL;
@@ -320,10 +320,10 @@ void Unknown664500Class::Unknown_664430()
 }
 
 // 0x664500
-void Unknown664500Class::Unknown_664500()
+void AttributeSkillsGadget::Unknown_664500()
 {
-	for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
-		SlotDataGadgetClass *gadget = *it;
+	for (std::vector<SlotDataGadget *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+		SlotDataGadget *gadget = *it;
 		if (gadget->Is_Enabled()) {
 			Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(Unknown_6A7380(gadget)->Get_34());
 			bool on = ability->Get_18() <= (unsigned int)Unknown104;
@@ -337,7 +337,7 @@ void Unknown664500Class::Unknown_664500()
 }
 
 // 0x6645A0
-int Unknown664500Class::Unknown_6645A0(int level, bool arg)
+int AttributeSkillsGadget::Unknown_6645A0(int level, bool arg)
 {
 	if (Unknown88 != -1) {
 		Unknown88 = -1;
@@ -371,8 +371,8 @@ int Unknown664500Class::Unknown_6645A0(int level, bool arg)
 	Unknown_A4(true);
 	if (arg) {
 		int lp = 0;
-		for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
-			SlotDataGadgetClass *gadget = *it;
+		for (std::vector<SlotDataGadget *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+			SlotDataGadget *gadget = *it;
 			AbilityIconBox[lp++]->Set_Hidden(false);
 			gadget->Unknown_40(true);
 			gadget->Unknown_8C(false);
@@ -398,13 +398,13 @@ int Unknown664500Class::Unknown_6645A0(int level, bool arg)
 }
 
 // 0x6647F0
-void Unknown664500Class::Unknown_6647F0()
+void AttributeSkillsGadget::Unknown_6647F0()
 {
 	if (Is_Enabled()) {
 		Unknown_66B770Class::Unknown_40(false);
 		int lp = 0;
-		for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
-			SlotDataGadgetClass *gadget = *it;
+		for (std::vector<SlotDataGadget *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+			SlotDataGadget *gadget = *it;
 			gadget->Unknown_40(false);
 			gadget->Unknown_8C(true);
 			gadget->Unknown_670C90(false);
@@ -415,7 +415,7 @@ void Unknown664500Class::Unknown_6647F0()
 }
 
 // 0x664890
-void Unknown664500Class::Unknown_664890(bool on)
+void AttributeSkillsGadget::Unknown_664890(bool on)
 {
 	RefCountPtr<TextureClass> texture;
 	if (on) {
@@ -429,7 +429,7 @@ void Unknown664500Class::Unknown_664890(bool on)
 }
 
 // 0x6649F0
-void Unknown664500Class::Unknown_6649F0()
+void AttributeSkillsGadget::Unknown_6649F0()
 {
 	int lp;
 	for (lp = 0; lp < Unknown104; lp++) {
@@ -452,7 +452,7 @@ void Unknown664500Class::Unknown_6649F0()
 }
 
 // 0x664AE0
-void Unknown664500Class::Unknown_664AE0(int index, int state)
+void AttributeSkillsGadget::Unknown_664AE0(int index, int state)
 {
 	RefCountPtr<TextureClass> texture;
 	if (state == 0) {
@@ -466,7 +466,7 @@ void Unknown664500Class::Unknown_664AE0(int index, int state)
 }
 
 // 0x664C60
-void Unknown664500Class::Unknown_664C60()
+void AttributeSkillsGadget::Unknown_664C60()
 {
 	std::string text;
 	if (Unknown88 == -1) {

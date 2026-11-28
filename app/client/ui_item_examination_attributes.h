@@ -27,7 +27,7 @@
 class GadgetCollectionInterface;
 class DynamicElementGadgetClass;
 
-class UIItemExaminationAttributeClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationAttributeClass]: from 'ATTRIBUTE00_IEI00', as ItemOptionObject
+class UIItemExaminationAttributeClass : public HorizontalDynamicWindow  // NAME 2 [UIItemExaminationAttributeClass]: from 'ATTRIBUTE00_IEI00', as ItemOptionObject
 {
 public:
 	UIItemExaminationAttributeClass(const RefCountPtr<ClientItemPropertyAttributeClass> &attribute, GadgetCollectionInterface *listener);	// 0x533450  // NAME 1 [attribute, listener]
@@ -51,7 +51,7 @@ public:
 protected:
 	GadgetCollectionInterface *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
 	std::vector< RefCountPtr<ClientItemPropertyAttributeClass> > Attributes;				// +0x68  // NAME 1 [Attributes]
-	RefCountPtr<DynamicWindowVerticalClass> List;											// +0x78 (the rows)  // NAME 1 [List]
+	RefCountPtr<VerticalDynamicWindow> List;											// +0x78 (the rows)  // NAME 1 [List]
 };
 
 #endif

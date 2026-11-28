@@ -7,11 +7,11 @@
 
 
 // @0x4D0230
-void ExprMathLexerFactoryClass::Add_Operators(unsigned int flags, ExprLexerImplClass *lexer)
+void ExprMathLexerFactoryClass::Add_Operators(unsigned int flags, ExprLexerImpl *lexer)
 {
 	FAIL_IF(!lexer) return;
 
-	ExprLexerMatchListClass *ops = new ExprLexerMatchListClass;	// NAME 3 [ops]
+	ExprLexerMatchList *ops = new ExprLexerMatchList;	// NAME 3 [ops]
 	if (flags & 8) {
 		ops->Add("! || &&");
 	}
@@ -32,14 +32,14 @@ void ExprMathLexerFactoryClass::Add_Operators(unsigned int flags, ExprLexerImplC
 
 
 // @0x4D0360
-ExprMathLexerClass *ExprMathLexerFactoryClass::Create(unsigned int flags, int number_flags, int name_flags)
+ExprLexer *ExprMathLexerFactoryClass::Create(unsigned int flags, int number_flags, int name_flags)
 {
-	ExprLexerImplClass *lexer = new ExprLexerImplClass;
+	ExprLexerImpl *lexer = new ExprLexerImpl;
 	Add_Operators(flags, lexer);
-	lexer->Add_Matcher(3, new ExprLexerMatchListClass("( )"));
-	lexer->Add_Matcher(1, new ExprLexerNameMatchClass(name_flags));
-	lexer->Add_Matcher(2, new ExprLexerNumberMatchClass(number_flags));
-	lexer->Add_Matcher(0, new ExprLexerSpaceMatchClass);
+	lexer->Add_Matcher(3, new ExprLexerMatchList("( )"));
+	lexer->Add_Matcher(1, new ExprLexerMatchName(name_flags));
+	lexer->Add_Matcher(2, new ExprLexerMatchNumber(number_flags));
+	lexer->Add_Matcher(0, new ExprLexerMatchSpace);
 	return lexer;
 }
 

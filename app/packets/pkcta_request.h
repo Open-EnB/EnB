@@ -18,12 +18,12 @@
 #include "pk.h"
 
 // opcode 188 (0x00BC, CTA_REQUEST): vtable 0xB097DC, constructor 0x86F0F0, 0x18 bytes
-class CTA_Request_PacketClass : public PacketClass  // NAME 3: the client's Print text 'CTA_Request_Packet {' and the PacketClass convention
+class CTARequestPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	CTA_Request_PacketClass(int avatar_id, int target_id, int request_type);	// 0x86F070
-	CTA_Request_PacketClass(RawPacketClass *raw);	// 0x86F0F0
-	virtual ~CTA_Request_PacketClass();	// +0x00 0x86F1C0 / 0x86F0C0
+	CTARequestPacketClass(int avatar_id, int target_id, int request_type);	// 0x86F070
+	CTARequestPacketClass(RawPacketClass *raw);	// 0x86F0F0
+	virtual ~CTARequestPacketClass();	// +0x00 0x86F1C0 / 0x86F0C0
 	virtual RawPacketClass *Build();	// +0x04 0x86F1E0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868DF0 (clientstub.cpp l.323)
 	virtual int Get_Data_Size();	// +0x0C 0x86F2C0

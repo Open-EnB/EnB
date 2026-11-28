@@ -5,7 +5,7 @@
 **	0xB8CEF0 the client holds; the client holds no string of this header)
 **
 **	The buff gadget of ui_buff.cpp's display (table 0xAF9E70, 0xD8 bytes): one buff's icon with its count text
-**	('BuffCount'), its values (BuffInfoStruct: the ship's BuffArray.N) and their elements (BuffElementStruct: its
+**	('BuffCount'), its values (BuffDataClass: the ship's BuffArray.N) and their elements (BuffElementStruct: its
 **	Elements.N), over the 0x80-byte gadget of constructor 0x671300 (table 0xAFB278) over the button gadget.
 */
 
@@ -25,7 +25,7 @@
 class ClientClass;
 class FontSys;
 class Vector2;
-struct BuffDefStruct;
+struct BuffInfoClass;
 
 // One buff element's values (0x30 bytes; the ship's BuffArray.N.Elements.N)
 struct BuffElementStruct	// NAME 1: neutral (D10)
@@ -40,9 +40,9 @@ struct BuffElementStruct	// NAME 1: neutral (D10)
 };
 
 // One buff's values (0x30 bytes; the ship's BuffArray.N)
-struct BuffInfoStruct	// NAME 1: neutral (D10)
+struct BuffDataClass  // NAME 5: thunk order, binary.md 5.11
 {
-	BuffInfoStruct();									// 0x665180
+	BuffDataClass();									// 0x665180
 	void Set_Scrub_Type_Name(const std::string &name);	// 0x6651C0  // NAME 1 [Set_Scrub_Type_Name, name]: the member it sets
 	std::string Get_Scrub_Type_Name() const { return ScrubTypeName; }	// 0x6669D0 (out of line in 0x666570)  // NAME 1: the member it answers
 	void Set_Is_Permanent(bool permanent);				// 0x665340  // NAME 1 [Set_Is_Permanent, permanent]: the member it sets
@@ -63,18 +63,18 @@ struct BuffInfoStruct	// NAME 1: neutral (D10)
 class BuffGadgetClass : public Unknown_671300Class	// NAME 3: class-from-file (D24) for app\Client\gd_buffgadg.cpp
 {
 public:
-	BuffGadgetClass(ClientClass *client, BuffDefStruct *buffinfo, const BuffInfoStruct &info, RenderObjClass *robj, int unknown, const LayerClass &layer);	// 0x665A40 (G_ASSERT 'BuffCount' / 'robj')  // NAME 1 [client, info, unknown, layer]: what ui_buff.cpp's 0x560D20 passes; NAME 3 [buffinfo, robj]: the asserts'
+	BuffGadgetClass(ClientClass *client, BuffInfoClass *buffinfo, const BuffDataClass &info, RenderObjClass *robj, int unknown, const LayerClass &layer);	// 0x665A40 (G_ASSERT 'BuffCount' / 'robj')  // NAME 1 [client, info, unknown, layer]: what ui_buff.cpp's 0x560D20 passes; NAME 3 [buffinfo, robj]: the asserts'
 	virtual ~BuffGadgetClass();							// +0x00 0x665D60 (deleting 0x665D30; G_ASSERT 'robj')
 	virtual void Unknown_AC();							// +0xAC 0x665F20 (the pulse while the buff runs out, then the texture scrolled)
-	bool Unknown_6661F0(const BuffInfoStruct &info, const DurationClass &now);	// 0x6661F0 (the values taken: true when the elements grew or the buff runs out sooner)  // NAME 1 [info, now]: what ui_buff.cpp's 0x560BC0 passes
+	bool Unknown_6661F0(const BuffDataClass &info, const DurationClass &now);	// 0x6661F0 (the values taken: true when the elements grew or the buff runs out sooner)  // NAME 1 [info, now]: what ui_buff.cpp's 0x560BC0 passes
 	void Unknown_666440(bool unknown);					// 0x666440 (the pulse started: +0xB8 = 1, +0xBC = 0; the argument unused)  // NAME 1 [unknown]: neutral
 	bool Unknown_666470();								// 0x666470 (true: the buff is over)
-	void Unknown_6664E0(bool on);						// 0x6664E0 (on: the BuffDefStruct's AltToolTip as the tooltip, bit 6 of +0x2C set)  // NAME 1 [on]: neutral
+	void Unknown_6664E0(bool on);						// 0x6664E0 (on: the BuffInfoClass's AltToolTip as the tooltip, bit 6 of +0x2C set)  // NAME 1 [on]: neutral
 	void Unknown_666570();								// 0x666570 (the tooltip text +0xC4: the tool tip, (type), a line per element)
 
-	BuffDefStruct *BuffInfo;							// +0x80  // NAME 3: the assert's 'buffinfo' (ui_buff.cpp)
+	BuffInfoClass *BuffInfo;							// +0x80  // NAME 3: the assert's 'buffinfo' (ui_buff.cpp)
 	bool Unknown84;										// +0x84 (0x6664E0: the alternative tooltip shown)
-	BuffInfoStruct Info;								// +0x88  // NAME 1: its type
+	BuffDataClass Info;								// +0x88  // NAME 1: its type
 	float Unknown_B8;									// +0xB8 (the pulse's length, seconds; 0x666440 sets 1)
 	float Unknown_BC;									// +0xBC (the pulse's time)
 	RefCountPtr<FontSys> BuffCount;						// +0xC0 (the count of elements, 'BuffCount' on the model)  // NAME 3: the assert's

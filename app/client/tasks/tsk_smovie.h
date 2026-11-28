@@ -22,7 +22,7 @@
 
 class MovieClientClass;
 
-class ScriptedMovieTaskClass : public TaskClass		// NAME 2: tsk_smovie.cpp's task: movie scripts (D24)
+class ScriptedMovieTaskClass : public KernelTaskClass		// NAME 2: tsk_smovie.cpp's task: movie scripts (D24)
 {
 public:
 	ScriptedMovieTaskClass(const char *moviename, int script_number);	// 0x76C670 (the assert 'moviename')  // NAME 2 [script_number]: the first script's number (WinMain: 1)

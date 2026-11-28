@@ -25,7 +25,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_template.h"
 #include "aux_group_ship.h"	// the group family first (0x7BDE30 / 0x7BDEA0 number its types first)
-// starmap_pip.cpp's window (what the PDA's 0x7C8DB0 returns): starmap_pip.h's StarmapPipClass
+// starmap_pip.cpp's window (what the PDA's 0x7C8DB0 returns): starmap_pip.h's StarmapPIPClass
 #include "..\shared\auth_product.h"
 
 
@@ -33,7 +33,7 @@
 
 
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as avatar_pip.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaContainer *root, const AuxDataName &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as avatar_pip.cpp's
 
 // @0x7BC770
 RadarSystemClass::RadarSystemClass(SClient *client) :
@@ -62,8 +62,8 @@ RadarSystemClass::RadarSystemClass(SClient *client) :
 
 
 	G_ASSERT(Client);
-	WarpPath = new NavListBuilderClass(client);
-	TargetPath = new NavListBuilderClass(client);
+	WarpPath = new NavigationListBuilder(client);
+	TargetPath = new NavigationListBuilder(client);
 }
 
 // @0x7BC930
@@ -85,7 +85,7 @@ void RadarSystemClass::Unknown_7BCA40(bool arg)
 
 // NOT EXACT: shape (27 masked rows: loop 2 as if (node) do { } while (node) with the invalid-position path sharing the loop-end advance gives the client's allocation (gutter in ebx and no zero register, the !rdata advance apart and joining at the store); the client has a third copy of the advance on the invalid-position path (0x7BCD22, 10 rows, node kept in edi), keeps node in edi from its definition where ours has esi and reloads at the loop head, and tests edi at the loop condition; with the third advance written out (node = node->Next_Valid(); continue;) the zero register comes back in ebx (68 rows as do-while, 73 as while))
 // @0x7BCA70
-void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass *starmap, const RefCountPtr<RefCountClass> &scene)
+void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPIPClass *starmap, const RefCountPtr<RefCountClass> &scene)
 {
 	GutterCount = 0;
 	if (!gutter && !starmap) {
@@ -100,7 +100,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 
 
 	FAIL_IF(!avatar) return;
-	DeltaTemplateClass<int> *range = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, "ScanRange");
+	DeltaTemplateClass<int> *range = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaContainer *)avatar->AuxData, "ScanRange");
 	if (range) {
 		ScanRange = (float)range->Value;
 	} else {
@@ -109,7 +109,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass 
 	RadarSystemDataCacheClass entry(avatar, 0.0f);
 	Vector3 avatar_pos = avatar->Unknown_24();
 	avatar->Unknown_30();
-	MouseTargetClass mouse_target(Target);
+	MouseTargeting mouse_target(Target);
 	bool on_starmap = (starmap && starmap->Unknown_693020()) ? true : false;
 	if (Unknown4C != on_starmap) {
 		Unknown4C = on_starmap;
@@ -448,7 +448,7 @@ const NavigationListClass &RadarSystemClass::Unknown_7BD960()
 // @0x7BD980
 bool RadarSystemClass::Unknown_7BD980()
 {
-	TargetingClass *targeting = Client->Targeting;
+	TargetSelectClass *targeting = Client->Targeting;
 	if (targeting) {
 		if (targeting->Unknown10) {
 			return(false);
@@ -477,7 +477,7 @@ bool RadarSystemClass::Unknown_7BDBF0(RadarSystemDataCacheClass &entry)
 	if (entry.ClientObject == (ClientObjectClass *)Target) {
 		return(true);
 	}
-	if (!OptionClass::Instance->Get_Bool("Show_Self_Name") && entry.IsPlayer) {
+	if (!OptionManagerClass::Instance->Get_Bool("Show_Self_Name") && entry.IsPlayer) {
 		return(false);
 	}
 	return(entry.Get_Is_In_Range());
@@ -519,7 +519,7 @@ bool RadarSystemClass::Unknown_7BDC70(RadarSystemDataCacheClass &entry)
 
 
 		FAIL_IF(!rdata) return(false);
-		int label = OptionClass::Instance->Get_Int("Starmap_Label");
+		int label = OptionManagerClass::Instance->Get_Int("Starmap_Label");
 		if (label != 0) {
 			if (label == 1) {
 				return(rdata->Unknown78);

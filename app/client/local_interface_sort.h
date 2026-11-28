@@ -26,16 +26,16 @@ class SceneClass;
 class UIViewClass;
 class RenderObjClass;
 
-class InterfaceSortClass  // NAME 1: neutral (D10; intrface.cpp's and fontsys_cursor.cpp's name)
+class LocalInterfaceSort  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	InterfaceSortClass(InterfaceClass *ui);					// 0x6E0E80 (FAIL_IF '!ui')  // NAME 2 [ui]: the FAIL_IF's
-	InterfaceSortClass(InterfaceStaticSortListClass *sort_list, bool front);	// 0x6E1090 (the front or the back list)  // NAME 1 [sort_list, front]: neutral
-	InterfaceSortClass(InterfaceSceneClass *ui_scene, bool front);		// 0x6E1200 (FAIL_IF '!ui_scene')  // NAME 2 [ui_scene]: the FAIL_IF's  // NAME 1 [front]: neutral
-	InterfaceSortClass(SceneClass *castable_ui_scene, bool front);		// 0x6E1390 (FAIL_IF '!castable_ui_scene')  // NAME 2 [castable_ui_scene]: the FAIL_IF's  // NAME 1 [front]: neutral
-	InterfaceSortClass(UIViewClass *uiview, bool front);				// 0x6E1560 (FAIL_IF '!uiview')  // NAME 2 [uiview]: the FAIL_IF's  // NAME 1 [front]: neutral
-	InterfaceSortClass(const RefCountPtr<RenderObjClass> &robj);		// 0x6E1730 (the interface the object was sorted into)  // NAME 1 [robj]: neutral
-	~InterfaceSortClass();									// 0x6E18B0
+	LocalInterfaceSort(InterfaceClass *ui);					// 0x6E0E80 (FAIL_IF '!ui')  // NAME 2 [ui]: the FAIL_IF's
+	LocalInterfaceSort(InterfaceStaticSortListClass *sort_list, bool front);	// 0x6E1090 (the front or the back list)  // NAME 1 [sort_list, front]: neutral
+	LocalInterfaceSort(InterfaceSceneClass *ui_scene, bool front);		// 0x6E1200 (FAIL_IF '!ui_scene')  // NAME 2 [ui_scene]: the FAIL_IF's  // NAME 1 [front]: neutral
+	LocalInterfaceSort(SceneClass *castable_ui_scene, bool front);		// 0x6E1390 (FAIL_IF '!castable_ui_scene')  // NAME 2 [castable_ui_scene]: the FAIL_IF's  // NAME 1 [front]: neutral
+	LocalInterfaceSort(UIViewClass *uiview, bool front);				// 0x6E1560 (FAIL_IF '!uiview')  // NAME 2 [uiview]: the FAIL_IF's  // NAME 1 [front]: neutral
+	LocalInterfaceSort(const RefCountPtr<RenderObjClass> &robj);		// 0x6E1730 (the interface the object was sorted into)  // NAME 1 [robj]: neutral
+	~LocalInterfaceSort();									// 0x6E18B0
 
 	void Unknown_6E1940(bool front);						// 0x6E1940 (onto the front or the back list; the previous one kept)  // NAME 1 [front]: as the constructors'
 
@@ -44,12 +44,12 @@ public:
 };
 
 // The windows' sort scope over an interface (0x541980) or a RefCountPtr to one (0x5419B0), emitted in intrface.cpp:
-// a constructor that only passes its argument to InterfaceSortClass's (the client's 90 windows call 0x541980)
-class InterfaceSortScopeClass : public InterfaceSortClass  // NAME 1: neutral (D10)
+// a constructor that only passes its argument to LocalInterfaceSort's (the client's 90 windows call 0x541980)
+class InterfaceSortScopeClass : public LocalInterfaceSort  // NAME 1: neutral (D10)
 {
 public:
-	InterfaceSortScopeClass(InterfaceClass *ui);			// 0x541980  // NAME 2 [ui]: InterfaceSortClass's
-	InterfaceSortScopeClass(const RefCountPtr<InterfaceClass> &ui);	// 0x5419B0  // NAME 2 [ui]: InterfaceSortClass's
+	InterfaceSortScopeClass(InterfaceClass *ui);			// 0x541980  // NAME 2 [ui]: LocalInterfaceSort's
+	InterfaceSortScopeClass(const RefCountPtr<InterfaceClass> &ui);	// 0x5419B0  // NAME 2 [ui]: LocalInterfaceSort's
 };
 
 #endif

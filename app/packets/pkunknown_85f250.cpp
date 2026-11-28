@@ -3,79 +3,79 @@
 #include <stdio.h>
 
 
-Packet_7530Class::Packet_7530Class(int editor_protocol_version) : EditorProtocolVersion(editor_protocol_version)
+GameEditorLoginPacketClass::GameEditorLoginPacketClass(int editor_protocol_version) : EditorProtocolVersion(editor_protocol_version)
 {
 }
 
-Packet_7530Class::Packet_7530Class(RawPacketClass *raw)
+GameEditorLoginPacketClass::GameEditorLoginPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&EditorProtocolVersion, sizeof(EditorProtocolVersion));
 }
 
-RawPacketClass *Packet_7530Class::Build()
+RawPacketClass *GameEditorLoginPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30000, Get_Data_Size());
 	raw->Add(&EditorProtocolVersion, sizeof(EditorProtocolVersion));
 	return(raw);
 }
 
-int Packet_7530Class::Get_Data_Size()
+int GameEditorLoginPacketClass::Get_Data_Size()
 {
 	return(sizeof(EditorProtocolVersion));
 }
 
-int Packet_7530Class::Print(char *buffer, int)
+int GameEditorLoginPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {EditorProtocolVersion=%u}", "GameEditorLogin", EditorProtocolVersion));
 }
 
-Packet_7531Class::Packet_7531Class(RawPacketClass *)
+GameEditorLogoutPacketClass::GameEditorLogoutPacketClass(RawPacketClass *)
 {
 }
 
-RawPacketClass *Packet_7531Class::Build()
+RawPacketClass *GameEditorLogoutPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30001, Get_Data_Size());
 	return(raw);
 }
 
-int Packet_7531Class::Get_Data_Size()
+int GameEditorLogoutPacketClass::Get_Data_Size()
 {
 	return(0);
 }
 
-int Packet_7531Class::Print(char *buffer, int)
+int GameEditorLogoutPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "GameEditorLogout"));
 }
 
-Packet_7543Class::Packet_7543Class(unsigned int server_protocol_version) : ServerProtocolVersion(server_protocol_version)
+GameEditorProtocolVersionPacketClass::GameEditorProtocolVersionPacketClass(unsigned int server_protocol_version) : ServerProtocolVersion(server_protocol_version)
 {
 }
 
-Packet_7543Class::Packet_7543Class(RawPacketClass *raw)
+GameEditorProtocolVersionPacketClass::GameEditorProtocolVersionPacketClass(RawPacketClass *raw)
 {
 	raw->Get(&ServerProtocolVersion, sizeof(ServerProtocolVersion));
 }
 
-RawPacketClass *Packet_7543Class::Build()
+RawPacketClass *GameEditorProtocolVersionPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(30019, Get_Data_Size());
 	raw->Add(&ServerProtocolVersion, sizeof(ServerProtocolVersion));
 	return(raw);
 }
 
-int Packet_7543Class::Get_Data_Size()
+int GameEditorProtocolVersionPacketClass::Get_Data_Size()
 {
 	return(sizeof(ServerProtocolVersion));
 }
 
-int Packet_7543Class::Print(char *buffer, int)
+int GameEditorProtocolVersionPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s {ServerProtocolVersion=%u}", "GameEditorProtocolVersion", ServerProtocolVersion));
 }
 
-bool Packet_7543Class::Process_Packet(void *)
+bool GameEditorProtocolVersionPacketClass::Process_Packet(void *)
 {
 	return(true);
 }

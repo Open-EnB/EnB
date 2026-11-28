@@ -63,8 +63,8 @@ extern GadgetClass *Unknown_BE5F28;
 
 
 
-SlotDataGadgetClass::SlotDataGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render) :
-	Unknown_675120Class(slot_render->Mesh, 0xE55), SlotIFace(slot_iface), SlotRender(slot_render), Unknown68(true)
+SlotDataGadget::SlotDataGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render) :
+	UIMeshGadgetClass(slot_render->Mesh, 0xE55), SlotIFace(slot_iface), SlotRender(slot_render), Unknown68(true)
 {
 	G_ASSERT(SlotIFace);
 	FAIL_IF(!SlotRender) return;
@@ -73,7 +73,7 @@ SlotDataGadgetClass::SlotDataGadgetClass(SlotDataIFaceClass *slot_iface, SlotDat
 	Unknown2C_06 = false;
 }
 
-SlotDataGadgetClass::~SlotDataGadgetClass()
+SlotDataGadget::~SlotDataGadget()
 {
 	Unknown_AC(-1);
 	REF_PTR_RELEASE(SlotRender);
@@ -93,7 +93,7 @@ SlotDataGadgetClass::~SlotDataGadgetClass()
 
 
 
-void SlotDataGadgetClass::Unknown_AC(int slot)
+void SlotDataGadget::Unknown_AC(int slot)
 {
 	FAIL_IF(!SlotRender) return;
 	SlotRender->Unknown_40(slot);
@@ -105,7 +105,7 @@ void SlotDataGadgetClass::Unknown_AC(int slot)
 }
 
 
-int SlotDataGadgetClass::Unknown_670910()
+int SlotDataGadget::Unknown_670910()
 {
 	FAIL_IF(!SlotRender) return(-1);
 	return(SlotRender->Unknown20);
@@ -123,7 +123,7 @@ int SlotDataGadgetClass::Unknown_670910()
 
 
 
-int SlotDataGadgetClass::Unknown_670950()
+int SlotDataGadget::Unknown_670950()
 {
 	FAIL_IF(!SlotRender) return(0);
 	return((int)SlotRender->SlotData);
@@ -133,7 +133,7 @@ int SlotDataGadgetClass::Unknown_670950()
 
 
 
-void SlotDataGadgetClass::Unknown_20(int arg)
+void SlotDataGadget::Unknown_20(int arg)
 {
 	FAIL_IF(!SlotRender) return;
 	std::string text;
@@ -153,7 +153,7 @@ void SlotDataGadgetClass::Unknown_20(int arg)
 
 
 
-void SlotDataGadgetClass::Unknown_40(bool on)
+void SlotDataGadget::Unknown_40(bool on)
 {
 	if (on) {
 		Unknown_66C360();
@@ -173,9 +173,9 @@ void SlotDataGadgetClass::Unknown_40(bool on)
 
 
 
-bool SlotDataGadgetClass::Unknown_30(float x, float y)
+bool SlotDataGadget::Unknown_30(float x, float y)
 {
-	return(RObjGadgetClass::Unknown_30(x, y));
+	return(RenderObjGadgetClass::Unknown_30(x, y));
 }
 
 
@@ -188,7 +188,7 @@ bool SlotDataGadgetClass::Unknown_30(float x, float y)
 
 
 
-bool SlotDataGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
+bool SlotDataGadget::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	bool handled = false;
 	if (Is_Enabled()) {
@@ -229,12 +229,12 @@ bool SlotDataGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, 
 	return(handled);
 }
 
-void SlotDataGadgetClass::Unknown_670C90(bool on)
+void SlotDataGadget::Unknown_670C90(bool on)
 {
 	Unknown68 = on;
 }
 
-void SlotDataGadgetClass::Unknown_A8(bool arg)
+void SlotDataGadget::Unknown_A8(bool arg)
 {
 	FAIL_IF(!SlotRender) return;
 	SlotRender->Unknown_2C(arg);
@@ -248,9 +248,9 @@ void SlotDataGadgetClass::Unknown_A8(bool arg)
 
 
 
-RenderObjClass *SlotDataGadgetClass::Unknown_24(Vector3 *position, float *frame, bool indicator)
+RenderObjClass *SlotDataGadget::Unknown_24(Vector3 *position, float *frame, bool indicator)
 {
-	return(RObjGadgetClass::Unknown_24(position, frame, indicator));
+	return(RenderObjGadgetClass::Unknown_24(position, frame, indicator));
 }
 
 
@@ -260,14 +260,14 @@ RenderObjClass *SlotDataGadgetClass::Unknown_24(Vector3 *position, float *frame,
 
 
 
-void SlotDataGadgetClass::Unknown_90(class TextureClass *texture)
+void SlotDataGadget::Unknown_90(class TextureClass *texture)
 {
 	G_ASSERT(false);
 }
 
-Vector3 SlotDataGadgetClass::Unknown_9C()
+Vector3 SlotDataGadget::Unknown_9C()
 {
-	Vector3 color = RObjGadgetClass::Unknown_9C();
+	Vector3 color = RenderObjGadgetClass::Unknown_9C();
 	if (SlotRender && SlotRender->Unknown_38(color)) {
 		color.X *= 0.35f;
 		color.Y *= 0.35f;
@@ -276,9 +276,9 @@ Vector3 SlotDataGadgetClass::Unknown_9C()
 	return(color);
 }
 
-Vector3 SlotDataGadgetClass::Unknown_A0()
+Vector3 SlotDataGadget::Unknown_A0()
 {
-	Vector3 color = RObjGadgetClass::Unknown_A0();
+	Vector3 color = RenderObjGadgetClass::Unknown_A0();
 	if (SlotRender) {
 		SlotRender->Unknown_38(color);
 	}
@@ -289,11 +289,11 @@ Vector3 SlotDataGadgetClass::Unknown_A0()
 
 
 
-SlotDataShortcutGadgetClass::SlotDataShortcutGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer) :
-	SlotDataGadgetClass(slot_iface, slot_render),
+SlotDataShortcutGadget::SlotDataShortcutGadget(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer) :
+	SlotDataGadget(slot_iface, slot_render),
 	ShortcutOwner(NULL)
 {
-	RObjGadgetClass::Unknown_28(layer);
+	RenderObjGadgetClass::Unknown_28(layer);
 	FAIL_IF(!SlotRender) return;
 	SlotRender->Unknown_6A8EC0();
 }
@@ -305,7 +305,7 @@ SlotDataShortcutGadgetClass::SlotDataShortcutGadgetClass(SlotDataIFaceClass *slo
 
 
 
-void SlotDataShortcutGadgetClass::Unknown_04()
+void SlotDataShortcutGadget::Unknown_04()
 {
 	if (ShortcutOwner) {
 		ShortcutOwner->Unknown_611E20(this);
@@ -319,11 +319,11 @@ void SlotDataShortcutGadgetClass::Unknown_04()
 
 
 
-void SlotDataShortcutGadgetClass::Unknown_7C(int arg)
+void SlotDataShortcutGadget::Unknown_7C(int arg)
 {
 	G_ASSERT(!ShortcutOwner);
 	ShortcutOwner = (UIScutBarClass *)arg;
-	SlotDataGadgetClass::Unknown_A8(1);
+	SlotDataGadget::Unknown_A8(1);
 }
 
 
@@ -334,7 +334,7 @@ void SlotDataShortcutGadgetClass::Unknown_7C(int arg)
 
 
 
-void SlotDataShortcutGadgetClass::Unknown_80(int arg)
+void SlotDataShortcutGadget::Unknown_80(int arg)
 {
 	G_ASSERT(ShortcutOwner);
 	ShortcutOwner = NULL;
@@ -345,7 +345,7 @@ void SlotDataShortcutGadgetClass::Unknown_80(int arg)
 
 
 
-void SlotDataShortcutGadgetClass::Unknown_84(int arg)
+void SlotDataShortcutGadget::Unknown_84(int arg)
 {
 	GadgetClass *scut_gadg = (GadgetClass *)arg;
 	FAIL_IF(!scut_gadg) return;

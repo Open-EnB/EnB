@@ -22,7 +22,7 @@
 
 class SceneClass;
 
-class Bar2DClass : public DynamicMeshClass  // NAME 2 [Bar2DClass]: bar2d.cpp's class (the file name, Westwood's Class suffix, Rect3DClass's precedent)
+class Bar2DClass : public DynamicMeshClass  // NAME 2 [Bar2DClass]: bar2d.cpp's class (the file name, Westwood's Class suffix, Rectangle3DClass's precedent)
 {
 public:
 	Bar2DClass(const Vector4 &color0, const Vector4 &color1, const Vector4 &color2, const Vector4 &color3,

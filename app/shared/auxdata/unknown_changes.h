@@ -24,7 +24,7 @@
 #include <vector>
 
 class DeltaClass;
-class DeltaCompoundClass;
+class DeltaContainer;
 
 // One field's entry (0x28 bytes). A compound's counts are over the leaves below it.
 class ChangeEntryClass  // NAME 2: describes what it does
@@ -64,7 +64,7 @@ public:
 class ChangeTableClass  // NAME 2: describes what it does
 {
 public:
-	ChangeTableClass(DeltaCompoundClass *root);							// 0x4AB910
+	ChangeTableClass(DeltaContainer *root);							// 0x4AB910
 	~ChangeTableClass();														// 0x4ABB00
 
 	void Unsent_Parents(ChangeEntryClass *entry);						// 0x4AB5F0 (inlined in its callers)  // NAME 2: describes what it does
@@ -81,7 +81,7 @@ public:
 	std::vector<ChangeEntryClass> Entries;		// +0x00 by field id (DeltaClass::Unknown7C)  // NAME 2: describes what it does
 	ChangeEntryClass *Root;							// +0x10 the root's entry  // NAME 2: describes what it does
 	unsigned int Time;								// +0x14 now (UnknownSendRootClass::Unknown_Encode sets it)  // NAME 2: describes what it does
-	DeltaCompoundClass *Delta;						// +0x18 the root  // NAME 2: describes what it does
+	DeltaContainer *Delta;						// +0x18 the root  // NAME 2: describes what it does
 };
 
 #endif //__UNKNOWN_CHANGES_H

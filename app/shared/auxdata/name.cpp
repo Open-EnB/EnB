@@ -3,7 +3,7 @@
 #include "name.h"
 #include "..\g_assert.h"
 
-NameClass::NameClass(const char *name) :
+AuxDataName::AuxDataName(const char *name) :
 	Name(name),
 	Count(-1),
 	HasWildcard(false)
@@ -11,7 +11,7 @@ NameClass::NameClass(const char *name) :
 	HasWildcard = strchr(name, '*') != 0;
 }
 
-NameClass::NameClass(const NameClass &that) :
+AuxDataName::AuxDataName(const AuxDataName &that) :
 	Name(that.Name),
 	Count(that.Count),
 	HasWildcard(that.HasWildcard)
@@ -21,7 +21,7 @@ NameClass::NameClass(const NameClass &that) :
 	}
 }
 
-NameClass &NameClass::operator=(const NameClass &that)
+AuxDataName &AuxDataName::operator=(const AuxDataName &that)
 {
 	Name = that.Name;
 	HasWildcard = that.HasWildcard;
@@ -32,7 +32,7 @@ NameClass &NameClass::operator=(const NameClass &that)
 	return *this;
 }
 
-NameClass &NameClass::operator=(const char *name)
+AuxDataName &AuxDataName::operator=(const char *name)
 {
 	Name = name;
 	HasWildcard = strchr(name, '*') != 0;
@@ -40,7 +40,7 @@ NameClass &NameClass::operator=(const char *name)
 	return *this;
 }
 
-bool NameClass::operator==(const NameClass &that) const
+bool AuxDataName::operator==(const AuxDataName &that) const
 {
 	if (!HasWildcard && !that.HasWildcard) {
 		return Name == that.Name;
@@ -57,7 +57,7 @@ bool NameClass::operator==(const NameClass &that) const
 	return Match_Parts(that);
 }
 
-bool NameClass::Is_Parent_Of(const NameClass &that) const
+bool AuxDataName::Is_Parent_Of(const AuxDataName &that) const
 {
 	if (Count == -1) {
 		Split();
@@ -71,7 +71,7 @@ bool NameClass::Is_Parent_Of(const NameClass &that) const
 	return Match_Parts(that);
 }
 
-bool NameClass::Is_Parent_Or_Same(const NameClass &that) const
+bool AuxDataName::Is_Parent_Or_Same(const AuxDataName &that) const
 {
 	if (Count == -1) {
 		Split();
@@ -85,7 +85,7 @@ bool NameClass::Is_Parent_Or_Same(const NameClass &that) const
 	return Match_Parts(that);
 }
 
-bool NameClass::Match_Parts(const NameClass &that) const
+bool AuxDataName::Match_Parts(const AuxDataName &that) const
 {
 	const PermString &wildcard = Wildcard();
 	for (int i = 0; i < Count; i++) {
@@ -126,7 +126,7 @@ bool NameClass::Match_Parts(const NameClass &that) const
 
 
 
-void NameClass::Split() const
+void AuxDataName::Split() const
 {
 	char buffer[256];
 	strcpy(buffer, Name.Get_String());
@@ -163,7 +163,7 @@ void NameClass::Split() const
 
 
 
-NameClass &NameClass::Append(const NameClass &rhs)
+AuxDataName &AuxDataName::Append(const AuxDataName &rhs)
 {
 	char buffer[256];
 	strcpy(buffer, Name.Get_String());
@@ -183,7 +183,7 @@ NameClass &NameClass::Append(const NameClass &rhs)
 	return *this;
 }
 
-PermString NameClass::Get_First() const
+PermString AuxDataName::Get_First() const
 {
 	if (Count == -1) {
 		Split();
@@ -191,7 +191,7 @@ PermString NameClass::Get_First() const
 	return Parts[0];
 }
 
-PermString NameClass::Get_Rest() const
+PermString AuxDataName::Get_Rest() const
 {
 	char buffer[256];
 	strcpy(buffer, Name.Get_String());
@@ -206,7 +206,7 @@ PermString NameClass::Get_Rest() const
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4AD380-0x4ADB9B: NameClass (D24), a dotted field name split into PermString parts.
+**	client.exe 0x4AD380-0x4ADB9B: AuxDataName (D24), a dotted field name split into PermString parts.
 **	Rebuilt: the constructors 0x4AD380 and 0x4AD3F0, operator= 0x4AD460 and 0x4AD4B0, operator==
 **	0x4AD500, Is_Parent_Of 0x4AD610 (fewer parts, all matching), Is_Parent_Or_Same 0x4AD6F0,
 **	Match_Parts 0x4AD7D0 (the first Count parts; '*' matches any part; the three before inline it,

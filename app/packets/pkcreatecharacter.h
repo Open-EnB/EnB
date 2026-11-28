@@ -25,7 +25,7 @@ class CreateCharacterPacketClass : public PacketClass  // NAME 3: the client's P
 public:
 	CreateCharacterPacketClass(RawPacketClass *raw);	// 0x85C5F0
 	virtual ~CreateCharacterPacketClass();	// +0x00 0x85C7D0 / 0x85CF80
-	CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescClass *desc, const ShipCustDescClass &ship, bool unknown14);	// 0x85C800
+	CreateCharacterPacketClass(int unknown0C, int unknown10, const char *name, __int64 unknown60, const AvatarDescriptionClass *desc, const ShipCustDescClass &ship, bool unknown14);	// 0x85C800
 	virtual RawPacketClass *Build();	// +0x04 0x85D000
 	virtual bool Process_Packet(void *client);	// +0x08 0x868040 (clientstub.cpp l.104)
 	virtual int Get_Data_Size();	// +0x0C 0x85D110
@@ -37,7 +37,7 @@ public:
 	int Unknown14;	// +0x14 (the value constructor's bool)  // NAME 1: neutral (D10)
 	char Name[0x41];	// +0x18 (0x41 bytes on the wire)  // NAME 1: what the value constructor copies into it (a string)
 	__int64 Unknown60;	// +0x60  // NAME 1: neutral (D10)
-	AvatarDescClass Desc;	// +0x68  // NAME 2: what it holds
+	AvatarDescriptionClass Desc;	// +0x68  // NAME 2: what it holds
 	ShipCustDescClass Ship;	// +0x174  // NAME 2: what it holds
 	int Unknown2D4;	// +0x2D4 (0; not in the message)  // NAME 1: neutral (D10)
 	int Unknown2D8;	// +0x2D8 (0)  // NAME 1: neutral (D10)

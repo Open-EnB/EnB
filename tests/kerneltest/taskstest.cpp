@@ -175,36 +175,36 @@ bool LoginTaskClass::Accept_Focus() { fprintf(Out, "login accepts focus\n"); ret
 TicketClass::TicketClass(int) {}
 LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
-AvatarDescClass::AvatarDescClass() {}
+AvatarDescriptionClass::AvatarDescriptionClass() {}
 void ShipCustSettingsClass::Unknown_00(KVEncoderClass *) {}
 void ShipCustPartClass::Unknown_00(KVEncoderClass *) {}
-bool LoginCharacterClass::Write(LinearBufferClass *) { return true; }
-bool LoginCharacterClass::Read(LinearBufferClass *) { return true; }
+bool LoginCharacterClass::Write(LinearBuffer *) { return true; }
+bool LoginCharacterClass::Read(LinearBuffer *) { return true; }
 int LoginCharacterClass::Get_Size() { return 0; }
 void LoginCharacterClass::Unknown_00(KVEncoderClass *) {}
-bool AvatarDescClass::Write(LinearBufferClass *) { return true; }
-bool AvatarDescClass::Write_Short(LinearBufferClass *) { return true; }
-bool AvatarDescClass::Read_Short(LinearBufferClass *) { return true; }
-int AvatarDescClass::Get_Short_Size() { return 0; }
-bool AvatarDescClass::Read(LinearBufferClass *) { return true; }
-int AvatarDescClass::Get_Size() { return 0; }
-void AvatarDescClass::Unknown_00(KVEncoderClass *) {}
-bool ShipCustDescClass::Write(LinearBufferClass *) { return true; }
-bool ShipCustDescClass::Read(LinearBufferClass *) { return true; }
+bool AvatarDescriptionClass::Write(LinearBuffer *) { return true; }
+bool AvatarDescriptionClass::Write_Short(LinearBuffer *) { return true; }
+bool AvatarDescriptionClass::Read_Short(LinearBuffer *) { return true; }
+int AvatarDescriptionClass::Get_Short_Size() { return 0; }
+bool AvatarDescriptionClass::Read(LinearBuffer *) { return true; }
+int AvatarDescriptionClass::Get_Size() { return 0; }
+void AvatarDescriptionClass::Unknown_00(KVEncoderClass *) {}
+bool ShipCustDescClass::Write(LinearBuffer *) { return true; }
+bool ShipCustDescClass::Read(LinearBuffer *) { return true; }
 int ShipCustDescClass::Get_Size() { return 0; }
-bool ShipCustDescClass::Write_Short(LinearBufferClass *) { return true; }
-bool ShipCustDescClass::Read_Short(LinearBufferClass *) { return true; }
+bool ShipCustDescClass::Write_Short(LinearBuffer *) { return true; }
+bool ShipCustDescClass::Read_Short(LinearBuffer *) { return true; }
 int ShipCustDescClass::Get_Short_Size() { return 0; }
 void ShipCustDescClass::Unknown_00(KVEncoderClass *) {}
 void ShipCustDescClass::Set_Race(int) {}
 void ShipCustDescClass::Reset_Parts() {}
 void ShipCustDescClass::Set_Profession(int) {}
-bool LoginGalaxyClass::Write(LinearBufferClass *) { return true; }
-bool LoginGalaxyClass::Read(LinearBufferClass *) { return true; }
+bool LoginGalaxyClass::Write(LinearBuffer *) { return true; }
+bool LoginGalaxyClass::Read(LinearBuffer *) { return true; }
 int LoginGalaxyClass::Get_Size() { return 0; }
 TicketClass::~TicketClass() {}
-bool TicketClass::Write(LinearBufferClass *) { return true; }
-bool TicketClass::Read(LinearBufferClass *) { return true; }
+bool TicketClass::Write(LinearBuffer *) { return true; }
+bool TicketClass::Read(LinearBuffer *) { return true; }
 int TicketClass::Get_Size() { return 0; }
 LoginTaskClass::LoginTaskClass(int mode) : Ticket(0)
 {
@@ -218,7 +218,7 @@ bool LoginTaskClass::Yield_Focus() { return true; }
 void LoginTaskClass::Run() {}
 void LoginTaskClass::Pre_Run() {}
 void LoginTaskClass::Render() {}
-void LoginTaskClass::Unknown_48(AvatarDescClass *, ShipCustDescClass *, int, bool) {}
+void LoginTaskClass::Unknown_48(AvatarDescriptionClass *, ShipCustDescClass *, int, bool) {}
 bool LoginTaskClass::Unknown_4C() { return false; }
 void LoginTaskClass::Unknown_50() {}
 void LoginTaskClass::Go_Next_Step() {}
@@ -289,14 +289,14 @@ bool MovieClientClass::Is_Done() { return Runs >= 2; }
 
 // ------------------------------------------------------------------------- the test
 
-static const char *Focus_Name(KernelClass *kernel, TaskClass *movie, TaskClass *smovie, TaskClass *menu)
+static const char *Focus_Name(KernelClass *kernel, KernelTaskClass *movie, KernelTaskClass *smovie, KernelTaskClass *menu)
 {
-	TaskClass *f = kernel->Get_Focus();
+	KernelTaskClass *f = kernel->Get_Focus();
 	return f == NULL ? "none" : f == movie ? "movie" : f == smovie ? "smovie" : f == menu ? "menu"
 		: f == Login && Login != NULL ? "login" : "other";
 }
 
-static bool Contains(KernelClass *kernel, TaskClass *task)
+static bool Contains(KernelClass *kernel, KernelTaskClass *task)
 {
 	return kernel->Contains_Task(task);
 }
@@ -351,7 +351,7 @@ int Tasks_Test(FILE *out, const char *bik)
 	bool ok = smovie->Init(kernel);
 	fprintf(Out, "smovie init: %d, clients %d\n", (int)ok, (int)smovie->Clients.size());
 	kernel->Add_Task(smovie);
-	MenuTaskClass *menu = new MenuTaskClass;
+	MainMenuTaskClass *menu = new MainMenuTaskClass;
 	kernel->Add_Task(menu);
 	fprintf(Out, "focus %s\n", Focus_Name(kernel, movie, smovie, menu));
 	fprintf(Out, "movie interval %d\n", movie->Get_Interval());
@@ -403,7 +403,7 @@ int Tasks_Test(FILE *out, const char *bik)
 		Login != NULL && Contains(kernel, Login) ? "added" : "missing", Focus_Name(kernel, movie, smovie, menu));
 
 	// MenuTask's other key: 0x51 stops the kernel
-	MenuTaskClass *menu2 = new MenuTaskClass;
+	MainMenuTaskClass *menu2 = new MainMenuTaskClass;
 	kernel->Add_Task(menu2);
 	KernelEventClass quit;
 	quit.Key = 0x51;

@@ -12,9 +12,9 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\packets\pkrecustomize.h"
 
-class SBaseViewClass;
+class StarbaseViewClass;
 class UIViewClass;
-class ShipPipClass;
+class ShipPIPClass;
 class LayerClass;
 class UIAvatrPullClass;
 class TextGadgetClass;
@@ -87,7 +87,7 @@ public:
 	void Unknown_61F250(ShipCustDescClass *desc, ShipRecustomizationCostClass *cost, int a, int b, int c, int d);	// 0x61F250 (RECUSTOMIZE_SHIP_START 129: cpacket.cpp)  // NAME 1 [desc, cost, a, b, c, d]: the packet's fields
 	void Unknown_61E730(FlashingGadgetEvent *event, GadgetClass *gadget);	// 0x61E730 (FAIL_IFs '!event' l.2017, '!gadget' l.2020)  // NAME 3 [event, gadget]: the FAIL_IFs'
 
-	SBaseViewClass *SBaseView;								// +0x230 (its Client's EnvironmentMapManager; not InterfaceClass's View, +0x48)  // NAME 1: neutral (D10)
+	StarbaseViewClass *SBaseView;								// +0x230 (its Client's EnvironmentMapManager; not InterfaceClass's View, +0x48)  // NAME 1: neutral (D10)
 	bool Unknown234;									// +0x234 (the constructor 0x6181B0 clears +0x234 .. +0x239)
 	bool Unknown235;									// +0x235
 	bool Unknown236;									// +0x236
@@ -100,7 +100,7 @@ public:
 	RenderObjClass *Unknown2D4;							// +0x2D4
 	RenderObjClass *Unknown2D8;							// +0x2D8
 	RenderObjClass *Unknown2DC;							// +0x2DC
-	ShipPipClass *Unknown2E0;							// +0x2E0 the ship preview gadget (as ui_shipcust.cpp's +0x22C)
+	ShipPIPClass *Unknown2E0;							// +0x2E0 the ship preview gadget (as ui_shipcust.cpp's +0x22C)
 	LayerClass *Layer;									// +0x2E4 (the buttons are made over it)  // NAME 1: as ui_shipcust.h's
 	int Page;											// +0x2E8 (1: the paint page, as ui_shipcust.cpp's +0x234)  // NAME 1: as ui_shipcust.h's
 	std::map<int, StarbaseShipCustGadgetStruct> Gadgets;		// +0x2EC (as ui_shipcust.cpp's +0x238)  // NAME 1: as ui_shipcust.h's

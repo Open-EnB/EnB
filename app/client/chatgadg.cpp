@@ -23,7 +23,7 @@
 #include "..\shared\unknown_8b4560.h"
 
 #define NUM_QUICK_MESSAGES 9	// the FAIL_IFs' constant (the keys 'Save / Send Quick Message 1..9')
-extern const int Unknown_B08CA8;	// 0xB08CA8 (0x40: StrEditClass's enter flag; the text gadgets' constants, textgadg.h)  // NAME 1: neutral (D10), as ui_log.cpp
+extern const int Unknown_B08CA8;	// 0xB08CA8 (0x40: StringEditClass's enter flag; the text gadgets' constants, textgadg.h)  // NAME 1: neutral (D10), as ui_log.cpp
 // The 'chatgadg' module's control keys (ControlKeysManager): the dynamic initialiser 0x65BEA0, atexit 0x65BF60
 static std::string ModuleName("chatgadg");	// 0xBE5E78  // NAME 1: neutral (D10): what it holds
 
@@ -325,7 +325,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 					case 8:
 					case 9:
 						{
-							CharacterViewAvatarClass *avatar = (CharacterViewAvatarClass *)sclient->Unknown_74C840(Client->Get_Avatar_ID());
+							AvatarClass *avatar = (AvatarClass *)sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
 								avatar->Unknown_781760(text);
 								ClientChatRequestPacketClass packet(1, Client->Get_Unknown1138());
@@ -346,11 +346,11 @@ void ChatGadgetClass::Unknown_65CCD0()
 						break;
 					case 1:
 						if (sclient->Unknown_744B60()) {
-							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
+							AvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
-								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
+								((AvatarClass *)avatar)->Unknown_781760(text);
 								
-								Client->Send_Packet(&AvatarEmotePacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
+								Client->Send_Packet(&ChatstreamPacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
@@ -365,11 +365,11 @@ void ChatGadgetClass::Unknown_65CCD0()
 						break;
 					case 0:
 						if (sclient->Unknown_744B60()) {
-							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
+							AvatarClass *avatar = sclient->Unknown_74C840(Client->Get_Avatar_ID());
 							if (avatar != NULL) {
-								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
+								((AvatarClass *)avatar)->Unknown_781760(text);
 								
-								Client->Send_Packet(&AvatarEmotePacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
+								Client->Send_Packet(&ChatstreamPacketClass(Client->Get_Avatar_ID(), (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL));
 								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
 									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
@@ -677,8 +677,8 @@ bool ChatGadgetClass::Unknown_65E5E0()
 		char text[0x100];
 		text[0] = 0;
 		if (target->AuxData != NULL) {
-			NameClass field("Name");
-			DeltaStringClass *name = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
+			AuxDataName field("Name");
+			DeltaString *name = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, field);
 			const char *string = name->String;
 
 			if (string != NULL && *string != 0) {
@@ -732,8 +732,8 @@ bool ChatGadgetClass::Unknown_65E840()
 	FAIL_IF(!chatpanel) return(false);
 	ClientObjectClass *target;
 	if (sclient->MainView != NULL && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40() && target->AuxData != NULL) {
-		NameClass field("Owner");
-		DeltaStringClass *owner = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)target->AuxData, field);
+		AuxDataName field("Owner");
+		DeltaString *owner = Unknown_Find_Set_Field<DeltaString>((DeltaContainer *)target->AuxData, field);
 		const char *string = owner->String;
 
 		if (string != NULL && *string != 0) {

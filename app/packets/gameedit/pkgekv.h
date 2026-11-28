@@ -52,12 +52,12 @@ public:
 };
 
 // 0x7537 (30007, not in the packet switch: sent only): vtable 0xB08F18, constructor 0x85ECB0, 0x1C bytes
-class Packet_7537Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7537 (Print 'GameEditorUpdateKeyValues')
+class GameEditorKVUpdatePacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_7537Class(int game_id, char *data, int size);	// 0x85EC30 (Data is the caller's, not copied)
-	Packet_7537Class(RawPacketClass *raw);	// 0x85ECB0
-	virtual ~Packet_7537Class();	// +0x00 0x85EDA0 / 0x85EC80
+	GameEditorKVUpdatePacketClass(int game_id, char *data, int size);	// 0x85EC30 (Data is the caller's, not copied)
+	GameEditorKVUpdatePacketClass(RawPacketClass *raw);	// 0x85ECB0
+	virtual ~GameEditorKVUpdatePacketClass();	// +0x00 0x85EDA0 / 0x85EC80
 	virtual RawPacketClass *Build();	// +0x04 0x85EDE0
 	virtual bool Process_Packet(void *client);	// +0x08 0x85EF20
 	virtual int Get_Data_Size();	// +0x0C 0x85EED0
@@ -70,12 +70,12 @@ public:
 };
 
 // opcode 30008 (0x7538, ?): vtable 0xB08F48, constructor 0x85EFC0, 0x1C bytes
-class Packet_7538Class : public PacketClass  // NAME 1: neutral (D10): opcode 0x7538 (Print 'GameEditorModifyKeyValues')
+class GameEditorKVModifyPacketClass : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	Packet_7538Class(int game_id, char *data, int size);	// 0x85EF40 (Data is the caller's, not copied)
-	Packet_7538Class(RawPacketClass *raw);	// 0x85EFC0
-	virtual ~Packet_7538Class();	// +0x00 0x85F0B0 / 0x85EF90
+	GameEditorKVModifyPacketClass(int game_id, char *data, int size);	// 0x85EF40 (Data is the caller's, not copied)
+	GameEditorKVModifyPacketClass(RawPacketClass *raw);	// 0x85EFC0
+	virtual ~GameEditorKVModifyPacketClass();	// +0x00 0x85F0B0 / 0x85EF90
 	virtual RawPacketClass *Build();	// +0x04 0x85F0F0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868160 (clientstub.cpp)
 	virtual int Get_Data_Size();	// +0x0C 0x85F1D0

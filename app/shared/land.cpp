@@ -42,7 +42,7 @@
 #include <stdio.h>
 #include <string.h>
 
-extern LandUnknown466BE0Class *Unknown_BDC0D8;	// NAME 1: unknown
+extern DisplacementMapLandClass *Unknown_BDC0D8;	// NAME 1: unknown
 // NAME 2: the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's
 // Land LOD 0..7 indexes it directly)
 int LandLodDistances[8] = { 8, 16, 24, 32, 48, 64, 96, 128 };
@@ -114,7 +114,7 @@ bool LandClass::Load_Assets(const char *ini_name, bool flag)
 	INIClass ini;
 	ini.Load(ini_name);
 	unsigned int max_size = DX8Wrapper::Get_Current_Caps()->Get_DX8_Caps().MaxTextureWidth;
-	Field = HeightFieldClass::Load(ini_name, max_size);
+	Field = HeightMapClass::Load(ini_name, max_size);
 	if (Field == NULL) {
 		return false;
 	}

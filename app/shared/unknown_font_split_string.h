@@ -8,7 +8,7 @@
 **
 **	A SplitStringClass measured with a font (0x2C bytes, vtable 0xAECBAC): the widths come from the
 **	font's slots +0x24 / +0x28 at a 640-wide screen, from the base's without a font. Built on the stack
-**	by ManagedFontClass 0x6CF930 and UILineDisplayClass::Add_Line 0x5A7690, among nine others.
+**	by ManagedFontClass 0x6CF930 and LineDisplayInterface::Add_Line 0x5A7690, among nine others.
 */
 
 
@@ -26,16 +26,16 @@
 class FontSplitStringClass : public SplitStringClass  // NAME 2: a SplitStringClass measured with a font
 {
 public:
-	FontSplitStringClass(const RefCountPtr<Font32Class> &font, const char *text = NULL, float width = 0.0f, int cursor = 0);	// 0x4FA8F0
+	FontSplitStringClass(const RefCountPtr<Font32Bit> &font, const char *text = NULL, float width = 0.0f, int cursor = 0);	// 0x4FA8F0
 	virtual ~FontSplitStringClass();												// 0x4FA9F0 (deleting 0x4FA9C0)
 
-	void Set_Font(const RefCountPtr<Font32Class> &font);							// 0x4FAAC0  // NAME 2: what it does
+	void Set_Font(const RefCountPtr<Font32Bit> &font);							// 0x4FAAC0  // NAME 2: what it does
 
 	virtual float Get_Text_Width(const char *buff);									// slot +0x04, 0x4FAB30
 	virtual float Get_Char_Width(char c);											// slot +0x08, 0x4FAB70
 
 protected:
-	RefCountPtr<Font32Class> Font;													// +0x28  // NAME 2: what it holds
+	RefCountPtr<Font32Bit> Font;													// +0x28  // NAME 2: what it holds
 };
 
 #endif // __UNKNOWN_FONT_SPLIT_STRING_H

@@ -22,8 +22,8 @@
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 #include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 
-// (two inline layers, NameClass and the root copy in the inner one (ui_analyze.cpp's form): Update calls the find out of line, 0x5BF2B0, and inlines Get_Value, as the client)
-static inline DeltaInterpolatorClass *Find_L2(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; DeltaInterpolatorClass *t = Unknown_Find_Field<DeltaInterpolatorClass>(r, n); return(t); } static inline DeltaInterpolatorClass *Find_L1(DeltaCompoundClass *const &root, const char *name) { return(Find_L2(root, name)); }	// NAME 1: neutral (D10)
+// (two inline layers, AuxDataName and the root copy in the inner one (ui_analyze.cpp's form): Update calls the find out of line, 0x5BF2B0, and inlines Get_Value, as the client)
+static inline DeltaInterpolator *Find_L2(DeltaContainer *const &root, const char *name) { AuxDataName n(name); DeltaContainer *r = root; DeltaInterpolator *t = Unknown_Find_Field<DeltaInterpolator>(r, n); return(t); } static inline DeltaInterpolator *Find_L1(DeltaContainer *const &root, const char *name) { return(Find_L2(root, name)); }	// NAME 1: neutral (D10)
 // The four corners' bones and sub-objects in hud01a, the client's 0xB9F818
 static const char *Corner_Names[TargetReticleClass::CORNER_COUNT] = { "UL", "UR", "BR", "BL" };	// NAME 2: what it holds
 
@@ -265,11 +265,11 @@ void TargetReticleClass::Update(const Vector3 &pos, float size)
 		FAIL_IF(!gdata) return;
 
 		float shield = -1.0f;
-		DeltaCompoundClass *aux = (DeltaCompoundClass *)ClientObject->AuxData;
+		DeltaContainer *aux = (DeltaContainer *)ClientObject->AuxData;
 		if (aux != NULL) {
 
 
-			DeltaInterpolatorClass *percent = Find_L1(aux, "ShieldPercent");
+			DeltaInterpolator *percent = Find_L1(aux, "ShieldPercent");
 			if (percent != NULL && percent->Unknown70 != 0) {
 				SClient *c = Client; shield = percent->Get_Value(DurationClass((unsigned)c->Unknown10BC));
 			}

@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\font32bit.h (D24: paired with the client's font32bit.cpp).
-// Font32Class: a wwlib FontClass over a 4-bit-alpha SurfaceClass font image, Renegade's Font3DDataClass tables
+// Font32Bit: a wwlib FontClass over a 4-bit-alpha SurfaceClass font image, Renegade's Font3DDataClass tables
 // (font3d.cpp) with the spacing and the screen scale; fontdatabase.cpp's fonts (font32Ptr).
 #ifndef FONT32BIT_H
 #define FONT32BIT_H
@@ -10,11 +10,11 @@
 
 class SurfaceClass;
 
-class Font32Class : public FontClass, public RefCountClass							// NAME 2: what font32Ptr points at (0xD30 bytes; vtables 0xAFE94C / 0xAFE940)
+class Font32Bit : public FontClass, public RefCountClass  // NAME 5: thunk order, binary.md 5.11
 {
 	public:
-		Font32Class(void);															// 0x6BBD50, no caller
-		Font32Class(const char * font_name, int spacing, float scale);				// 0x6BBAC0
+		Font32Bit(void);															// 0x6BBD50, no caller
+		Font32Bit(const char * font_name, int spacing, float scale);				// 0x6BBAC0
 		// the implicit destructor: 0x6BBCC0 (deleting 0x6BBC90)
 
 		virtual int Char_Pixel_Width(char c) const;									// 0x6BCC40

@@ -20,7 +20,7 @@
 struct KernelEventClass;
 class HAnimClass;
 
-class GadgetSlider : public RObjGadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@
+class GadgetSlider : public RenderObjGadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@
 {
 public:
 	GadgetSlider(bool arg, LayerClass *layer = NULL);	// 0x66DFC0

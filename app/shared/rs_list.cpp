@@ -247,7 +247,7 @@ void RenderStateListClass::Unknown_45AA40(void *value, bool recursive)
 // 0x45AA80
 RenderStateClass *RenderStateListClass::Unknown_45AA80(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration)
 {
-	RenderStateClass *state = new Unknown45E850Class(this, id, link_id, flags, name, next_id, duration);
+	RenderStateClass *state = new RenderStateRenderObjClass(this, id, link_id, flags, name, next_id, duration);
 	state->Unknown_457F60(this);
 	return(state);
 }
@@ -284,7 +284,7 @@ RenderStateClass *RenderStateListClass::Unknown_45AB20(INIClass &ini, const char
 // 0x45ACD0
 RenderStateClass *RenderStateListClass::Unknown_45ACD0(int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo)
 {
-	RenderStateClass *state = new Unknown4596A0Class(this, id, link_id, flags, anim, suffix, next_id, combo);
+	RenderStateClass *state = new RenderStateHAnimClass(this, id, link_id, flags, anim, suffix, next_id, combo);
 	state->Unknown_457F60(this);
 	return(state);
 }
@@ -362,7 +362,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B390(INIClass &ini, const char
 // 0x45B3E0
 RenderStateClass *RenderStateListClass::Unknown_45B3E0(int id, int link_id, unsigned int flags, int message, const char *sound)
 {
-	RenderStateClass *state = new Unknown45F390Class(this, id, link_id, flags, sound, message);
+	RenderStateClass *state = new RenderStateSoundClass(this, id, link_id, flags, sound, message);
 	state->Unknown_457F60(this);
 	return(state);
 }
@@ -660,7 +660,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B990(INIClass &ini, const char
 // 0x45BAB0
 RenderStateClass *RenderStateListClass::Unknown_45BAB0(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone, int message)
 {
-	RenderStateClass *state = new Unknown458710Class(this, id, link_id, flags, name, next_id, duration, bone, message);
+	RenderStateClass *state = new RenderStateBoneClass(this, id, link_id, flags, name, next_id, duration, bone, message);
 	state->Unknown_457F60(this);
 	return(state);
 }
@@ -668,7 +668,7 @@ RenderStateClass *RenderStateListClass::Unknown_45BAB0(int id, int link_id, unsi
 // 0x45BB70
 RenderStateClass *RenderStateListClass::Unknown_45BB70(int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone, int message)
 {
-	RenderStateClass *state = new Unknown458710Class(this, id, link_id, flags, robj, next_id, duration, bone, message);
+	RenderStateClass *state = new RenderStateBoneClass(this, id, link_id, flags, robj, next_id, duration, bone, message);
 	state->Unknown_457F60(this);
 	return(state);
 }

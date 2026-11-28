@@ -12,7 +12,7 @@ public:
 };
 
 
-Font32Class::Font32Class(const char * font_name, int spacing, float scale) :
+Font32Bit::Font32Bit(const char * font_name, int spacing, float scale) :
 	XSpacing(spacing),
 	MinSpacing(spacing),
 	YSpacing(0),
@@ -36,7 +36,7 @@ Font32Class::Font32Class(const char * font_name, int spacing, float scale) :
 
 
 
-Font32Class::Font32Class(void) :
+Font32Bit::Font32Bit(void) :
 	VHeight(1.0f),
 	Scale(1.0f),
 	ScreenWidth(640.0f),
@@ -56,7 +56,7 @@ Font32Class::Font32Class(void) :
 **	Repacks the characters into a 128 or 256 square A4R4G4B4 image (font3d.cpp's, no caller in the client).
 */
 
-void Font32Class::Minimize_Font_Image(SurfaceClass * surface)
+void Font32Bit::Minimize_Font_Image(SurfaceClass * surface)
 {
 	SurfaceClass::SurfaceDescription sd;
 	surface->Get_Description(sd);
@@ -102,7 +102,7 @@ void Font32Class::Minimize_Font_Image(SurfaceClass * surface)
 **	CharWidthTable, then the common top and the height of all characters.
 */
 // NOT EXACT: (D64) register allocation: the client keeps x0 and this in memory and y0 in ebx; ours this in ebx, y0 in memory (the fallback's arms with left = x0 in each, 84 -> 75 masked rows)
-void Font32Class::Make_Proportional(SurfaceClass * surface)
+void Font32Bit::Make_Proportional(SurfaceClass * surface)
 {
 	SurfaceClass::SurfaceDescription sd;
 	surface->Get_Description(sd);
@@ -327,7 +327,7 @@ void Font32Class::Make_Proportional(SurfaceClass * surface)
 **	made proportional; the image becomes A4R4G4B4.
 */
 
-bool Font32Class::Load_Font_Image(const char * filename)
+bool Font32Bit::Load_Font_Image(const char * filename)
 {
 	Update_Resolution();
 
@@ -433,7 +433,7 @@ bool Font32Class::Load_Font_Image(const char * filename)
 **	space character's cell (0x6BC950, FontSys 0x6D8DC0).
 */
 
-void Font32Class::Print_To_Surface(char const * str, SurfaceClass * dest)
+void Font32Bit::Print_To_Surface(char const * str, SurfaceClass * dest)
 {
 	int x = 0;
 	FAIL_IF(!str) return;
@@ -483,7 +483,7 @@ void Font32Class::Print_To_Surface(char const * str, SurfaceClass * dest)
 
 
 
-int Font32Class::String_Pixel_Width(char const * string) const
+int Font32Bit::String_Pixel_Width(char const * string) const
 {
 	FAIL_IF(!string) return(0);
 
@@ -498,38 +498,38 @@ int Font32Class::String_Pixel_Width(char const * string) const
 }
 
 
-int Font32Class::Char_Pixel_Width(char c) const
+int Font32Bit::Char_Pixel_Width(char c) const
 {
 	return(CharWidthTable[(unsigned char)c] + XSpacing);
 }
 
 // The static's guard and its atexit destructor (0x6BCCC0) as the client's
-Point2D Font32Class::Print(char const *, ::Surface &, Rect const &, Point2D const &, ConvertClass const &, unsigned char const *) const
+Point2D Font32Bit::Print(char const *, ::Surface &, Rect const &, Point2D const &, ConvertClass const &, unsigned char const *) const
 {
 	static Point2D _point;
 	return(_point);
 }
 
 
-float Font32Class::Get_Text_Width(const char * text, float screen_width)
+float Font32Bit::Get_Text_Width(const char * text, float screen_width)
 {
 	return((screen_width / ScreenWidth) * (String_Pixel_Width(text) * Scale));
 }
 
 
-float Font32Class::Get_Char_Width(char c, float screen_width)
+float Font32Bit::Get_Char_Width(char c, float screen_width)
 {
 	return((screen_width / ScreenWidth) * (Char_Pixel_Width(c) * Scale));
 }
 
 
-float Font32Class::Get_Char_Height(float screen_height)
+float Font32Bit::Get_Char_Height(float screen_height)
 {
 	return((screen_height / ScreenHeight) * (Get_Height() * Scale));
 }
 
 
-float Font32Class::Get_Line_Height(float screen_height)
+float Font32Bit::Get_Line_Height(float screen_height)
 {
 	return((screen_height / ScreenHeight) * (Get_Line_Spacing() * Scale));
 }
@@ -553,7 +553,7 @@ float Font32Class::Get_Line_Height(float screen_height)
 
 
 
-void Font32Class::Update_Resolution(void)
+void Font32Bit::Update_Resolution(void)
 {
 	int resw = 0;
 	int resh = 0;
@@ -567,7 +567,7 @@ void Font32Class::Update_Resolution(void)
 }
 
 
-int Font32Class::Set_XSpacing(int x)
+int Font32Bit::Set_XSpacing(int x)
 {
 	if (x < MinSpacing) {
 		return(XSpacing);
@@ -577,7 +577,7 @@ int Font32Class::Set_XSpacing(int x)
 }
 
 
-int Font32Class::Set_YSpacing(int y)
+int Font32Bit::Set_YSpacing(int y)
 {
 	int min = -(Get_Height() / 2);
 	if (y < min) {
@@ -592,7 +592,7 @@ int Font32Class::Set_YSpacing(int y)
 **	Reconstruction notes (font32bit.cpp)
 **
 **	The client's object 0x6BBAC0-0x6BCFA0 (__FILE__ e:\build\beta\G\app\Client\font32bit.cpp: FAIL_IF l.439 / 488,
-**	G_ASSERT l.335 / 563 / 564), before unknown_fontsound.cpp (0x6BCFB0). Font32Class is Renegade's
+**	G_ASSERT l.335 / 563 / 564), before unknown_fontsound.cpp (0x6BCFB0). Font32Bit is Renegade's
 **	Font3DDataClass (ww3d2/font3d.cpp: the U / V / width tables, Make_Proportional, Load_Font_Image,
 **	Minimize_Font_Image) made a FontClass with spacing and a screen scale. Functional (D64) first, FNT1 2026-11-01.
 */

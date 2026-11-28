@@ -35,7 +35,7 @@ extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: 0xBE67BC (fontdatabase.h
 
 // 0x578120
 UIComboBoxTextClass::UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, LayerClass *layer, int width) :
-	Unknown_675120Class((RenderObjClass *)NULL, *layer, 5),
+	UIMeshGadgetClass((RenderObjClass *)NULL, *layer, 5),
 	Hover(false),
 	Selected(false),
 	Layer(layer),
@@ -49,7 +49,7 @@ UIComboBoxTextClass::UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, La
 
 // 0x578210
 UIComboBoxTextClass::UIComboBoxTextClass(UIMeshClass *mesh, const char *bone, int width) :
-	Unknown_675120Class((RenderObjClass *)NULL, 5),
+	UIMeshGadgetClass((RenderObjClass *)NULL, 5),
 	Hover(false),
 	Selected(false),
 	Mesh(mesh),

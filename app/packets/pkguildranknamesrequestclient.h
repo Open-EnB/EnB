@@ -60,12 +60,12 @@ public:
 };
 
 // opcode 197 (0x00C5, GUILD_LEADER_ACCEPT_CLIENT): vtable 0xB0A8E4, constructor 0x88C6E0, 0x24 bytes
-class GuildLeaderAcceptClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildLeaderAcceptClient {' and the PacketClass convention
+class GuildLeaderAcceptClientPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GuildLeaderAcceptClientPacketClass(int player_id, const char *guild_name, bool accept);	// 0x88C540
-	GuildLeaderAcceptClientPacketClass(RawPacketClass *raw);	// 0x88C6E0
-	virtual ~GuildLeaderAcceptClientPacketClass();	// +0x00 0x88C6B0 / 0x88C7B0
+	GuildLeaderAcceptClientPacket(int player_id, const char *guild_name, bool accept);	// 0x88C540
+	GuildLeaderAcceptClientPacket(RawPacketClass *raw);	// 0x88C6E0
+	virtual ~GuildLeaderAcceptClientPacket();	// +0x00 0x88C6B0 / 0x88C7B0
 	virtual RawPacketClass *Build();	// +0x04 0x88C820
 	virtual bool Process_Packet(void *client);	// +0x08 0x869030 (clientstub.cpp l.359)
 	virtual int Get_Data_Size();	// +0x0C 0x88C8F0
@@ -93,12 +93,12 @@ public:
 };
 
 // opcode 201 (0x00C9, GUILD_RECRUIT_ACCEPT_CLIENT): vtable 0xB0A944, constructor 0x88CEB0, 0x14 bytes
-class GuildRecruitAcceptClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRecruitAcceptClient {' and the PacketClass convention
+class GuildRecruitAcceptClientPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GuildRecruitAcceptClientPacketClass(int player_id, bool accept);	// 0x88CE30
-	GuildRecruitAcceptClientPacketClass(RawPacketClass *raw);	// 0x88CEB0
-	virtual ~GuildRecruitAcceptClientPacketClass();	// +0x00 0x88CF50 (out of line: SClient 0x74EDB0 calls it)
+	GuildRecruitAcceptClientPacket(int player_id, bool accept);	// 0x88CE30
+	GuildRecruitAcceptClientPacket(RawPacketClass *raw);	// 0x88CEB0
+	virtual ~GuildRecruitAcceptClientPacket();	// +0x00 0x88CF50 (out of line: SClient 0x74EDB0 calls it)
 	virtual RawPacketClass *Build();	// +0x04 0x88CF70
 	virtual bool Process_Packet(void *client);	// +0x08 0x8690C0 (clientstub.cpp l.368)
 	virtual int Get_Data_Size();	// +0x0C 0x88D040
@@ -143,11 +143,11 @@ public:
 };
 
 // opcode 212 (0x00D4, GUILD_RANK_NAMES_REQUEST_CLIENT): vtable 0xB0A9D4, constructor 0x88D8C0, 0x10 bytes
-class GuildRankNamesRequestClientPacketClass : public PacketClass  // NAME 3: the client's Print text 'GuildRankNamesRequestClient {' and the PacketClass convention
+class GuildRankNamesRequestClientPacket : public PacketClass  // NAME 5: thunk order, binary.md 5.11
 {
 public:
-	GuildRankNamesRequestClientPacketClass(int player_id);	// 0x88D850
-	GuildRankNamesRequestClientPacketClass(RawPacketClass *raw);	// 0x88D8C0
+	GuildRankNamesRequestClientPacket(int player_id);	// 0x88D850
+	GuildRankNamesRequestClientPacket(RawPacketClass *raw);	// 0x88D8C0
 	virtual RawPacketClass *Build();	// +0x04 0x88D950
 	virtual bool Process_Packet(void *client);	// +0x08 0x8691B0 (clientstub.cpp l.383)
 	virtual int Get_Data_Size();	// +0x0C 0x88DA10

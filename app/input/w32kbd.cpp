@@ -11,7 +11,7 @@ static int Unknown_BDABF0;							// the table is filled  // NAME 1 [Unknown_BDAB
 
 int Unknown_4307A0(int message, unsigned int wparam, unsigned int lparam);	// NAME 1 [Unknown_4307A0, message, wparam, lparam]: neutral (D10)
 
-Win32KeyboardHandlerClass::Win32KeyboardHandlerClass(KeyQueueClass *queue) : KeyboardClass(queue)
+Win32KeyboardHandlerClass::Win32KeyboardHandlerClass(KeyQueueClass *queue) : KeyboardHandlerClass(queue)
 {
 	if (Unknown_BDABF0 == 0) {
 		memset(Unknown_BDAAE8, 0, sizeof(Unknown_BDAAE8));
@@ -216,7 +216,7 @@ int Unknown_4307A0(int message, unsigned int wparam, unsigned int lparam)
 	event.Unknown04 = x;
 	event.Unknown08 = y;
 	event.Unknown0C = time;
-	KeyboardClass::Queue->Add(event);
+	KeyboardHandlerClass::Queue->Add(event);
 
 
 
@@ -304,7 +304,7 @@ bool Win32KeyboardHandlerClass::Unknown_0C(int unknown1, int unknown2)
 **	the constructor 0x430490, the destructor 0x430630 (0x430600 its scalar deleting one), Set_Repeat
 **	0x4306D0, the handler's registration 0x430700 / 0x430750, the WM_KEYDOWN / WM_KEYUP /
 **	WM_SYSKEYDOWN / WM_SYSKEYUP handler 0x4307A0 and the key test 0x430CA0 (NOT EXACT, register).
-**	0x430D70 is KeyboardClass's destructor out of line (input.h). Not rebuilt: the part of the
+**	0x430D70 is KeyboardHandlerClass's destructor out of line (input.h). Not rebuilt: the part of the
 **	file before 0x430490, if it is this file's: the window-message handler list (0x42F860-0x430450,
 **	0x42F940 adds, 0x42FAC0 removes, 0x42FBA0 dispatches; winmsg.cpp has
 **	them) and input.h's drag tracker (0x42F360 / 0x42F3A0, the TrackMouseCounter asserts).

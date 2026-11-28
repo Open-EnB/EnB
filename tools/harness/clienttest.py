@@ -131,7 +131,7 @@ def build(out):
                 # cpacket.cpp's chat list windows (ui_radio_list.cpp / ui_radio_admin.cpp / ui_playeropt.cpp, which
                 # ui_chat_panel.obj may pull in) go to clienttest.cpp's logging copies: the fake panel's +0xD8 / +0xE4 /
                 # +0xE8 are not real windows
-                f.write('#define UIPlayerOptClass Clienttest_UIPlayerOptClass\n'
+                f.write('#define PlayerOptionsInterface Clienttest_UIPlayerOptClass\n'
                         '#define UIRadioListClass Clienttest_UIRadioListClass\n'
                         '#define UIRadioAdminClass Clienttest_UIRadioAdminClass\n')
                 # the starbase interface's handlers (ui_starbase.obj, real since run 2026-11-09b, which the link pulls

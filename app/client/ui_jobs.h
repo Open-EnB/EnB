@@ -69,7 +69,7 @@ public:
 	void Unknown_5A3390(int count);						// 0x5A3390: the slider over count rows  // NAME 1 [count]: neutral
 	void Unknown_5A3400();								// 0x5A3400: the first row from the slider (the rows refilled when it moved)
 	void Unknown_5A3440(int category);					// 0x5A3440: a category picked ('COMBAT JOBS' / 'TRADE JOBS' / 'EXPLORE JOBS')  // NAME 1 [category]: neutral
-	void Unknown_5A36F0();								// 0x5A36F0: the pick accepted (StarbaseRequestPacketClass 8)
+	void Unknown_5A36F0();								// 0x5A36F0: the pick accepted (StarbaseReqPacketClass 8)
 	void Unknown_5A37D0();								// 0x5A37D0: JobInfo emptied
 	void Unknown_5A3890();								// 0x5A3890: the job list emptied
 	void Unknown_5A3930(const char *title, const char *detail, const char *item);	// 0x5A3930: the description's texts  // NAME 1 [title, detail, item]: neutral

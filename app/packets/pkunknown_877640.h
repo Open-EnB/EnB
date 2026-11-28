@@ -22,7 +22,7 @@
 class AvatarDescPacketClass : public PacketClass
 {
 public:
-	AvatarDescPacketClass(int game_id, const AvatarDescClass *desc);	// 0x877640 (Desc a copy, when given)
+	AvatarDescPacketClass(int game_id, const AvatarDescriptionClass *desc);	// 0x877640 (Desc a copy, when given)
 	AvatarDescPacketClass(RawPacketClass *raw);	// 0x877A60
 	virtual RawPacketClass *Build();	// +0x04 0x877B20
 	virtual bool Process_Packet(void *client);	// +0x08 0x733B10 (cpacket.cpp)
@@ -31,7 +31,7 @@ public:
 	virtual int Get_Channel() { return(Channel); }	// +0x18 0x8779A0
 
 	int GameID;	// +0x0C (4 bytes as they are)  // NAME 3: the client's Print text 'GameID='
-	AvatarDescClass Desc;	// +0x10 (through RawPacketClass's Add / Get of its wire interface)  // NAME 2: what it holds
+	AvatarDescriptionClass Desc;	// +0x10 (through RawPacketClass's Add / Get of its wire interface)  // NAME 2: what it holds
 	int Channel;	// +0x11C (PacketClass::Unknown_14 of GameID; not read from the message)  // NAME 2: Get_Channel returns it
 };
 

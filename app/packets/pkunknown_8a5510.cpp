@@ -3,37 +3,37 @@
 #include <stdio.h>
 
 
-Packet_00E8Class::Packet_00E8Class(int unknown0_c) : Unknown0C(unknown0_c), Unknown10(0)
+SpendReferralPointPacketClass::SpendReferralPointPacketClass(int unknown0_c) : Unknown0C(unknown0_c), Unknown10(0)
 {
 }
 
-Packet_00E8Class::~Packet_00E8Class()
+SpendReferralPointPacketClass::~SpendReferralPointPacketClass()
 {
 }
 
-Packet_00E8Class::Packet_00E8Class(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
+SpendReferralPointPacketClass::SpendReferralPointPacketClass(RawPacketClass *raw) : Unknown0C(0), Unknown10(0)
 {
 	raw->Get(Unknown0C);
 }
 
-RawPacketClass *Packet_00E8Class::Build()
+RawPacketClass *SpendReferralPointPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(Get_Type(), Get_Data_Size());
 	raw->Add(Unknown0C);
 	return(raw);
 }
 
-int Packet_00E8Class::Get_Type()
+int SpendReferralPointPacketClass::Get_Type()
 {
 	return(232);
 }
 
-int Packet_00E8Class::Get_Data_Size()
+int SpendReferralPointPacketClass::Get_Data_Size()
 {
 	return(sizeof(Unknown0C));
 }
 
-int Packet_00E8Class::Print(char *buffer, int)
+int SpendReferralPointPacketClass::Print(char *buffer, int)
 {
 	return(sprintf(buffer, "%s", "SpendReferralPoint"));
 }

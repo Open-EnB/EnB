@@ -51,12 +51,12 @@ public:
 };
 
 // One bar (0x6C bytes, table 0xAF15EC): the mesh's sub-object of that name, its texture scrolled to the value
-class UIExperienceBarClass : public Unknown_675120Class	// NAME 2: its sub-objects are the mesh's '*_bar'
+class UIExperienceBarClass : public UIMeshGadgetClass	// NAME 2: its sub-objects are the mesh's '*_bar'
 {
 public:
 	UIExperienceBarClass(RenderObjClass *mesh, const char *name);	// 0x58BFE0  // NAME 1 [mesh, name]: what 0x58C450 passes
 	virtual ~UIExperienceBarClass();					// +0x00 0x58C280 (deleting 0x58C250)
-	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator) { if (!indicator) return(NULL); return(RObjGadgetClass::Unknown_24(position, frame, indicator)); }	// +0x24 0x58C1F0  // NAME 1 [position, frame, indicator]: the base's
+	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator) { if (!indicator) return(NULL); return(RenderObjGadgetClass::Unknown_24(position, frame, indicator)); }	// +0x24 0x58C1F0  // NAME 1 [position, frame, indicator]: the base's
 	void Set_Value(float value);						// 0x58C300 (the offset 0.46 * value, when it differs)  // NAME 2: what it does
 	void Set_Value_Clamped(float value);				// 0x58C390 (clamped to 0..1)  // NAME 2: what it does
 
@@ -72,7 +72,7 @@ public:
 
 // @0x58BFE0
 UIExperienceBarClass::UIExperienceBarClass(RenderObjClass *mesh, const char *name) :
-	Unknown_675120Class(NULL, 0),
+	UIMeshGadgetClass(NULL, 0),
 	Exists(false)
 {
 
@@ -129,7 +129,7 @@ void UIExperienceBarClass::Set_Value_Clamped(float value)
 
 
 
-template<class C> inline C *Unknown_Experience_Find(DeltaCompoundClass *root, const char *name) { NameClass n(name); return(Unknown_Find_Set_Field<C>(root, n)); }	// NAME 1: neutral (D10); the one more inline layer sends Unknown_Find_Field 0x546710 out of line at 0x58CB50's first site, as the client
+template<class C> inline C *Unknown_Experience_Find(DeltaContainer *root, const char *name) { AuxDataName n(name); return(Unknown_Find_Set_Field<C>(root, n)); }	// NAME 1: neutral (D10); the one more inline layer sends Unknown_Find_Field 0x546710 out of line at 0x58CB50's first site, as the client
 
 
 
@@ -195,7 +195,7 @@ void UIExperienceClass::Unknown_10()
 	FAIL_IF(!client) return;
 	SClient *sclient = (SClient *)client->As_Space_Client();
 	FAIL_IF(!sclient) return;
-	DeltaCompoundClass *aux = (DeltaCompoundClass *)sclient->AuxData;
+	DeltaContainer *aux = (DeltaContainer *)sclient->AuxData;
 	char text[32];
 	if (CombatBar->Exists) {
 		DeltaTemplateClass<float> *field = Unknown_Experience_Find<DeltaTemplateClass<float> >(aux, "RPGInfo.CombatExp");
@@ -205,14 +205,14 @@ void UIExperienceClass::Unknown_10()
 		CombatBar->Set_Unknown14(text);
 	}
 	if (TradeBar->Exists) {
-		NameClass name("RPGInfo.TradeExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
+		AuxDataName name("RPGInfo.TradeExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
 		float value = field ? field->Value : 0.0f;
 		TradeBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);
 		TradeBar->Set_Unknown14(text);
 	}
 	if (ExploreBar->Exists) {
-		NameClass name("RPGInfo.ExploreExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
+		AuxDataName name("RPGInfo.ExploreExp"); DeltaTemplateClass<float> *field = Unknown_Find_Set_Field<DeltaTemplateClass<float> >(aux, name);
 		float value = field ? field->Value : 0.0f;
 		ExploreBar->Set_Value(value);
 		_snprintf(text, sizeof(text), "Progress: %1.2f%%", value * 100.0f);

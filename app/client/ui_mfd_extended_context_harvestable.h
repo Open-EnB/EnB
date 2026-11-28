@@ -22,7 +22,7 @@ struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 class UIMFDExtendedContextHarvestableClass : public UIMFDExtendedContextStringsClass	// NAME 3: D24 class-from-file for ui_mfd_extended_context_harvestable.cpp
 {
 public:
-	UIMFDExtendedContextHarvestableClass(ClientObjectClass *co, UIMFDClass *owner);	// 0x5BFB00
+	UIMFDExtendedContextHarvestableClass(ClientObjectClass *co, MFDInterface *owner);	// 0x5BFB00
 	virtual ~UIMFDExtendedContextHarvestableClass();	// 0x5BFDD0 (deleting 0x5BFDA0)
 	virtual void Unknown_08();							// 0x5BFF10
 	virtual void Unknown_0C();							// 0x5BFF30
