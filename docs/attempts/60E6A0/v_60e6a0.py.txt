@@ -1,0 +1,17 @@
+HYPOTHESIS = 'S1 re-measure: claim334 dest_clock (residue 86 -> 5 groups, not adopted) and its parts on HEAD'
+FILE = 'app/client/ui_scan.cpp'
+SYMBOL = 'ScannerInterface::Unknown_60E6A0'
+ADDRESS = 0x60E6A0
+
+CLOCK_OLD = "\t\tInterruptInfo->Unknown2C->Unknown_60EC70(DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC));\n"
+CLOCK_NEW = "\t\t{ ClientClass *client = (ClientClass *)Client; InterruptInfo->Unknown2C->Unknown_60EC70(DurationClass((unsigned int)client->Unknown10BC)); }\n"
+SKILL_OLD = "\t\t\tInterruptInfo->AbilityName = \"Unknown Skill\";\n"
+SKILL_REF = "\t\t\t{ std::string &text = InterruptInfo->AbilityName; text.assign(\"Unknown Skill\", strlen(\"Unknown Skill\")); }\n"
+SKILL_ASSIGN = "\t\t\tInterruptInfo->AbilityName.assign(\"Unknown Skill\", strlen(\"Unknown Skill\"));\n"
+
+FORMS = {
+    'dest_clock': [(CLOCK_OLD, CLOCK_NEW), (SKILL_OLD, SKILL_REF)],
+    'dest_ref': [(SKILL_OLD, SKILL_REF)],
+    'fallback_assign': [(SKILL_OLD, SKILL_ASSIGN)],
+    'clock_assign': [(CLOCK_OLD, CLOCK_NEW), (SKILL_OLD, SKILL_ASSIGN)],
+}

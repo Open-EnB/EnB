@@ -193,9 +193,9 @@ void ScannerInterface::Unknown_54()
 	Verb = new VerbInterface(View->Unknown_20(), Layer, UIMesh, 0);
 	Verb->Unknown_54();
 	View->Unknown_6B4940(Verb);
-	InterruptInfo = new UIScanThreatClass(this);
+	UIScanThreatClass *interrupt = new UIScanThreatClass(this);
 	RenderObjClass *robj = RObj;
-
+	InterruptInfo = interrupt;
 
 
 
@@ -585,7 +585,7 @@ void ScannerInterface::Unknown_60E6A0(ClientObjectClass *object)
 		ClientObjectClass *target = Object;
 		if (!target || !target->AuxData) return;
 		InterruptInfo->Unknown2C->Unknown_59E600();
-		InterruptInfo->Unknown2C->Unknown_60EC70(DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC));
+		{ ClientClass *client = (ClientClass *)Client; InterruptInfo->Unknown2C->Unknown_60EC70(DurationClass((unsigned int)client->Unknown10BC)); }
 		DeltaTemplateClass<DurationClass> *time = Unknown_Scan_Find<DeltaTemplateClass<DurationClass> >(target->AuxData, "InterruptibleActivationTime");
 		if (time) {
 			InterruptInfo->Unknown2C->Unknown_60ECA0(time->Get_Value());
@@ -614,7 +614,7 @@ void ScannerInterface::Unknown_60E6A0(ClientObjectClass *object)
 		if (name) {
 			InterruptInfo->AbilityName = name->String;
 		} else {
-			InterruptInfo->AbilityName = "Unknown Skill";
+			{ std::string &text = InterruptInfo->AbilityName; text.assign("Unknown Skill", strlen("Unknown Skill")); }
 		}
 		if (!InterruptInfo->Unknown14) {
 			InterruptInfo->Unknown14 = Create_Get(new FontSys("MFD_INTERRUPT", robj, NULL));
