@@ -122,31 +122,18 @@ def context(cls, name, shown, target, methods, strs, hide=(), tried=()):
 
 
 def override_groups(st):
-    """{slot index: group id} for open slots at the same vtable index of one family (vt.py; tier1a's families)."""
-    from vt import vtables
+    """{slot index: group id} for open slots at the same vtable index of one family (vt.families: joined by
+    entries shared at an index >= k; before 2026-11-27 one family over all indexes joined unrelated subclasses
+    through a common base's first entries)."""
+    from vt import vtables, families
     vts = [(a, s, e) for a, s, e in vtables() if s.endswith('@@6B@')]
-    at = collections.defaultdict(set)
-    for vi, (_, _, ents) in enumerate(vts):
-        for k, e in enumerate(ents):
-            if e != PURE:
-                at[(e, k)].add(vi)
-    parent = list(range(len(vts)))
-
-    def find(x):
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
-    for vs in at.values():
-        vs = sorted(vs)
-        for v in vs[1:]:
-            parent[find(v)] = find(vs[0])
+    fam = families(vts, PURE)
     grp = {}
     for vi, (_, _, ents) in enumerate(vts):
         for k, e in enumerate(ents):
             i = st.index.get(e)
             if i is not None and i not in grp:
-                grp[i] = f'{find(vi)}:{k}'
+                grp[i] = f'{fam[vi, k]}:{k}'
     return grp
 
 

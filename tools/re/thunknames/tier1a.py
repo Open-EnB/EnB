@@ -23,7 +23,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import paths  # noqa: E402  (also puts tools/re on sys.path)
 from gapguess import State, prob, DEFAULT_STATE, class_of, in_client  # noqa: E402
-from vt import vtables  # noqa: E402
+from vt import vtables, families  # noqa: E402
 
 PURE = 0x9CCD10
 SIMPLE = re.compile(r'^\?(?P<m>[A-Za-z_][A-Za-z0-9_]*)@(?P<c>[A-Za-z_][A-Za-z0-9_]*)@@(?P<acc>[A-Z])(?P<rest>.*)$')
@@ -67,21 +67,10 @@ def main():
             if e != PURE:
                 holders[e].add(vi)
                 at[(e, k)].add(vi)
-    # families: union-find over a shared entry at the same index
-    parent = list(range(len(vts)))
-
-    def find(x):
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
-    for vs in at.values():
-        vs = sorted(vs)
-        for v in vs[1:]:
-            parent[find(v)] = find(vs[0])
-    fam = collections.defaultdict(list)
-    for vi in range(len(vts)):
-        fam[find(vi)].append(vi)
+    # families per index (vt.families): joined by entries shared at the same index j >= k
+    fam = collections.defaultdict(list)             # (k, family id) -> vtables
+    for (vi, k), r in families(vts, PURE).items():
+        fam[k, r].append(vi)
 
     def name_on(e):
         i = st.index.get(e)
@@ -105,11 +94,11 @@ def main():
 
     # templates per vtable: (k, entry, kind, method, rest) known from an anchored relative at the same index
     tmpl = collections.defaultdict(dict)
-    for root, members in fam.items():
+    for (k, root), members in fam.items():
         if len(members) < 2:
             continue
         for va in members:
-            for k, e in enumerate(vts[va][2]):
+            for e in (vts[va][2][k],):
                 n = name_on(e)
                 sp = n and split(n)
                 if not sp:
@@ -126,7 +115,7 @@ def main():
                         continue
                     tmpl[hs_[0]].setdefault(k, (f, sp[0], sp[1], sp[3], vts[va][1]))
     n_t = sum(len(v) for v in tmpl.values())
-    print(f'primary vtables {len(vts)}, families with >= 2 members {sum(len(m) >= 2 for m in fam.values())}; '
+    print(f'primary vtables {len(vts)}, (index, family) groups with >= 2 members {sum(len(m) >= 2 for m in fam.values())}; '
           f'open slots with a relative\'s template {n_t} in {len(tmpl)} vtables; with an own class '
           f'{sum(len(v) for vb, v in tmpl.items() if vb in own_cls)} in {sum(vb in own_cls for vb in tmpl)}',
           flush=True)

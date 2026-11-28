@@ -199,10 +199,10 @@ DeltaItem` (cross hits: add them to a proposals file to have them scored); metho
 Q4 / Q6 quantization A/B of the local model (the server session's suggestion; the two pilots are the measure);
 single-slot method hits that change the access letter are the likelier false ones (not separated yet).
 
-**Where things stand (2026-11-27, 14:40):** run `n2`'s six class rounds done (11 classes), then step `n2ko` (the
-class test without `Unknown_XX` slots, now tier2_eval's default: ShipPositionalStateClass); on the order 4,826
-(confirmed 4,631, probable 195); off named with window 9,448 (`Unknown_XX` 3,466); method rounds `n2m1`- not started
-(`n2m1`'s jobs: 1,859 targets). The runner's "N classes accepted" count is fixed (it counted one too many). **Before that (2026-11-26, 21:00):** on the order 4,764 (confirmed 4,569, probable 195). Off named slots
+**Where things stand (2026-11-27, 17:00):** run `n2`'s six class rounds done (11 classes), then steps `n2ko` (the
+class test without `Unknown_XX` slots: ShipPositionalStateClass) and `n2t1a` (tier1a on per-index families); on the order 4,834
+(confirmed 4,639, probable 195); off named with window 9,441 (`Unknown_XX` 3,460); method rounds `n2m1`- not started
+(`n2m1` rebuilds its jobs on resume: 1,874 targets, 98 override groups). The runner's "N classes accepted" count is fixed (it counted one too many). **Before that (2026-11-26, 21:00):** on the order 4,764 (confirmed 4,569, probable 195). Off named slots
 9,510 (`Unknown_XX` methods 3,495; 1,833 of them in classes with a confirmed name), unnamed slots 5,700; about 444
 class qualifiers unconfirmed. Earlier yields: the dictionary search at chance; Haiku
 about 0; Sonnet about 4.7-6.5k tokens per anchor; the two regex fixes gave more than all model rounds together

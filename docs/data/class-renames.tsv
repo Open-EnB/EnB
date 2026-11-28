@@ -29,7 +29,7 @@ ConnectionListenerClass	ConnectionSourceClass	3	3	1	0.00024	local1	A	0	3	77	2.3e
 ContinuousLookupTableClass	ContinuousLookupTable	5	5	1	0.00033	t1c	A	0	5	4	1.8e-14	keep
 CordChannelClass	CordChannel	5	4	1	0.00033	t1c	A	0	4	4	2.2e-11	keep
 CordMessageClass	CordMessage	5	4	1	0.00033	t1c	A	0	3	4	1.5e-07	keep
-CordMgrTaskClass	CordMgrTask	9	5	1	0.00027	t1c	A	0	5	4	1.5e-12	keep
+CordMgrTaskClass	CordMgrTask	9	6	1	0.00027	t1c	A	0	6	4	1.8e-15	keep
 DeltaCompoundClass	DeltaContainer	19	4	1	0.0002	r3	A	0	4	20	1.3e-07	keep
 DeltaFactionClass	DeltaFaction	2	2	1	0.00027	r3	C	0	2	20	5.4e-05	keep
 DeltaGroupMemberClass	DeltaGroupMember	4	4	1	0.00027	t1c	A	0	4	4	1.1e-11	keep
@@ -130,7 +130,7 @@ NavListBuilderClass	NavigationListBuilder	12	5	1	0.00027	t2fix	A	0	5	15	5.6e-11	
 OptionClass	OptionManagerClass	20	3	1	0.00027	t2fix	A	0	3	15	1.5e-05	keep
 OrbitalObject	OrbitalObjectClass	3	2	1	0.0002	cs2fix3	C	0	2	60	0.00018	weak
 PDAInterfaceClass	PDAInterface	23	6	1	0.00027	t1c	A	0	6	4	2.4e-13	keep
-Packet_003BClass	ServerReadyPacketClass	10	8	1	6.6e-05	t2s	A	0	7	15	3.7e-18	keep
+Packet_003BClass	ServerReadyPacketClass	10	8	1	6.6e-05	t2s	A	0	7	15	3.1e-18	keep
 Packet_003DClass	ServerStopPacketClass	9	7	1	0.00027	t2fix	A	0	7	15	1.8e-18	keep
 Packet_0045Class	RequestVersionPacketClass	10	8	1	0.00027	t2s	A	0	8	12	5.7e-21	keep
 Packet_0049Class	DeleteCharacterPacketClass	9	7	1	0.00013	t2fix	A	0	7	9	1.4e-18	keep
@@ -195,17 +195,17 @@ ProjSceneClass	ProjectionSceneClass	18	9	1	0.00027	t2s	A	0	8	15	9.6e-18	keep
 ProjectorCasterClass	ProjectionSourceClass	7	5	1	0.0002	r3	A	0	5	35	2.2e-12	keep
 ProjectorManagerClass	ProjectionManagerClass	22	17	1	0.0002	r1	A	1	17	291000	1.3e-38	keep
 ProjectorReceiverClass	ProjectionTargetClass	4	4	1	0.00013	r1	A	0	4	291000	6.3e-07	keep
-ProxyRObj	ProxyRenderObjClass	52	49	1	0.00013	t2	A	0	48	10	2e-129	keep
+ProxyRObj	ProxyRenderObjClass	52	49	1	0.00013	t2	A	0	48	10	1.7e-129	keep
 PxAccurateCallback	PxCallbackAccurate	13	4	1	0.00033	t2fix	A	0	4	16	1.1e-07	keep
 PxOwnerList	PxBoxOwnerList	7	5	1	0.0002	t2fix	A	0	5	15	3.6e-12	keep
 PxProcessClass	PxProcessList	6	4	1	0.00027	t2s	A	0	3	60	4.2e-06	keep
-RObjGadgetClass	RenderObjGadgetClass	30	4	1	0.0002	t2fix	A	0	3	7	8.4e-05	keep
+RObjGadgetClass	RenderObjGadgetClass	30	4	1	0.0002	t2fix	A	0	3	7	5.6e-05	keep
 RawPacketClass	PacketClass	22	4	1	0.00027	t2s	A	1	4	13	1.6e-07	keep
 Rect3DClass	Rectangle3DClass	13	12	1	0.00013	t2s	A	0	11	12	2.3e-30	keep
 RefineryItemIdPacketClass	RefinerySetItemIDPacketClass	9	6	1	0.00027	t2fix	A	0	7	15	2.9e-18	keep
 RequestTargetsTargetPacketClass	RequestTargetTargetPacketClass	10	8	1	0.00027	t2s	A	0	8	15	1.7e-20	keep
 ResizeGadgetClass	ResizeGadget	7	4	1	0.00013	cs2fix	A	0	4	60	6.3e-09	keep
-SBaseViewClass	StarbaseViewClass	54	4	1	6.6e-05	t2fix	A	0	4	10	4.8e-06	keep
+SBaseViewClass	StarbaseViewClass	54	6	1	6.6e-05	t2fix	A	0	6	10	1.8e-09	keep
 SClient	SpaceClientClass	73	8	1	0.00027	r1	A	0	8	291000	6.8e-08	keep
 SOptionsClass	SpaceClientOptionsClass	6	2	1	6.6e-05	r3	C	0	2	20	5e-05	keep
 ServerRedirectPacketClass	ClientRedirectPacketClass	8	6	1	0.00033	t2fix	A	0	6	15	4.6e-15	keep
@@ -241,7 +241,7 @@ UIFactionClass	FactionInterface	13	6	1	0.00027	t2fix	A	0	6	15	2.1e-14	keep
 UIFriendsPlayerInfoClass	FriendsInfoClass	3	3	1	0.0002	r3	A	0	3	20	2.2e-08	keep
 UIGroupClass	GroupInterface	37	8	1	6.6e-05	r1	A	0	7	291000	1e-09	keep
 UIItemExaminationClass	ItemExaminationInterface	15	6	1	0.00027	t2fix	A	0	6	15	3.4e-14	keep
-UILineDisplayClass	LineDisplayInterface	24	5	1	0.0002	t2fix	A	0	5	15	5.9e-10	keep
+UILineDisplayClass	LineDisplayInterface	24	5	1	0.0002	t2fix	A	0	5	15	4.9e-10	keep
 UIMFDClass	MFDInterface	31	6	1	0.00027	t2fix	A	0	6	10	5.7e-12	keep
 UIMissnClass	MissionInterface	17	6	1	0.0002	t2fix	A	0	5	15	4.9e-11	keep
 UIPTradeClass	PlayerTradeInterface	21	6	1	0.00027	t2fix	A	0	6	15	1.4e-12	keep

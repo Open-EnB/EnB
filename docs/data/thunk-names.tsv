@@ -1440,7 +1440,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x403706	0x632280	?_Insert@?$_Tree@HHU_Kfn@?$set@HU?$less@H@std@@V?$allocator@H@2@@std@@U?$less@H@3@V?$allocator@H@3@@std@@IAE?AViterator@12@PAU_Node@12@0ABH@Z		1659	on		confirmed
 0x40370B	0x6F33F0	?Unknown_6F33F0@ClientObjectClass@@QAEXPAVRenderObjClass@@HM@Z		6954	off		
 0x403710	0x82C170	??P?$Int@$0EA@@@QBEHABV0@@Z		1662	on		confirmed
-0x403715	0x8012C0	?Unknown_0C@ScriptedMovieViewClass@@UAEH_N@Z		7009	off		
+0x403715	0x8012C0	?Render@ScriptedMovieViewClass@@UAEH_N@Z	?Unknown_0C@ScriptedMovieViewClass@@UAEH_N@Z	1662	on	t1a-vt ??_7ScriptedMovieViewClass@@6B@[3] from ??_7Unknown514CC0ViewClass@@6B@	confirmed
 0x40371A	0x5DAAD0	?Unknown_5DAAD0@PlayerOptionsInterface@@QAEXXZ	?Unknown_5DAAD0@UIPlayerOptClass@@QAEXXZ	5439	off	prop	
 0x40371F	0x4C8710	?Create_Variable@ExprMathFloatFactoryClass@@UAE?AV?$RefCountPtr@V?$ExprMathEvalClass@M@@@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z		4442	off		
 0x403729	0x793670	?Unknown_04@CameraController04Class@@UAEXXZ		7159	off		
@@ -2766,7 +2766,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x405B50	0x5BBC70	?Unknown_2C@UIMFDItemClass@@UAEHXZ		13145	off		
 0x405B55	0x895F80	??0JobListPacketClass@@QAE@PAVPacketClass@@@Z	??0JobListPacketClass@@QAE@PAVRawPacketClass@@@Z	3234	on	prop	confirmed
 0x405B5A	0x4DB990	??0AttribFunctionModClass@@QAE@ABV?$RefCountPtr@VAttribValueFunctionClass@@@@HPAX@Z		9686	off		
-0x405B5F	0x679930	?Unknown_0C@CharacterViewClass@@UAEH_N@Z		4439	off		
+0x405B5F	0x679930	?Render@CharacterViewClass@@UAEH_N@Z	?Unknown_0C@CharacterViewClass@@UAEH_N@Z	3235	on	t1a-vt ??_7CharacterViewClass@@6B@[3] from ??_7Unknown514CC0ViewClass@@6B@	confirmed
 0x405B64	0x703EC0	?Read@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBuffer@@ABVDurationClass@@@Z	?Read@?$DeltaTemplateClass@VVector3@@@@UAE_NAAVLinearBufferClass@@ABVDurationClass@@@Z	4490	off	prop	
 0x405B69	0x5AAE20	??_ELineDisplayInterface@@W3AEPAXI@Z	??_EUILineDisplayClass@@W3AEPAXI@Z	3237	on	t2-class UILineDisplayClass->LineDisplayInterface chance 6.4e-10 S12	confirmed
 0x405B73	0x7150C0	?Unknown_7150C0@Unknown714E10Struct@@QAEXHABVQuaternion@@@Z		10629	off		
@@ -2830,6 +2830,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x405CE5	0x4CDFC0	?Evaluate@?$ExprMathEvalLessClass@H@@UAEHPAV?$ExprMathContextClass@H@@@Z		7879	off		
 0x405CEA	0x823840	?Fill@StreamConnectionClass@@QAEXXZ		1567	off		
 0x405CEF	0x8A3370	??0StarbaseTowPacketClass@@QAE@PAVPacketClass@@@Z	??0StarbaseTowPacketClass@@QAE@PAVRawPacketClass@@@Z	3293	on	prop	confirmed
+0x405CF4	0x87AC30	?Get_Data_Size@ChatBasicRequestPacketClass@@UAEHXZ		3294	on	t1a-vt ??_7Packet_00A7Class@@6B@[3] from ??_7Packet_0077Class@@6B@	confirmed
 0x405CFE	0x4C8800	??4?$RefCountPtr@V?$ExprMathEvalClass@M@@@@QAEABV0@ABV0@@Z		10950	off		
 0x405D08	0x726AF0	?Get_Address@ConnectionClass@@UAEIXZ		12528	off		
 0x405D12	0x821400	?Create_Connection@@YAPAVConnectionClass@@KG_N0@Z		5906	off		
@@ -4056,7 +4057,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x407ED7	0x4804F0	?Get_Obj_Space_Bounding_Box@ProxyRenderObjClass@@UBEXAAVAABoxClass@@@Z	?Get_Obj_Space_Bounding_Box@ProxyRObj@@UBEXAAVAABoxClass@@@Z	4679	on	t2-class ProxyRObj->ProxyRenderObjClass chance 6.2e-109 C	confirmed
 0x407EDC	0x821FF0	?Receive@BufferedConnectionClass@@UAEPAVPacketClass@@XZ	?Receive@PeekConnectionClass@@UAEPAVPacketClass@@XZ	7211	off	prop	
 0x407EE1	0x88C130	??0GuildSimpleClientSectorPacket@@QAE@HHPBD@Z	??0GuildSimpleClientSectorPacketClass@@QAE@HHPBD@Z	2667	off	prop	
-0x407EE6	0x69C0D0	?Unknown_10@StarbaseViewClass@@UAEXXZ	?Unknown_10@SBaseViewClass@@UAEXXZ	11561	off	prop	
+0x407EE6	0x69C0D0	?Shutdown@StarbaseViewClass@@UAEXXZ	?Unknown_10@SBaseViewClass@@UAEXXZ	4681	on	prop; t1a-vt ??_7SBaseViewClass@@6B@[4] from ??_7MainViewClass@@6B@	confirmed
 0x407EF5	0x751460	?Unknown_751460@SpaceClientClass@@QAEXHH@Z	?Unknown_751460@SClient@@QAEXHH@Z	11200	off	prop	
 0x407EFA	0x5DB2D0	?Unknown_54@PopupBrowserInterface@@UAEXXZ	?Unknown_54@UIPopupBrowserClass@@UAEXXZ	9981	off	prop	
 0x407EFF	0x6B63B0	?Close@StandardFileClass@@QAE_NXZ		4687	on		confirmed
@@ -4420,7 +4421,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x408864	0x706450	?Get@?$DeltaTemplateAccessorClass@I@@UAEABIXZ		8952	off		
 0x408869	0x4455C0	?Unknown_4455C0@@YAPADXZ		11365	off		
 0x408873	0x896A90	??1JobDescriptionPacketClass@@UAE@XZ		5068	on		confirmed
-0x408887	0x69C5E0	?Unknown_0C@StarbaseViewClass@@UAEH_N@Z	?Unknown_0C@SBaseViewClass@@UAEH_N@Z	12004	off	prop	
+0x408887	0x69C5E0	?Render@StarbaseViewClass@@UAEH_N@Z	?Unknown_0C@SBaseViewClass@@UAEH_N@Z	5073	on	prop; t1a-vt ??_7SBaseViewClass@@6B@[3] from ??_7Unknown514CC0ViewClass@@6B@	confirmed
 0x40888C	0x8A61C0	??1ServerReadyPacketClass@@UAE@XZ	??1Packet_003BClass@@UAE@XZ	5074	on	t1c-suffix ours ??1Packet_003BClass@@UAE@XZ	confirmed
 0x40889B	0x5875C0	??0ViewUnknown34Class@@QAE@PAVUIViewClass@@ABVLayerClass@@@Z		12209	off		
 0x4088A0	0x7292A0	??_G?$HashNodeClass@PAVUnknown831340Class@@VHashDefaultUserClass@@@@UAEPAXI@Z		8510	off		
@@ -7649,7 +7650,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x40E1AB	0x868520	?Process_Packet@TaskPongPacketClass@@UAE_NPAX@Z	?Process_Packet@Packet_138EClass@@UAE_NPAX@Z	7884	on	t2-class Packet_138EClass->TaskPongPacketClass chance 2.7e-09 S09	confirmed
 0x40E1B5	0x671410	??0Unknown_671300Class@@QAE@PAVRenderObjClass@@HHHH@Z		10441	off		
 0x40E1BA	0x707600	??_GDeltaElementClass@@UAEPAXI@Z		13089	off		
-0x40E1BF	0x692420	?Unknown_0C@LoadingViewClass@@UAEH_N@Z		1392	off		
+0x40E1BF	0x692420	?Render@LoadingViewClass@@UAEH_N@Z	?Unknown_0C@LoadingViewClass@@UAEH_N@Z	7886	on	t1a-vt ??_7LoadingViewClass@@6B@[3] from ??_7Unknown514CC0ViewClass@@6B@	confirmed
 0x40E1C4	0x560760	?Unknown_58@BioInterface@@UAEXXZ	?Unknown_58@UIBioClass@@UAEXXZ	12835	off	prop	
 0x40E1DD	0x8A3FD0	??_GStarbaseAvatarRoomUpdatePacketClass@@UAEPAXI@Z		7889	on		confirmed
 0x40E1E2	0x8689A0	?Process_Packet@RegistrationResultPacketClass@@UAE_NPAX@Z	?Process_Packet@Packet_004DClass@@UAE_NPAX@Z	7889	on	t2-class Packet_004DClass->RegistrationResultPacketClass chance 6.4e-12 S15	confirmed
@@ -8176,7 +8177,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x40F029	0x4FCBD0	??0SymbolTableClass@@QAE@XZ	??0SymbolSubstitutionClass@@QAE@XZ	8175	on	t2-class SymbolSubstitutionClass->SymbolTableClass chance 1.3e-07 S01	confirmed
 0x40F02E	0x87FB40	?Build@CreatePacketClass@@UAEPAVPacketClass@@XZ	?Build@CreatePacketClass@@UAEPAVRawPacketClass@@XZ	2183	off	prop	
 0x40F033	0x66BE90	??_GRenderObjGadgetClass@@MAEPAXI@Z	??_GRObjGadgetClass@@UAEPAXI@Z	8176	on	t2-class RObjGadgetClass->RenderObjGadgetClass chance 3.5e-07 B	confirmed
-0x40F038	0x50CAE0	?Unknown_0C@MainViewClass@@UAEH_N@Z		10709	off		
+0x40F038	0x50CAE0	?Render@MainViewClass@@UAEH_N@Z	?Unknown_0C@MainViewClass@@UAEH_N@Z	8176	on	t1a-vt ??_7MainViewClass@@6B@[3] from ??_7Unknown514CC0ViewClass@@6B@	confirmed
 0x40F03D	0x889E50	??1GroupServerCreatePacketClass@@UAE@XZ	??1Packet_00B0Class@@UAE@XZ	8177	on	r1 class Packet_00B0Class->GroupServerCreatePacketClass	confirmed
 0x40F047	0x7F98B0	?Get_Default_Int@OptionManagerClass@@QAEHPBD@Z	?Get_Default_Int@OptionClass@@QAEHPBD@Z	6620	off	prop	
 0x40F04C	0x479A50	?Save_Decorations@LandClass@@QAEXAAV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AAV?$vector@ULandDecorationStruct@@V?$allocator@ULandDecorationStruct@@@std@@@3@PBD@Z		3123	off		
@@ -9995,7 +9996,7 @@ slot	target	name	original	bucket	on_order	how	grade
 0x412120	0x44B640	?Unknown_Dyn84@DynamicObjectClass@@UAEHXZ	?Unknown_Dyn84@DynObj@@UAEHXZ	10247	off	prop	
 0x41212A	0x72F900	?size@?$vector@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ULegoChildStruct@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ULegoChildStruct@@@std@@@std@@@2@@std@@QBEIXZ		9845	off		
 0x41212F	0x6E6870	?Unknown_08@EffectClass@@UAE?AVVector3@@ABV2@@Z	?Unknown_08@EffectObjectClass@@UAE?AVVector3@@ABV2@@Z	7332	off	prop	
-0x412134	0x82DD70	??_GCordMgrTask@@UAEPAXI@Z	??_GCordMgrTaskClass@@UAEPAXI@Z	9632	off	prop	
+0x412134	0x82DD70	??_ECordMgrTask@@EAEPAXI@Z	??_GCordMgrTaskClass@@UAEPAXI@Z	10177	on	prop; t1a-vt ??_7CordMgrTaskClass@@6B@[1] from ??_7TaskClass@@6B@	confirmed
 0x41213E	0x88D2B0	??0GuildMessageSectorPacket@@QAE@PAVPacketClass@@@Z	??0GuildMessageSectorPacket@@QAE@PAVRawPacketClass@@@Z	10178	on	prop	confirmed
 0x412143	0x83C440	?_Construct@std@@YAXPAPAU?$_Hashtable_node@U?$pair@$$CBHV?$RefCountPtr@VGalaxyMapGateClass@@@@@std@@@1@ABQAU21@@Z		7862	off		
 0x412152	0x6A82F0	?Unknown_0C@SlotDataRenderClass@@UAEXAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z		5826	off		

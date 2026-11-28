@@ -2068,6 +2068,11 @@ are in 3.0.
   randomized per process). (c) A deleting destructor has two spellings, `??_G` and `??_E` (often in two slots): test both.
   (d) A class confirmed on a few slots may be a split of two retail classes: an anchor that still spells our class
   name means do not propagate the rename (`propagate.py`).
+  (e) Vtable families are per index (`vt.families`): two vtables are the same virtual at index k only when joined by
+  an entry shared at an index >= k, or below the length of the shortest vtable holding a shared entry. One
+  family over all indexes (union-find on any shared entry) joins every RefCountClass descendant through
+  `Delete_This` at [0] and hands Policy's `Evaluate` the mappers' `Get_Scene_ID` (2026-11-27; tier1a's templates
+  and tier2_methods' override groups both used it).
 
 ### 3.7 Harnesses, programs, unattended runs
 
