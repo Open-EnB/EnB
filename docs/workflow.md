@@ -2089,6 +2089,20 @@ are in 3.0.
 * **budgetdev.py: a device that is free for the exact functions can hold a NOT EXACT function's cut** (an optdlg device was dropped by an apply that measured exact pairs only): measure every function's residue in the file.
 * **behaudit.py (tools/re, the standing literal / relocation / argument audit) and client.py: what they cannot see:** the R5 / R6 masking never aligned switch jump rows; pairing by demangled name mixes overloads (and `client.py dis` names a thunk by its demangled name, overloads alike); the data check compares only up to the next symbol, and datacmp compares function pointers raw. D185 variant stashes (`seeds`) go stale after renames: re-run the check before adopting one. A 2-byte change in a function's length moves the filler before its jump table.
 * **A stale marker plus its blank padding is credited to the next function** (galaxy_map_render's blanked markers): check the neighbour's pairs after blanking one.
+* **Thunk-order names (tools/re/thunknames, binary.md §5.11):** (a) find or rename a class inside a decorated name only
+  with `tools/re/thunknames/mangle.py`: a "not after an identifier character" boundary misses the class after `??0` /
+  `??1` / `??_G` / `??_E` and after its type code (`PAVFoo@@`), and a plain `replace(old + '@')` renames inside
+  longer names (`GuildPacket@`) and the method name (`?Foo@Foo@@`); both missed cases cost ~840 anchors on
+  2026-11-26. (b) Never accept on a modelled chance alone: score every kind or round against a null (random names,
+  the window shifted, or other classes' candidates), seeded deterministically (Python's `hash()` of a string is
+  randomized per process). (c) A deleting destructor has two spellings, `??_G` and `??_E` (often in two slots): test both.
+  (d) A class confirmed on a few slots may be a split of two retail classes: an anchor that still spells our class
+  name means do not propagate the rename (`propagate.py`).
+  (e) Vtable families are per index (`vt.families`): two vtables are the same virtual at index k only when joined by
+  an entry shared at an index >= k, or below the length of the shortest vtable holding a shared entry. One
+  family over all indexes (union-find on any shared entry) joins every RefCountClass descendant through
+  `Delete_This` at [0] and hands Policy's `Evaluate` the mappers' `Get_Scene_ID` (2026-11-27; tier1a's templates
+  and tier2_methods' override groups both used it).
 
 ### 3.7 Harnesses, programs, unattended runs
 
