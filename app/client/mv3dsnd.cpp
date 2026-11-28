@@ -139,8 +139,8 @@
 
 
 
-// NOT EXACT: functional (M1): inline budget (attempts.py show 0x7EDCB0): the client calls GenericList's constructor, HashListClass::Find (0x7EEBD0), the node's constructor (0x7EED40) and Add(node) (0x7EEE00) out of line and expands Add(record, key) around the last two; under the inline_depth(0) below Add(record, key) is written out by hand, so all four are calls as the client's, but Set_List_Created is a call too (the client sets the flag inline: 'or [node+0x18], 0x20')
-#pragma inline_depth(0)
+// NOT EXACT: functional (M1): 16 masked rows (attempts.py show 0x7EDCB0): the lookup through 0x7EE830 (inlined: defined later in the file) and twelve dead Num_Records() reads at the token loop's end (D272) give the client's calls (GenericList, Find, the node's constructor, Add(node), Unlink out of line); left: the frame (8 bytes more), the missing-Name assert inline (the client's sits after the loop), the Loop default's bool
+
 // 0x7EDCB0
 Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
 {
@@ -176,11 +176,11 @@ Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
 		ini.Get_String(entry_section, "Anim", "1", anims, 255);
 		for (char *token = strtok(anims, ", 	"); token != NULL; token = strtok(NULL, ", 	")) {
 			int id = atoi(token);
-			HashNodeClass<MeshSoundListClass *> *node = Find(id);
-			MeshSoundListClass *list;
-			if (node == NULL || (list = node->Get_Record()) == NULL) {
+			MeshSoundListClass *list = Unknown_7EE830(id);
+
+			if (list == NULL) {
 				list = new MeshSoundListClass;
-				HashNodeClass<MeshSoundListClass *> *added = new HashNodeClass<MeshSoundListClass *>(list, id); Set_List_Created(added); Add(added);
+				Add(list, id);
 			}
 			char key[256];
 			sprintf(key, "Time%d", id);
@@ -201,13 +201,13 @@ Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
 			sound->PitchSpeed = pitch_speed;
 			sound->PitchChange = pitch_change;
 			sound->PlaybackRate = playback_rate;
-			sound->Mono = mono;
+			sound->Mono = mono; Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records(); Num_Records();
 		}
 		}
 	}
 }
-#pragma inline_depth()
-// NOT EXACT: functional (M1): exception states, the client's inlined ~HashListClass sets none for the list's two nodes (base and member forms of the hash list give the same; attempts.py show 0x7EE340)
+
+// exact since the constructor lost its inline_depth(0) device (B10 2026-11-28): the exception states came from it
 // 0x7EE340
 Movie3DSoundClass::~Movie3DSoundClass()
 {
@@ -277,9 +277,9 @@ MeshSoundListClass *Movie3DSoundClass::Unknown_7EE830(int id)
 **	not tell (both forms compile every function the same); the base is kept. asserts.txt's 'movie3d.ini' for this
 **	file is mv3dview.cpp's 0x7EEF90: no function here names the file.
 **
-**	The constructor sits inside '#pragma inline_depth(0)' (a device, not the client's: it sends Find out of line as the
-**	client has it, so 0x7EEBD0 is exact, and costs nothing elsewhere; a file-end inline_depth(0..3) loses 0x7EE690 ..
-**	0x7EE830). 0x7EE5C0 / 0x7EEAD0 (the two List destructors), their deleting 0x7EEAA0 / 0x7EEBA0 and the node's
+**	The constructor's lookup goes through 0x7EE830, which VC6 inlines there (a later definition in the file), and
+**	twelve dead Num_Records() reads after its last site cut the client's nested expansions (B10 2026-11-28, D272;
+**	it replaced an inline_depth(0) device). 0x7EE5C0 / 0x7EEAD0 (the two List destructors), their deleting 0x7EEAA0 / 0x7EEBA0 and the node's
 **	0x7EED80 / 0x7EEDB0 are compiled byte-identical and tie with other files' copies (objmatch 'multiple'): they are
 **	credited by their symbols_named.json rows (the unwind funclets of 0x7EE340 / 0x7EE8A0 and the tables, O5
 **	2026-11-12). 0x7EED40 and 0x7EEE00 come with 0x7EDCB0's Add(record, key).
