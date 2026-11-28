@@ -1,0 +1,61 @@
+# Sol individual investigation: UIComboBoxClass::Unknown_68 0x57A060
+
+No new matched function and no eligible source change. Five changed inputs compiled in three purposeful batches; each preserves all 100 original isolated file/address pairs and all 101 symbol/address pairs, with zero gains. All five target bodies are distinct raw and relocation-masked groups, and all differ from the 27 groups produced by the 38 Terra inputs. None matches the target. The three consecutive batches did not reduce the prior best zero-loss residue of 32 masked rows / diagnostic similarity .44. Compiler/staging gate explicitly released; no pending compiler, runner or analysis process and no VM lease.
+
+The original production source and staging source both remain SHA-256 369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00 on base b0f0f58d369b09aa14939bf2baac3ef5685507e6. Root owns tracked attempt/name/ledger changes, integration and commits. This worker changed only scratch files below /home/dev/Projects/EnB/.work/claim-322/57A060/sol and this report; no production, header, snapshot, tracked inventory, commit or external write.
+
+## Inputs, prior evidence and reassessment
+
+Read AGENTS.md, the full supplied user prompt at /home/dev/Projects/EnB/.work/fresh-session-prompt.txt, bounded startup sections, current complete attempts.py show histories for both addresses, and /home/dev/Projects/EnB/.work/claim-322/{brief.md,group-brief.md,sol-brief.md,baseline-coverage.md}. Actual prior sources/diffs for all 35 first-pass key forms and all three group forms, their replay/record/summary data, and the relevant baseline/default_accessor/diagnostic/group objects were inspected. This was not an investigation based solely on similarity scores. Related actual exact source includes Select, Select_Text, Add_Item, Has_Label, Get_Selected_Text, Toggle, Scroll, Update_Drop_Down, global min and the claim314 real loop-layer precedent.
+
+Important prior facts were independently checked against actual COFF references and helper code:
+
+* default_accessor preserves all isolated pairs and reproduces retail's selection prefix. It calls actual Scroll at relocation +0x138, then expands the other Scroll copy, with vector size and Clamp calls in that expansion. Retail shares one actual Scroll call between both open tails.
+* group_bounds calls its new inner bounding helper at +0x15d/+0x22b; group_combined calls its new predicate and bounding helper, with no actual Scroll reference. A smaller target does not establish the required call identity.
+* The both-branch diagnostic actually enlarges standalone Scroll from 157 to 235 bytes through duplicated size evaluations and arm-local stores; both_one_limit is 165 bytes with a different compare/store CFG. These are substantive standalone regressions.
+* min_value_clamp retains the exact 157-byte standalone Scroll, Toggle and Clamp but loses Unknown_60 and leaves target unmatched. A real local can change nested expansion without changing a standalone body, but that observation alone is not a solve.
+* Root's rejected best_both_branches target audit remains target-only evidence: its 512 instruction bytes, 32 table bytes and referents are resolved, but its four preexisting pair losses disqualify it. No new form in this phase duplicates that target.
+
+This suggested investigating actual caller-level actions/control flow. The prior wrappers were inside Toggle/Scroll; the selected-row action and target-local sharing had not been tested. All new hypotheses preserve selection's Owner callback before reading the open-combo global and use actual existing helper bindings.
+
+## Purposeful batches and actual outcomes
+
+| Batch | Form | Target COFF span | Masked residue | Diagnostic similarity | Original pairs |
+|---|---|---:|---:|---:|---|
+| 1 | row_action | 600 | 114 | .21 | 100/100 file, 101/101 symbol |
+| 2 | expanded_toggles | 756 | 212 | .21 | 100/100 file, 101/101 symbol |
+| 2 | shared_open_tail | 648 | 121 | .22 | 100/100 file, 101/101 symbol |
+| 3 | select_fallthrough | 532 | 145 | .24 | 100/100 file, 101/101 symbol |
+| 3 | row_action_direct_select | 560 | 97 | .37 | 100/100 file, 101/101 symbol |
+
+Batch 1 grouped the genuine selected-row action, Select followed by Toggle, into a file-local inline operation. Its callback remains before Toggle's global reads; standalone helpers were untouched. This changes nesting around both operations, unlike prior helpers inside Toggle. The target is a new 600-byte group but still has only one actual Scroll call (+0xc2), with the other expanded. Show_Selected and Close_Drop_Down go out of line on the selected-row path, losing the previously correct prefix. It is a no-cut result, not an improvement inferred from its smaller size.
+
+Batch 2 directly spells both observed Toggle switch operations in the target while leaving standalone Toggle/Scroll untouched. expanded_toggles produces 756 bytes: Show_Selected is called and both Scroll operations expand. The common-open-tail interaction form sends the two nonempty state-zero paths to one actual source Scroll/Update_Rows/state=1 region, faithfully representing retail's observed convergence without sharing any precallback work. It is 648 bytes, but the common Scroll still expands and Show_Selected remains called. Both source switch tables have the same structural entries as retail under explain; the code and expansion boundary remain wrong. This batch does not cut the actual residue.
+
+Batch 3 tests a natural target select-then-fallthrough into case 1's Toggle. Its 532-byte span contains 515 executable bytes and one switch table: the compiler shares the entire Toggle prefix, whereas retail duplicates that prefix and merges only the open tails. The sole Scroll expands; the apparently close size is unrelated to exactness. row_action_direct_select is a causal refinement of batch 1: express Select's actual clamp/store/display/callback operations directly inside the selected-row action to restore Show_Selected's original nesting depth, retaining the action boundary around Toggle. It restores the selected-text vector-size call (+0x72), but sends the entire selected-row Toggle out of line (+0xbe) while the arrow-path Scroll expands. The 560-byte result still lacks retail's two Toggle copies/common actual Scroll call. No-cut batch three ends compilation.
+
+## Replay, grouping and preservation evidence
+
+Every compiled input has its actual source and hash in /home/dev/Projects/EnB/.work/claim-322/runs/sol_key_NAME/{input.cpp,input.json}, canonical compile response/log, object, matches and result. Every per-form folder /home/dev/Projects/EnB/.work/claim-322/57A060/sol/NAME contains ui_combobox.cpp, a written precompile hypothesis.md, revision/base-hash-bound lossless replay.json, replay-verified record.json, objdiff.txt and explain.txt. Each record contains the two complete original/current pair sets and deltas, target/helper raw/masked hashes and references/addends. Records are 22,029-22,876 bytes each, below 64 KB. prepare.py regenerates the sources/replays; analyze.py processes explicit unique run names; summarize.py verifies hashes, replayed actual inputs, complete pair preservation and supporting body comparisons. The complete machine-readable result is /home/dev/Projects/EnB/.work/claim-322/57A060/sol/summary.json.
+
+| Form | Source SHA-256 | Target raw/masked SHA-256 |
+|---|---|---|
+| row_action | d47d00bee84f29c9fd748e8c08060907f8bdad5ea16afe80b3f39e6e9772a5a2 | 048fe0a34e7d2c2b4926ed36c41da3f9c8b69ab4983f552803196edb5e01e92b |
+| expanded_toggles | b9aa6c30b3f6b0e784edb0373273b22a06b6c3aeaf7df059b60ce6d7d2df5130 | f7622781496c1b1bae28c7a25cff1a02544603537918ba00288ec999a0cfd2b6 |
+| shared_open_tail | 4cd9b6bbe3ac05b248723834a0d7e85b1824d8ba17bb1aa961c68ff98b5bdf8d | 94c826fef90d1474f1ec05f83cb3fd69dc09cd2eb259df0e15bf5ccb84b56356 |
+| select_fallthrough | 557cefef79db6b44a38a015086127f325e6654ad164b7558717641359d1083c9 | c2d105354091395977b6ef9f280bf2ff0d5995978acd6d65c7a934599893b00e |
+| row_action_direct_select | 67638d2343a492523cb8adec3ac25a27a65cc6baa08204e6b5817b87678a218f | d5dd29ea238ab45200520ba7e57f8e02c945147bfe695f5b2102c87db8f22092 |
+
+Raw and masked target hashes coincide because the relocation words are already zero; their equality does not prove referents or semantics. The explicit reference identities in records support the expansion diagnoses above.
+
+All five forms keep exact standalone Scroll, Toggle, Unknown_60 and unsigned Clamp; their complete COFF spans and normalized reference identities equal baseline. Select and Select_Text likewise have equal spans/references despite Show_Selected's use of the existing Get_Selected_Text accessor. Add_Item's span bytes also equal baseline, while its external compiler-generated EH label spelling changes; this is recorded explicitly rather than treating an unresolved generated label as a complete EH proof. No full EH graph, final target audit or full-context retention audit was required or claimed, since no new target matches. Authoritative untouched context coverage remains root's 102/102; the exploratory results here are isolated 100/101 preservation.
+
+There were exactly five changed valid compiler inputs, five unique new raw groups and five unique new masked groups, zero duplicate outputs, zero unchanged/metadata/rebased controls, zero compiler-invalid or semantic-invalid compiles, zero compiler launch/guard failures and zero generated-but-uncompiled proposals. One initial read-only explain invocation omitted ENB_RETAIL_INSTALL and failed before reading client; the corrected canonical-env invocation succeeded. A summary assertion initially treated Add_Item's changed compiler-generated EH label spelling as a stable symbol identity; the comparison was corrected to report raw byte equality separately and disclaim an EH graph audit. Neither analysis issue launched a compiler or changed a candidate.
+
+## Exhaustion and reopening
+
+The new action/control-flow mechanisms produced real new outputs but not the required combination of retail's correct selection prefix, two Toggle prefixes, one common actual Scroll call and all exact supporting bodies. Existing inner layers outline smaller operations; caller action layers instead outline Show_Selected, Close_Drop_Down or the entire Toggle; target CFG factoring shares too much or still expands Scroll. Three consecutive no-cut batches establish bounded exhaustion of these concrete hypotheses. This is not a claim that every equivalent C++ spelling has been tried.
+
+No further concrete distinct useful source hypothesis is left from this evidence. Reopening requires a demonstrated new operation/type/lifetime or compiler mechanism that preserves the exact Scroll/Toggle/Unknown_60/Clamp consumers while producing the missing actual Scroll boundary, or newly evidenced source structure distinguishing the needed selective tail sharing. More wrapper spellings, another branch/local-bound variation or a smaller section alone do not provide that evidence. Shared-header work would require root scope approval and all-consumer proof; no such proposal emerged. Fake helper/address binding, arbitrary state/types/reads, volatile, padding, assembly, pragmas or compiler flags remain excluded. Root independently determines current attempt-tool limits and any permitted future lever.
+
+Final state: compiler/staging gate RELEASED; last canonical runner and analyzer completed; production/staging hash equals original; no compiler job, pending analysis job, runtime instance or VM lease. No source candidate is proposed for integration.

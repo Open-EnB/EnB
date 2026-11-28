@@ -1,0 +1,917 @@
+{
+  "base_revision": "b0f0f58d369b09aa14939bf2baac3ef5685507e6",
+  "base_path": "app/client/ui_combobox.cpp",
+  "base_sha256": "369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00",
+  "records": [
+    {
+      "name": "baseline",
+      "source_sha256": "369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00",
+      "patch": "",
+      "model": "Codex coordinator",
+      "classification": "unchanged_control",
+      "changed": false,
+      "completed": true,
+      "object_sha256": "1a29607bd5c7861844ee2b74886fc49670cb1b96caa9ba547311b2ff7ce78e5d",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_bounds",
+      "source_sha256": "8bf8d830372104dd22eada780e716581eda0ce1f18676129eda24ea24878650c",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -538,13 +538,13 @@\n \tUpdate_Rows();\n \tNumRows = 0;\n }\n-\n+static inline void Bound_Selected_Top_Item(UIComboBoxClass *box) { box->TopItem = min((unsigned)box->Selected, box->Items.size() - box->NumRows); box->TopItem = Unknown_Clamp(box->TopItem, 0u, box->Items.size() - box->NumRows); }\n // 0x57B2F0\n void UIComboBoxClass::Scroll_To_Selected()\n {\n \tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n-\t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n-\t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n+\t\tBound_Selected_Top_Item(this);\n+\n \t} else {\n \t\tTopItem = 0;\n \t}\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "41720d4f81e08da065a1c4faf1c6f5905dba7fb036bd0ddeadf1e5afb898d8d2",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 648,
+            "raw_sha256": "1ad45112b89ea383625a06c4eff5b73716fbf620a44db7be10453e7df49f26fa",
+            "masked_sha256": "1ad45112b89ea383625a06c4eff5b73716fbf620a44db7be10453e7df49f26fa",
+            "diagnostic_similarity": "similarity 0.44",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_combined",
+      "source_sha256": "f36947e2b79015506101f68ebe482fbf0b922ef7231f4aef9e70c54acd819505",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -538,13 +538,14 @@\n \tUpdate_Rows();\n \tNumRows = 0;\n }\n-\n+static inline bool Can_Scroll_Selection(UIComboBoxClass *box) { return (int)box->Items.size() > box->NumRows && box->Slider->Is_Enabled(); }\n+static inline void Bound_Selected_Top_Item(UIComboBoxClass *box) { box->TopItem = min((unsigned)box->Selected, box->Items.size() - box->NumRows); box->TopItem = Unknown_Clamp(box->TopItem, 0u, box->Items.size() - box->NumRows); }\n // 0x57B2F0\n void UIComboBoxClass::Scroll_To_Selected()\n {\n-\tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n-\t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n-\t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n+\tif (Can_Scroll_Selection(this)) {\n+\t\tBound_Selected_Top_Item(this);\n+\n \t} else {\n \t\tTopItem = 0;\n \t}\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "6447a8a394fb628c021ada1202c1480f15f8bbbfc42d1a0ac864998ab7184abc",
+      "output": {
+        "gained": [],
+        "lost": [
+          "0x579DC0"
+        ],
+        "symbol_gained": [],
+        "symbol_lost": [
+          [
+            "?Unknown_60@UIComboBoxClass@@UAEXXZ",
+            "0x579DC0"
+          ]
+        ],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 608,
+            "raw_sha256": "0f250fa5c93d0fbc4014bb3bb19c52f142c63063a1ecf9f0366e0d050b230d09",
+            "masked_sha256": "0f250fa5c93d0fbc4014bb3bb19c52f142c63063a1ecf9f0366e0d050b230d09",
+            "diagnostic_similarity": "similarity 0.51",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "group_predicate",
+      "source_sha256": "8be5b6afa1a95cfa8c9b7c557c42153a5d3db66227b7dcba7b4540104636e82e",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -538,11 +538,11 @@\n \tUpdate_Rows();\n \tNumRows = 0;\n }\n-\n+static inline bool Can_Scroll_Selection(UIComboBoxClass *box) { return (int)box->Items.size() > box->NumRows && box->Slider->Is_Enabled(); }\n // 0x57B2F0\n void UIComboBoxClass::Scroll_To_Selected()\n {\n-\tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n+\tif (Can_Scroll_Selection(this)) {\n \t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n \t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n \t} else {\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "8ac6fe65cca38eaf86e4f9643e026b783256c7a307cca7f09aa62f65d2e4744d",
+      "output": {
+        "gained": [],
+        "lost": [
+          "0x579DC0"
+        ],
+        "symbol_gained": [],
+        "symbol_lost": [
+          [
+            "?Unknown_60@UIComboBoxClass@@UAEXXZ",
+            "0x579DC0"
+          ]
+        ],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 688,
+            "raw_sha256": "f7942803d7861622f615e6f4e28ae8655bc24394823e0034570c60b30195a3c5",
+            "masked_sha256": "f7942803d7861622f615e6f4e28ae8655bc24394823e0034570c60b30195a3c5",
+            "diagnostic_similarity": "similarity 0.41",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_box_value",
+      "source_sha256": "86f94c263db6478855bc7ad942295aef59d43b7dac088ae7d83586cb1015e57d",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -79,7 +79,7 @@\n \tMesh->Peek_Object()->Add_Sub_Object_To_Bone(Text, Bone);\n \tUnknown_497240(Mesh->Peek_Object(), false);\n \tVector3 pos = Text->Get_Position();\n-\tfloat height = Text->Get_Bounding_Box().Extent.Y;\n+\tAABoxClass box = Text->Get_Bounding_Box(); float height = box.Extent.Y;\n \tText->Unknown4E4 = false;\n \tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n }\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "66f506871e6a7c427855988a14b1a31a061aef7f49374a95e65eef2e9dbf311f",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_extent_vector",
+      "source_sha256": "65bf1f0ba1a8cd8732bbd3cbec39cd84c8a461e377250728ce506cec3306093e",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -79,7 +79,7 @@\n \tMesh->Peek_Object()->Add_Sub_Object_To_Bone(Text, Bone);\n \tUnknown_497240(Mesh->Peek_Object(), false);\n \tVector3 pos = Text->Get_Position();\n-\tfloat height = Text->Get_Bounding_Box().Extent.Y;\n+\tVector3 extent = Text->Get_Bounding_Box().Extent; float height = extent.Y;\n \tText->Unknown4E4 = false;\n \tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n }\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "8a36b877eed5b1a05b076bce9ff9a237b82f061ff98dec4e4dbc4b38d03d1805",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 257,
+            "raw_sha256": "a5d156b26d61ec293f940716ae6b181930d7cf70d52fe52d994d56038bdc0de3",
+            "masked_sha256": "a5d156b26d61ec293f940716ae6b181930d7cf70d52fe52d994d56038bdc0de3",
+            "diagnostic_similarity": "similarity 0.77",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_float_bounds",
+      "source_sha256": "82c00c0ea712b8a9565468beff9433519aa9384d0a041ac86d49be95c5f961eb",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tfloat bottom = pos.Y - height; height += pos.Y; Text->Unknown_6D88F0((int)pos.X, (int)height, (int)(Width + pos.X), (int)bottom);\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "fad5c0cc9f74fadd1ae59c5ebe451c58e606d503a6cf39186acb4849788a7c43",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_height_const",
+      "source_sha256": "c75f5e02f960b0eeccc5d52238c752119be7468ecf297ff6b223f4efde90a78a",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -79,7 +79,7 @@\n \tMesh->Peek_Object()->Add_Sub_Object_To_Bone(Text, Bone);\n \tUnknown_497240(Mesh->Peek_Object(), false);\n \tVector3 pos = Text->Get_Position();\n-\tfloat height = Text->Get_Bounding_Box().Extent.Y;\n+\tconst float height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n \tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n }\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "99261d90a92c42fa77aafd180c7688b8a6a9b32d1977639f666481270d2de9da",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_height_double",
+      "source_sha256": "7ffb9b19b9bb661ac644a0ebf538ea02bc4ab2a76f9b06c6e4046dbed8203326",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -79,7 +79,7 @@\n \tMesh->Peek_Object()->Add_Sub_Object_To_Bone(Text, Bone);\n \tUnknown_497240(Mesh->Peek_Object(), false);\n \tVector3 pos = Text->Get_Position();\n-\tfloat height = Text->Get_Bounding_Box().Extent.Y;\n+\tdouble height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n \tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n }\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "85b8aa98c86745d3c1a54281472ea5ef8e35c61a01cbf4a4cbbf71322dd03db7",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_int_bottom",
+      "source_sha256": "f9f58c49fb6226b6c982c8b4cf8207343120ce3a02725061f6aef365eff7b1f7",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tint bottom = (int)(pos.Y - height); Text->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), bottom);\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "61c00f71e5666f22c3a5f2a348f068ec7be27b21b87f72e62f9c7f41372ce8df",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_int_bounds",
+      "source_sha256": "6b63ee5c018f3e7be93cefcb30e7aa1e18263bbd95d83241f8c7a6da51de86f2",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tint bottom = (int)(pos.Y - height); int right = (int)(Width + pos.X); int top = (int)(height + pos.Y); Text->Unknown_6D88F0((int)pos.X, top, right, bottom);\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "83439846d8d2d1f4f9de51d33c28f282490e0e824ecc932289bd271133494839",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_int_order_source",
+      "source_sha256": "be60d14fdaf90347d715770fb7ab4bc2d0a12b311b96803140d8f229e6733704",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tint left = (int)pos.X; int top = (int)(height + pos.Y); int right = (int)(Width + pos.X); int bottom = (int)(pos.Y - height); Text->Unknown_6D88F0(left, top, right, bottom);\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "3f8dd1c0bb2700b2203ebb2075a02e25668ae0a048a390ce69d5482e10261845",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_rect_byref",
+      "source_sha256": "7df3abadefa49f2661c0cf0d790cfb9c27e42755ee1684e11ad0069e2b3b98a9",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -69,7 +69,7 @@\n \tRObj = NULL;\n }\n \n-// NOT EXACT: shape (3 rows: the client adds pos.Y onto the height left on the FPU stack, ours loads pos.Y and pops the height after)\n+static inline void Combo_Bounds(FontSys *text, const Vector3 & pos, float height, int width) { text->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(width + pos.X), (int)(pos.Y - height)); } // NOT EXACT: shape (3 rows: the client adds pos.Y onto the height left on the FPU stack, ours loads pos.Y and pops the height after)\n // 0x578350\n void UIComboBoxTextClass::Init()\n {\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tCombo_Bounds(Text, pos, height, Width);\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "c6d813bf73d44b527e4e64f7aa878e05aec4b8624fcbc6f5459aceec385a371c",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_rect_byval",
+      "source_sha256": "a53f9c42b2fb8bbcc36ba585db2e60525b2afbee89e1f34a11ecd2b9f21eba50",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -69,7 +69,7 @@\n \tRObj = NULL;\n }\n \n-// NOT EXACT: shape (3 rows: the client adds pos.Y onto the height left on the FPU stack, ours loads pos.Y and pops the height after)\n+static inline void Combo_Bounds(FontSys *text, Vector3 pos, float height, int width) { text->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(width + pos.X), (int)(pos.Y - height)); } // NOT EXACT: shape (3 rows: the client adds pos.Y onto the height left on the FPU stack, ours loads pos.Y and pops the height after)\n // 0x578350\n void UIComboBoxTextClass::Init()\n {\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tCombo_Bounds(Text, pos, height, Width);\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "1901c4c54353f91ab148127aad0e6401ce20527e905e894f16f128662b63f79b",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 237,
+            "raw_sha256": "c696bde477df9a67ee108195064a0e6990b540cfdcc5b34302497a644c9a962f",
+            "masked_sha256": "c696bde477df9a67ee108195064a0e6990b540cfdcc5b34302497a644c9a962f",
+            "diagnostic_similarity": "similarity 0.69",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_ref_extent",
+      "source_sha256": "2368db3323b882870e8fe74e718afcfacd1a7dfd173df574aefced832bd44c69",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -79,7 +79,7 @@\n \tMesh->Peek_Object()->Add_Sub_Object_To_Bone(Text, Bone);\n \tUnknown_497240(Mesh->Peek_Object(), false);\n \tVector3 pos = Text->Get_Position();\n-\tfloat height = Text->Get_Bounding_Box().Extent.Y;\n+\tconst float &height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n \tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n }\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "5ae945ca1e36f6461cc7c8aede875fe612c333b898702f932987137959993893",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 256,
+            "raw_sha256": "477b996db86d4ea21f3d9fb2d833a86070a98c4f9bc3304a3ce2bd03e38fa90b",
+            "masked_sha256": "477b996db86d4ea21f3d9fb2d833a86070a98c4f9bc3304a3ce2bd03e38fa90b",
+            "diagnostic_similarity": "similarity 0.74",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_sequenced_height",
+      "source_sha256": "cbd5c3b7cc223ed0057ae92b77e63c93454cbe10431d7461578d4f6a3f30a574",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tint bottom = (int)(pos.Y - height); height += pos.Y; Text->Unknown_6D88F0((int)pos.X, (int)height, (int)(Width + pos.X), bottom);\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "bf1900788a4513a3a70b03ef4a08d5492e1909e9b844c10bc4511bd4d91e9a4b",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_y_double",
+      "source_sha256": "aaf197522474204b4b7f10512610a6764eb8e096430a3fe43c49a14ab6a6ca98",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tdouble y = pos.Y; Text->Unknown_6D88F0((int)pos.X, (int)(height + y), (int)(Width + pos.X), (int)(y - height));\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "3867d631d77244e664c6d2162788bc8c8da36dadcfe228989a5863dd25707718",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "c7ac7b7e87c6fe702fa4a6bd2a25bbc4fc0e5d06db0f9209599fa3f083ae6f61",
+            "masked_sha256": "c7ac7b7e87c6fe702fa4a6bd2a25bbc4fc0e5d06db0f9209599fa3f083ae6f61",
+            "diagnostic_similarity": "similarity 0.86",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "init_first_y_float",
+      "source_sha256": "663fd0e3e33aa262744b96bfe2d4acff81db69700273e7e572b1582daa1a2516",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -81,7 +81,7 @@\n \tVector3 pos = Text->Get_Position();\n \tfloat height = Text->Get_Bounding_Box().Extent.Y;\n \tText->Unknown4E4 = false;\n-\tText->Unknown_6D88F0((int)pos.X, (int)(height + pos.Y), (int)(Width + pos.X), (int)(pos.Y - height));\n+\tfloat y = pos.Y; Text->Unknown_6D88F0((int)pos.X, (int)(height + y), (int)(Width + pos.X), (int)(y - height));\n }\n \n // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "85ffc672f5fbe2083ff5ec8f65ce86ce44fbdcc0976bda20c731962d9119302c",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 676,
+            "raw_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "masked_sha256": "16d546c78859d76190ede35cf507cffa4935bf074abcaad406d8c12be429c407",
+            "diagnostic_similarity": "similarity 0.20",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "key_best_both_branches",
+      "source_sha256": "ca7932973b6777aff79eb1bdcf02afd9762735b0a4d42ce67db8d8a898acb300",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -543,8 +543,8 @@\n void UIComboBoxClass::Scroll_To_Selected()\n {\n \tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n-\t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n-\t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n+\t\tif ((unsigned)Selected < Items.size() - NumRows) TopItem = (unsigned)Selected; else TopItem = Items.size() - NumRows;\n+\t\tif (TopItem > Items.size() - NumRows) TopItem = Items.size() - NumRows;\n \t} else {\n \t\tTopItem = 0;\n \t}\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "8bd3c83fa5caa4414ec292b25d6e26a9966b7ac45523d1896675b84da80fbf6f",
+      "output": {
+        "gained": [
+          "0x57A060",
+          "0x57A310"
+        ],
+        "lost": [
+          "0x579DC0",
+          "0x57AE70",
+          "0x57B2F0",
+          "0x57BA10"
+        ],
+        "symbol_gained": [
+          [
+            "?Unknown_57A310@UIComboBoxClass@@QAEXXZ",
+            "0x57A310"
+          ],
+          [
+            "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "0x57A060"
+          ]
+        ],
+        "symbol_lost": [
+          [
+            "?Scroll_To_Selected@UIComboBoxClass@@QAEXXZ",
+            "0x57B2F0"
+          ],
+          [
+            "?Toggle_Drop_Down@UIComboBoxClass@@QAEXXZ",
+            "0x57AE70"
+          ],
+          [
+            "?Unknown_60@UIComboBoxClass@@UAEXXZ",
+            "0x579DC0"
+          ],
+          [
+            "?Unknown_Clamp@@YAIIII@Z",
+            "0x57BA10"
+          ]
+        ],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 544,
+            "raw_sha256": "08878cc15f3c036d8eed99dac63a0003bd2f64356a7e834b3797a034078d508b",
+            "masked_sha256": "08878cc15f3c036d8eed99dac63a0003bd2f64356a7e834b3797a034078d508b",
+            "diagnostic_similarity": "similarity 0.65",
+            "exact": true
+          }
+        }
+      }
+    },
+    {
+      "name": "key_best_explicit_fallthrough",
+      "source_sha256": "67e711225c41304fa7d066112ec3849302c90ee841e9a3730d7db1a4c29f003b",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -497,7 +497,7 @@\n \t\t\t\treturn;\n \t\t\t}\n \t\t\tScroll_To_Selected();\n-\t\t\tUpdate_Rows();\n+\t\t\tUpdate_Rows(); State = 1; break;\n \t\tcase 2:\n \t\t\tState = 1;\n \t\t\tbreak;\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "8e7eea406f95b4e64487269831334c01d66996baffcc76e8f2da104b43b012b4",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 688,
+            "raw_sha256": "5cd3711b83db40cf6bef88e9fe6752f36ef7305d2a52a42c1140f1d2b17f840f",
+            "masked_sha256": "5cd3711b83db40cf6bef88e9fe6752f36ef7305d2a52a42c1140f1d2b17f840f",
+            "diagnostic_similarity": "similarity 0.40",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "key_best_min_branch",
+      "source_sha256": "a2cccd64968ba97a48e096ba4e4361e8eb6144e77901c9b90f692788b5a406cb",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -543,7 +543,7 @@\n void UIComboBoxClass::Scroll_To_Selected()\n {\n \tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n-\t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n+\t\tif ((unsigned)Selected < Items.size() - NumRows) TopItem = (unsigned)Selected; else TopItem = Items.size() - NumRows;\n \t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n \t} else {\n \t\tTopItem = 0;\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "3fb8dd7f394f7603cca8a028482b05de50c77c97d1ca0943150a1a9780be93e4",
+      "output": {
+        "gained": [],
+        "lost": [
+          "0x579DC0",
+          "0x57AE70",
+          "0x57B2F0"
+        ],
+        "symbol_gained": [],
+        "symbol_lost": [
+          [
+            "?Scroll_To_Selected@UIComboBoxClass@@QAEXXZ",
+            "0x57B2F0"
+          ],
+          [
+            "?Toggle_Drop_Down@UIComboBoxClass@@QAEXXZ",
+            "0x57AE70"
+          ],
+          [
+            "?Unknown_60@UIComboBoxClass@@UAEXXZ",
+            "0x579DC0"
+          ]
+        ],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 696,
+            "raw_sha256": "eabc0e0045a82f1f5b58cdb7ac172ed00f29d62f4556f3ba39c2629adb590928",
+            "masked_sha256": "eabc0e0045a82f1f5b58cdb7ac172ed00f29d62f4556f3ba39c2629adb590928",
+            "diagnostic_similarity": "similarity 0.42",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "key_best_open_layer",
+      "source_sha256": "85757fccf464c42c2ab22dbeb348a580d583aceb257f14e4762a5b4106948602",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -24,8 +24,8 @@\n RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);\t// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n-// (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+static inline void Open_Combo_Rows(UIComboBoxClass *box) { box->Scroll_To_Selected(); box->Update_Rows(); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -496,8 +496,8 @@\n \t\t\tif (Items.size() == 0) {\n \t\t\t\treturn;\n \t\t\t}\n-\t\t\tScroll_To_Selected();\n-\t\t\tUpdate_Rows();\n+\t\t\tOpen_Combo_Rows(this);\n+\n \t\tcase 2:\n \t\t\tState = 1;\n \t\t\tbreak;\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "d8acc7a404f07d2b95dafc9f892c482d69a3a30e1eb25cc11356567f8a1d6fc0",
+      "output": {
+        "gained": [],
+        "lost": [
+          "0x579DC0"
+        ],
+        "symbol_gained": [],
+        "symbol_lost": [
+          [
+            "?Unknown_60@UIComboBoxClass@@UAEXXZ",
+            "0x579DC0"
+          ]
+        ],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 704,
+            "raw_sha256": "d5ea8a57b7bdbf5aded2be964b090f9308f390a99ef5eb4aabce7cde71e23419",
+            "masked_sha256": "d5ea8a57b7bdbf5aded2be964b090f9308f390a99ef5eb4aabce7cde71e23419",
+            "diagnostic_similarity": "similarity 0.40",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "key_best_positive_empty",
+      "source_sha256": "502ad191ab69ebfa5b13a8fcd2f6fbcb309d3ff42d35e085b823a4e55a3e7ca8",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -493,11 +493,11 @@\n \t}\n \tswitch (State) {\n \t\tcase 0:\n-\t\t\tif (Items.size() == 0) {\n-\t\t\t\treturn;\n-\t\t\t}\n-\t\t\tScroll_To_Selected();\n-\t\t\tUpdate_Rows();\n+\t\t\tif (Items.size() != 0) {\n+\t\t\t\tScroll_To_Selected();\n+\t\t\t\tUpdate_Rows();\n+\t\t\t} else return;\n+\n \t\tcase 2:\n \t\t\tState = 1;\n \t\t\tbreak;\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "changed_form",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "65e7722e1a945ab5c55f56e6422bda456cc4814c2c744c818fe20b828bcfafac",
+      "output": {
+        "gained": [],
+        "lost": [],
+        "symbol_gained": [],
+        "symbol_lost": [],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 692,
+            "raw_sha256": "f44303579f6aa28fa7320475c09cd6ad3d7df8452b151166989a2a3701f06d54",
+            "masked_sha256": "f44303579f6aa28fa7320475c09cd6ad3d7df8452b151166989a2a3701f06d54",
+            "diagnostic_similarity": "similarity 0.43",
+            "exact": false
+          }
+        }
+      }
+    },
+    {
+      "name": "key_best_scroll_branch",
+      "source_sha256": "d141b6ff1158acb555e4cab6345495716c6a9a48bde540b58203b26cd77d6ab6",
+      "patch": "--- app/client/ui_combobox.cpp\n+++ app/client/ui_combobox.cpp\n@@ -25,7 +25,7 @@\n UIComboBoxClass *Unknown_BE5BC4;\t// NAME 1: neutral (D10): the open combo box (.bss 0xBE5BC4, before ui_cpit.cpp's 0xBE5BD0) (0x57A330 sets it while the list is down)\n \n // (the header's inline: the text field shows the selected item unless it shows a label)\n-inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Item_Text(Selected)); }\n+inline void UIComboBoxClass::Show_Selected() { if (!Has_Label()) TextField->Set_Text(Get_Selected_Text()); }\n \n void Unknown_497240(RenderObjClass *robj, bool on);\t// 0x497240 (ro_funcs.cpp, cdecl: no N-patches on the model's meshes)  // NAME 1 [robj, on]: neutral\n void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);\t// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass\n@@ -324,18 +324,18 @@\n bool UIComboBoxClass::Unknown_68(int key)\n {\n \tswitch (key) {\n-\t\tcase 1:\n-\t\t\tToggle_Drop_Down();\n+\t\tdefault:\n+\t\t\tif (key >= 3) {\n+\t\t\t\tSelect(TopItem + key - 3);\n+\t\t\t\tToggle_Drop_Down();\n+\t\t\t}\n \t\t\tbreak;\n \t\tcase 2:\n \t\t\tTopItem = (int)Slider->Get_Value();\n \t\t\tUpdate_Rows();\n \t\t\tbreak;\n-\t\tdefault:\n-\t\t\tif (key >= 3) {\n-\t\t\t\tSelect(TopItem + key - 3);\n-\t\t\t\tToggle_Drop_Down();\n-\t\t\t}\n+\t\tcase 1:\n+\t\t\tToggle_Drop_Down();\n \t\t\tbreak;\n \t}\n \treturn(false);\n@@ -544,7 +544,7 @@\n {\n \tif ((int)Items.size() > NumRows && Slider->Is_Enabled()) {\n \t\tTopItem = min((unsigned)Selected, Items.size() - NumRows);\n-\t\tTopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);\n+\t\tif (TopItem > Items.size() - NumRows) TopItem = Items.size() - NumRows;\n \t} else {\n \t\tTopItem = 0;\n \t}\n",
+      "model": "gpt-6.1-terra high",
+      "classification": "pair_loss_diagnostic",
+      "changed": true,
+      "completed": true,
+      "object_sha256": "c5e6b8a76d532a50b3e9212e19037572a8d4430fc2b46cb2dd4a29981811fede",
+      "output": {
+        "gained": [],
+        "lost": [
+          "0x579DC0",
+          "0x57AE70",
+          "0x57B2F0",
+          "0x57BA10"
+        ],
+        "symbol_gained": [],
+        "symbol_lost": [
+          [
+            "?Scroll_To_Selected@UIComboBoxClass@@QAEXXZ",
+            "0x57B2F0"
+          ],
+          [
+            "?Toggle_Drop_Down@UIComboBoxClass@@QAEXXZ",
+            "0x57AE70"
+          ],
+          [
+            "?Unknown_60@UIComboBoxClass@@UAEXXZ",
+            "0x579DC0"
+          ],
+          [
+            "?Unknown_Clamp@@YAIIII@Z",
+            "0x57BA10"
+          ]
+        ],
+        "targets": {
+          "0x578350": {
+            "symbol": "?Init@UIComboBoxTextClass@@QAEXXZ",
+            "length": 254,
+            "raw_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "masked_sha256": "a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15",
+            "diagnostic_similarity": "similarity 0.88",
+            "exact": false
+          },
+          "0x57A060": {
+            "symbol": "?Unknown_68@UIComboBoxClass@@UAE_NH@Z",
+            "length": 700,
+            "raw_sha256": "fa639ddd3f92fc2fd7cfb0706ad5f9ec56d7afaec7e0aa6c2875958ccb06903f",
+            "masked_sha256": "fa639ddd3f92fc2fd7cfb0706ad5f9ec56d7afaec7e0aa6c2875958ccb06903f",
+            "diagnostic_similarity": "similarity 0.41",
+            "exact": false
+          }
+        }
+      }
+    }
+  ]
+}

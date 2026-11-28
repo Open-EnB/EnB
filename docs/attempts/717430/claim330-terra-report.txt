@@ -1,0 +1,53 @@
+# 0x717430 first pass
+
+Baseline: 1027 emitted bytes, 245 masked rows; client 1101 bytes.
+Historical ledger contains one partial form, source unavailable; stash list empty.
+Client calls float Cast for MaxTurnRate and MaxTiltRate; baseline inlines both.
+The client uses fchs before multiplying a positive scale for both rates, whereas
+baseline folds the sign into the scale. The fixed-speed path precedes each lookup
+in client code; baseline shares part of the two lookup branches. Eight initial
+stack stores also have a different schedule.
+
+Candidate batches, subject to gate: (1) fixed-speed branch order, preserving
+failure and count behavior; (2) explicit negative multiplication in the two rate
+expressions to recover fchs without an intermediate float store; (3) real local
+declaration and initialisation grouping, comparing pointer/store placement.
+Combinations only after independent evidence. A lookup wrapper has precedent in
+ui_experience.cpp:132 and ui_cpit.cpp:698 but no specific evidence of its presence
+here; any trial is exploratory and needs full lifetime and pair audit. No dead
+read or shared header modification is authorised by the brief.
+
+## Results: three consecutive batches without a masked-residue cut
+
+All source inputs, compile logs, complete objects, complete objdiff, explain JSON,
+result pairs and relocation/EH data are in the corresponding `.work/claim-330/runs/`
+directories, with complete output-group hashes in `.work/claim-330/analysis.json`.
+Each form's replayable base-revision-bound patch, source and source hash are in its
+directory beside this report. All recorded source guards passed. No changes landed.
+
+* `first_717430_neg`: 1039 bytes, 247 rows; all 267 pairs survive, 0 gains.
+  VC6 emitted two fmul instructions rather than the client's fchs then fmul, so
+  the negative-multiply hypothesis failed, and its extra multiply is not an exact
+  temporal arithmetic match. Raw/masked group `08567db8ea33995f7f4dac2c64ee50aad1a618aa9926142f1716ac7e102ca4ad`.
+* `first_717430_branch`: 1030 bytes, 245 rows; all 267 pairs survive, 0 gains.
+  The first fixed-speed test and block now follow the client locally, but VC6
+  still merges the MaxSpeed and MinSpeed lookup tails and moves later sections;
+  it does not cut the full-function residue. Raw/masked group
+  `7d979e038613337e877b4219bf8e04bdef7adfb338c5621b1ea929348e265b54`.
+* `first_717430_wrapper`: 1027 bytes, 245 rows, same raw and masked group as
+  baseline `1c7124e8c7db548ee668f99113b5b0a4396ca5d76bbf89dcdb579d08d5edfd94`;
+  no claimed-target gain; auxiliary pair swap +0x546970/-0x584FF0, with the
+  same bool Cast symbol remapped to the float Cast address. It changes
+  no target instructions while disturbing a same-TU exact template, and is rejected.
+  NameClass and PermString have trivial destruction; LookupClass::Find does not
+  retain the name, so the helper's shorter local lifetime is behaviorally sound,
+  but there is no client-specific proof that such a layer exists.
+
+No exact candidate exists; full executable body / relocations / constants / EH
+candidate audit therefore remains not applicable. The initialisation grouping
+draft was not compiled because the stop rule was reached. Reopening needs a new
+measured source lever supported by the client's call structure, not a new model,
+an arbitrary helper-depth sweep, an artificial budget spender, or the unavailable
+historic patch. A future exact candidate requires comparison of the entire body,
+relocation symbols and addends, literals and call receivers, and EH cleanup using
+explicit candidate and baseline object paths, followed by independent fresh proof.

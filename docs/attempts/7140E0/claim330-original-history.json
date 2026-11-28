@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-10-28 00:12",
+    "address": "0x7140E0",
+    "symbol": "Unknown713D70Class::Unknown_7140E0",
+    "file": "app/client/extrap.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "0.84",
+    "forms": "4",
+    "blocker": "order",
+    "evidence": "early returns (duplicated epilogues), a cached state pointer, a named position local (one Vector3 slot too many), nested ifs with the translation as a temporary: the stores and the roll's push are scheduled differently",
+    "stash": "",
+    "model": "opus"
+  }
+]

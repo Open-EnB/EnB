@@ -1,0 +1,1112 @@
+{
+  "claim": 325,
+  "address": "0x8551F0",
+  "records": [
+    {
+      "name": "astra_8551F0_get_layer_canonical",
+      "base_revision": "5733a1a523e69ba546dfc2f6b2ba79207f182292",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "c0e44c5be77743188a73eccc135a0e70ad6dfe03e3543aba7d69089a98a8ff50",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2099,7 +2099,7 @@\n \tint entries = 0;\n \tint last = 0;\n \tunsigned int seq = 0;\n-\t*(unsigned short *)(out + 1) = htons((unsigned short)Session_);\n+\tunsigned short session = (unsigned short)Session_; session = htons(session); *(unsigned short *)(out + 1) = session;\n \t*counter = (unsigned short)PacketsOut_;\n \t*(unsigned short *)(out + 3) = htons(*counter);\n \t*(unsigned long *)(out + 5) = htonl(0);\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "pair_loss_diagnostic",
+      "model": "gpt-6-astra high",
+      "proof_scope": "Both changed-header primary consumers rebuilt; all126 pair preservation required. Other registered/harness consumers and generic type semantics need full proof before retention.",
+      "headers": [
+        {
+          "unit": "libs/wwonline/wlib/arraylist.h",
+          "base_sha256": "c7a69e4b83bbd59f6c1bc3e80119d602e114c4b98c59c2e6ea1c762cacfcdc2c",
+          "source_sha256": "b00f90c9ea82e8168ed9030b8611c6008811633137a5d6d0528ec7d658ce67d7",
+          "patch": "--- libs/wwonline/wlib/arraylist.h\n+++ libs/wwonline/wlib/arraylist.h\n@@ -619,9 +619,9 @@\n template <class T>\n bit8 ArrayList<T>::get(OUT T &node,sint32 pos) RO \n {\n-  if ((pos < 0)||(pos >= Entries_))\n-    return(FALSE);\n-  node=Vector_[pos];\n+  T *value; if (!getPointer(&value,pos))\n+    return(FALSE);\n+  node=*value;\n   return(TRUE);  \n }\n \n",
+          "replay_verified": true
+        }
+      ],
+      "compiled_unit_artifacts": [
+        {
+          "unit": "app/wwudp/cordcon.cpp",
+          "source_sha256": "c0e44c5be77743188a73eccc135a0e70ad6dfe03e3543aba7d69089a98a8ff50",
+          "object_sha256": "f51dfde4dd407e4845fcb64f9edec21e7f92e81b49168f8a2734b88aa9fadbc5",
+          "response_sha256": "91e942d5c5dc38aab4f4a07f0d0d93e527a17031b0142fcdf200097d8d3217f8",
+          "flags_line": "/nologo /c /MT /W3 /O2 /Ob2 /GX",
+          "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928"
+        },
+        {
+          "unit": "app/wwudp/cordmgr.cpp",
+          "source_sha256": "a50a1fe94c4f7e5c8dd2b457b47101834e607272426cd60d15d7edc0554fb02b",
+          "object_sha256": "fd0ef257fc2bc38f76e77b4906f496d5633018b23c7e1db0d51ae9e67ad94f92",
+          "response_sha256": "3dd7792e2cb8e7a208c9161bf09cfecb4a01b85095696d82628b0bea61670ad4",
+          "flags_line": "/nologo /c /MT /W3 /O2 /Ob2 /GX",
+          "compile_log_sha256": "f76f47a93cbaa306c3fbfa908775b7491d49e66219e04e5f0254846f195e48ee"
+        }
+      ],
+      "object_sha256": "f51dfde4dd407e4845fcb64f9edec21e7f92e81b49168f8a2734b88aa9fadbc5",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1238,
+        "raw_sha256": "2ae3d82182ec6e27c8e3aedd652cedc47b0b84433f6429125c0d4845dd07039d",
+        "masked_sha256": "2ae3d82182ec6e27c8e3aedd652cedc47b0b84433f6429125c0d4845dd07039d",
+        "relocations_sha256": "cfd1b858bead7414ddc25c2ff3fb8a6ec62fd11224a27c5a8ce5bfb74bdf9bb8"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 113,
+          "sha256": "69639f30d7ba4b9f369a71fdffc670806f2d6d10c398630753e0829134f4b181",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85BC30"
+              ]
+            ]
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85BC30"
+              ]
+            ]
+          },
+          "input_snapshot": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85BC30"
+              ]
+            ]
+          }
+        },
+        "symbol_pairs": {
+          "count": 113,
+          "sha256": "4692797f725271767cb806dba25f2648116ff9b8bfa8c163b8a22c0e756ad66d",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?shrinkVector@?$ArrayList@UCordReleaseClass@@@@AAEDXZ",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "?get@?$ArrayList@I@@QBEDAAIJ@Z",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "??1CordMgr@@QAE@XZ",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pending_Messages@CordMgr@@QAEHXZ",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Releases@CordMgr@@QAE_NXZ",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Wait@CordMgr@@QAEHHH@Z",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+                "0x85BC30"
+              ]
+            ]
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?shrinkVector@?$ArrayList@UCordReleaseClass@@@@AAEDXZ",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "?get@?$ArrayList@I@@QBEDAAIJ@Z",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "??1CordMgr@@QAE@XZ",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pending_Messages@CordMgr@@QAEHXZ",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Releases@CordMgr@@QAE_NXZ",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Wait@CordMgr@@QAEHHH@Z",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+                "0x85BC30"
+              ]
+            ]
+          },
+          "input_snapshot": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?shrinkVector@?$ArrayList@UCordReleaseClass@@@@AAEDXZ",
+                "0x77B590"
+              ]
+            ],
+            "lost": [
+              [
+                "app/wwudp/cordcon.cpp",
+                "?get@?$ArrayList@I@@QBEDAAIJ@Z",
+                "0x84F440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "??1CordMgr@@QAE@XZ",
+                "0x857590"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+                "0x8595B0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+                "0x859440"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pending_Messages@CordMgr@@QAEHXZ",
+                "0x8598F0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_CORD_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@HD@Z",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+                "0x858980"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Releases@CordMgr@@QAE_NXZ",
+                "0x859940"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Wait@CordMgr@@QAEHHH@Z",
+                "0x857DE0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+                "0x85B970"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+                "0x85BC30"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "astra_8551F0_pop_ack",
+      "base_revision": "5733a1a523e69ba546dfc2f6b2ba79207f182292",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "97b6fa1fe0720bce337014ac319ffda0aef8dfac78675382060daa94bced34aa",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2087,6 +2087,13 @@\n \tQueued_++;\n }\n \n+static inline bool Cord_Pop_Pending_Ack(ArrayList<unsigned int> &acks, unsigned int &seq, int &pending) // NAME 1: coupled dequeue/count operation in buildHeader and pump\n+{\n+\tif (!acks.removeHead(seq)) return false;\n+\tpending--;\n+\treturn true;\n+}\n+\n // 0x8551F0: the datagram header and the ack list (at most 8 acks and 32 resend requests).\n bool CordCon::buildHeader(unsigned char *out, int *len, unsigned short *counter)\n {\n@@ -2099,7 +2106,7 @@\n \tint entries = 0;\n \tint last = 0;\n \tunsigned int seq = 0;\n-\t*(unsigned short *)(out + 1) = htons((unsigned short)Session_);\n+\tunsigned short session = (unsigned short)Session_; session = htons(session); *(unsigned short *)(out + 1) = session;\n \t*counter = (unsigned short)PacketsOut_;\n \t*(unsigned short *)(out + 3) = htons(*counter);\n \t*(unsigned long *)(out + 5) = htonl(0);\n@@ -2143,8 +2150,8 @@\n \t\t\tlast = entries;\n \t\t\ti = 0;\n \t\t}\n-\t\tif (acks < 8 && Active_[i]->ToAck.removeHead(seq)) {\n-\t\t\tAcksPending_--;\n+\t\tif (acks < 8 && Cord_Pop_Pending_Ack(Active_[i]->ToAck, seq, AcksPending_)) {\n+\n \t\t\tlist[pos++] = 0;\n \t\t\tpos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);\n \t\t\tpos += Cord_Put_Seq(list + pos, seq);\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "changed_form",
+      "model": "gpt-6-astra high",
+      "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928",
+      "object_sha256": "77954c664f5a85ae468b610c90304a1fc7810d13d92614f016382690a7eac5dd",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1187,
+        "raw_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "masked_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "relocations_sha256": "5ede36425596203980bfe7058df7e8311b083a4ae0ec0696c29f7c2d9f3268bd"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 126,
+          "sha256": "94acefd01ceb76f0504bc25e79c6ae0ceaa48f0d7725291a0a09f6c78a646f00",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 126,
+          "sha256": "d6862e67ad76a1474fea73d4cc324756be4bbb89f5983ce875c8860cd247444e",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_CORD_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@HD@Z",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_CORD_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@HD@Z",
+                "0x85A000"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        }
+      }
+    },
+    {
+      "name": "first_8551F0_gethead",
+      "base_revision": "b0f0f58d369b09aa14939bf2baac3ef5685507e6",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "c91250ca83389a6e74c89b3a26cc2437f38b49d27292062e766e5e6213ed6574",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2143,7 +2143,7 @@\n \t\t\tlast = entries;\n \t\t\ti = 0;\n \t\t}\n-\t\tif (acks < 8 && Active_[i]->ToAck.removeHead(seq)) {\n+\t\tif (acks < 8 && Active_[i]->ToAck.getHead(seq) && Active_[i]->ToAck.remove(0)) {\n \t\t\tAcksPending_--;\n \t\t\tlist[pos++] = 0;\n \t\t\tpos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "changed_form",
+      "model": "gpt-6.1-terra high",
+      "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928",
+      "object_sha256": "05e1817fb35b50c9886ab8c9989ecfe89aba89b90597f071447d39e0b4b03b49",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1334,
+        "raw_sha256": "ea86fc8bfa7e1531e6c9365e42ebebd0208b2469cb6d91b468117e5e55ecb70a",
+        "masked_sha256": "ea86fc8bfa7e1531e6c9365e42ebebd0208b2469cb6d91b468117e5e55ecb70a",
+        "relocations_sha256": "7b6e563efcd2169d9b078b3b6902c483c12ed3a4cdd5277a39770cf433c76bf1"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 122,
+          "sha256": "e97fa016c2a239a66480ef2ca331352c1848734906f89e3141eeb5e1bd4b5279",
+          "original": {
+            "gained": [],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [],
+            "lost": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ]
+            ]
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 122,
+          "sha256": "a9ca34b2e749b2187f25832f0917b39d37675966b0d4d28d6e276cdf22e5a0fb",
+          "original": {
+            "gained": [],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [],
+            "lost": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ]
+            ]
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        }
+      }
+    },
+    {
+      "name": "first_8551F0_remove",
+      "base_revision": "b0f0f58d369b09aa14939bf2baac3ef5685507e6",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "d5237b189980909ebd202732eff331024e710e4046e90c44c85502f0e966e415",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2143,7 +2143,7 @@\n \t\t\tlast = entries;\n \t\t\ti = 0;\n \t\t}\n-\t\tif (acks < 8 && Active_[i]->ToAck.removeHead(seq)) {\n+\t\tif (acks < 8 && Active_[i]->ToAck.remove(seq, 0)) {\n \t\t\tAcksPending_--;\n \t\t\tlist[pos++] = 0;\n \t\t\tpos += Cord_Put_Small(list + pos, (unsigned short)Active_[i]->Index);\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "changed_form",
+      "model": "gpt-6.1-terra high",
+      "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928",
+      "object_sha256": "c04d9ac5f16f73eb35e1cb301240f50d29134849da06c21c065033c67e0a6a82",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1187,
+        "raw_sha256": "9ea47f889c8624af76375488c1094ea42fb54c2dccedad78cfbded12a749f3af",
+        "masked_sha256": "9ea47f889c8624af76375488c1094ea42fb54c2dccedad78cfbded12a749f3af",
+        "relocations_sha256": "68e936dcf67cb720d8351369d07405d221adc68861092cddf1fcb71dc783a038"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 122,
+          "sha256": "e97fa016c2a239a66480ef2ca331352c1848734906f89e3141eeb5e1bd4b5279",
+          "original": {
+            "gained": [],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [],
+            "lost": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ]
+            ]
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 122,
+          "sha256": "a9ca34b2e749b2187f25832f0917b39d37675966b0d4d28d6e276cdf22e5a0fb",
+          "original": {
+            "gained": [],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [],
+            "lost": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ]
+            ]
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_8551F0_counter",
+      "base_revision": "bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "67caae495c8b1fad4d97c36488e2a12bf4c7c5b87e2f7705dbab2131c1ac6dc1",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2101,7 +2101,7 @@\n \tunsigned int seq = 0;\n \t*(unsigned short *)(out + 1) = htons((unsigned short)Session_);\n \t*counter = (unsigned short)PacketsOut_;\n-\t*(unsigned short *)(out + 3) = htons(*counter);\n+\tunsigned short packet_counter = *counter; packet_counter = htons(packet_counter); *(unsigned short *)(out + 3) = packet_counter;\n \t*(unsigned long *)(out + 5) = htonl(0);\n \tint count = Active_.size();\n \tint i;\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "changed_form",
+      "model": "gpt-6.1-sol high",
+      "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928",
+      "object_sha256": "7a3bf24438973c4d337c198e70e1563a7062ccf133b9a5ed25865a78367ac4ce",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1187,
+        "raw_sha256": "9ea47f889c8624af76375488c1094ea42fb54c2dccedad78cfbded12a749f3af",
+        "masked_sha256": "9ea47f889c8624af76375488c1094ea42fb54c2dccedad78cfbded12a749f3af",
+        "relocations_sha256": "817e0471bb1dc569d272518c5caefca83acd54f6ab56281984fff4c2cc5f3d25"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 125,
+          "sha256": "aa0f08174305a7d65eec5e6780bcb262990652a779c432b87cdc40f62ac67ede",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 125,
+          "sha256": "40b350a229a1a93335ade304a5ea002b588618cc69afe43bfd2fc469f6c722f2",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_8551F0_getpointer",
+      "base_revision": "bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "c96cb8a978305cc8f017fb5521f1cfbd456d02adff04910ee1c5da03e0cbd06e",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2115,7 +2115,7 @@\n \t\t\tint k = 0;\n \t\t\tint n = c->ToAck.length();\n \t\t\tfor (int j = 0; j < n; j++) {\n-\t\t\t\tc->ToAck.get(seq, k);\n+\t\t\t\tunsigned int *ack; if (c->ToAck.getPointer(&ack, k)) seq = *ack;\n \t\t\t\tif (seq <= c->Expected - 2) {\n \t\t\t\t\tc->ToAck.remove(k);\n \t\t\t\t\tAcksPending_--;\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "changed_form",
+      "model": "gpt-6.1-sol high",
+      "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928",
+      "object_sha256": "cc7286e73e6d14354fb0f3007f9c1eff137f1c4f1e73bb4c50fa30b70d8efbb6",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1194,
+        "raw_sha256": "2cbf4549637caae6f450c5c374b8c799fa983436b98ecc578a41ee7d7f647403",
+        "masked_sha256": "2cbf4549637caae6f450c5c374b8c799fa983436b98ecc578a41ee7d7f647403",
+        "relocations_sha256": "5a51dcbb2579d2fde87195088c03da2ef583695a1989ba492f70b12f07ce2e1e"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 125,
+          "sha256": "aa0f08174305a7d65eec5e6780bcb262990652a779c432b87cdc40f62ac67ede",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 125,
+          "sha256": "40b350a229a1a93335ade304a5ea002b588618cc69afe43bfd2fc469f6c722f2",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_8551F0_headerloads",
+      "base_revision": "bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "1e9057c77b36ba9d70961ff58371aeff83b7ac60988586120e8175f2411e0c05",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2099,9 +2099,9 @@\n \tint entries = 0;\n \tint last = 0;\n \tunsigned int seq = 0;\n-\t*(unsigned short *)(out + 1) = htons((unsigned short)Session_);\n+\tunsigned short session = (unsigned short)Session_; session = htons(session); *(unsigned short *)(out + 1) = session;\n \t*counter = (unsigned short)PacketsOut_;\n-\t*(unsigned short *)(out + 3) = htons(*counter);\n+\tunsigned short packet_counter = *counter; packet_counter = htons(packet_counter); *(unsigned short *)(out + 3) = packet_counter;\n \t*(unsigned long *)(out + 5) = htonl(0);\n \tint count = Active_.size();\n \tint i;\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "changed_form",
+      "model": "gpt-6.1-sol high",
+      "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928",
+      "object_sha256": "423a683cb3cf7628db1ef8b2c61cf8b97a48d154bb49a2f9c2070a81ea7258fd",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1187,
+        "raw_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "masked_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "relocations_sha256": "2cb6dbc5ec421c7208eeef900a9457a5cf9a4eed1b6acd8508e8b71bb8bb997d"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 125,
+          "sha256": "aa0f08174305a7d65eec5e6780bcb262990652a779c432b87cdc40f62ac67ede",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 125,
+          "sha256": "40b350a229a1a93335ade304a5ea002b588618cc69afe43bfd2fc469f6c722f2",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        }
+      }
+    },
+    {
+      "name": "sol_8551F0_session",
+      "base_revision": "bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0",
+      "base_path": "app/wwudp/cordcon.cpp",
+      "base_sha256": "66fa6026ea7e7e698a877990face746bc601eed69dbe0f6a6a450a9de420d906",
+      "source_sha256": "c0e44c5be77743188a73eccc135a0e70ad6dfe03e3543aba7d69089a98a8ff50",
+      "patch": "--- app/wwudp/cordcon.cpp\n+++ app/wwudp/cordcon.cpp\n@@ -2099,7 +2099,7 @@\n \tint entries = 0;\n \tint last = 0;\n \tunsigned int seq = 0;\n-\t*(unsigned short *)(out + 1) = htons((unsigned short)Session_);\n+\tunsigned short session = (unsigned short)Session_; session = htons(session); *(unsigned short *)(out + 1) = session;\n \t*counter = (unsigned short)PacketsOut_;\n \t*(unsigned short *)(out + 3) = htons(*counter);\n \t*(unsigned long *)(out + 5) = htonl(0);\n",
+      "replay_verified": true,
+      "completed": true,
+      "classification": "changed_form",
+      "model": "gpt-6.1-sol high",
+      "compile_log_sha256": "e17c07044c641dbcd385709b3288b0ee813ab5938ab155ac109c789b2b3ef928",
+      "object_sha256": "2fcb6a55d00b8e80cdcbc8d55dd7fd3958e1da0ae9b45685f972e448b7eae5bc",
+      "body": {
+        "symbol": "?buildHeader@CordCon@@QAE_NPAEPAHPAG@Z",
+        "length": 1187,
+        "raw_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "masked_sha256": "f1277031e2e5024bff1e29f3037587c63d94178a574e6a548112cb312163d25c",
+        "relocations_sha256": "817e0471bb1dc569d272518c5caefca83acd54f6ab56281984fff4c2cc5f3d25"
+      },
+      "pair_sets": {
+        "pairs": {
+          "count": 125,
+          "sha256": "aa0f08174305a7d65eec5e6780bcb262990652a779c432b87cdc40f62ac67ede",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x858A60"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "0x85ABB0"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        },
+        "symbol_pairs": {
+          "count": 125,
+          "sha256": "40b350a229a1a93335ade304a5ea002b588618cc69afe43bfd2fc469f6c722f2",
+          "original": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85A430"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "retained_ack1": {
+            "gained": [
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Process_ACK2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+                "0x85ABB0"
+              ],
+              [
+                "app/wwudp/cordmgr.cpp",
+                "?Pump_Connections@CordMgr@@QAE_NXZ",
+                "0x858A60"
+              ]
+            ],
+            "lost": []
+          },
+          "input_snapshot": {
+            "gained": [],
+            "lost": []
+          }
+        }
+      }
+    }
+  ]
+}

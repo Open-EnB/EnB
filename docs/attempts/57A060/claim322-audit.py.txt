@@ -1,0 +1,99 @@
+"""Audit the complete key-handler body, tables, referents and receiver graph."""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+import struct
+import sys
+
+ROOT=Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(ROOT/'tools/re'))
+from objmatch import CoffObject,object_unwind
+from clientimage import ClientImage
+from capstone import Cs,CS_ARCH_X86,CS_MODE_32
+from capstone.x86 import X86_OP_IMM
+
+SYMBOL='?Unknown_68@UIComboBoxClass@@UAE_NH@Z'
+TARGET=0x57A060
+VECTOR_SIZE='?size@?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@QBEIXZ'
+CALLS={0x74:(VECTOR_SIZE,0x47D640),0xA7:('?Change_Text@FontSys@@QAEXPBDH@Z',0x6CDBC0),
+       0xF5:('?Update_Drop_Down@UIComboBoxClass@@QAEXXZ',0x57A330),0x147:('__ftol',0xA264EC),
+       0x154:('?Update_Rows@UIComboBoxClass@@QAEXXZ',0x57AAB0),
+       0x198:('?Update_Drop_Down@UIComboBoxClass@@QAEXXZ',0x57A330),
+       0x1D5:('?Scroll_To_Selected@UIComboBoxClass@@QAEXXZ',0x57B2F0),
+       0x1DC:('?Update_Rows@UIComboBoxClass@@QAEXXZ',0x57AAB0)}
+GLOBAL='?Unknown_BE5BC4@@3PAVUIComboBoxClass@@A'
+NULLCHAR='?_C@?1??_Nullstr@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@CAPBDXZ@4DB'
+EMPTY='??_C@_00A@?$AA@'
+TABLE_TARGETS=[0x119,0x1F2,0x1E0,0x1F2,0x1B8,0x1F2,0x1E0,0x1F2]
+def sha(data):return hashlib.sha256(data).hexdigest()
+def main():
+    p=argparse.ArgumentParser()
+    p.add_argument('--object',required=True,type=Path)
+    p.add_argument('--source',required=True,type=Path)
+    p.add_argument('--client',default='/home/dev/Games/earth-and-beyond/prefix/drive_c/Program Files (x86)/EA GAMES/Earth & Beyond/release/client.exe')
+    p.add_argument('--output',required=True,type=Path)
+    a=p.parse_args()
+    o=CoffObject(str(a.object));im=ClientImage(a.client);thunks=im.incremental_thunks()
+    _,sec,start,end=next(f for f in o.functions() if f[0]==SYMBOL)
+    _,_,length=o.pattern(sec,start,end);assert length==544
+    info=o.sections[sec];raw=o.data[info['raw']+start:info['raw']+start+length]
+    resolved=bytearray(raw);refs=[];seen=set()
+    for off,width,kind,sym,addend in o.reloc_targets(sec,start,length):
+        assert width==4 and addend==bytes(4)
+        name=sym['name'];retail=im.u32(TARGET+off);seen.add(off)
+        if off in CALLS:
+            expected_name,expected_body=CALLS[off]
+            assert kind==20 and name==expected_name
+            destination=(retail+TARGET+off+4)&0xFFFFFFFF
+            assert thunks.get(destination,destination)==expected_body
+            referent=dict(kind='call',target_body=hex(expected_body),encoded_target=hex(destination))
+        elif off in (0xBF,0xFB,0x162,0x19E):
+            assert kind==6 and name==GLOBAL and retail==0xBE5BC4
+            s=o.sections[sym['section']-1]
+            assert s['name']=='.bss' and s['raw']==0 and s['size']==4 and sym['value']==0
+            va,virtual,_,disk=im.sections['.data'];assert va+disk<=retail and retail+4<=va+virtual
+            referent=dict(kind='zero_initialized_open_box_pointer',address=hex(retail))
+        elif off in (0x8F,0x96):
+            expected_name,address=(NULLCHAR,0xAE70A4) if off==0x8F else (EMPTY,0xBDA908)
+            assert kind==6 and name==expected_name and retail==address
+            s=o.sections[sym['section']-1]
+            if s['raw']:
+                assert o.data[s['raw']+sym['value']]==0
+            else:
+                assert s['name']=='.bss' and s['size']==1 and sym['value']==0 and s['flags']&0x80
+            assert im.data[im.offset(address)]==0
+            referent=dict(kind='one_byte_zero_character',address=hex(address),source_section=s['name'])
+        else:
+            assert kind==6 and sym['section']-1==sec
+            target_offset=sym['value']-start
+            if off in (0x115,0x1B4):assert target_offset=={0x115:0x200,0x1B4:0x210}[off]
+            else:
+                assert 0x200<=off<0x220 and off%4==0
+                assert target_offset==TABLE_TARGETS[(off-0x200)//4]
+            assert retail==TARGET+target_offset
+            referent=dict(kind='local_code_or_switch_table',target_offset=hex(target_offset))
+        resolved[off:off+4]=struct.pack('<I',retail)
+        refs.append(dict(offset=hex(off),symbol=name,width=width,type=kind,addend=addend.hex(),referent=referent))
+    assert seen==set(CALLS)|{0xBF,0xFB,0x162,0x19E,0x8F,0x96,0x115,0x1B4}|set(range(0x200,0x220,4))
+    retail=im.data[im.offset(TARGET):im.offset(TARGET)+544]
+    assert resolved==retail,'full resolved code/table bytes differ'
+    md=Cs(CS_ARCH_X86,CS_MODE_32);md.detail=True
+    ins=list(md.disasm(bytes(resolved[:512]),TARGET))
+    assert sum(i.size for i in ins)==512 and ins[-1].mnemonic=='ret'
+    starts={i.address for i in ins};branches=[];calls=[]
+    for idx,i in enumerate(ins):
+        if i.mnemonic.startswith('j') and i.operands and i.operands[0].type==X86_OP_IMM:
+            assert i.operands[0].imm in starts
+            branches.append([hex(i.address-TARGET),hex(i.operands[0].imm-TARGET)])
+        if i.mnemonic=='call':calls.append(dict(offset=hex(i.address-TARGET),instruction=i.mnemonic+' '+i.op_str,preceding=[x.mnemonic+' '+x.op_str for x in ins[max(0,idx-4):idx]]))
+    for offset in TABLE_TARGETS:assert TARGET+offset in starts
+    assert object_unwind(o,sec,start,544) is None
+    result=dict(source_sha256=sha(a.source.read_bytes()),object_sha256=sha(a.object.read_bytes()),
+        address=hex(TARGET),executable_bytes=512,switch_table_bytes=32,resolved_span_bytes=544,
+        instructions=len(ins),references=refs,branches=branches,calls_and_receiver_contexts=calls,
+        table_target_offsets=[hex(x) for x in TABLE_TARGETS],eh=None,
+        entire_resolved_code_and_table_equal=True,full_linked_image_parity=False,
+        scope='target-body proof only; prior-pair/context preservation must be verified separately')
+    a.output.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k not in ['references','branches','calls_and_receiver_contexts']}))
+if __name__=='__main__':main()

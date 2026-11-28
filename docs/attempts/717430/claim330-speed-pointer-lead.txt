@@ -1,0 +1,57 @@
+# 0x717430: speed-pointer control flow
+
+Hypothesis: source-level speed-pointer flow can retain the redundant client
+test before Acceleration, and may change the layout/inlining of the two speed
+lookups. This is distinct from first/branch, which only reverses the
+fixed-speed arms while retaining `known` and its compound block.
+
+Client disassembly, using the original executable and explicit address:
+
+* 0x717594–0x7175AE tests direction and fixed_speed; +10 goes to 0x7176CC.
+* 0x7175B3–0x71760C: MaxSpeed lookup; Cast is called, failure goes 0x717752.
+* 0x717611–0x71762D: -1 and fixed_speed; -10 goes to 0x7176CC.
+* 0x717632–0x717687: MinSpeed lookup; Cast is inlined; failure goes 0x717752.
+* 0x71768C–0x7176A7 load/scales the found value and jump to 0x7176CC.
+* 0x7176A9–0x7176C4 assert if direction is not zero, then write 0.
+* 0x7176CC–0x7176D6 load the speed-value address twice (EDX and EBX),
+  test EDX, and branch to 0x717752 if null before Acceleration lookup.
+* 0x7176E6–0x71772C acceleration failure branches to 0x717746; successful
+  load stores the acceleration pointer, and 0x717746–0x71774E tests it and
+  increments count if non-null. This does not erase prior turn/tilt count.
+
+The immutable baseline diff `baseline/717430-objdiff.txt` and actual
+`runs/first_717430_branch/717430-objdiff.txt` show both speed lookup tails
+merged and the speed-pointer test absent; first/branch does locally recover
+the client fixed-speed test ordering, despite the same 245 whole-function
+masked groups. Its test result is therefore not evidence against a distinct
+speed-pointer flow hypothesis. Baseline calls no float Cast at the first
+three lookup sites; the client calls it at MaxTurnRate, MaxTiltRate, MaxSpeed,
+but inlines it at MinSpeed and Acceleration. Preserve all 267 exact pairs.
+
+Executable source anchor is the `if (move_direction)` region of
+`app/client/postate.cpp:950–991`, on the immutable base. A concrete first
+form: keep `bool known = true` and every existing direction branch and lookup
+statement; change the current `if (known) { speed = &speed_value; ... }` into
+`if (known) speed = &speed_value; if (speed) { ... }`, keeping the original
+Acceleration block and `if (acceleration) count++`. A second distinct form,
+only if supported by the first output, removes `known` and assigns
+`speed = &speed_value` in each successful fixed-speed, found-value, and
+zero-direction path, leaving `speed` null on lookup failure; gate the same
+Acceleration block on `if (speed)`. It may be reasonable to start with the
+already tested fixed-speed ordering to track 0x7175A4 / 0x717623, but report
+the combination separately from the baseline control.
+
+Semantic proof: `speed` is local and initialized null. Originally `known` is
+false exactly when the MaxSpeed or MinSpeed lookup returns null; all other
+direction cases set a float value, and only `known` assigns speed and queries
+Acceleration. The transformed pointer condition has the same truth value on
+every path; it retains lookup order, failure branches, `G_ASSERT` text and
+line 977, x87 operations and float stores, callback order, and the existing
+conditional increment. No extra external accesses, temporary destructor,
+new helper, padding or header changes are required. Confirm assertion line
+guards and object code; do not assume VC6 preserves the redundant test.
+
+Compare the exact region around the separate lookups and 0x7176CC–0x717752,
+not only whole-function row count. Retain all hashes, complete diff and pair
+sets as required in the brief. A win requires full-body, call/relocation,
+constant, EH/cleanup and observable-semantics audit, then fresh proof.

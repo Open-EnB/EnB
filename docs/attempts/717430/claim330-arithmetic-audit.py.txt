@@ -1,0 +1,59 @@
+"""Focused rate arithmetic proof only; this is not a whole-function match audit."""
+from pathlib import Path
+import argparse, hashlib, json, sys
+sys.path.insert(0, '/home/dev/Projects/EnB/tools/re')
+from objmatch import CoffObject
+from clientimage import ClientImage
+from capstone import Cs, CS_ARCH_X86, CS_MODE_32
+
+parser = argparse.ArgumentParser()
+parser.add_argument('object', type=Path)
+parser.add_argument('client', type=Path)
+args = parser.parse_args()
+obj = CoffObject(str(args.object))
+client = ClientImage(str(args.client))
+symbol, section, start, end = next(f for f in obj.functions() if f[0].startswith('?Unknown_717430@'))
+_, _, length = obj.pattern(section, start, end)
+raw = obj.data[obj.sections[section]['raw'] + start:obj.sections[section]['raw'] + start + length]
+md = Cs(CS_ARCH_X86, CS_MODE_32)
+ours = list(md.disasm(raw, 0))
+theirs = list(md.disasm(client.data[client.offset(0x717430):client.offset(0x717430) + 1101], 0x717430))
+relocs = obj.reloc_targets(section, start, length)
+
+def trace(instructions, candidate):
+    traces = []
+    for index, ins in enumerate(instructions):
+        if ins.mnemonic != 'fld' or ins.op_str != 'dword ptr [eax + 0x84]':
+            continue
+        events = []
+        for item in instructions[index:]:
+            if item.mnemonic.startswith('f'):
+                event = dict(address=hex(item.address), op=item.mnemonic, operand=item.op_str)
+                if item.mnemonic == 'fmul' and item.op_str != 'dword ptr [esi]':
+                    if candidate:
+                        off, width, kind, sym, addend = next(r for r in relocs if item.address <= r[0] < item.address + item.size)
+                        assert sym['section'] > 0 and int.from_bytes(addend, 'little') == 0
+                        info = obj.sections[sym['section'] - 1]
+                        pos = info['raw'] + sym['value']
+                        payload = obj.data[pos:pos + 4]
+                        event['constant_symbol'] = sym['name']
+                    else:
+                        va = int(item.op_str.split('[', 1)[1].split(']')[0], 16)
+                        payload = client.data[client.offset(va):client.offset(va) + 4]
+                    event['payload'] = payload.hex()
+                events.append(event)
+            if item.mnemonic == 'fstp':
+                break
+        traces.append(events)
+        if len(traces) == 2:
+            break
+    return traces
+
+ours_trace, client_trace = trace(ours, True), trace(theirs, False)
+assert len(ours_trace) == len(client_trace) == 2
+for candidate, reference in zip(ours_trace, client_trace):
+    assert [e['op'] for e in candidate] == [e['op'] for e in reference] == ['fld', 'fmul', 'fchs', 'fmul', 'fstp']
+    assert candidate[0]['operand'] == reference[0]['operand']
+    assert candidate[1]['operand'] == reference[1]['operand'] == 'dword ptr [esi]'
+    assert candidate[3]['payload'] == reference[3]['payload'] == '6f12833a'
+print(json.dumps(dict(object=str(args.object.resolve()), object_sha256=hashlib.sha256(args.object.read_bytes()).hexdigest(), symbol=symbol, focused_arithmetic_pass=True, limitation='Does not establish whole-function equivalence or fix different pointer/value slots, inline Cast sites, branches, or the D283 header literal payload.', ours=ours_trace, client=client_trace), indent=2))

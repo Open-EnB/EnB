@@ -1,0 +1,667 @@
+{
+  "claim": 325,
+  "source_sha256": "a50a1fe94c4f7e5c8dd2b457b47101834e607272426cd60d15d7edc0554fb02b",
+  "header_sha256": "12e0dc74710320fc81810d94469a1270b4d3f46b63effca82886cd8d631274e2",
+  "audit": {
+    "entire_resolved_body_equal": true,
+    "callee_identity_evidence": {
+      "handlePacket": "unmatched callee: actual 0x4049DF thunk to0x851AE0, own profile push at0x851B16 names CordCon::handlePacket",
+      "Message_Warn": "0x404DCC thunk to exact0x4BC130"
+    },
+    "warning_full_width_key_and_receivers_checked": true,
+    "warning_line": 1272,
+    "warning_stack_argument_bytes": 36,
+    "executable_bytes": 430,
+    "instruction_count": 133,
+    "branches": [
+      [
+        "0x32",
+        "0x41"
+      ],
+      [
+        "0x55",
+        "0x7e"
+      ],
+      [
+        "0x61",
+        "0x68"
+      ],
+      [
+        "0x88",
+        "0x184"
+      ],
+      [
+        "0x92",
+        "0x9c"
+      ],
+      [
+        "0x9e",
+        "0xab"
+      ],
+      [
+        "0xa3",
+        "0xab"
+      ],
+      [
+        "0xcd",
+        "0x158"
+      ],
+      [
+        "0xd8",
+        "0x158"
+      ],
+      [
+        "0xe0",
+        "0xee"
+      ],
+      [
+        "0xea",
+        "0xfb"
+      ],
+      [
+        "0xec",
+        "0x158"
+      ],
+      [
+        "0xf0",
+        "0x158"
+      ],
+      [
+        "0xf9",
+        "0x158"
+      ],
+      [
+        "0x113",
+        "0x172"
+      ],
+      [
+        "0x16a",
+        "0x94"
+      ],
+      [
+        "0x170",
+        "0x180"
+      ],
+      [
+        "0x18f",
+        "0x196"
+      ]
+    ],
+    "calls_and_receivers": {
+      "count": 10,
+      "verified_against_complete_resolved_body": true,
+      "context_sha256": "17ab409370ae4882e05df6c72f48f2731c2cdc97fc69f2434eed157efa4bf002",
+      "detail": "Detailed compiler-object disassembly stays in local scratch; exported proof contains identities, offsets and hashes."
+    },
+    "socket_imports": [
+      {
+        "iat": "0xc44374",
+        "ordinal": 15,
+        "dll": "WS2_32.dll"
+      },
+      {
+        "iat": "0xc44388",
+        "ordinal": 14,
+        "dll": "WS2_32.dll"
+      }
+    ],
+    "body_masked_equal": true,
+    "profile_string_equal": true,
+    "handler_frame_target": "0xa25ac4",
+    "called_confirmed": [
+      "??_C@_0CG@EBEM@e?3?2build?2beta?2G?2app?2wwudp?2cordmg@",
+      "?IsProfileEnabled@WWProfileManager@@0_NA",
+      "?Message_Warn@@YAXPBD00H0ZZ",
+      "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+      "?Stop_Profile@WWProfileManager@@SAXXZ",
+      "?handlePacket@CordCon@@QAE_NPAEH@Z",
+      "__except_list",
+      "_ntohl@4",
+      "_ntohs@4"
+    ],
+    "called_unresolved": [],
+    "source": "app/wwudp/cordmgr.cpp",
+    "source_sha256": "a50a1fe94c4f7e5c8dd2b457b47101834e607272426cd60d15d7edc0554fb02b",
+    "object": ".work/claim-325/runs/root_85A000_clean/cordmgr.obj",
+    "object_sha256": "67f3d3794e1e456755fc21ecb422b15ec73ba2677969a4da9ae8f693454b9ddd",
+    "baseline_relocation_sequence_equal": true,
+    "retail_relocations": [
+      {
+        "offset": 3,
+        "type": 6,
+        "symbol": "$L37411",
+        "addend": "00000000",
+        "retail_target": "0xad84a8"
+      },
+      {
+        "offset": 9,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 17,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 27,
+        "type": 6,
+        "symbol": "?IsProfileEnabled@WWProfileManager@@0_NA",
+        "addend": "00000000",
+        "retail_target": "0xc40488"
+      },
+      {
+        "offset": 53,
+        "type": 6,
+        "symbol": "??_C@_0BN@FMFN@CordMgr?3?3Process_CORD_Packet?$AA@",
+        "addend": "00000000",
+        "retail_target": "0xbb1ce4"
+      },
+      {
+        "offset": 58,
+        "type": 20,
+        "symbol": "?Start_Profile@WWProfileManager@@SAXPBD@Z",
+        "addend": "00000000",
+        "retail_target": "0x9ea930"
+      },
+      {
+        "offset": 100,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 116,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      },
+      {
+        "offset": 186,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 199,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 269,
+        "type": 20,
+        "symbol": "?handlePacket@CordCon@@QAE_NPAEH@Z",
+        "addend": "00000000",
+        "retail_target": "0x4049df"
+      },
+      {
+        "offset": 291,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 306,
+        "type": 20,
+        "symbol": "_ntohl@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1b7c"
+      },
+      {
+        "offset": 312,
+        "type": 6,
+        "symbol": "??_C@_0CM@JAMC@Packet?5failed?5validation?5?$CI?$CFp?5?3?5?$CF@",
+        "addend": "00000000",
+        "retail_target": "0xbb1cb0"
+      },
+      {
+        "offset": 322,
+        "type": 6,
+        "symbol": "??_C@_0CG@EBEM@e?3?2build?2beta?2G?2app?2wwudp?2cordmg@",
+        "addend": "00000000",
+        "retail_target": "0xbb1b60"
+      },
+      {
+        "offset": 327,
+        "type": 6,
+        "symbol": "??_C@_03ECDD@UDP?$AA@",
+        "addend": "00000000",
+        "retail_target": "0xb9be84"
+      },
+      {
+        "offset": 332,
+        "type": 6,
+        "symbol": "??_C@_00A@?$AA@",
+        "addend": "00000000",
+        "retail_target": "0xbda908"
+      },
+      {
+        "offset": 337,
+        "type": 20,
+        "symbol": "?Message_Warn@@YAXPBD00H0ZZ",
+        "addend": "00000000",
+        "retail_target": "0x404dcc"
+      },
+      {
+        "offset": 376,
+        "type": 20,
+        "symbol": "_ntohs@4",
+        "addend": "00000000",
+        "retail_target": "0x8c1ba0"
+      },
+      {
+        "offset": 402,
+        "type": 20,
+        "symbol": "?Stop_Profile@WWProfileManager@@SAXXZ",
+        "addend": "00000000",
+        "retail_target": "0x9eaa50"
+      },
+      {
+        "offset": 420,
+        "type": 6,
+        "symbol": "__except_list",
+        "addend": "00000000",
+        "retail_target": "0x0"
+      }
+    ],
+    "handler": "0xad84a8",
+    "funcinfo": "0xb56ba8",
+    "object_funcinfo": [
+      429065504,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "retail_funcinfo": [
+      429065504,
+      1,
+      11889608,
+      0,
+      0,
+      0,
+      0
+    ],
+    "states": [
+      {
+        "state": 0,
+        "predecessor": "0xffffffff",
+        "retail_action": "0xad84a0",
+        "object_length": 8,
+        "masked_equal": true,
+        "relocations": [
+          {
+            "offset": 4,
+            "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+            "type": 20,
+            "addend": "00000000",
+            "retail_target": "0x40f8df"
+          }
+        ]
+      }
+    ],
+    "prior_pair_checks": [
+      {
+        "symbol": "??0CordMgr@@QAE@IG@Z",
+        "address": "0x856D80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??0CordMgr@@QAE@XZ",
+        "address": "0x856970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordCon@@@@QAE@XZ",
+        "address": "0x85AF20",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@PAVCordConnectingClass@@@@QAE@XZ",
+        "address": "0x85AEC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordDataSocketClass@@@@QAE@XZ",
+        "address": "0x85AF50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordListenSocketClass@@@@QAE@XZ",
+        "address": "0x85AF80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1?$ArrayList@UCordReleaseClass@@@@QAE@XZ",
+        "address": "0x85AEF0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordConnectingClass@@QAE@XZ",
+        "address": "0x857850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1CordMgr@@QAE@XZ",
+        "address": "0x857590",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1RSAKeyClass@@QAE@XZ",
+        "address": "0x82B0C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??1WWProfileSampleClass@@QAE@XZ",
+        "address": "0x444160",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "??6ostream@@QAEAAV0@P6AAAV0@AAV0@@Z@Z",
+        "address": "0x850820",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Cancel_Connect@CordMgr@@QAE_NH@Z",
+        "address": "0x8595B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute@RSAKeyClass@@QAEXXZ",
+        "address": "0x82C330",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Compute_Ticks@CordMgr@@QAEIGIIGIG@Z",
+        "address": "0x85A220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Connect@CordMgr@@QAEHKG_N@Z",
+        "address": "0x858EC0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Connection@CordMgr@@QAE_NPAPAVCordCon@@IH@Z",
+        "address": "0x859440",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Find_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@PAVUDP@@@Z",
+        "address": "0x859F80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Get_Data_Socket@CordMgr@@QAEPAUCordDataSocketClass@@H@Z",
+        "address": "0x859D50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Init@CordMgr@@QAEXXZ",
+        "address": "0x8570C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Listen@CordMgr@@QAE_NIG@Z",
+        "address": "0x857940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Load@RSAKeyClass@@QAE_NPAVFileClass@@@Z",
+        "address": "0x85AFB0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pending_Messages@CordMgr@@QAEHXZ",
+        "address": "0x8598F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN1_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85A3B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_SYN2_Packet@CordMgr@@QAE_NPAEHPAUsockaddr_in@@PAVUDP@@H@Z",
+        "address": "0x85AB30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Process_Zero_Read@CordMgr@@QAEXPAUsockaddr_in@@@Z",
+        "address": "0x858980",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Pump_Releases@CordMgr@@QAE_NXZ",
+        "address": "0x859940",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Read_Number@RSAKeyClass@@QAE_NPAVFileClass@@AAV?$Int@$0EA@@@@Z",
+        "address": "0x82C260",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Release@CordMgr@@QAE_NPAVCordCon@@@Z",
+        "address": "0x8596F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Send_Go_Away@CordMgr@@QAEXPAVUDP@@IGEG@Z",
+        "address": "0x858640",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Set_Buffers@CordMgr@@QAEXPAVUDP@@@Z",
+        "address": "0x8578C0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unlisten@CordMgr@@QAE_NIG@Z",
+        "address": "0x857C00",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Unsigned_Divide@?$Int@$0EA@@@SAXAAV1@0ABV1@1@Z",
+        "address": "0x82C220",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?Wait@CordMgr@@QAEHHH@Z",
+        "address": "0x857DE0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@PAVCordCon@@@@QAEDABQAVCordCon@@J@Z",
+        "address": "0x85B6F0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?add@?$ArrayList@UCordDataSocketClass@@@@QAEDABUCordDataSocketClass@@J@Z",
+        "address": "0x85B990",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordDataSocketClass@@@@QAEXXZ",
+        "address": "0x85B970",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?clear@?$ArrayList@UCordListenSocketClass@@@@QAEXXZ",
+        "address": "0x85BC30",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?exp_b_mod_c@?$Int@$0EA@@@QBE?AV1@ABV1@0@Z",
+        "address": "0x82C1A0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?flush@@YAAAVostream@@AAV1@@Z",
+        "address": "0x850850",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordDataSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BC80",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?growVector@?$ArrayList@UCordListenSocketClass@@@@AAEDJ@Z",
+        "address": "0x85BD40",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?id@?$ctype@G@std@@$E",
+        "address": "0x42B320",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordCon@@@@AAEDXZ",
+        "address": "0x85B8B0",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@PAVCordConnectingClass@@@@AAEDXZ",
+        "address": "0x85B630",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "?shrinkVector@?$ArrayList@UCordDataSocketClass@@@@AAEDXZ",
+        "address": "0x85BB70",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      },
+      {
+        "symbol": "_$E55",
+        "address": "0x85BC50",
+        "body": true,
+        "relocations": true,
+        "unwind": true
+      }
+    ]
+  },
+  "literal_note": "The empty literal is a one-byte zero-initialized COFF .bss COMDAT; checked as zero-fill, not read from file offset0.",
+  "prior50_preservation": {
+    "before_object_sha256": "9157d59838acbb468c67fc01e19d90f33b2fb2f26b62db73afa2548ba6836755",
+    "after_object_sha256": "67f3d3794e1e456755fc21ecb422b15ec73ba2677969a4da9ae8f693454b9ddd",
+    "checked_symbols": 50,
+    "body_or_relocation_changes": [],
+    "eh_funclet_changes": []
+  },
+  "retained_controls": "All3 prior gains independently reaudited on the same root clean-source object. Unchanged cordcon object supplies75 prior pairs. Combined125to126 in both sets,+1/0; original122to126,+4/0.",
+  "first_report": "# Process_CORD_Packet 0x85A000 first pass\n\nNo exact gain. All 12 compiler inputs preserved all 124 baseline file/address and symbol/address pairs, including all original 122 and the ACK1 and ACK2 gains. Baseline is retained2 revision 86654fa59d61c928c256f577d7c417872f3c13a9, source SHA256 14ab66cc73e70d56aff32ff743c267352976b2681ef5613b4b8bd4d968d24832. Each complete set, source, object, compile log and comparison is in .work/claim-325/runs/first_85A000_NAME/; 85A000-analysis.json records full deltas. Both pair sets gained and lost nothing in every run. The matcher still reports target none. No production, header, inventory or commit changes.\n\nRetail hoists the sender pointer into ebp across the loop, keeps session in ebx, and spills the converted ID into the now-dead sender argument slot. Baseline keeps session in ebp, uses ebx for ID, and repeatedly loads sender. All retain the same profiler shape and control-flow arrangement apart from induced instruction/branch differences; no zero-mask candidate or proof audit exists. The actual 438-byte body is eight bytes longer than retail's 430. Baseline diagnostic masked rows 29 (not an exactness measure).\n\nEach proposal.json in .work/claim-325/85A000/first/NAME/ contains its pre-compilation causal hypothesis, retained2 base hash, source hash and lossless patch. All 12 patches were replayed against the base and byte-verified against their recorded inputs. The two originally prepared 123-pair drafts were rebased before any compilation; their earlier hashes are uncompiled. No compile-invalid, semantic-invalid, unchanged controls, guard or launch failures occurred.\n\nRaw and relocation-masked body hashes are identical in each row (actual grouping by both hashes):\n\n* f5cb888dacdd8680831c1081a77a0e9af2e602037d9ad05a9c1de9f9fab4f1f3: scopebase, senderbase, callbase; same as retained baseline, 29 rows.\n* 3b28833cbf6df62857d328db8d714b40990e4a738b063a497e16615e8111426d: packetload, scopepacket, senderpacket, callpacket; 18 rows. Existing ID load before ntohs follows exact ACK1.\n* a86115291938924084800db9dfa2b5302635aa86222dda9260c40071d4b4d759: addressload, scopeaddress, senderaddress, calladdress; 17 rows. Existing sender address load before ntohl.\n* 1528fbe245eb768c63d6a8f55b36e501a8935b8d6afe84f330314e7f25c46143: both, 20 rows; both conversion splits combined.\n\nFollowing the two conversion batches, three consecutive no-cut batches narrowed the genuine ID scope, copied the sender pointer into a real loop-lifetime local, and copied the actual handlePacket arguments into call-site locals. Each tested baseline and the two separate conversion forms; every result duplicated its corresponding original body. No invented dead reads, changed order, or omitted failure/report paths were used. No viable exact source is proposed for integration; improved rows are diagnostic only.\n\nThe original three historical forms have no available stash; their exact patches cannot be recovered or assumed. A new evidence-backed allocation or actual helper/lifetime mechanism affecting the sender/ID slot and preserving the getter's failure behavior could justify reopening; a new model alone or further unsupported source permutations do not. Full diffs are in the run directories. The 17-row form still loads from repeatedly and holds session in ebp, so it is not proof of matching allocation.\n\nExclusive compiler gate explicitly released with no jobs or VM leases; staging restored by runner. Reporting and replay verification were read-only with respect to shared build state.\n",
+  "sol_report": "# 0x85A000 Process_CORD_Packet \u2014 Sol candidate audited\n\nTwo actual compiler inputs, two launches, one written hypothesis batch, two\ndistinct raw and relocation-masked outputs. key_address gains the claimed\nfunction in both complete sets: retained3 125 -> 126, zero losses. All original\n122 pairs survive along with ACK1, ACK2 and PumpConnections. No compiler-invalid,\nsemantic-invalid, guard/launch failure, unchanged control, or compiled duplicate.\nModel: gpt-6.1-sol high. No production, shared header, tracked metadata, snapshot,\ncommit or external-service writes by this worker. Root owns retention and the\nindependent final-source rebuild.\n\nActive base was retained3 revision bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0,\ncordmgr.cpp SHA-256 593979273563e91df9080f64c60bca1c048dd4be28b3a87d35141673d97dfe70,\ncordmgr.h 12e0dc74710320fc81810d94469a1270b4d3f46b63effca82886cd8d631274e2.\nThe source/header were not changed after the prior GoAway worker released the\ngate. Native runner: /home/dev/Projects/EnB/.work/claim-325/runner_retained3.py;\nPython: /home/dev/Toolchains/enb-vc6-sp4/venv/bin/python.\n\n## Mechanism and actual results\n\nIndependent actual-code inspection found an untested real warning argument:\nthe existing __int64 Key_ value. Earlier named call arguments were only those\nof handlePacket, not this warning. Naming the key immediately before the warning\nchanges allocation across the whole loop. key_base reaches retail's 430 bytes\nfrom native438, with sender in EBP, session in EBX and converted packet ID in\nthe dead sender argument slot. Its 22 diagnostic rows / four normalized rows\nremain unmatched, but the register-lifetime result is direct new evidence.\nTogether with the earlier actual sender-address load/conversion split,\nkey_address reproduces the complete retail target. This is a coordinated actual\nargument/source allocation mechanism, not extra storage, a dead read, or a field\noffset change.\n\n| Input | Source SHA-256 | Raw and masked body SHA-256 | Actual outcome |\n|---|---|---|---|\n| key_base | 874daeb298dc2bbe7b605703bc1a0856480638f735886c9c8a7170daf99f17a6 | 48dc842e49a57787350ddbc513bd3a98ca381a24cb921ac240daf0daab139ce3 | 430 bytes, 22 diagnostic rows, 125 pairs in both sets |\n| key_address | eeb8194466f52e727804d5c0136d15f85ec2953151e54ccc0cc36fd192dd3ba9 | dbc3fd5a02db166fc52f30d60d5eea27d90a9e54e3c0128e1223ae2359a1bd2a | 430 bytes, exact candidate, 126 pairs in both sets |\n\nCandidate object SHA-256:\ncb571951fb84f469c15abb27d356c3288a98faedb5b91bb46164e325c318bbb4.\nSource: /home/dev/Projects/EnB/.work/claim-325/85A000/sol/key_address/cordmgr.cpp.\nObject: /home/dev/Projects/EnB/.work/claim-325/runs/sol_85A000_key_address/cordmgr.obj.\nEach run has input.cpp/input.json, compile.rsp/log, matches.json/result.json.\nFull before/after file/address AND symbol/address sets are in those result files\nand retained3-baseline/result.json; baseline/result.json contains original122.\nsol/execution.json binds all result/replay/analysis paths and hashes and records\nboth deltas. Individual source-bound lossless replays, actual objdiff, native\ninstruction listing and analysis are sol/NAME/{replay.json,objdiff.txt,native.txt,\nanalysis.json}. All replay and evidence records are below 64 KiB.\n\n## Source semantics and completed audit\n\nThe key remains a full __int64 vararg despite the existing %d text. Its two real\ndword reads remain on failed validation, after handlePacket returned false and\nbefore sender port/address conversions. No callback, member read, conversion,\nfailure path, successful Port_ assignment or loop-get behavior is removed or\nmoved across another operation. Key high/low pushes, port load/conversion and\naddress load/conversion now follow retail's exact schedule; actual member-read\norder is preserved. The warning retains exact text and physical line1272.\n\nRead-only audit script:\n/home/dev/Projects/EnB/.work/claim-325/85A000/sol/audit.py OBJECT SOURCE SOURCE_SHA256.\nSuccessful result: sol/key_address/audit.json. It proves all430 body bytes after\nindependently resolving every reference,133 instructions,18 internal branches,\ntwo ret0x18 returns,10 calls and their receiver/argument setup;21 zero-addend\nrelocations; full empty/category/file/profile/format payloads; warning's two\nkey dword pushes and36 argument bytes. The empty literal is a one-byte zero\nCOMDAT .bss object, not bytes at file offset0. Message_Warn goes through\n0x404DCC to exact0x4BC130. Unmatched handlePacket has no exact/called entry, so\nits identity is independently corroborated by thunk0x4049DF ->0x851AE0 and its\nown CordCon::handlePacket profile push at0x851B16. Receiver ECX is the existing\nCordCon in ESI. Conversion thunks are checked through WS2_32 descriptor and\nordinal15/14, not just their names.\n\nThe complete EH graph agrees: handler0xAD84A8, FuncInfo0xB56BA8,\nCxxFrameHandler0xA25AC4, one state with predecessor-1, profile cleanup0xAD84A0\nof8 bytes referencing destructor0x40F8DF. Handler and FuncInfo relocation\nshapes/addends, unwind-map target, action code and action reference are checked.\nAll50 retained manager functions preserve full body/ref/EH representations;\ncompiler-generated FuncInfo label renumbering is normalized after following its\nactual graph. The unchanged hashed cordcon context preserves its75 pairs.\nOriginal122 are a subset of the verified125 baseline sets.\n\n## History, cross-function evidence and unused inputs\n\nFull original target history is three compiled forms/one row; exact old input\nsources are unavailable and were not invented. I read the original txt/json,\nall12 actual first-tier proposals and objects/results, and independently\nreplayed every first-tier patch, compared full124-pair sets against retained2\nand original122, and regrouped actual bodies. sol/prior-audit.json with\nsol/prior/*.json records the four existing raw/masked groups: baseline\nf5cb888d... (scope/sender/call base), ID split3b28833c... (four inputs), address\nsplita8611529... (four inputs), both1528fbe2... (one input). Initial ID split\ncut29->18 rows, address split17, both20. Three later no-cut batches scoped ID,\nnamed sender, and named handlePacket arguments across three contexts, all\nduplicates. Explain's combined-form field-offset report was an alignment\nartifact pairing Key_ high/low instructions; no source field offset changed.\n\nThe group report, five actual new PumpConnections group inputs and final\nheader-consumer proof, plus ACK1/ACK2 actual solves and source-bound audits,\nwere reviewed as concrete allocation mechanisms. ACK1's all-real-load split\njustified combining the actual address split with the new key representation.\nACK2's before-delete con scope and PumpConnections helper-construction lifetime\nhave no analogous allocation/list/delete sequence here and were not blindly\nrepeated. Current retained3 target was verified to duplicate the original\n438-byte baseline body before these tests.\n\nThree generated proposals remain explicitly UNCOMPILED, with verified replay:\nsuccessport_address, warning_address, all_real_splits. They name remaining real\nport/warning conversions, but became unnecessary after the audited candidate;\nnone is counted as a compiled form or batch. No further source experiments are\nneeded for this candidate. Getter substitution/reset-on-failed-get, dead reads,\ninvented helper/lifetime, read hoisting, field edits, flags and old scope/name\npermutations were rejected as semantically wrong or lacking new evidence.\n\nRecommendation: retain the target-only key+address form. Root subsequently\nreported an independent marker-clean final-source rebuild/audit passed with\n126/126 pairs, +1/0, all430 bytes/21 refs/133 instructions, literals, calls and\nEH, plus reaudits of all three prior gains. Root owns the full final hashes,\nevidence packaging and commit. An audit failure or a changed\nsource/header/compiler input would justify reopening the affected proof; model\nchange alone does not. This is a solved candidate, not a claim that every\nequivalent C++ program was searched. Shared clue: real late logging varargs can\ncontrol whole-loop allocation even when earlier argument-local tests duplicate;\nrevisit another target only when its actual output supports such a site.\n\nExclusive compiler gate explicitly released to root after all runners/analyzers\nfinished. At release all5862 staging tracked hashes matched the immutable\nretained3 snapshot and the managed alias pointed to retained3-build-tree.\nNo jobs, tool sessions or VM leases remain. Root may integrate independently.\n",
+  "sol_hypotheses": "# 0x85A000 independent Sol investigation, prepared before compilation\n\nModel: gpt-6.1-sol, high. Scope: granted claim 325 only, Process_CORD_Packet.\nActive base: retained3 revision bdefc60e236590ccb3ad66ca1cd02fa21d20f6e0.\ncordmgr.cpp SHA-256 593979273563e91df9080f64c60bca1c048dd4be28b3a87d35141673d97dfe70;\ncordmgr.h 12e0dc74710320fc81810d94469a1270b4d3f46b63effca82886cd8d631274e2.\nThe native target body remains exactly the baseline first-tier raw/masked group,\n438 bytes, f5cb888dacdd8680831c1081a77a0e9af2e602037d9ad05a9c1de9f9fab4f1f3.\nHeader retention did not itself reopen this target.\n\n## Independent observations\n\nActual retained3 baseline objdiff and all four prior distinct output groups\nwere inspected. Retail loads sender into EBP at 0x85A08E, before entering the\nloop. At 0x85A0B1 it loads full session dword into EBX, calls ntohs on the packet\nID, and saves EAX to the dead sender parameter slot at 0x85A0BE. The compare at\n0x85A0D3 uses only BX and that slot's low word. Native holds session in EBP and\nID in EBX and reloads sender, so this is a lifetime/allocation issue across\nthe entire loop, not merely a different byte-order conversion instruction.\nThe early ID/sender load splits changed scratch coloring but never this choice.\n\nThe loop's existing ArrayList::get (arraylist.h:623) returns false without\noverwriting con when out of range. Retail likewise retains ESI on the failed\ninline-get branch. Replacing this with getPointer, resetting con inside the\nloop, or treating a failed get as a skip changes behavior. There is no\nexisting getter on CordCon for these fields. Inventing an accessor merely to\nspend inline budget has no new source evidence here.\n\nThe unexamined warning argument is an actual __int64 Key_ member (+0x20/+0x24),\ndespite the existing format string saying %d. Retail +0x115/+0x118 loads both\nhalves into ECX/EAX, pushes both, then loads sender port into AX at +0x11D.\nNative loads the port before the low-key push; the address-split context still\ninterleaves that port load. Retail later reads sender address after ntohs\nreturns and calls ntohl before Message_Warn. The success branch also reads\nsender port after handlePacket and converts/stores it before breaking.\nNeither warning values nor successful port load/conversion were named in any\nof the twelve first-tier forms: their call-local hypothesis affected only\nhandlePacket(data,len). This is a concrete late actual-argument site, with\ndemonstrated workflow 3.1.2 named-argument and real-conversion mechanisms.\n\n## Batch 1: full-width actual warning key local\n\nkey_base and key_address materialize precisely the existing __int64 key\nargument immediately before the warning. The second uses the actual prior\n17-row address-load form, rebased by target-only replacement. No conversion,\ncallback, failure branch, logger text/line, or successful Port_ store moves.\nThe key's two dword loads belong to the same existing evaluation before the\nport conversion. This can affect late allocation/scheduling and thereby sender\npriority; it is not a guarantee of matching and must be judged by actual code.\n\n## Batch 2: remaining actual load/conversion sites, conditional on inspection\n\nsuccessport_address splits only the existing successful ntohs input/result\nusing the same typed local, on the best prior address-split context.\nwarning_address names key first, then port load/ntohs, then address load/ntohl,\nthen invokes the unchanged warning with those exact values and widths. This\npreserves actual native call and member-read order and prevents introducing a\nkey read after conversions. all_real_splits combines these changes with the\ntwo initial real splits, analogous to the actual coordinated ACK1 solve.\nThese are purposeful site/interaction tests, not permutations of equivalent\nnames, declarations or casts. Inspect batch 1 before deciding execution and\nany rebasing or combining. Stop on three consecutive no-cut batches or when\nno distinct evidence-backed lever remains. Eight batches would require the\nrepository checkpoint; changing models does not reset limits.\n\n## Prior evidence and rejection boundaries\n\nOriginal history contains three forms (int ID, ushort session, original\nlocals); exact sources are absent, so no fabricated replay is claimed.\nFirst tier has twelve distinct source inputs, five batches and four actual\nraw/masked output groups; all twelve replayed and both complete retained2\n124-pair sets independently checked in sol/prior-audit.json. Original122 also\nsurvive in each. The final three no-cut batches were ID scope, sender pointer\nlocal and handlePacket argument locals across three contexts. They remain\nduplicates and are not proposed again. Explain's combined-form field-offset\ndiagnosis aligns a high Key_ half with a low half; source field offsets are\nunchanged and this is an instruction-alignment artifact, not a layout lead.\n\nACK1's audited five load/conversion splits, ACK2's ignored actual conversion\nand pointer block before delete, and PumpConnections' five actual group tests\nplus header-consumer proof were reviewed as real mechanisms. There is no new,\nadd-list, delete sequence in this function to which the latter pointer-lifetime\nsolution directly transfers. Native and retail both have the same profile\nframe and only the sender/session/ID liveness provides a concrete opening.\nNo fake lifetime/storage, dead reads, arbitrary helper, header edit, flag sweep,\nor hoisted field read is authorized by these examples.\n\nAll five generated inputs are currently UNCOMPILED. prepare.py verifies active\nbase hash, target-only edits, exact-byte replay and physical log/assert guard.\nEach replay.json records before/after edits, full diff and hashes below 64 KiB.\nNo compiler state, production, header, snapshot, tracked metadata, commit or\nexternal service has been changed. Exclusive gate remains with root.\n",
+  "compiled_inputs": 14,
+  "root_validation_compilations": 1,
+  "uncompiled_proposals": [
+    "successport_address",
+    "warning_address",
+    "all_real_splits"
+  ],
+  "proof_limits": "No linked-client/runtime check. Global installed gate already passed +3/0 on prior code revision; final committed-revision gate remains required after this4thgain."
+}

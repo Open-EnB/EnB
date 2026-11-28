@@ -1,0 +1,32 @@
+{
+  "claim": 330,
+  "address": "0x7140E0",
+  "base_revision": "fb6e641d1bb82397154e0899d774567959bd73f1",
+  "changed_compiled_inputs": 9,
+  "evidence": [
+    "docs/attempts/7140E0/claim330-first_7140E0_matrix_false.json",
+    "docs/attempts/7140E0/claim330-first_7140E0_matrix_temporary.json",
+    "docs/attempts/7140E0/claim330-first_7140E0_speed_local.json",
+    "docs/attempts/7140E0/claim330-first_7140E0_translation_components.json",
+    "docs/attempts/7140E0/claim330-first_7140E0_translation_outparam.json",
+    "docs/attempts/7140E0/claim330-first_7140E0_vector_local.json",
+    "docs/attempts/7140E0/claim330-sol_7140E0_b1_scoped_position.json",
+    "docs/attempts/7140E0/claim330-sol_7140E0_b1_scoped_position_ref.json",
+    "docs/attempts/7140E0/claim330-sol_7140E0_b2_pull_ref.json",
+    "docs/attempts/7140E0/claim330-original-history.json",
+    "docs/attempts/7140E0/claim330-terra-report.txt",
+    "docs/attempts/7140E0/claim330-sol-report.txt"
+  ],
+  "whole_group_review": "docs/attempts/713D70/claim330-group-review.txt",
+  "final_astra_review": "docs/attempts/713D70/claim330-astra-review.txt",
+  "replay": "git show BASE:UNIT gives the UTF-8 LF source; apply edits in descending start order, verify input_sha256. Character offsets are Python string offsets. Canonical libdefs flags/defines/tree_includes at BASE; no expanded include paths. Compiler VC6 SP4, retail SHA256 249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4.",
+  "classification": "Scratch experiments only; no partial source form retained. Pair deltas include rejected inputs, not changes to production.",
+  "status": "parked",
+  "outcome": {
+    "forms": 9,
+    "baseline_groups": 9,
+    "best_groups": 9,
+    "reason": "Two stalled rounds; translation/callback and fchs scheduling unchanged."
+  },
+  "verification": "docs/attempts/713D70/claim330-verification.json"
+}

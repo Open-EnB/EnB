@@ -1,0 +1,127 @@
+# 0x578350 Sol high escalation
+
+No gain and no proposed production change. Five genuinely changed inputs were
+compiled in three purposeful batches; the repository's eight-batch checkpoint
+was not reached. All five produce target bodies already observed in Terra's actual
+objects: three baseline254-byte bodies, two extent_vector257-byte bodies.
+Retail remains250 bytes; the same three masked shape rows remain. This is
+bounded exhaustion of the tested mechanisms, not proof over all C++ programs.
+
+Scope was UIComboBoxTextClass::Init only. Production C++, headers, immutable
+snapshot, tracked metadata, commits and external services were never written.
+The canonical runner temporarily staged only the individual source input under
+the exclusive gate and restored it after every job. Source base is
+b0f0f58d369b09aa14939bf2baac3ef5685507e6, SHA256
+369e5cf801184870da323dfbc16297f34da8b4bbaaab4e575241b7c50cf75e00.
+Read complete attempts.py show history (November11 two forms and November26
+Terra14), original fourteen replay patches and reports, actual alternative
+objects/diffs, whole-group report and cited startup/traps. No LIMIT REACHED
+appeared before this round. Root owns any resulting attempts row.
+
+## Hypotheses and actual outcomes
+
+1. Allocation/registration via a real local FontSys pointer, as demonstrated in
+   app/client/ui_mfdm.cpp:644-645 and unknown_msgbox.cpp:121; separately a real
+   local for the existing Mesh->Peek_Object() result. workflow.md:762 describes
+   function-wide definition-index effects on x87 ordering. These are consumed
+   operation results, not dummy locals. Each preserves member reads after
+   callbacks. construct_local and mesh_local both compile to the actual
+   baseline254-byte body, not merely equal similarity. Both preserve all
+   isolated100 file/address and101 symbol/address pairs with zero gains/losses.
+   No further alias/declaration spellings were swept after these duplicates.
+
+2. Use existing Vector3::operator[] reference accessors, first only Extent[1],
+   then all position/extent components. wwmath/vector3.h:107-108 defines these
+   real accessors; wwmath/obbox.h:136-138 demonstrates component-index usage.
+   workflow.md:740 documents extra inline-accessor temporaries changing x87
+   order. extent_index and vector_indices both emit the same257-byte body.
+   Actual effect is only `add eax,0xC; fld [eax+4]` in place of `fld [eax+0x10]`;
+   the last-height load/add/pop remains. These both exactly duplicate Terra's
+   extent_vector target body when compared with the same padding convention.
+   Both preserve100/101 without gain/loss. No arithmetic, rounding or repeated
+   virtual getter was introduced.
+
+3. Extract the complete measured-text bounds query/configuration operation,
+   containing its Get_Position result, bounding getter, scalar height and flag
+   store, into a file-local inline helper. This differs from Terra's rectangle
+   layer taking precomputed position/height/width. Passing the combo object
+   keeps Text and Width reads at the original points across getter calls; it
+   adds no speculative pre-read or altered precision. The hypothesis was that
+   genuine local lifetimes inside a larger operation boundary could alter
+   nested x87 scheduling. query_config_layer inlines to the exact baseline254
+   target body, with no gain; it additionally loses578120,578210 and5790C0 in
+   both pair sets. The actual constructor diffs show Init now expanding inside
+   its callers, illustrating a real inline-budget effect but no improvement
+   in height scheduling. This helper is rejected, never a preservation success.
+   Separate actual loss objdiffs are saved beside its record.
+
+These are three consecutive no-cut batches. The eighth-batch checkpoint was
+never reached. No compiler-invalid, launch/guard failures, semantic-invalid
+compiled diagnostics, unchanged controls or hidden repeated runs occurred.
+No staged generated-but-untested candidate exists. No remaining distinct
+supported input was identified after reassessing actual results.
+
+## Evidence and comparison conventions
+
+Every input lives under
+/home/dev/Projects/EnB/.work/claim-322/578350/sol/NAME/ui_combobox.cpp;
+each has replay.json (base/revision/input hash, lossless line edits, verified
+roundtrip), record.json (complete both pair sets/deltas, hashes, group and prior
+duplicates) and runner.log. Every actual compiler input copy/object/result/
+flags/compile log and target objdiff lives under
+/home/dev/Projects/EnB/.work/claim-322/runs/sol_init_NAME/.
+All individual evidence records are below64KB. Exact compiled input SHA256s:
+
+| Input | SHA256 |
+| --- | --- |
+| construct_local | 40575a704f6270b6034e57259596978bee74f02b0e36ece42be7500094ba6f72 |
+| mesh_local | 83a2ea2c0dfff11236d993613039a523e45361badbe237f0ed380834eebc318b |
+| extent_index | edebdecaa638b7b60d5246e6d2f1772baec62f13a96551d93a563b1637500761 |
+| vector_indices | ac9364147801814eec7780db44dac9b7e07fc0fad6ab800cb24dba648201cabe |
+| query_config_layer | 51b0ba5d052c2bbe3b9fae0dccf24cac248ce14823e880580708d891fccb0f58 |
+
+/home/dev/Projects/EnB/.work/claim-322/578350/sol/summary.json contains
+two actual raw/masked code groups and every prior-body duplicate, recomputed
+from all fourteen first-pass objects and baseline with one measurement method.
+The executable-only group hashes are a80989eb39d53ec2045ac306087edb70c7a96417b6fe4ad0e6ebe81789700c15
+(construct_local,mesh_local,query_config_layer) and
+a5d156b26d61ec293f940716ae6b181930d7cf70d52fe52d994d56038bdc0de3
+(extent_index,vector_indices). Raw and masked hashes coincide for these object
+sections. Earlier forms.json hashed padding too; summary.json saves both
+conventions to avoid misclassifying a known padded body as new code.
+Reproduction scripts are sol_test.py and sol_summary.py in578350/; each input
+uses a unique sol_init_* canonical runner name, native venv and original
+ui_combobox.cpp basename. plan.md records the causal batches.
+
+## Remaining residue, rejected and reopening directions
+
+Retail destructively adds memory pos.Y onto the surviving height; baseline
+instead loads pos.Y, fadd st(1), and later pops old height. The distinct accessor
+and genuine local/layer tests did not alter this. Earlier Terra already tested
+sequenced destructive height, all named bounds, float/double/const height/Y,
+real box/vector copy/reference and precomputed rectangle helper boundaries.
+Sol confirmed that mere distinct source mechanisms can still duplicate those
+same bodies; they must not be advertised as new machine-code progress.
+
+No extra source-spelling attempts are proposed. A floating Vector2/rectangle
+local holding arithmetic bounds may introduce intermediate rounding and is
+not a precision-faithful lead. A fake state/destructor, dummy definition sweep,
+dead read, volatile, inline ASM, pragma or flags is forbidden. Repeated virtual
+bounding getter calls are not equivalent. Unsequenced modification/read across
+arguments remains invalid C++98. Repeating const-reference position-result
+bindings remains unsupported by current related code and the already-correct
+return-buffer lifetime. These are uncompiled rejections, not hidden inputs.
+
+Reopen only with a demonstrated, meaningful source operation/accessor/lifetime
+whose actual compiled evidence changes the height's last-use schedule, or new
+nearby exact source evidence for such a boundary. Another commutation, renamed
+local, or equivalent wrapper without new causal evidence is not a lead.
+No full retail target/EH/cleanup/reference audit or authoritative102/102 context
+success is claimed: no candidate gained, so none qualified for those expensive
+proof steps. Root's102/102 context and complete target plus prior-body/EH audit
+remain mandatory for any future kept gain. EH is present in Init and cannot be
+inferred correct from the masked shape alone.
+
+Compiler/staging gate explicitly RELEASED to root after the fifth job. No
+worker compiler, runner or test job remains; no VM lease was acquired. Root
+was notified before report finalization. No source candidate is promoted.

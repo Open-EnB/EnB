@@ -1,11 +1,15 @@
 # client.exe: facts about the binary
 
-The target is the retail client as installed (Net-7 era install):
+The target is the retail client. **"Retail" is either of two images (D287), and both are accepted**: the copy in
+the Net-7-era install (the tools' default) and EA's shipped client. Net-7 changed only 11 URL / host strings in
+`.data`; the code, headers, `.rdata` and `.rsrc` are the same bytes, so every address in these docs holds in both.
+A comparison that reaches those strings (imagediff) masks them, so its result is the same for either.
 
 | | |
 |---|---|
-| Path | `C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe` |
-| SHA-256 | `249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4` (the same client the earlier protocol research used) |
+| Path | `C:\Program Files (x86)\EA GAMES\Earth & Beyond\release\client.exe` (Net-7-era install); `C:\EnBDevelopment\ClientPOC_EA\release\client.exe` (EA's) |
+| SHA-256 | `249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4` (Net-7-era install; the same client the earlier protocol research used); `82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562` (EA's) |
+| Their differences | 11 ranges, 732 bytes (720 of them differ), all `.data`: 0xB84710 +17, 0xB84734 +60, 0xB8478C +74 (EA's web and store links), 0xB9C300 +15 (`auth.east.ea.co` -> `play.net-7.org`), 0xB9FE5B +41, 0xB9FE9C +47, 0xB9FEF0 +53, 0xB9FF3F +40, 0xB9FF7F +49, 0xB9FFC3 +116, 0xBA0063 +220 (earthandbeyond.ea.com's embedded pages -> net-7.org / enb-emulator.com); `tools/re/clientimage.py` `RETAIL_DIFFERENCES`. Our source holds Net-7's strings |
 | Size | 8,642,625 bytes (the file date is the install's, not the build's) |
 | PE timestamp | 0x4057AE00 = **2004-03-17 01:46:40 UTC** (the file header; the debug directory and the PDB record carry 0x4021A831 = 2004-02-05 02:19:29 UTC, age 2: §5) |
 | PDB | `e:\build\beta\G\app\main\client_release\main.pdb` (not available) |
@@ -970,7 +974,56 @@ change). The one client build has `.data` at another RVA, so the imagediff figur
 Aside: cpacket's two unreferenced 0.01f floats after the tables (0xB95308) are another file static of a header or
 of cpacket.cpp, not looked for.
 
-### 5.11 The four questions answered, and what the one client build would need
+### 5.11 Name recovery from the thunk order (2026-11-26)
+
+Measured 2026-11-26 on a Mac (interactive session with the user, branch names/2026-11-26) with
+`tools/re/thunknames/` ([README](../tools/re/thunknames/README.md)), starting from IM3's table (§5.2: 2,797 slots on the
+order). The table is used as an oracle: a proposed decorated name for a slot is right only if it hashes into the
+window between the slot's anchors, and almost always into its **near part** (+/- 3 buckets of the bucket
+interpolated by slot position, 188 of round 1's 193 renames; a wrong name lands there with about 7 / 15,048).
+Every step tests whole decorated names, accepts by a chance figure checked against a null, and cascades: each
+accepted name becomes an anchor and narrows its neighbours' windows.
+
+| Step | Anchors after | Evidence |
+|---|---|---|
+| IM3 (§5.2) | 2,797 | |
+| round 1: token search over a 291k-word dictionary (class qualifiers, method names), `_Construct` -> `ProxyArrayClassManagerClass` reverted | 2,990 | 39 tokens at modelled chance < 1e-4; a random-name null gave 2 false under 1e-4: the model is ~10x optimistic |
+| tier 1: vtable relatives, `Class::Method` strings (right on 104 of 110 anchors), convention variants (class +/- Class / Struct 191 near hits against a null of 4.7; access 46 / 5.3, int 20 / 2.2, const 17 / 1.4) | 3,288 | no model |
+| tier 2: Sonnet / Haiku class-name proposals (pilot 20 classes, then 298) | 3,413 | 24 + 1 classes; a cross-class null (300 other classes' candidates per class) at 0 under 1e-4 |
+| a confirmed rename + one edit, propagation | 3,503 | |
+| **bug 1 fixed**: renames never reached `??0` / `??1` / `??_G` / `??_E` names (the class follows an identifier character); the saved proposals rescored | 3,953 | 92 classes, 450 slots: the UI screens' `UI<X>Class` are retail's `<X>Interface` (about 25), the GameEditor packets 0x7530-0x754A |
+| `??_G` / `??_E` spelling (72 near hits against 0.2), int / pointer cv / const, two more classes | 4,100 | |
+| **bug 2 fixed**: renames never reached parameter / return types (`PAVFoo@@`: the class follows its type code) | 4,495 | 290 slots of known classes, 105 global / std functions |
+| Sonnet round 3 (414 classes, destructor slots marked, names already tried, confirmed relatives) | 4,720 | 42 classes, 168 slots |
+
+The result against symbols.json's names: 1,925 slots on the order carry a different name than ours, 1,883 of
+them `exact` (our source declarations): 257 class renames (1,503 slots; `docs/data/class-renames.tsv`) and 422
+other corrections (signatures, method names, parameter types). Retail's spelling patterns: `<X>Interface` for the
+UI screens, `Class` dropped in many app classes (`DynamicWindowElement`, `TextEditorGadget`, `LinearBuffer`,
+`BitSet`), abbreviations spelled out (`ProxyRenderObjClass`, `CircularBufferClass`, `InventoryRenderClass`) or
+upper-cased (`GPS`, `PIP`, `MFD`). Not yet confirmed: 451 of 1,074 class qualifiers; open: 3,494 `Unknown_XX`
+method names, 5,700 unnamed slots. Costs: the dictionary searches stay at chance; Haiku about 0; Sonnet about
+4.7k-6.5k tokens per anchor; the two tool fixes gave more than every model round together.
+
+What it does not settle: names of functions without a thunk slot, and the order inside a bucket
+(first sight, §5.1). The acceptance threshold (1e-4 against the cross-class null) was not reviewed when this was
+written: `tools/re/thunknames/HANDOFF.md` brief A.
+
+**The review (2026-11-26 evening) and the rules it left in the tools.**
+
+| Finding | Figure | Rule now |
+|---|---|---|
+| The buckets are not even: linear hashing leaves [6856, 8192) unsplit | 2.45 slots per bucket there, 1.20 below, 1.23 above; a random name lands in one of them with 2 / 16384, elsewhere 1 / 16384 | widths and interpolation on the mass axis (`gapguess.prob`, `near_part`): +/- 3 mass units, the old +/- 3 buckets where split, about 3 buckets where not; leave-one-out coverage 99.7 % / 98.8 % at the same chance |
+| Names became anchors by lying in their window | 2,791 base names, 479 propagated ones; 5 `Unknown` names on the run; 82 base anchors beyond 3 buckets of their interpolated place (7 of 1,450 tested hits); the 8 anchors lost during the session were all base names | `Unknown` names take no part in the run; an untested name outside its near part is probable |
+| The hits' `chance` is after selection | sum 0.6 over 1,450 hits; tier1c's single-slot kinds have nulls of 8-27 % of their hits (access 46 / 5.3, int 20 / 2.2, const 17 / 1.4, pointer cv 4 / 1.1) | a single-slot hit of those kinds is probable unless the same kind hit another slot of the class |
+| The cross-class null is a search | its hits are siblings' true names (StringValueClass / KVStringAccessorClass) | the salted null (`permnull.py`): each candidate + two salt characters, 1,000 salts; the modelled class chance is 0.06-0.21x the nominal rate (conservative: the forms factor), expected false classes per run 0.008 at 1e-4 |
+| Renames were judged once, with their siblings' anchors in place | re-scored with the class's own slots left out and the candidates tried counted (`rescore.py`) | 248 of 257 keep (expected false 6e-4), 9 weak (class-renames.tsv `verdict`) |
+
+Anchors after the review: 4,716 on the order, **4,519 confirmed** (they bound the windows) and 197 probable (102
+untested names outside their near part, 73 single-slot hits, 21 anchors of weak renames, 1 one-anchor rename).
+A probable name is still the best name its slot has; it is not evidence for a source rename by itself.
+
+### 5.12 The four questions answered, and what the one client build would need
 
 Written 2026-11-27 (image builder IM14, week plan 2026-11-24 §2 D) from §5.1-§5.10 and the exact build (D286,
 `build.py link --program client-exact`). Figures: imagediff on wt/IM14 (run/2026-11-27 de6acd990 plus c18, the

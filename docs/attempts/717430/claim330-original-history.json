@@ -1,0 +1,16 @@
+[
+  {
+    "date": "2026-10-28",
+    "address": "0x717430",
+    "symbol": "Unknown717010Class::Unknown_717430",
+    "file": "app/client/postate.cpp",
+    "library": "app",
+    "status": "partial",
+    "score": "0.50",
+    "forms": "1",
+    "blocker": "inline-budget",
+    "evidence": "type 4's input step (sclient.cpp 0x745AEE ... 0x74B894): MaxTurnRate / MaxTiltRate scaled by the inputs, MaxSpeed / MinSpeed (or +-10 when fixed) by *move_direction (assert line 977), Acceleration; then extrap slot +0x20, blended as 0x7179A0. The client calls the float Cast 0x546970 out of line in the first lookups; the five pointers' zero stores scheduled differently",
+    "stash": "",
+    "model": "opus"
+  }
+]

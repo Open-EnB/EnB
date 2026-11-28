@@ -1,0 +1,133 @@
+CLASS	FontDatabaseClass	FontDatabaseClass
+CLASS	FontDatabaseClass	FontDatabase
+CLASS	FontDatabaseClass	FontManagerClass
+CLASS	FontDatabaseClass	FontLibraryClass
+CLASS	FontDatabaseClass	FontInfoDatabaseClass
+CLASS	FontDatabaseClass	FontManager
+CLASS	AvatarDescClass	AvatarDescClass
+CLASS	AvatarDescClass	AvatarDescriptionClass
+CLASS	AvatarDescClass	AvatarDescPacketClass
+CLASS	AvatarDescClass	AvatarDescStruct
+CLASS	AvatarDescClass	AvatarDesc
+CLASS	AvatarDescClass	AvatarDescriptorClass
+CLASS	StarmapPipClass	StarmapPipClass
+CLASS	StarmapPipClass	StarMapPipClass
+CLASS	StarmapPipClass	StarmapPIPClass
+CLASS	StarmapPipClass	StarmapClass
+CLASS	StarmapPipClass	GalaxyMapPipClass
+CLASS	StarmapPipClass	StarmapPipInterface
+CLASS	HtmlBlockClass	HtmlBlockClass
+CLASS	HtmlBlockClass	HTMLBlockClass
+CLASS	HtmlBlockClass	HtmlBlock
+CLASS	HtmlBlockClass	HtmlContainerClass
+CLASS	HtmlBlockClass	HtmlLayoutClass
+CLASS	Unknown_ChatStreamClass	ChatStreamClass
+CLASS	Unknown_ChatStreamClass	ChatEditStreamClass
+CLASS	Unknown_ChatStreamClass	ChatEditStream
+CLASS	Unknown_ChatStreamClass	ChatStream
+CLASS	Unknown_ChatStreamClass	ChatBufferClass
+CLASS	Unknown_ChatStreamClass	ChatEditBufferClass
+CLASS	Unknown_ChatStreamClass	EditStreamClass
+METHOD	FontDatabaseClass	?Unknown_6C49C0@FontDatabaseClass@@QAEXXZ	Clear_Effects
+METHOD	FontDatabaseClass	?Unknown_6C49C0@FontDatabaseClass@@QAEXXZ	Clear_Colors
+METHOD	FontDatabaseClass	?Unknown_6C49C0@FontDatabaseClass@@QAEXXZ	Clear_Fonts
+METHOD	FontDatabaseClass	?Unknown_6C47B0@FontDatabaseClass@@QAEXXZ	Clear_Colors
+METHOD	FontDatabaseClass	?Unknown_6C47B0@FontDatabaseClass@@QAEXXZ	Clear_Effects
+METHOD	FontDatabaseClass	?Unknown_6C47B0@FontDatabaseClass@@QAEXXZ	Clear_Fonts
+METHOD	FontDatabaseClass	?Unknown_6BFD00@FontDatabaseClass@@QAEXPBD@Z	Load
+METHOD	FontDatabaseClass	?Unknown_6BFD00@FontDatabaseClass@@QAEXPBD@Z	Load_Fonts
+METHOD	FontDatabaseClass	?Unknown_6BFD00@FontDatabaseClass@@QAEXPBD@Z	Init
+METHOD	FontDatabaseClass	?Unknown_6BE520@FontDatabaseClass@@QAEXXZ	Clear_Font_Files
+METHOD	FontDatabaseClass	?Unknown_6BE520@FontDatabaseClass@@QAEXXZ	Clear_Fonts
+METHOD	FontDatabaseClass	?Unknown_6BE520@FontDatabaseClass@@QAEXXZ	Clear
+METHOD	FontDatabaseClass	?Unknown_6C2080@FontDatabaseClass@@QAEXXZ	Clear_Effects
+METHOD	FontDatabaseClass	?Unknown_6C2080@FontDatabaseClass@@QAEXXZ	Clear_Colors
+METHOD	FontDatabaseClass	?Unknown_6C2080@FontDatabaseClass@@QAEXXZ	Clear
+METHOD	FontDatabaseClass	?Unknown_6C1AA0@FontDatabaseClass@@QAEXPBD@Z	Load_Colors
+METHOD	FontDatabaseClass	?Unknown_6C1AA0@FontDatabaseClass@@QAEXPBD@Z	Load_Effects
+METHOD	FontDatabaseClass	?Unknown_6C1AA0@FontDatabaseClass@@QAEXPBD@Z	Load_Font
+METHOD	FontDatabaseClass	?Unknown_6BF910@FontDatabaseClass@@QAEXXZ	Clear_Font_Files
+METHOD	FontDatabaseClass	?Unknown_6BF910@FontDatabaseClass@@QAEXXZ	Clear_Effects
+METHOD	FontDatabaseClass	?Unknown_6BF910@FontDatabaseClass@@QAEXXZ	Release_Fonts
+METHOD	AvatarDescClass	?Unknown_4C15F0@AvatarDescClass@@QAEXPBD_N@Z	Load_Default
+METHOD	AvatarDescClass	?Unknown_4C15F0@AvatarDescClass@@QAEXPBD_N@Z	Set_Name
+METHOD	AvatarDescClass	?Unknown_4C15F0@AvatarDescClass@@QAEXPBD_N@Z	Set_Full_Name
+METHOD	AvatarDescClass	?Unknown_4C1460@AvatarDescClass@@QAEXPBD_N@Z	Set_First_Name
+METHOD	AvatarDescClass	?Unknown_4C1460@AvatarDescClass@@QAEXPBD_N@Z	Set_Last_Name
+METHOD	AvatarDescClass	?Unknown_4C1460@AvatarDescClass@@QAEXPBD_N@Z	Set_Name
+METHOD	AvatarDescClass	?Unknown_00@AvatarDescClass@@UAEXPAVKVEncoderClass@@@Z	Encode
+METHOD	AvatarDescClass	?Unknown_00@AvatarDescClass@@UAEXPAVKVEncoderClass@@@Z	Write_KV
+METHOD	AvatarDescClass	?Unknown_00@AvatarDescClass@@UAEXPAVKVEncoderClass@@@Z	Serialize
+METHOD	StarmapPipClass	?Unknown_10@StarmapPipClass@@UAE_NABV?$RefCountPtr@VRenderObjClass@@@@@Z	Set_Render_Obj
+METHOD	StarmapPipClass	?Unknown_10@StarmapPipClass@@UAE_NABV?$RefCountPtr@VRenderObjClass@@@@@Z	Add_Render_Obj
+METHOD	StarmapPipClass	?Unknown_10@StarmapPipClass@@UAE_NABV?$RefCountPtr@VRenderObjClass@@@@@Z	Remove_Render_Obj
+METHOD	StarmapPipClass	?Unknown_7C0EE0@StarmapPipClass@@QAEPAVNavigationListClass@@XZ	Get_Navigation_List
+METHOD	StarmapPipClass	?Unknown_7C0EE0@StarmapPipClass@@QAEPAVNavigationListClass@@XZ	Get_Nav_List
+METHOD	StarmapPipClass	?Unknown_7C0FA0@StarmapPipClass@@QAE_NXZ	Is_Visible
+METHOD	StarmapPipClass	?Unknown_7C0FA0@StarmapPipClass@@QAE_NXZ	Is_Active
+METHOD	StarmapPipClass	?Unknown_7C0FA0@StarmapPipClass@@QAE_NXZ	Update
+METHOD	StarmapPipClass	?Unknown_7C1A90@StarmapPipClass@@QAEXM@Z	Update
+METHOD	StarmapPipClass	?Unknown_7C1A90@StarmapPipClass@@QAEXM@Z	Set_Zoom
+METHOD	StarmapPipClass	?Unknown_7C1A90@StarmapPipClass@@QAEXM@Z	Set_Scale
+METHOD	StarmapPipClass	?Unknown_7C1120@StarmapPipClass@@QAEXM@Z	Update
+METHOD	StarmapPipClass	?Unknown_7C1120@StarmapPipClass@@QAEXM@Z	Render
+METHOD	StarmapPipClass	?Unknown_7C1120@StarmapPipClass@@QAEXM@Z	Set_Zoom
+METHOD	StarmapPipClass	?Unknown_7C2280@StarmapPipClass@@QAEXXZ	Render
+METHOD	StarmapPipClass	?Unknown_7C2280@StarmapPipClass@@QAEXXZ	Update
+METHOD	StarmapPipClass	?Unknown_7C2280@StarmapPipClass@@QAEXXZ	Reset
+METHOD	StarmapPipClass	?Unknown_7C1060@StarmapPipClass@@QAE_NXZ	Is_Zoomed
+METHOD	StarmapPipClass	?Unknown_7C1060@StarmapPipClass@@QAE_NXZ	Is_Visible
+METHOD	StarmapPipClass	?Unknown_7C1060@StarmapPipClass@@QAE_NXZ	Is_Moving
+METHOD	StarmapPipClass	?Unknown_7C1350@StarmapPipClass@@QAE_NXZ	Is_Rotating
+METHOD	StarmapPipClass	?Unknown_7C1350@StarmapPipClass@@QAE_NXZ	Is_Zooming
+METHOD	StarmapPipClass	?Unknown_7C1350@StarmapPipClass@@QAE_NXZ	Is_Visible
+METHOD	StarmapPipClass	?Unknown_7C10D0@StarmapPipClass@@QAE_NXZ	Is_Moving
+METHOD	StarmapPipClass	?Unknown_7C10D0@StarmapPipClass@@QAE_NXZ	Is_Active
+METHOD	StarmapPipClass	?Unknown_7C10D0@StarmapPipClass@@QAE_NXZ	Is_Visible
+METHOD	StarmapPipClass	?Unknown_7C1280@StarmapPipClass@@QAEXABVVector3@@M@Z	Set_Position
+METHOD	StarmapPipClass	?Unknown_7C1280@StarmapPipClass@@QAEXABVVector3@@M@Z	Set_Target
+METHOD	StarmapPipClass	?Unknown_7C1280@StarmapPipClass@@QAEXABVVector3@@M@Z	Look_At
+METHOD	StarmapPipClass	?Unknown_7C2D30@StarmapPipClass@@QAEXXZ	Render_Labels
+METHOD	StarmapPipClass	?Unknown_7C2D30@StarmapPipClass@@QAEXXZ	Update_Camera
+METHOD	StarmapPipClass	?Unknown_7C2D30@StarmapPipClass@@QAEXXZ	Render
+METHOD	HtmlBlockClass	?Get_Abs_X@HtmlBlockClass@@QAEHXZ	Get_Absolute_X
+METHOD	HtmlBlockClass	?Get_Abs_Y@HtmlBlockClass@@QAEHXZ	Get_Absolute_Y
+METHOD	Unknown_ChatStreamClass	?Unknown_4C44E0@Unknown_ChatStreamClass@@QAEXPBXH@Z	Write
+METHOD	Unknown_ChatStreamClass	?Unknown_4C44E0@Unknown_ChatStreamClass@@QAEXPBXH@Z	Append
+METHOD	Unknown_ChatStreamClass	?Unknown_4C44E0@Unknown_ChatStreamClass@@QAEXPBXH@Z	Set_Data
+METHOD	Unknown_ChatStreamClass	?Unknown_4C48C0@Unknown_ChatStreamClass@@UAEXPAD@Z	Get_Text
+METHOD	Unknown_ChatStreamClass	?Unknown_4C48C0@Unknown_ChatStreamClass@@UAEXPAD@Z	Copy_Text
+METHOD	Unknown_ChatStreamClass	?Unknown_4C48C0@Unknown_ChatStreamClass@@UAEXPAD@Z	Get_String
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4410@Unknown_ChatStreamClass@@UAEPAXXZ	Get_Buffer
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4410@Unknown_ChatStreamClass@@UAEPAXXZ	Get_Data
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4410@Unknown_ChatStreamClass@@UAEPAXXZ	Get_Stream
+METHOD	Unknown_ChatStreamClass	?Unknown_4C44A0@Unknown_ChatStreamClass@@UAEXXZ	Clear
+METHOD	Unknown_ChatStreamClass	?Unknown_4C44A0@Unknown_ChatStreamClass@@UAEXXZ	Reset
+METHOD	Unknown_ChatStreamClass	?Unknown_4C44A0@Unknown_ChatStreamClass@@UAEXXZ	Free
+METHOD	Unknown_ChatStreamClass	?Unknown_4C46E0@Unknown_ChatStreamClass@@UAEPAXPBX@Z	Copy
+METHOD	Unknown_ChatStreamClass	?Unknown_4C46E0@Unknown_ChatStreamClass@@UAEPAXPBX@Z	Set_Buffer
+METHOD	Unknown_ChatStreamClass	?Unknown_4C46E0@Unknown_ChatStreamClass@@UAEPAXPBX@Z	Assign
+METHOD	Unknown_ChatStreamClass	?Unknown_04@Unknown_ChatStreamClass@@UAEHXZ	Get_Size
+METHOD	Unknown_ChatStreamClass	?Unknown_04@Unknown_ChatStreamClass@@UAEHXZ	Get_Length
+METHOD	Unknown_ChatStreamClass	?Unknown_04@Unknown_ChatStreamClass@@UAEHXZ	Get_Type
+METHOD	Unknown_ChatStreamClass	?Unknown_4C45B0@Unknown_ChatStreamClass@@UAEPAXDEPBDF@Z	Add_Element
+METHOD	Unknown_ChatStreamClass	?Unknown_4C45B0@Unknown_ChatStreamClass@@UAEPAXDEPBDF@Z	Add_Item
+METHOD	Unknown_ChatStreamClass	?Unknown_4C45B0@Unknown_ChatStreamClass@@UAEPAXDEPBDF@Z	Add_Record
+METHOD	Unknown_ChatStreamClass	?Unknown_4C47B0@Unknown_ChatStreamClass@@UAEPAXPAV1@_N@Z	Copy_From
+METHOD	Unknown_ChatStreamClass	?Unknown_4C47B0@Unknown_ChatStreamClass@@UAEPAXPAV1@_N@Z	Append_Stream
+METHOD	Unknown_ChatStreamClass	?Unknown_4C47B0@Unknown_ChatStreamClass@@UAEPAXPAV1@_N@Z	Merge
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4940@Unknown_ChatStreamClass@@UAE_NXZ	Is_Empty
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4940@Unknown_ChatStreamClass@@UAE_NXZ	Is_Valid
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4940@Unknown_ChatStreamClass@@UAE_NXZ	Is_Done
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4850@Unknown_ChatStreamClass@@UAEPAXPBX_N@Z	Set_Data
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4850@Unknown_ChatStreamClass@@UAEPAXPBX_N@Z	Copy
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4850@Unknown_ChatStreamClass@@UAEPAXPBX_N@Z	Load
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4530@Unknown_ChatStreamClass@@QAEPAXH@Z	Get_Element
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4530@Unknown_ChatStreamClass@@QAEPAXH@Z	Get_Item
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4530@Unknown_ChatStreamClass@@QAEPAXH@Z	Get_Record
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4830@Unknown_ChatStreamClass@@UAEXXZ	Clear
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4830@Unknown_ChatStreamClass@@UAEXXZ	Reset
+METHOD	Unknown_ChatStreamClass	?Unknown_4C4830@Unknown_ChatStreamClass@@UAEXXZ	Rewind
+METHOD	Unknown_ChatStreamClass	?Unknown_00@Unknown_ChatStreamClass@@UAEPADXZ	Get_Name
+METHOD	Unknown_ChatStreamClass	?Unknown_00@Unknown_ChatStreamClass@@UAEPADXZ	Get_Text
+METHOD	Unknown_ChatStreamClass	?Unknown_00@Unknown_ChatStreamClass@@UAEPADXZ	Get_Buffer

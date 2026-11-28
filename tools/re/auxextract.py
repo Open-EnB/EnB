@@ -24,6 +24,7 @@ import hashlib, json, re, struct, sys
 import capstone
 
 CLIENT_SHA256 = '249f852496f341c00361be95b66e7c0becc2c39e7cba026f9227e38b602651c4'
+RETAIL_SHA256 = {CLIENT_SHA256, '82663b2f99f639f4e49d43083b0e2bc0d7ed8b76a95eeb22dd9cc9d6079f7562'}   # D287: EA's too
 
 BASE_CTOR = 0x4a4d40        # DeltaBase::DeltaBase(const char *name)
 ADD_CHILD = 0x4a5670        # DeltaCompound::Add(DeltaBase *child)
@@ -63,8 +64,8 @@ class Image:
     def __init__(self, path):
         self.d = open(path, 'rb').read()
         sha = hashlib.sha256(self.d).hexdigest()
-        if sha != CLIENT_SHA256:
-            sys.exit(f'{path}: SHA-256 {sha} is not the client these addresses are for')
+        if sha not in RETAIL_SHA256:
+            sys.exit(f'{path}: SHA-256 {sha} is neither retail client (EA\'s or the Net-7 install\'s, D287)')
         d = self.d
         pe = struct.unpack_from('<I', d, 0x3c)[0]
         n, oh = struct.unpack_from('<H', d, pe + 6)[0], struct.unpack_from('<H', d, pe + 20)[0]

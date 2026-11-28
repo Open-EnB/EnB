@@ -1,0 +1,74 @@
+# First pass: 0x57A060
+
+No source gain is eligible for retention. 35 compiled inputs are recorded in
+summary.json, with verified full-source replay patches, original revision and
+source hashes, full file/address and symbol/address pair sets and deltas, and
+object differences per form. 24 raw and 24 relocation-masked function-body
+groups were observed. The object bytes at relocation slots are already zero,
+so those hashes happen to coincide; neither grouping audits relocation targets
+or jump tables. All pattern lengths include any table/alignment in the COFF
+symbol range, not merely executable instructions. Compiler gate is released;
+no pending compiler process or VM lease. One launch failed before the compiler
+because of a generator error and was fixed; there were no compiler-invalid or
+deliberately semantically invalid compiles.
+
+Current original function and the sole surviving L10 stash are identical; the
+other historical variant and its object are unavailable. Baseline object
+produces 100 file/address and 101 symbol/address isolated pairs. Coordinator
+confirmed 102/102 recorded coverage with the required unchanged holder context.
+All preservation claims below are against isolated 100/101, not the larger
+holder context. No candidate obtained the final full-context check.
+
+Retail has two inlined Toggle bodies; their state 0 checks both flow to a single
+Scroll_To_Selected and Update_Rows tail. Tables at 57A260/57A270 map states 0,
+1, 2, 3 respectively to their separate empty checks, common state=2, common
+state=1, common state=2. Selection makes the Owner virtual callback before
+reading the open-box global; the callback may reenter. The target has no EH.
+Retail standalone Scroll, Toggle, Select, Select_Text are exact in baseline;
+the first Toggle copy alone expands Scroll at baseline, while the second calls
+it. The retail nested Get_Item_Text size call is out of line, whereas the exact
+Select and Select_Text standalone copies inline size.
+
+First changed source ordering of dispatch or expanded Select, with full
+preservation but no target gain. default_first moved the inline Scroll copy to
+the other path and caused Get_Item_Text's size call to go out of line. Combining
+that dispatch with Show_Selected's existing Get_Selected_Text accessor
+(default_accessor) reproduces the retail prefix through the first Toggle empty
+check, including EDX index and EDI transfer. That accessor preserves unsigned
+index comparison, selected string or empty fallback, and no calls between the
+selection store and reading Selected. It is used by Show_Selected in Select,
+both Select_Text paths and Add_Item; their isolated pairs survive this change.
+The parent still emits an extra call before jumping to the inlined second
+Scroll copy. Compare its actual objdiff.txt, not the similarity value.
+
+The real helper forms empty() and a single Scroll wrapper duplicate existing
+outputs. A wrapper factoring Scroll and Update_Rows changes code and loses
+Unknown_60 (579DC0). Explicit Toggle fallthrough and positive empty branch
+produce no useful common-tail result. A real last-top-row helper at the second
+bound duplicates default_accessor; putting it at the first bound loses 579DC0.
+
+Replacing both operations in Scroll by explicit unsigned branches produces a
+native matcher target candidate (best_both_branches; 544-byte COFF pattern,
+512-byte retail code plus 32-byte tables), but loses 579DC0, 57AE70, 57B2F0,
+57BA10. Its four source variants all produce the same raw target group.
+The original min is a real global template, not a macro; the branch version
+repeats Items.size() in an assignment arm and makes standalone Scroll much
+larger. It also removes the last use causing unsigned Clamp emission. One
+branch change alone leaves target unmatched and loses three or four pairs.
+Clamp-first restores its template pair but not the three affected functions or
+the target. This diagnostic is not a proof: relocation/addend/receiver, branch,
+table destination and complete target audit were intentionally not claimed.
+
+Regain tried reversed comparison, ternary expressions, a genuine last-row
+helper, separately calculated bounds, and a real unsigned min-result local,
+including preserving the intermediate TopItem store. The last three
+evidence-backed batches (local bounds, last-row helper, min-result local) did
+not cut the target-plus-preservation residue or losses. min_value_clamp
+preserves Scroll, Toggle and Clamp but loses 579DC0 and does not match target;
+both_value_local gives the exact same diagnostic target and four losses.
+Source forms and compiled objects make the causal distinctions replayable.
+The remaining useful reopening evidence would be a source form that preserves
+the standalone Scroll and its exact inlined Toggle consumers while causing
+both nested Scroll call sites to remain out of line and share their common
+tail, or a demonstrated distinct cross-function inline mechanism. A masked
+candidate alone cannot justify accepting the losses or a fabricated clone.
