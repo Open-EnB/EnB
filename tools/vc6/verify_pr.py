@@ -336,6 +336,16 @@ def main():
               f'verifying this service\'s own merge {merge[:9]}')
     else:
         merge = wt.rev(f'{pre}/merge')
+        # GitHub keeps the last test merge it built while mergeable is UNKNOWN (master just moved, or the PR was just
+        # pushed): it can be of an older head (PR #331, 2026-11-27: its 09:04 merge of the branch's empty start gave
+        # "+0 pairs, no library touched" success on a later head, alternating with "conflicts" once GitHub had
+        # recomputed). Only a merge of this head verifies this head; anything else waits for the next pass.
+        if wt.git('rev-parse', '-q', '--verify', merge + '^2', check=False).stdout.decode().strip() != head:
+            print(f'GitHub\'s test merge of #{a.pr} is not of head {head[:9]} (mergeable {info["mergeable"]}): pending')
+            if not a.no_post:
+                gh('api', '-X', 'POST', f'repos/{r}/statuses/{pr["head"]}', '-f', 'state=pending',
+                   '-f', f'context={CONTEXT}', '-f', f'description={NO_MERGE_DESC}')
+            sys.exit(NO_MERGE)
     old = wt.rev(merge + '^1')
     res.update(merge=merge, base=old)
     if old != wt.rev('refs/remotes/origin/master'):
