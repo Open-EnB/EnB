@@ -485,7 +485,7 @@ bool UIInvClass::Unknown_98(SlotDataGadget *slot_gadget, KernelEventClass *event
 		UIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;
 		FAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);
 		if (down) {
-			((ClientClass *)Client)->Send_Packet(&UseInventoryPacketClass(((ClientClass *)Client)->ShipID, InvType, slot));
+			unsigned game_id; int inventory; ((ClientClass *)Client)->Send_Packet(&UseInventoryPacketClass(game_id = ((ClientClass *)Client)->ShipID, inventory = InvType, slot));
 		}
 		return(true);
 	}
@@ -971,7 +971,7 @@ bool UIInvClass::Unknown_5A0D00(int slot, SlotDataGadget *inv_gadget)
 	bool all = (SlotDrag->Unknown1C == 3 || (SlotDrag->Unknown1C == 2 && SlotDrag->Unknown20));
 	UnknownB4 = -1;
 	Unknown_C8();
-	return(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to->Unknown50, to_slot));
+	int to_inventory; return(InvTransaction->Unknown_690AA0(InvType, slot, num, all, to_inventory = to->Unknown50, to_slot));
 }
 
 // 0x5A0EB0
