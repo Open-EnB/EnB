@@ -27936,7 +27936,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Pass` | `app/client/unknown_6bb7e0.h:20` | what it holds |
 | 2 | `std:` | `app/client/unknown_6bb7e0.h:33` | what it holds |
 | 2 | `Random_Letter` | `app/client/unknown_6ca0c0.cpp:47` | random ASCII alphanumeric for FONT_EFFECT_RANDLETTER (0x6CA070) |
-| 2 | `Append_Dots` | `app/client/unknown_6ca0c0.cpp:74` | Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272) |
+| 2 | `Add_Dots` | `app/client/unknown_6ca0c0.cpp:74` | Update_Text's "..." layer (fontsys.cpp): the client calls the += copy's Get_Length out of line here too (0x6CAC4E, as 0x6D676E); the dead read is the layer's budget (D272) |
 | 2 | `Set_Complete` | `app/client/unknown_6ca0c0.cpp:75` | Is_Complete's setter (0x67EEE0 reads +0x404); an inline layer, as the client spends inline budget here |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
 | 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:33` | the client's ini words |
